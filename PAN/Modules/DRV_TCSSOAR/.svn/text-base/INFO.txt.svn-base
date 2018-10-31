@@ -1,0 +1,11 @@
+NAME:            DRV_TCSSOAR
+FULLNAME:        Driver for PCTCS software
+AUTHOR:          Mbonati
+RESPONSIBLE:     
+MAINFILE:        
+CREATIONDATE:    
+OSVER:           Linux 2.6.22.9-61.fc6
+LANGUAGEVER:     
+LASTVERSIONDATE: 2011-11-18
+LASTVERSIONID:   2.2
+DESCRIPTION:     Driver for the TCS at the CTIO 60 inches

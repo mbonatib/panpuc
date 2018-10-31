@@ -1,0 +1,12 @@
+OBJECT  ='database          ' /object title
+OBSTYPE ='database          ' /observation type
+SOFTVER ='database          ' /software version
+HDR_REV ='database          ' /header revision
+OBSERVER='database          ' /observer
+UTSHUT  ='database          ' /UT shutter open
+EXPTIME ='database          ' /exposure time (secs)
+CCDSUM  ='database          ' /binning in x y
+GEOMETRY='database          ' /tempate on GEOM_INFO.tpl
+TCSINFO ='database          ' /template on TCSP60_INFO.tpl
+FILTINFO='database          ' /filterinfo
+COMMENT ='database          ' /comment

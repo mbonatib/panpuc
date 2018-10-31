@@ -1,0 +1,63 @@
+.TH "panview_current/PAN/Modules/GUNSC/private/c/src/GU_stats.c" 3 "29 May 2012" "Version 10.2" "GUNSC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GUNSC/private/c/src/GU_stats.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <math.h>\fP
+.br
+\fC#include 'GU_transformations.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPI\fP   3.141598"
+.br
+.ti -1c
+.RI "#define \fBOK\fP   0"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBGU_SHORT_stats_mean\fP (unsigned long image_buf, unsigned long nelems, float *stats)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define OK   0"
+.PP
+.SS "#define PI   3.141598"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "int GU_SHORT_stats_mean (unsigned long image_buf, unsigned long nelems, float * stats)"
+.PP
+Calculates statictics over an image 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIimage_buf\fP image buffer pointer 
+.br
+\fIimage_buf\fP nelems numbe rof elements (pixels) on image 
+.br
+\fI*stats\fP output stats array: Mean (0), Variance (1), Max (2) and Min (3) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GUNSC from the source code.

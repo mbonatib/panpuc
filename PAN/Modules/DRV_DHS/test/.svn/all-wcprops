@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/Monsoon/!svn/ver/482/panview/trunk/PAN/Modules/DRV_DHS/test
+END
+DHS_test_tcp.vi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/Monsoon/!svn/ver/482/panview/trunk/PAN/Modules/DRV_DHS/test/DHS_test_tcp.vi
+END
+DHS_test_queue.vi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/Monsoon/!svn/ver/482/panview/trunk/PAN/Modules/DRV_DHS/test/DHS_test_queue.vi
+END

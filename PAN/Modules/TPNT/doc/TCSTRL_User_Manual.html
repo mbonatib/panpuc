@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+  
+  <title>TCSTRL_User_Manual</title></head>
+<body>
+
+<big style="font-weight: bold;"><big><big>TPNT User Manual<br>
+
+<br>
+
+</big></big></big><big><big><big><small><small><small>The &nbsp;only
+task of the TestPoints module is to monitor specific "testpoints" on
+any module that wishes so. Based on the monitored value, it can log and
+generate events (alarms) based on the value of the point.<br>
+
+Every module (here calld "device") that wishes to monitor/log internal
+points (called "testpoints"), make a "suscription" to the TPNT module,
+and then add the testpoints to be monitored, specifying updaterate,
+logging rate and file, limits, alarms, etc.<br>
+
+<br>
+
+An example would be a <a href="../DHE/DHE_User_Manual.html">DHE</a>
+module that wants to monitor the power supplies. It should suscribe,
+and then "add" the power supply to be monitored. Then the TPNT module
+will "poll" for the value of the powers supply and log, generate
+alarms, etc. The "polling" is done by asking periodically to the parent
+module of the testpoint (in this example, the DHE) for the value of
+that point.<br>
+
+In this way, the modules in general can leave all the
+alarms/limits/logging to this module, and avoid the need of every
+module implement these common features.<br>
+
+<br>
+
+<big style="font-weight: bold;">Some words about the internals</big><br>
+
+<br>
+
+Most of the commands that the TPNT module are meant to be sent by other
+modules, and not by&nbsp; external clients. The user will only be
+interested on the actual parameter settings for specific points. For
+example, how to specify the logging rate, the limits, etc. These
+commands are normally specified on a configuration file of the "client"
+module (like the <a href="../DHE/SDSU/DGE_SDSU_TP_file.html.html">TP file config</a> of the SDSU module).<br>
+
+The following information is not necessary in order to handle this module; it is only as a generatl reference.&nbsp;<br>
+
+The client module needs to add itself to the TPNT internal list,
+telling &nbsp;its name and what kind of module it is (resident or
+non-resident). If it is no-resident then it specifies a queue where teh
+TPNT module will do the periodic requests.<br>
+
+<br>
+
+Every module that is suscribed will be called a "device". On that
+device, every suscribed point is known as a "testpoint". So, there can
+be N devices, and each of them with a diferent amount of testpoints.
+The TPNT module goes throug the lists, polling for each point in each
+device,<br>
+
+In pseudocode it would be something like:<br>
+
+<br>
+
+<span style="font-weight: bold; font-style: italic;">device[] </span>= array of suscribed devices<br>
+
+&nbsp; where each device has:<br>
+
+&nbsp; <span style="font-style: italic;">name</span>: module name<br>
+
+&nbsp; <span style="font-style: italic;">updaterate</span>: polling rate<br>
+
+&nbsp; <span style="font-style: italic;">lastupdate</span>: last time the device was polled<br>
+
+&nbsp; <span style="font-style: italic;">testpoint[] </span>= array of testpoints,<br>
+
+&nbsp; &nbsp; where each testpoint has:<br>
+
+&nbsp; &nbsp; &nbsp;<span style="font-style: italic;">name</span>: name of testpoints<br>
+
+&nbsp; &nbsp; &nbsp;<span style="font-style: italic;">params</span>: updaterate, limits, logging, etc.<br>
+
+<br>
+
+<br>
+
+<span style="font-weight: bold;">while (running)</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; time = get_time ()</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; for dev=1 to maxdevs</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; &nbsp; if (<span style="font-style: italic;">device[dev].updaterate</span> &lt;= (time - <span style="font-style: italic;">device[dev].lastupdate</span>)&nbsp; </span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; <span style="font-style: italic;">device[dev].lastupdate</span> = time</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; for tp=1 to <span style="font-style: italic;">len(device[dev].testpoint())</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp; point = <span style="font-style: italic;">device[dev].testpoint(tp)</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp; value =
+get_value (point.name)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span> /*here it will go ask the parent module (device) for the value of that point*/<br style="font-weight: bold;">
+
+<span style="font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp; do_actions (point.params, value)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;&nbsp; /*log, check limits, etc, based on the curent value */<br>
+
+&nbsp; &nbsp; &nbsp; */<br>
+
+<br>
+
+So every device is checked&nbsp; on an specified amount of seconds.
+Note also that every point inside that device can also has its own rate
+for updating and logging. <br>
+
+Since the TPNT module really ask the parent module of the testpoint for
+the internal value of its own testpoint, a valid question would be:
+does not know the parent module already the value of its point?. Why it
+needs an external module to ask it?. <br>
+
+The answer depends on the kind of module that the parent module actually is. <br>
+
+If it is a "non-resident" module, then there can be no "internal"
+polling loops on the module, which means that when the TPNT module
+polls, the parent module gets called, having the posibility of updating
+its internal regsiters with the value, without the need of the external
+client to ask.<br>
+
+If the parent module it is a resident one, then it is likelly that it
+will have its own internal polling loop, but by suscribing to the TPNT
+module it avoids the need of implementing alarms and logging
+capabilities, leaving that to the TPNT module.<br>
+
+<br>
+
+<big style="font-weight: bold;"><big>1.- Commnads available</big></big><br>
+
+<br>
+
+For checking the available parameters per device and point, see the <a href="TPNT_Commands.html">user command list</a> document<br><big style="font-weight: bold;"><big><br>2.- a) Dedicated tcp server<br><br></big></big></small></small></small></big></big></big><big><big><big><small><small><small>Starting from version 6.0</small></small></small></big></big></big><big><big><big><small><small><small>,
+the TPNT module has a dedicated tcp ip server that allows to
+get/request the telemetry data directly, without the need to go through
+the standard command/response panview channle (althouhg this is, of
+course, still possible). The server has two modes of operation<br><big><span style="text-decoration: underline; font-weight: bold;">polling mode:<br></span><small>The
+server will wait for the client to issue the command "GETALL" through
+the service port, and it will return, in response, the telemetry data
+(data stream). This allows the client to poll at any desired rate.<br><big><span style="font-weight: bold; text-decoration: underline;">async mode:</span></big><br></small><span style="text-decoration: underline; font-weight: bold;"></span></big>The
+server will send automatically thorugh the port the data as an async.
+stream. When in async mode, the rate at which the data is sent can be
+set so it sends the stream at a given rate (every "x" msecs, regardless
+if the data is new or not), or so it sends the stream only when new
+samples are available. <br><br>All these modes can be set through
+config file (see the configuration file description) and/or in the fly
+through regular commands (see the command list)<br><br><big style="font-weight: bold; text-decoration: underline;">format</big><br>
+
+In either case (polling or async modes) the format of the data stream is as follows:<br><br><span style="font-style: italic;">[timestamp] &nbsp;</span><small> /*as YYYY-mm-ddTHH:MM:SS*/</small><br style="font-style: italic;"><span style="font-style: italic;">&lt;device1&gt;:</span><br style="font-style: italic;"><span style="font-style: italic;">&lt;tpnt1&gt; &lt;val1&gt; &lt;in_range | out_range&gt; &nbsp;</span> /<small>*format for value is %6.3f, in_range/out_range according to limits*/</small><br style="font-style: italic;"><span style="font-style: italic;">....</span><br style="font-style: italic;"></small></small></small></big></big></big><big style="font-style: italic;"><big><big><small><small><small>&lt;tpntN&gt; &lt;valN&gt; &lt;in_range | out_range&gt;<br></small></small></small></big></big></big><big style="font-style: italic;"><big><big><small><small><small>&lt;device2&gt;:<br></small></small></small></big></big></big><big><big><big><small><small><small><span style="font-style: italic;">&lt;tpnt1&gt; &lt;val1&gt; &lt;in_range | out_range&gt;</span><br style="font-style: italic;"><span style="font-style: italic;">....<br>_END_<br></span></small></small></small></big></big></big><big><big><big><small><small><small>
+
+<big style="font-weight: bold;"><big><br><small style="text-decoration: underline;"><small>example:<br><br></small></small><small style="font-style: italic;"><small><small>[2009-10-30T08:41:01]<br>DHE:<br>CLKTEMP 308.453 out_range<br>MCBTEMP 299.295 in_range<br><br>TPCTRL:<br></small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big style="font-weight: bold;"><big><small style="font-style: italic;"><small><small>CCDTEMP 160.453 in_range<br>HEATER 52.000 in_range<br>CCDSETP 160.000 in_range</small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big style="font-weight: bold;"><big><small style="font-style: italic;"><small><small><br><br><br>_END_</small></small></small><br><br></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big style="font-weight: bold;"><big>2.- b) Dedicated DDS server</big></big></small></small></small></big></big></big><br><big><big><big><small><small><small>Starting
+version 6.96, it also incorporates an optional DDS server to get the
+telemetry stream. It works just like the dedicated tcp server, excepts
+that it uses DDS as the transport. The mode, though, must be the same
+for both servers (for example both asyncronous, etc). The stream has
+exactly the same format as the one described above.<br><br></small></small></small></big></big></big><big><big><big><small><small><small><big style="font-weight: bold;"><big><br>3.- Configuration file</big></big><br>
+<br>
+The TPNT module finds its primary configuration file using the standard way for module.<br>
+<br style="font-weight: bold;">
+<span style="font-weight: bold;">[TESTPOINTS]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">directory=<span style="font-style: italic;">&lt;path&gt;</span></span><br>
+<br>
+/*if specified, it can load some testpoints directly. Generaly this is
+not done, and every interested module will suscribe independently<br>
+<br>
+<span style="font-weight: bold;">[ALGORS]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">file=<span style="font-style: italic;">&lt;path&gt;</span></span><br>
+<br>
+/*this points to the <a href="../Common/CMN_Algors_file.html">ALGORS</a> file, used in case some testpoint specify an algor transformation, using the <span style="font-weight: bold; font-style: italic;">samples.algor</span> or <span style="font-weight: bold; font-style: italic;">algor</span> parameter*/<br>
+<br>
+<span style="font-weight: bold;">[LOGS]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">maxsize(kb)=<span style="font-style: italic;">&lt;maximum_log_file_in_kb&gt;</span></span><br style="font-weight: bold;">
+<br>
+/*specifies the maximum size of any&nbsp; logfiles. When the file gets
+bigger that the maximum specified, it gets renamed as
+&lt;logfilename&gt;.&lt;date&gt;, using the format "%Y-%m-%dT%H:%M:%S"*/<br>
+<br>
+[<span style="font-weight: bold;">LOG]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">log=&lt;yes|no&gt;</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">logfile=<span style="font-style: italic;">&lt;internal log file path&gt;</span></span><br>
+<br>
+/*this specifies if the module will log its own internals, and where*/<br><br><span style="font-weight: bold;">[COMMS]</span><br style="font-weight: bold;"><span style="font-weight: bold;">enabled=&lt;yes|no&gt;</span><br style="font-weight: bold;"><span style="font-weight: bold;">port=&lt;port_number&gt;<br>async=&lt;yes|no&gt;<br style="font-weight: bold;"></span><span style="font-weight: bold;">rate=&lt;rate_in_msecs | -1 | 0&gt;<br>ddsstream=&lt;defaul&nbsp; | name&gt;<br>ddsenable=&lt;on | off&gt;<br>mailserver=&lt;mail server address&gt;<br><br></span>/*This will <span style="font-weight: bold;">enable</span> or disable the dedicated data stream tcp/ip port available*/<br>/*<span style="font-weight: bold;">port</span> is the service port number*/<br>/*<span style="font-weight: bold;">async</span> is the server mode: if "yes" it will send the data stream, every &lt;rate&gt; without the need of the client to poll*/<br>*/if "no" then the client will need to poll sending the command "GET" throuhg the port in order to get the data stream*/<br>/*<span style="font-weight: bold;">rate</span>:
+if &gt;0 is the rate at which the data stream will be sent
+asynchronously if async mode is enabled. If &lt;0 then the async atream
+is disabled -the same as "async no"-. If =0, then the async. stream
+will be sent any time new samples are ready, so the async. rate will
+depend on the settings of the testpoints being sampled.<br>/*all this can be set on the fly trhough the SERVER commands (see command list)<br>/* <span style="font-weight: bold;">mailserver</span>: sets the mailserver address, used to send a mailserver alarm (is set to)<br>/* <span style="font-weight: bold;">ddsenable</span>: enable or disable the dds stream server (identical to the tcp server, but using DDS)<br>/* <span style="font-weight: bold;">ddsstream</span>: name (dds key) for the DDS async. stream. If "default", it will use "<span style="font-weight: bold; font-style: italic;">ddspan&lt;nodeID&gt;_telem</span>".<br>For example, if the nodeID (PAN name) is _<span style="font-weight: bold;">skull</span>, the DDS stream (key or topic) will be <span style="font-style: italic; font-weight: bold;">ddspan_skull_telem</span><br style="font-weight: bold;"><br><span style="font-weight: bold;">[HDRINFO]</span><br style="font-weight: bold;"><span style="font-weight: bold;">file=&lt;template_path&gt;</span><br><br>/*specified a file template for header information (internal 3DARR TPNT_INFO variable)*/<br>/*see below for header template description*/<br><br></small></small></small></big></big></big><big><big><big><small><small><small><big style="font-weight: bold;"><big>4.- Header Template<br><br style="font-weight: bold;"></big></big><big><big><small><small>The
+header template allows the TPNT module to share information to the
+internal database -normally to be added in the fits image headers-. The
+template states what testpoints and what keywords to add.<br>The file template format is as follows:<br><br>[[extension1]]<br>KEYWORD1 = '[datatype] &lt;tpname1&gt;' / &lt;comment&gt;<br>.....<br></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small>KEYWORD2 = '[datatype] &lt;tpname2&gt;' / &lt;comment&gt;<br>....<br></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><span style="font-weight: bold;"></span>
+</small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small>[[extensionN]]<br><br>If the extensions keywords do not appear, then the keywords will be added to all extensions<br><br>The
+output will be &nbsp;a 3DARR datatype with all the points. The
+dimension X are the fileds KEYWORD/value/comment, the dimension Y is
+KEYWORD1 ... KEYWORDN, and the dimension Z &nbsp;(pages) are the
+extensions. <br>datatype can be any of the panview regular datatypes. If no datatype is stated then STRING will be assumed<br>To make this information available to the fits headers, the main header template file (see GFITS template file) the variable <span style="font-weight: bold;">3DARR TPNT_INFO</span> must be invoked<br>....<br><span style="font-style: italic;">INFO = '</span></small></small></big></big></small></small></small></big></big></big><big style="font-style: italic;"><big><big><small><small><small><big><big><small><small>3DARR TPNT_INFO ' /template on TPNT_INFO.tpl<br>...<br></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><br><span style="font-weight: bold; text-decoration: underline;">template file examples<br></span><small style="font-style: italic;">[1]<br>CCDBTEMP='(FLOAT) CCDBTEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /ccd temp<br>[2-*]<br>CCDBTEMP='(FLOAT) CCDBTEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /ccd board temp<br>CLKBTEMP='(FLOAT) CLKBTEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /clk board temp<br>VSUBLIM ='VSUBLIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /substrate voltage value<br><big style="font-style: italic;"><br></big></small><small><big>In this ca</big></small><small><big>se, the extension 0 will have no values, extension [1] will have&nbsp; </big></small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><small style="font-style: italic;">CCDBTEMP,</small><small style="font-style: italic;"> &nbsp;</small><small><big>and all the remaining (from extension 2 to the end) will have &nbsp; </big></small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><small style="font-style: italic;">CCDBTEMP,&nbsp; </small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><small style="font-style: italic;">CLKBTEMP </small>and</small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><small> </small><small style="font-style: italic;">VSUBLIM</small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><small style="font-style: italic;"><br><br></small></small></small></big></big></small></small></small></big></big></big><big><big><big><small><small><small><big><big><small><small><small style="font-style: italic;">CCDBTEMP='(FLOAT) CCDBTEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /ccd temp<br>CCDBTEMP='(FLOAT) CCDBTEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /ccd board temp<br>CLKBTEMP='(FLOAT) CLKBTEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /clk board temp<br>VSUBLIM ='VSUBLIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /substrate voltage value</small></small></small></big></big></small></small></small></big></big></big><br><big><big><big><small><small><small><big><big><small><small><span style="font-weight: bold; text-decoration: underline;"><br></span>In this case all the extensions will have all the points (including extension [0])<br><br>Note
+that if the template is stated as per-extension (first example) but the
+fits file being written is a flar fits image (no extensions), then the
+per-amplifier part will be ignored, and all the points will be added to
+the flat fits file headers<span style="font-weight: bold; text-decoration: underline;"></span></small></small></big></big></small></small></small></big></big></big>
+</body></html>

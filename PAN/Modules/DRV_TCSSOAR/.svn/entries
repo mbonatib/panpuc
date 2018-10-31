@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3325"
+   name=""
+   committed-date="2011-11-18T12:44:41.114291Z"
+   url="https://139.229.115.227/svn/tags/DRV_TCSSOAR-2.2"
+   last-author="bonati"
+   kind="dir"
+   uuid="e6f60f9c-5abb-4710-8859-6e645079aa37"
+   repos="https://139.229.115.227/svn"
+   revision="3325"/>
+<entry
+   name="test"
+   kind="dir"/>
+<entry
+   committed-rev="3326"
+   name="ChangeLog.txt~"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="1f869e0c5394bc6458e9f5adad274dd2"
+   last-author="bonati"
+   kind="file"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="ChangeLog.txt"
+   text-time="2011-11-18T12:44:29.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="fb24dc446dbe8a04e786e314196b6476"
+   last-author="bonati"
+   kind="file"
+   revision="3326"/>
+<entry
+   committed-rev="2793"
+   name="changelog.tmp"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="dcc07e2427cd01f25fc667baeceacf4e"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2793"
+   name="DEP"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="ebee4750638ed73309b3269ed64094ff"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="3326"
+   name="INFO.txt"
+   text-time="2011-11-18T12:44:29.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="a2e5a1c091cf7e5d288e505e13777065"
+   last-author="bonati"
+   kind="file"
+   revision="3326"/>
+<entry
+   name="private"
+   kind="dir"/>
+<entry
+   name="public"
+   kind="dir"/>
+</wc-entries>

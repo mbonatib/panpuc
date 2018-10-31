@@ -1,0 +1,178 @@
+#include <sys/types.h>
+#include <sys/msg.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include "fitsio.h"
+#include "longnam.h"
+
+char tmpstr[150];
+int nextimg = 0;
+void *pbuf=NULL;
+void *imbuf=NULL;
+unsigned long pbufsize = 0;
+#define OK 0
+
+
+int RMASK_ParseSec (char *sec, int *xs, int *xe, int *ys, int *ye)
+{
+const char delim[] ="'[:,]";
+char *tok=NULL;
+
+	*xs = *xe = *ys = *ye = -1;	
+	tok = strtok (sec, delim);
+	if (tok != NULL)
+		*xs = atoi (tok);
+	else
+		return (OK);
+	tok = strtok (NULL, delim);
+	if (tok != NULL)
+		*xe = atoi (tok);
+	else
+		return (OK);
+	tok = strtok (NULL, delim);
+	if (tok != NULL)
+		*ys = atoi (tok);
+	else
+		return (OK);
+	tok = strtok (NULL, delim);
+	if (tok != NULL)
+		*ye = atoi (tok);
+
+	return (OK);
+}
+
+int RMASK_GetBuffer (int nelems, int bpp)
+{
+unsigned long rsize;
+
+	rsize = nelems * bpp;
+	if (pbufsize < rsize){
+		printf ("allocating buffer of %d bytes (nelems %d, bpp %d)\n", rsize, nelems, bpp);
+		if (pbuf != NULL);
+			free (pbuf);
+		pbuf = NULL;
+		pbuf = malloc (rsize);
+		if (pbuf == NULL)
+			return (-ENOMEM);
+		pbufsize = rsize;
+	}
+	return (OK);
+}
+		
+int RMASK_GetImage (char *impath)
+{
+fitsfile *fptr;
+int status=0;
+int bitpix;
+int naxis=0;
+long naxes[2] = {1,1};
+int datatype;
+long fpixel[2]={1,1};
+long inc[2]={1,1};
+long lpixel[2]={0,0};
+char sec[60];
+int nelems;
+int ret=0;
+int bpp, totcols;
+int hdunum, hdutype, i, dataext, iniext;
+int dxs, dxe, dys, dye, rxs, rxe, rys, rye;
+int xs, xe, ys, ye, xl, yl;
+
+    printf ("Getting image ...\n");
+    fits_open_file (&fptr, impath, READONLY, &status);
+    if (status != 0){
+	printf ("error %d opening file %s\n", status, impath);
+	return (-status);
+    }
+    fits_get_num_hdus(fptr, &hdunum, &status);
+    if (status != 0){
+	ret = -status;
+	goto bye_img;
+    }
+
+    if (hdunum > 1) {
+	dataext = hdunum-1;
+	iniext = 2;
+    } else {
+	dataext = 1;
+	iniext = 1;
+    }
+    totcols = 0;
+    printf ("image has %d extensions\n", hdunum);
+    for (i=iniext; i<=hdunum; i++){
+	if (iniext > 1)		/*image is mext*/
+		fits_movabs_hdu (fptr, i, &hdutype, &status);
+    	fits_get_img_param(fptr, 2,  &bitpix, &naxis, naxes, &status);
+    	if (status != 0){
+		ret = -status;
+		goto bye_img;
+    	}
+	switch (bitpix){
+		case SHORT_IMG: 
+			datatype = TSHORT;
+			break;
+		case USHORT_IMG: 
+			datatype = TUSHORT;
+			break;
+		case LONG_IMG: 
+			datatype = TLONG;
+			break;
+		case ULONG_IMG: 
+			datatype = TULONG;
+			break;
+		case FLOAT_IMG: 
+			datatype = TFLOAT;
+			break;
+		default:
+			datatype = bitpix;
+	}
+    	nelems = naxes[0] * naxes[1];
+//    	ncols = naxes[0];
+ //   	nrows = naxes[1];
+    	bpp = abs(bitpix/8);
+	if ((ret = RMASK_GetBuffer (nelems, bpp)) < 0)
+		return (ret);
+	fits_read_keyword (fptr, "ROISEC00", sec, NULL, &status);
+	RMASK_ParseSec (sec, &rxs, &rxe, &rys, &rye);
+	printf ("roisec[%d] = %d %d %d %d\n", i, rxs, rxe, rys, rye);
+	fits_read_keyword (fptr, "DETSEC", sec, NULL, &status);
+	RMASK_ParseSec (sec, &dxs, &dxe, &dys, &dye);
+	printf ("detsec[%d] = %d %d %d %d\n", i, dxs, dxe, dys, dye);
+	xl = rxe - rxs + 1;
+	yl = rye - rys + 1;
+	if (rxs >= dxs){
+		xs = rxs - dxs + 1;
+	} else {
+		xs = rxs;
+	}
+	xe = xs + xl - 1;
+	if (rys >= dys){
+		ys = rys - dys + 1;
+	} else {
+		ys = rys;
+	}
+	ye = ys + yl - 1;
+	printf ("roi[%d] = %d %d %d %d\n",i , xs, xe, ys, ye);
+	fpixel[0] = xs;
+	fpixel[1] = ys;
+	lpixel[0] = xe;
+	lpixel[1] = ye;
+	totcols += xl;
+    }
+	
+
+bye_img:	
+    fits_close_file (fptr, &status);
+    return (ret);
+}
+
+void RMASK_Close (void)
+{
+	if (pbuf != NULL){
+		free (pbuf);
+		pbufsize = 0;
+	}
+}

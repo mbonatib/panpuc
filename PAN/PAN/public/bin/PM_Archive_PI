@@ -1,0 +1,21 @@
+#! /bin/csh -f
+
+if ($#argv != 1) then
+    echo "Usage:   MM_Archive_PI GUI   :from parent directory of GUI"
+    exit
+endif
+
+echo backing up $1 gui 
+
+echo extracting last version number
+set VER=`grep -m1 -o "$1 .*version [0-9|\.]*" $1/ChangeLog.txt | awk '{print $NF}'`
+
+echo $VER
+
+cp -r $1 ~/GUIS/$1-$VER
+cd ~/GUIS
+tar cvf $1-$VER.tar $1-$VER
+gzip $1-$VER.tar
+chmod -R a-w ~/GUIS/$1-$VER
+scp $1-$VER.tar.gz 131.215.103.130:~/arcviewrep/.
+mv $1-$VER.tar.gz ../arcviewrep/.

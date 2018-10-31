@@ -1,0 +1,77 @@
+#! /bin/csh -f
+
+setenv ARCROOT $PAN_ROOT
+if ($#argv < 1) then
+        set env_arcroot = `setenv | egrep ARCROOT`
+        if ("$env_arcroot" == "") then
+                set currdir = `cd ../../../; pwd`
+                setenv ARCROOT $currdir
+        endif
+        set modsdir = "$ARCROOT/PAN/Modules"
+else
+	set modsdir = "$1"
+endif
+
+if (! -e "$modsdir") then
+	echo "ERROR directory $modsdir does not exists"
+	exit 1
+endif
+
+set bindir = "$modsdir/../public/bin"
+cd $modsdir
+
+set modules = `ls -d *`
+set req_depmods = ""
+
+while ("$modules" != "")
+	set module = $modules[1]
+	if (-e $module/ChangeLog.txt) then
+		echo "checking $module ..."
+		set dep = `$bindir/PM_check_deps . $module .`
+		if ("$dep" != "OK") then
+			if ("$dep[1]" == "ERROR") then
+				echo "not DEP found in $module"
+			else
+				echo "******* found dep $dep ********"
+				echo $req_depmods
+				set req_depmods = $req_depmods" "$dep
+				echo $req_depmods
+			endif
+		else
+			echo "OK"
+		endif
+	endif
+	shift modules
+end
+
+if ("$req_depmods" == "") then
+	echo "OK"
+else
+        echo "The following modules are requiered to be installed/updated: $req_depmods"
+        echo -n "do you want to update them? (yes)"
+        set ans = "$<"
+        if ("$ans" == "") then
+              set ans = "y"
+        endif
+        if ("$ans" == "n" || "$ans" == "no") then
+                        echo "you are doing this at your won risk!"
+                        echo "update aborted"
+                        exit 1
+                endif
+        endif
+        while ("$req_depmods" != "")
+                echo "getting $req_depmods[1] ..."
+                set res = `$bindir/PM_get_last_module $req_depmods[1]`
+                if ("$res[1]" == "ERROR") then
+                        echo "ERROR getting $red_depmods[1]"
+                else
+                        $bindir/PM_uncompress . $req_depmods[1]
+                        $bindir/PM_copy_module . $req_depmods[1] $modsdir $delmod
+                endif
+                shift req_depmods
+        end
+endif
+
+cd -
+
+exit 0

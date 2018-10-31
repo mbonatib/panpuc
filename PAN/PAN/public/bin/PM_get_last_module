@@ -1,0 +1,17 @@
+#! /bin/csh -f
+
+setenv ARCROOT $PAN_ROOT
+
+if ($#argv < 1) then
+	echo "usage: MM_get_last_module <module_name>"
+	exit 1
+endif
+
+set module = $1
+
+set lastversion = `$ARCROOT/PAN/public/bin/PM_get_last_version $module`
+$ARCROOT/PAN/public/bin/PM_get_file $module-$lastversion.tar.gz
+
+echo "OK"
+
+exit 0

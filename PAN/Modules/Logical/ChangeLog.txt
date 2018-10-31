@@ -1,0 +1,287 @@
+2016-04-07T02:03:23 UTC <Marco Bonati> Logical version 6.95
+	* added in the API commands "set dhebuffers" to set if
+	normal, light o single (one). This was there before, but only
+	trhouhg direct dbs setting
+	* modified Prco_ccd and Proc_ccdIV so they use properly the
+	"autonumbering" database variable
+
+2016-02-12T02:03:23 UTC <Marco Bonati> Logical version 6.94
+	* the "expo" and "reset" images do not write header information.
+	* expo and reset now add a prefix "EXPO_" and "RESET_"
+
+2015-05-12T02:03:23 UTC <Marco Bonati> Logical version 6.93
+	* added support for "autoimnumber" 
+	* real time image stats are added into the database
+
+2013-11-08T02:03:23 UTC <Marco Bonati> Logical version 6.92
+	* added "adpabuff" flag on ccd (single) to make it 
+	adapt the size of the requested raw buffer on demand instead
+	of request the complete image buffer at the beginning
+	(to save as muc memory as possible)
+
+2013-02-08T02:03:23 UTC <Marco Bonati> Logical version 6.91
+	* fixed problem in ccd (single) sampling
+
+2012-12-08T02:03:23 UTC <Marco Bonati> Logical version 6.9
+	* added a delay inside the loop for ccdIV to avoid consumming too much
+	CPU time
+
+2012-05-30T02:03:23 UTC <Marco Bonati> Logical version 6.8
+	* fixed the coadd3 routine in LogicLib, that was truncating the
+	real values into integer when fsamples > 1
+
+2012-05-30T02:03:23 UTC <Marco Bonati> Logical version 6.7
+	* fixed sampling Proc_SUR that had a missing connection
+
+2012-05-30T02:03:23 UTC <Marco Bonati> Logical version 6.6
+	* replaced dpouble_t with pan_double_t to avoid conflicts with
+	mathdefs.h in newer distributions
+
+2012-04-22T02:03:23 UTC <Marco Bonati> Logical version 6.5
+	* fixed Proc_DCS that had lost a reference somehow
+
+2011-06-06T02:03:23 UTC <Marco Bonati> Logical version 6.4
+	* minor changes to improve speed 
+	* updated DEP
+
+2011-05-16T02:03:23 UTC <Marco Bonati> Logical version 6.3
+	* added a new parameter ("interchannels") for the multframes
+	sampling (all samples from one channel first or all the
+	channels interleaved bewteen the samples -default)
+
+2011-03-14T02:03:23 UTC <Marco Bonati> Logical version 6.2
+	* compiled the C code ina  64 bits machine (to test)
+
+2011-03-14T02:03:23 UTC <Marco Bonati> Logical version 6.1
+	* added logic process "multframes" that allows to
+	"fowler sample" a visible image, or average  consecutive
+	 pixel samplings (as for an skipper amplifier)
+
+2011-03-14T02:03:23 UTC <Marco Bonati> Logical version 6.0
+	* changed to handle or the in/out pointers as 64 bits
+	* changed the C functions and also the labview vis
+	* the c functions changed to use custom datatypes
+
+2011-03-14T02:03:23 UTC <Marco Bonati> Logical version 5.7
+	* fixed Proc_ccdIV so the number of images is read inside
+	 the while loop, allowing a correct handling if the numbe rof
+	 images changes during a sequence
+
+2010-12-28T02:03:23 UTC <Marco Bonati> Logical version 5.6
+	* Procs ccd and ccdIV send an ACQERR command to the fits server when
+	  the acquisition was not completed 
+
+2010-09-26T02:03:23 UTC <Marco Bonati> Logical version 5.5
+	* fixed the U16 type to imnumber (so it can effectively use
+	image numbers above 65535. Changed in Main, and algosr ccd, ccdIVand
+ccdold
+
+2010-09-26T02:03:23 UTC <Marco Bonati> Logical version 5.4
+	* added an outpout sondition to "single" sampling
+
+2010-09-16T02:03:23 UTC <Marco Bonati> Logical version 5.3
+	* fixed "single" sampling that had a problem with the last buffer
+	* added the listing of the arguments for command upon "?"
+
+2010-09-16T02:03:23 UTC <Marco Bonati> Logical version 5.2
+	* modified ccdIV (singframe) to create the image when exposing, when
+	  read starts (default) or when read ends 
+	* added the command set/det "createwhen" (default : onreadstart)
+
+2010-09-16T02:03:23 UTC <Marco Bonati> Logical version 5.1
+	* Modified ccdIV (singframe) to create the image when the read
+	progress is >0, that way the image creation time gets covered
+	by the read time
+	* Modified ccd_set_image so the unscrambler does not wait for the fits
+	server when the "compute" is set (waitfits no). That way the create
+	image time does not delay the start of the unscrambling. the wait
+	parameter (waitfits yes <time>) gets restored after the "compute"
+
+2010-08-11T02:03:23 UTC <Marco Bonati> Logical version 5.0
+	* changed to pass the error messages back (error in Main)
+	* the Procs do NOT delete the frames, just in case another observation is
+	   being taken (compatible with multiple concurrent observations)
+	* the fits status was removed from here and moved to the fits server
+
+2010-04-12T02:03:23 UTC <Marco Bonati> Logical version 4.96
+	* If the memory or something fails, it deletes all the frames
+	  in frame manager, to avoid locked buffers
+
+2009-11-01T02:03:23 UTC <Marco Bonati> Logical version 4.95
+	* Fixed procd ccd, ccd2, and ccdIV to NOT increment the
+	image number when image is not being writte automatically
+	
+2009-09-01T02:03:23 UTC <Marco Bonati> Logical version 4.94
+	* increased unstmout default to 35 secs
+
+2009-04-01T18:03:23 UTC <Marco Bonati> Logical version 4.93
+	* fixed a problem with CCD2 (for non-multiple of 2 buffers). 
+	  Not fully tested yet
+
+2009-04-01T18:03:23 UTC <Marco Bonati> Logical version 4.92
+	* added CCD2 sampling, not fully tested
+
+2009-03-25T18:03:23 UTC <Marco Bonati> Logical version 4.91
+	* fixed a possible race condition on set_ccd_image (on Algors)
+ 	  (reported by D. Hale, Caltech)
+
+2009-01-25T18:03:23 UTC <Marco Bonati> Logical version 4.9
+	* fixed setup_ccd (a unsc_timeou was still hardwired
+
+2009-01-12T18:03:23 UTC <Marco Bonati> Logical version 4.8
+	* no OSU svn tags anymore
+	 changed the "continuous" so it will compuet also the memfits
+	 parameter to send or not fits commands (write, etc)
+	* the unsc timeout is a config. parameter now (not hardwired anymore)
+
+2007-11-29T18:03:23 UTC <Marco Bonati> Logical version 4.7
+	* added the OSU svn tags
+
+2007-07-29T18:03:23 UTC <Marco Bonati> Logical version 4.6
+	* increased the fits timeout to 25 secs (Proc_ccdIV)
+
+2007-05-29T18:03:23 UTC <Marco Bonati> Logical version 4.5
+	* fixed ccd (real time) proc that  got broken at some point
+
+2007-05-29T18:03:23 UTC <Marco Bonati> Logical version 4.2
+	* added the _continuous_ procs (simpler than the others) to support
+	   continuous (guide) read
+	* add the keyword "available" on the config file, which, if defined,
+	  filters the available processes (saving memory)
+
+2007-05-12T18:03:23 UTC <Marco Bonati> Logical version 4.1
+	* cleaned ALGORS which were not in use
+
+2006-11-05T18:03:23 UTC <Marco Bonati> Logical version 4.0
+	* cleaned all unused vis and old dirs. Removed DEP with database
+
+2006-10-05T18:03:23 UTC <Marco Bonati> Logical version 3.4
+	* changed Proc_CCDIV to behaive like Proc_CCD, in the sense of
+	  computing/creating right after the image is being read instead
+	  of doing at the begining of the exposure
+
+2006-06-07T18:03:23 UTC <Marco Bonati> Logical version 3.3
+	* added the "acoadds" internal variable to record the actual coadds
+	  being done (so real amount is recorded on the headers)
+	* separated the normalization between "fowler" and "coadds", so
+	  the fowler gets normalized always (averaged), and the coadds are
+	  accumulated by default. If normalization is requested, then the
+	  the coadds are averaged.
+	* added the clear of "acoadds" on the Logical module
+	  core (before algorith calling)
+	* created the vis for getting the last written image name from GFITS,
+  	  and increasing the image numbers according to it. In this way the
+          "imnumber" will always be last_writen_image + 1
+	  (added on Logic_Main.vi, after the algor is finiched)
+	* replaced the buildimagename for CMN_buildimagename
+
+
+2006-05-12T18:03:23 UTC <Marco Bonati> Logical version 3.21
+	* Removed a lot of dependencies to Database (old globals),
+	  but some are still left. To be finished 
+
+2005-05-12T18:03:23 UTC <Marco Bonati> Logical version 3.2
+	* Proc_ccd send now an ABORT command to GFITS when the abort is
+	 detected. It also right "aborted TRUE" to the database. Sets
+         "aborted FALSE" at the beginning.
+	* Logic Main reads the "aborted" key from the database, and if it
+	  was aborted, DO NOT increment the image number
+
+2005-05-12T18:03:23 UTC <Marco Bonati> Logical version 3.1
+	* Changed the Proc_ccd algor to create and compute the image
+	 parameters right after the first piece of image is read rather than
+	 at the begining of the exposure. This allows to change ANY parameters 
+	  during the exposure (including basename and direcory, etc)
+
+2005-04-19T18:03:23 UTC <Marco Bonati> Logical version 3.0
+	* Labview 7.0
+	* Changed the Proc_ccd algor to equal the exptime key to the
+	  aexptime (actual exptime) every time it starts a new image read
+	  (this implemented for the "stop_exposure" on DBSP. "stop exposure"
+	   changes the exposure time to be the current, so it finishes now.
+	  The nest image (is in a sequence will have then the original
+	  exptime.
+
+2005-02-19T12:03:23 UTC <Marco Bonati> Logical version 1.02
+	* taken out the debug by default
+
+2004-12-30T12:03:23 UTC <Marco Bonati> Logical version 1.01
+	* added the "CMN_addstatusmessage" in order to standarize the callback
+	  format: <DONE> | ERROR> [message]
+	* added teh ACK reply to the DHE module when there was an error on the
+	  readout and it should be aborted
+
+
+2004-11-23T12:03:23 UTC <Marco Bonati> Logical version 1.0
+	* Taked out the SDSU global for the callback; now a queue is used for
+	returning  the message, and it is the caller in charge og generating
+	the callback
+	* added the "return_data_pointer" funtion on the Clib, so it is
+	  independent on the DHE module (it was using one from the SDSU module
+	  before
+
+2004-11-13T12:03:23 UTC <Marco Bonati> Logical version 0.93
+	* Replaced CMN_Non-standard-test... for CMN_testpath
+	* added timeout=0 (no long commands)
+
+
+2004-11-12T12:03:23 UTC <Marco Bonati> Logical version 0.92
+	* Uses the CMN_GetBuf instead of the SDSU global BufferDimensions
+
+
+2004-11-12T12:03:23 UTC <Marco Bonati> Logical version 0.91
+	* Added the C library on private/c. 
+	* Added the Fowler Pixel to Pixel and Line to Line, as well as
+	 modified the Proc_FOWLER in order to select automatically from one
+	 or another accordign to a database variable
+	* Added the "VERSION" command (moved Main and Logical to public/vis)
+	
+2004-07-02T20:03:23 UTC <Marco Bonati> Logical version 0.10
+	* Changed name of the module from LOGIC to Logical to fit the name
+	  of the directory
+	* Fixed a problem with the log file definition. Now if the algors
+	  path specified is wrong (or does not exists) it will search
+	  on the defaul Logical/Algors dir. If the log dir specified
+	  for the algors does not exists, then it will use the log dir
+	  specified for the module itself
+
+2004-02-05T20:03:23 UTC <Marco Bonati> Logical version 0.9
+	* Added the Proc_SUR algor for Sample Up the Ramp Mode
+
+2004-02-05T20:03:23 UTC <Marco Bonati> Logical version 0.8
+	*  deleted internal SDSUGlobal vi (inside IRDCS.llb)
+
+2004-02-05T20:03:23 UTC <Marco Bonati> Logical version 0.7
+	* semi-conformed to the read config file standard
+	* deleted all the unused controls on the front panel
+	* added a local control for commands
+	* Moved out of the very old Cmd_Procs
+
+2003-12-03T14:10:21 UTC <Marco Bonati> Logical version 0.6
+	* fixed a problem on the PROC_ccd algor, related to the position of
+	 the "Check_STOP" vi
+
+2003-11-14T14:10:21 UTC <Marco Bonati> Logical version 0.5
+	* added the command "resetprogress"t to the GFITS module, so
+	  the "writeprogress variabale gets updated everytime a new
+	  image is expected
+
+2003-10-02T20:03:09 UTC <Marco Bonati> Logical version 0.4
+	* added the CheckStop to the PROC_ccd algor
+	* added the CheckStop message to the final async. message
+
+2003-10-02T20:03:09 UTC <Marco Bonati> Logical version 0.3
+
+	* added the logfile to the algors
+
+2003-04-23T06:32:09 UTC <Marco Bonati> Logical version 0.2
+
+  Created.
+
+    * ./private/:
+    * ./public/:
+    * ./doc:
+    * ./config:
+    * ./test:
+    Created.
+

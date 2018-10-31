@@ -1,0 +1,5 @@
+2013-05-03T24:18:02 UTC <Marco Bonati> STATUS version 1.2
+	* the loop to read the progress is delayed by the maximum updaterate
+
+2013-05-03T22:18:02 UTC <Marco Bonati> STATUS version 1.1
+	* Created

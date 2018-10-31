@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>GUNSC_UserManual</title>
+      
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+  <body>
+ General Unscrambling User manual<br>
+ <br>
+ <br>
+ This document describes the commands available to the user in order to handle 
+the General Unscrambler. For a complete list<br>
+ of commands (of interest to the software developers) see the Developer's 
+Manual<br>
+ <br>
+ Physical Mapping<br>
+ <br>
+ Mostly the only command of interest to the user (engineer) has relation
+with the physical Mapping of the pixels to the amplifiers.<br>
+ Basically this says which pixel (received order) goes to which defined amplifier. 
+This will depend on the order in which the data is coming from the controller, 
+which in turns depends on the cabling, mount, waveforms applied, etc.<br>
+ <br>
+ <br>
+ By default, the data will be sent to the defined amplifiers in the order 
+in which this amplifiers are defined. For details on how and where the amplifiers 
+are defined see the GEOM module documentation.<br>
+ <br>
+ Say that we have 4 amplifiers (A, B, C and D)and that&nbsp; the stream of 
+data will be coming as <br>
+ <br>
+ A1B1C1D1 A2B2C2D2 ..... AnBnCnDn.<br>
+ <br>
+ where<br>
+ Xn: amplifier X, pixel number "n"<br>
+ <br>
+ If we have defined the amplifers as:<br>
+ <br>
+ amplifier 1 : A<br>
+ amplifier 2 : B<br>
+ amplifier 3: C<br>
+ amplifier 4: D<br>
+ <br>
+ Then the assignment will be correct: first pixel to A, second to B, etc.<br>
+ <br>
+ So here we have the first way of making the match: define the amplifiers 
+(on the GEOM file) in the physical order they will arrive.<br>
+ This is a valid approximation. However, the problem with this scheme is
+that if a new instrument uses the same kind of chip (detector), you may want
+to reuse the GEOM definition, and in this case there may be conflict in the 
+order in which the data is coming for the new instrument; of course the user 
+can always choose do not share the file (even when it is the same detector) 
+and create a new one for each instrument. However, a second mechanism is provided
+in order to make independent the definition order to the phisycal order.<br>
+ <br>
+ Continuing with the previous example, let's say that now the data is coming 
+as <br>
+ <br>
+ B1A1C1D1 B2A2C2D1 .... BnAnCnDn<br>
+ <br>
+ Now we would need to remap the order. In order to do this, a set of commands 
+are defined.<br>
+ <br>
+ PHYSMAP &lt;directive&gt; [&lt;arg1&gt; ... &lt;argn&gt;]<br>
+ <br>
+ whre directive can be:<br>
+ <br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ORDERED: means that the match will 
+be done in the same order defined on the GEOM file<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; INVERSE: the order will be reversed<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; MAP &lt;pixel&gt; &lt;directive&gt; 
+&lt;amplifier&gt;:<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+where<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; pixel: pixel number<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; amplifier: amplifier number<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; directive: "&gt;" : assign pixel X to amplifier Y<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;"&lt;" : assign pixel Y to amplifier X<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;"&lt;&gt;": swap pixel X with amplifier Y. This is
+equivalent to X &gt; Y Y &gt; X, or X &gt; Y X &lt; Y<br>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; START &lt;from&gt; EVERY &lt;steps&gt;: 
+start assigning from the starting amplifier, and then keep assigning the next
+one every "step" pixels.<br>
+ <br>
+ <br>
+ Examples:<br>
+ <br>
+ &nbsp;&nbsp;&nbsp; As everything looks too confusing in generalized definitions, 
+we will see some examples to clarify its usage:<br>
+ <br>
+ Let's say we have the above-described example (4 amplifier, A, B, C and
+D), with the order BACD<br>
+ <br>
+ PHYSMAP INVERSE<br>
+ <br>
+ This will cause to make the following assignment:<br>
+ <br>
+ &nbsp;&nbsp;&nbsp; B1 (first incoming pixel) --&gt; D (last defined amplifier)<br>
+ &nbsp;&nbsp;&nbsp; A1 (seconf incoming pixel) --&gt; C <br>
+ &nbsp;&nbsp;&nbsp; C1 --&gt; B<br>
+ &nbsp;&nbsp;&nbsp; D1 --&gt; A<br>
+ &nbsp;&nbsp;&nbsp; .....<br>
+ <br>
+ PHYSMAP MAP 1 &gt; 2 2 &gt; 1 /*equivalent to 1 &lt;&gt; 2), also equivalent
+to MAP p1 &gt; e2 p2 &gt; e1*/<br>
+ <br>
+ This will cause to map the first incoming pixel to the second amplifier, 
+and the second incoming pixel to the first amplifier<br>
+ <br>
+ &nbsp;&nbsp;&nbsp; B1 (first incoming pixel) --&gt; B (second defined amplifier)<br>
+ &nbsp;&nbsp;&nbsp; A1 (second incoming pixel) --&gt; A (first defined amplifer)<br>
+ &nbsp;&nbsp;&nbsp; C1 --&gt; C<br>
+ &nbsp;&nbsp;&nbsp; D1 --&gt; D<br>
+ <br>
+ &nbsp;&nbsp;&nbsp; That is, actually, the right order for the example<br>
+ <br>
+ <br>
+ For the next example to be clear, we will add amplifiers to the example. 
+Say that we have 8 amplifiers: ABCDEFGH, and that the<br>
+ order is BACDEFGH<br>
+ <br>
+ PHYSMAP START 1 EVERY 2<br>
+ <br>
+ B1 --&gt; A&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /* starts 
+with first defined: A */<br>
+ A1 --&gt; C&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*increase 
+2 over A --&gt; lands over C */<br>
+ C1 --&gt; E<br>
+ D1 --&gt; G<br>
+ E1 --&gt; B<br>
+ F1 --&gt; D<br>
+ G1 --&gt; F<br>
+ H1 --&gt; H<br>
+ <br>
+ Let's give a concrete example for this last case. Say we have a 32 channles 
+Hawaii-2 device. The GEOM file has defined the amplifiers 1 to 8 for quadrant 
+1, 9 to 16 for quadrant 2, 17 to 24 for quadrant 3 and 25 to 32 for quadrant 
+4<br>
+ Q1: 1 -&gt; 8<br>
+ Q2: 9 -&gt; 16<br>
+ Q3: 17 -&gt; 24<br>
+ Q4: 25 -&gt;32<br>
+ <br>
+ However, the readout will normally be more like:&nbsp; Q1_p1 Q2_p1 Q3_p1 
+Q4_p1 Q1_p2 ....<br>
+ <br>
+ where: Qy_px: pixel number x of quadrant number y<br>
+ <br>
+ The default ORDERED way, will assign wrongly as:<br>
+ Q1_p1 -&gt; Q1_amp1<br>
+ Q2_p1 -&gt; Q1_amp2<br>
+ .....<br>
+ <br>
+ <br>
+ However, with the directive START 1 EVERY 8, it will assign<br>
+ <br>
+ Q1_p1 -&gt; Q1_amp1<br>
+ Q2_p1 -&gt; Q2_amp1&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*Q1_amp1 + 8 amplifers 
+gives us Q2_amp1*/<br>
+ Q3_p1 -&gt; Q3_amp1<br>
+ Q4_p1 -&gt; Q4_amp1<br>
+ Q1_p2 -&gt; Q1_amp2<br>
+ .....<br>
+ <br>
+ <br>
+ <br>
+ This last definition is useful when there are many amplifiers and the MAP 
+directive may result confusing (for example, in a 32 channel system MAP may 
+requiere 32 directives/arguments, like MAP 1 &gt; 1 2 &gt; 9 3 &gt; 17 4 &gt;
+25 5 &gt; 2 6 &gt; 10 ...)<br>
+ &nbsp; <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ 
+</body>
+</html>

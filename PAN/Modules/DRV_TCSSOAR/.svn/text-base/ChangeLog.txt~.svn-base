@@ -1,0 +1,52 @@
+2009-12-11 13:51:27 UTC <bonati> DRV_TCSCT60 module version 2.1
+working copy named to version: 2.0
+repository reference taken from:
+https://139.229.115.227/svn/tags/DRV_TCSCT60-1.2
+
+Tested with the real telescope -reliably
+       ------------Added:
+?      DRV_TCSCT60/test/DRV_TCSCT60_test.vi
+?      DRV_TCSCT60/private/vis/DRV_TCSPCTCS_ParseInfo.vi
+?      DRV_TCSCT60/private/vis/DRV_CT60_ParseRaw.vi
+?      DRV_TCSCT60/private/vis/DRV_CT60_ParsePoiting.vi
+?      DRV_TCSCT60/private/vis/DRV_CT60_Raw_Info.vi
+?      DRV_TCSCT60/private/vis/DRV_CT60_ParseInfo.vi
+?      DRV_TCSCT60/public/vis/DRV_CT60_Pointing_Info.vi
+?      DRV_TCSCT60/public/vis/DRV_CT60_Raw_Info.vi
+
+       ------------Deleted:
+!      DRV_TCSCT60/test/DRV_TCSPCTCS_test.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_ReadTelem2.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_OFFSET.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_GOPOS.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_HardInfo.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_Open.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_ReadTelem.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_Close.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_SendCmd.vi
+!      DRV_TCSCT60/public/vis/DRV_TCSPCTCS_ReadTelembak.vi
+
+       ------------Modified:
+M      DRV_TCSCT60/test/test.vi
+M      DRV_TCSCT60/ChangeLog.txt~
+M      DRV_TCSCT60/ChangeLog.txt
+M      DRV_TCSCT60/INFO.txt
+M      DRV_TCSCT60/private/vis/DRV_CT60_ParseResponse.vi
+M      DRV_TCSCT60/private/vis/DRV_CT60_ComposeCmd.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_INFO.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_WaitCompletion.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_Open.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_SLEW.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_SendCmd.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_FOCUS.vi
+M      DRV_TCSCT60/public/vis/DRV_CT60_OFFSET.vi
+
+
+       ------------Ignored:
+I      DRV_TCSCT60/INFO.txt~
+
+2009-05-28 15:10:21 UTC <bonati> DRV_TCSCT60 module version 2.0
+	* fixed the empty reference when receiving errors
+
+2009-05-28 15:10:21 UTC <bonati> DRV_TCSCT60 module version 1.2
+	* Created from DRV_TCSPCTCS 2.0

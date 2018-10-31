@@ -1,0 +1,41 @@
+#!/bin/csh -f
+
+if ($#argv < 1) then
+	echo "usage: shutdown_panapp <name> [-block]"
+	exit -1
+endif
+
+set DIR = $1
+shift
+
+set cmdargs = ""
+set GUI = 0
+set NAME = ""
+
+while ("$1" != "")
+	switch ("$1")
+		case -app:
+			set NAME = $2
+			set cmdargs = "$cmdargs $1"
+			breaksw
+		default:
+			set cmdargs = "$cmdargs $1"
+	endsw
+	shift
+end
+
+set ISSET = `setenv | egrep PAN_ROOT_FPAS`
+if ("$ISSET" == "") then
+        setenv PAN_ROOT_FPAS $PAN_ROOT/fpas
+endif
+
+set APP = $PAN_ROOT_FPAS/$DIR
+if ("$NAME" == "") then
+	set NAME = $DIR
+endif
+
+cd $PAN_ROOT/PAN/public/bin/
+
+./shutdown_pan -configfile $APP/config/PAN.cfg -block $cmdargs
+
+cd -

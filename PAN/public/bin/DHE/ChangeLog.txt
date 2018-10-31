@@ -1,0 +1,476 @@
+2017-01-12T27:07:29 UTC <Marco Bonati> DHE version 11.7
+	* DHE now handles the multiple alias convertion
+
+2017-01-12T27:07:29 UTC <Marco Bonati> DHE version 11.6
+	* small change in aliases handling (extra output)
+
+2017-01-12T27:07:29 UTC <Marco Bonati> DHE version 11.5
+	* added variable replacing in macro handling
+	* added variable operations in macro handling
+
+2016-08-12T27:07:29 UTC <Marco Bonati> DHE version 11.4
+	* alias modifies to take a different replacement fo "get" or "set"
+	* added "dhe dbs set/get", and also "set dbs" and "get dbs"
+
+2016-06-12T27:06:29 UTC <Marco Bonati> DHE version 11.3
+	* added capability to run a system cmd instead of a macro on the\
+	dhe level
+
+2015-06-12T27:06:29 UTC <Marco Bonati> DHE version 11.2
+	* alias handling
+
+2014-06-12T27:06:29 UTC <Marco Bonati> DHE version 11.1
+	* re-added stop for coadding, sur and all.
+
+2014-06-12T27:06:29 UTC <Marco Bonati> DHE version 11.0
+	* added "set timing" values to set default pixtime, shiftrows, etc
+
+2014-01-12T18:06:29 UTC <Marco Bonati> DHE version 10.99
+	* added dbs variable "chkinterlock" to win some processing
+	time in applications that require small overhead in command proc.
+
+2013-11-12T18:06:29 UTC <Marco Bonati> DHE version 10.98
+	* added "feed_one_buffer" for applications that are very slow
+	and require saving as much memory as possible
+
+2013-08-12T18:06:29 UTC <Marco Bonati> DHE version 10.97
+	* fixed paths
+
+2013-08-12T18:06:29 UTC <Marco Bonati> DHE version 10.96
+	* fixed some mess with the min_exptime for NIR systems
+
+2013-06-12T18:06:29 UTC <Marco Bonati> DHE version 10.95
+	* added "nightid" that can be set so it changes every night
+	automatically at the specifiedi time  (depending on the settings)
+
+2012-10-12T18:06:29 UTC <Marco Bonati> DHE version 10.94
+	* modifued ASYNC, so it can use the async channel (default, as till
+	* now), or it can use the STATUS module channel
+	* imporved the async interface a bit
+
+2012-10-12T18:06:29 UTC <Marco Bonati> DHE version 10.93
+	* fixed init_geom, so it recalculates automatically the
+	min_exptime
+
+2012-10-12T18:06:29 UTC <Marco Bonati> DHE version 10.92
+	* added "timeoutoffset" parameter under READOUT
+
+2012-09-25T18:06:29 UTC <Marco Bonati> DHE version 10.91
+	* fixed the "get status" command for the "state=initializing"
+
+2012-09-25T18:06:29 UTC <Marco Bonati> DHE version 10.9
+	* added parameter "timeout_s" in MOD_DHE.cfg under INIT to set
+	the expected initialization timeout. 80 secs if not defined
+
+2012-09-24T18:06:28 UTC <Marco Bonati> DHE version 10.8
+	* if unknown sampling ("set sampling xx"), it tries to pass
+	"xx" as the sampling hardware name. If it fails, tries to pass
+	the dbs variable "def_hardsampling" -and if this is not defined used
+	"single". If the hardware sampling succeed, passes "xx" sampling
+	to the Logic module. This allow for a dynamic addition of new
+	Logic samplings
+	* "bias" image type forces to not opening the shutter
+
+2012-08-30T18:06:28 UTC <Marco Bonati> DHE version 10.7
+	* DO_INTEGRATE checks for the detector status. It must be idle to
+	actually integrate
+
+2012-08-16T18:06:28 UTC <Marco Bonati> DHE version 10.6
+	* added "autoclear on/off" in "integrate" command
+
+2012-08-16T18:06:28 UTC <Marco Bonati> DHE version 10.5
+	* added "get integtime" explicit command to avoid inconsistencies
+
+2012-08-04T18:06:28 UTC <Marco Bonati> DHE version 10.4
+	* added expcode return from the hardware submodule
+
+2012-08-02T18:06:28 UTC <Marco Bonati> DHE version 10.3
+	* add support for "integration", which only
+	open/exposes/closes with no readout.
+	( Includes a c library to make a precise host-based counter)
+	* added "get_shutter_pos" and "get_autoshutter" commands
+	
+2012-04-08T18:06:28 UTC <Marco Bonati> DHE version 10.2
+	* added set/get intdelay
+
+2012-04-08T18:06:28 UTC <Marco Bonati> DHE version 10.1
+	* added support for "-fpa" switch
+
+2012-03-11T18:06:28 UTC <Marco Bonati> DHE version 10.0
+	* deleted old checkbusy to avoid confusion
+
+2012-03-08T18:06:28 UTC <Marco Bonati> DHE version 9.99
+	* fixed the "check_busy" interlock to take out any unnecesary
+	delay if the system is not idle
+
+2011-11-08T18:06:28 UTC <Marco Bonati> DHE version 9.98
+	* added the command "do clear_status" that clears the status that
+	comes back with "get progress"
+
+2011-09-30T18:06:28 UTC <Marco Bonati> DHE version 9.97
+	* added stop exposure absolute and relative
+
+2011-09-30T18:06:28 UTC <Marco Bonati> DHE version 9.96
+	* added set_temp_exptime
+
+2011-07-12T18:06:28 UTC <Marco Bonati> DHE version 9.95
+	* added the interlocks handling
+	* added "autohandleclear" parameter
+ 
+2011-06-06T18:06:28 UTC <Marco Bonati> DHE version 9.94
+	* Small changes to close opened refs and speed up a bit
+	* updated DEP
+
+2011-03-14T18:06:28 UTC <Marco Bonati> DHE version 9.93
+	* added an error handler when the readmode is not well
+	defined (no amplifiers available)
+
+2011-03-14T18:06:28 UTC <Marco Bonati> DHE version 9.92
+	* add "multframes" as a sampling for visible
+
+2011-03-14T18:06:28 UTC <Marco Bonati> DHE version 9.91
+	* "obs.nimgaes" is now allowed during readout also
+
+2011-03-09T18:06:28 UTC <Marco Bonati> DHE version 9.9
+	* added the call to ROI in set geometry (so the hardware
+	roi gets updated when chanbging a modifier)
+
+2010-09-26T18:06:28 UTC <Marco Bonati> DHE version 9.8
+	* fixed CheckBusy to let any command pass if
+	"initializing"
+
+2010-09-26T18:06:28 UTC <Marco Bonati> DHE version 9.7
+	* fixed the "whoami" to decide where to write .syncparams and
+	* .syncimage
+
+2010-09-26T18:06:28 UTC <Marco Bonati> DHE version 9.6
+	* added "obs.seqdelay" to add a delay between the sequences
+	of a "obs.nimages". The delay is in ms
+	* fixed the "initializing status" (minor detail)
+
+2010-09-22T18:06:28 UTC <Marco Bonati> DHE version 9.5
+	* added the cleanup of TCSINFO when "expose" is sent
+
+2010-08-20T18:06:28 UTC <Marco Bonati> DHE version 9.4
+	* fixed calcbuffers so the virtual buffer size works for non-square
+	  fpas. This affects only the "real time" modes as Proc_ccd or
+	Proc_ccd2
+
+2010-08-20T18:06:28 UTC <Marco Bonati> DHE version 9.3
+	* fixed a small bug in the creation of .syncparams, when saving expid
+	 and obsid
+	 changed syncparams.mc creation so it gets cretaed, as .sync.image,
+	 in /tmp using user and node if the user is not the owner of the fpas
+	 files
+
+2010-04-28T18:06:28 UTC <Marco Bonati> DHE version 9.2
+	* added the chkdisk, and PrepExp (flushes ut, expid and obsid
+	  if fits server is idle
+
+2010-04-28T18:06:28 UTC <Marco Bonati> DHE version 9.1
+	* fixed a small memory leak when calling continuous mode
+	 (DHE_RunProc)
+
+2010-04-28T18:06:28 UTC <Marco Bonati> DHE version 9.0
+	* added a semaphore to avoid reading of tps while
+	  reading. This could cause undefined behvor, depending
+	  on the controller submodule
+	* added "expupdate" key on the tp config file, so the
+	  desired points are updated before the start of every sequence
+
+2010-04-28T18:06:28 UTC <Marco Bonati> DHE version 8.2
+	* moved the "set state" vi from EXPOS.vi dor RunPro.vi, so
+	  
+2010-04-14T18:06:28 UTC <Marco Bonati> DHE version 8.1
+	* added "shutdownmacro" under MISC -can be specified here on in the
+	  submodule config
+	* added the capability of executing a macro just before shuting down
+	  (exec upon receiving shutdown, close, or offline
+
+2010-04-09T18:06:28 UTC <Marco Bonati> DHE version 8.0
+	* added set and get "memrule" that allows to free unused buffers
+	  using memroy rules, giving a more flexible memory handling
+
+	* added,in DHE_Calcbuffers.vi a databse key ("memrule") that allows
+	  to free unused buffers that do not correspond to the current
+	  image needs. The default now is "releasediff", so everytime a new
+	  size is generated, it will release all previous buffers of
+	 different sizes (if unlocked)
+
+2010-04-06T18:06:28 UTC <Marco Bonati> DHE version 7.1
+	* .syncimage is not written to /tmp/.syncimge_<user>_<app>
+	if the owner of the config dir is different from the user
+
+2010-01-12T18:06:28 UTC <Marco Bonati> DHE version 7.0
+	* fixed the autoexpid and autoobsid requests
+	* added the capabitli of using the UT, dat,time, etc as part
+	  of the expid and obsid bases (added DHE_FormatID)
+
+2010-01-02T18:06:28 UTC <Marco Bonati> DHE version 6.99
+	* fixed do so it will pass the complete command to the submodule
+
+2010-01-02T18:06:28 UTC <Marco Bonati> DHE version 6.98
+	* added "rexptime ("requested exptime") to the response
+	  of "get progress" (60'' echelle run) 	
+
+2009-12-22T18:06:28 UTC <Marco Bonati> DHE version 6.97
+	* added DHE_SetDarkTime to set the effective dark time
+
+2009-12-03T18:06:28 UTC <Marco Bonati> DHE version 6.96
+	* Now when the modifiers, binning, roi, etc is changed
+	it does not go back to the default detformat, but
+	keeps the last "detformat"
+
+2009-11-17T18:06:28 UTC <Marco Bonati> DHE version 6.95
+	* added "arm"
+	* added "expvector" as an alternative to "expcode"
+
+2009-11-17T18:06:28 UTC <Marco Bonati> DHE version 6.94
+	* fixed a problem with a startup error for the first
+	 time due to bad handling of autoexpid/autoobsif from
+	 .syncimage
+
+2009-11-17T18:06:28 UTC <Marco Bonati> DHE version 6.93
+	* ensures that "detext" waits for gunsc to be done
+
+2009-11-07T18:06:28 UTC <Marco Bonati> DHE version 6.92
+	* added support for "shutter 0/1" command
+
+2009-11-04T18:06:28 UTC <Marco Bonati> DHE version 6.91
+	* Added expidbase, expidcounter and autoexpid to .syncimage
+	* added the dbs variable "shutexp" that states id the shutter 
+	  will open or not during the exppsure (string version of 
+	  autoshutter)
+
+2009-10-28T18:06:28 UTC <Marco Bonati> DHE version 6.9
+	* expiabase/obsidbased can be now "_COUNTER_"
+	  which means that it will use the counter only (only  numeric)
+
+2009-10-27T18:06:28 UTC <Marco Bonati> DHE version 6.8
+	* the DHE_TP passes also the permissions
+
+2009-10-22T18:06:28 UTC <Marco Bonati> DHE version 6.7
+	* fixed a small error in set_bpp (dhe settings)
+
+2009-10-21T18:06:28 UTC <Marco Bonati> DHE version 6.6
+	* rootname, basename, dir, prefixes, froot, comment, title can be
+	  specified using enviromental variables, command line argumnets or
+	  _nodeID_
+
+2009-07-07T18:06:28 UTC <Marco Bonati> DHE version 6.5
+	* soke chenged in DHE_InitGeometry" to make it faster
+
+2009-07-07T18:06:28 UTC <Marco Bonati> DHE version 6.4
+	* removed a vi that belonged to GEOM, causing a wrong dependency
+
+2009-07-07T18:06:28 UTC <Marco Bonati> DHE version 6.3
+	* added "totnamps" and "num_ext" dbs keys
+
+2009-07-07T18:06:28 UTC <Marco Bonati> DHE version 6.2
+	* changed the way the sync. parameters is stored from
+	  one boot to the other (".syncimage" file in macro dir,
+	  updated now everytime a param changes, and the syncparams
+	  macro created when dhe closes
+
+2009-05-17T18:06:28 UTC <Marco Bonati> DHE version 6.1
+	* fixed a problem on the buffer size calc. when bpp<0
+	  (floating point 32 bits). Add a "abs".
+
+2009-04-30T18:06:28 UTC <Marco Bonati> DHE version 6.0
+	* added support for external shutter op.
+	  (just provided get and set exteshut vars)
+
+2009-03-06T18:06:28 UTC <Marco Bonati> DHE version 5.97
+	* Changed set_gain to pass many arguments to the submodule
+	  (to specify board and channel, for example)
+
+2009-03-02T18:06:28 UTC <Marco Bonati> DHE version 5.96
+	* looks for the parameter "-no_dwinit" at boot time and as a command
+	line switch, and writes the value to the dbs for the submodule to
+	have
+
+2009-02-26T18:06:28 UTC <Marco Bonati> DHE version 5.95
+	* taken out the useless delay for TPNT that was causing the "close"
+	  to take a long time
+
+2009-02-26T18:06:28 UTC <Marco Bonati> DHE version 5.94
+	* added the parameter image.detext (detector-based mext)
+
+2009-01-26T18:06:28 UTC <Marco Bonati> DHE version 5.93
+	* fixed a small async. problem (delete)
+
+2009-01-26T18:06:28 UTC <Marco Bonati> DHE version 5.92
+	* The FPA name can be passed as an absolute path, allowing to define
+	  the fpa file (.fpa) in the local config dir instead than the
+	  det_database
+
+2008-12-29T18:06:28 UTC <Marco Bonati> DHE version 5.91
+	* The "dhe_firmware" variables is set to "none" when the "close"
+	  command is sent
+
+2008-12-29T18:06:28 UTC <Marco Bonati> DHE version 5.9
+	* The file template can specify complete groups for the tps. If the
+	  template says "tp grpm_<name>", then the complete <name> group
+	  is added into the headers
+
+2008-12-29T18:06:28 UTC <Marco Bonati> DHE version 5.8
+	* added the "validrange" parameter to the TPs definitions, so
+	  it is possible to specify a range of valid values. If value
+	  read is outside the specified range, the last valid value is
+	  assumed (this to reject error in reads)
+	* The errors are not passed down, but the previous value. The error
+	  counter, however, is still increased. The dhe status gets evaluated
+	  again at a lower level (closer to the actual read). These changes
+	  avoid bad points on the log file (as much as possible)
+
+2008-12-19T18:06:28 UTC <Marco Bonati> DHE version 5.7
+	* fixed the inspectname vi. If the string was empty it was
+	  returning a "/" as the output.
+
+2008-12-13T18:06:28 UTC <Marco Bonati> DHE version 5.6
+	* fixed and "async" messages detail. Now the default is "send", so
+	  "async send <msg>", "async send info <msg>" and "async <msg>" works
+	   exactly the same
+
+2008-12-13T18:06:28 UTC <Marco Bonati> DHE version 5.5
+	* removed OSU tags
+	* added DHE_Gattherinfo, that gets ctrl/link/board info on the headers
+	* The modpath gets passed as a wire, so it can be used in bin
+	 (compiled) mode without problems
+
+2008-10-24T18:06:28 UTC <Marco Bonati> DHE version 5.4
+	* From this version we have the OSU svn tags
+	* added handling for expID (per image) and obsID (per sequence)
+
+2008-10-24T18:06:28 UTC <Marco Bonati> DHE version 5.3
+	* added the set_soft_read_time to DHE, so it passes the calc. to the
+	  controller submodule
+
+2008-10-23T18:06:28 UTC <Marco Bonati> DHE version 5.2
+	* added "get ampinfo"
+	* added get/set pixtime
+	* changed "DHE_get_timing", so it would reflect if the pixtime changes
+	* if get_pixtime returns a valid value, it will use that instead of the file-defined
+	  pixtime
+	* added get/set pixread and pixwrite algors, to get a set of algors to convert
+	  from/to pixel times to hardware units
+
+2008-10-12T18:06:28 UTC <Marco Bonati> DHE version 5.1
+	* added teh expID handling (expIDbase, expIDcounter, auoexpID)
+
+2008-09-28T18:06:28 UTC <Marco Bonati> DHE version 5.0
+	* changed the way the reference to the submodule is done, to prevent
+	* multiple references left open.
+
+2008-08-18T18:06:28 UTC <Marco Bonati> DHE version 4.9
+	*  The macros can be specified based on a  global variable
+
+2008-08-10T18:06:28 UTC <Marco Bonati> DHE version 4.8
+	* Increased the flixibility with nodeID
+
+2008-08-10T18:06:28 UTC <Marco Bonati> DHE version 4.7
+	* added "inspectName", that allows to define a string based on the 
+	  variable _FPA_. This may it possible to define initialization files
+	  based on the FPA name, to avoid changing names everywhere when a new
+	  FPA is defined.
+
+2008-07-18T18:06:28 UTC <Marco Bonati> DHE version 4.6
+	* fixed some features in "DefaultLogicProc"
+
+2008-06-21T18:06:28 UTC <Marco Bonati> DHE version 4.5
+	* Added the capability of changing bpp on the fly
+	* added the "expcode" command
+	* modified InitGeom, SetROI, SetGeom to get info from GEOM 4.5
+	  (non-square FPAs)
+	
+2008-02-21T18:06:28 UTC <Marco Bonati> DHE version 4.1
+	* Added the ID on the async. messages
+
+2007-10-21T18:06:28 UTC <Marco Bonati> DHE version 4.0
+	* Labview 8.5
+	* fixed	the "get geometry" command. Now it shows the binned valued for
+	  the modifiers (if binned and they are binned modifiers)
+
+2007-10-14T18:06:28 UTC <Marco Bonati> DHE version 3.0
+	* From Now on, INCOMPATIBLE with Caltech Arcview modules. It would
+	  need to be used inside the PAN supermodule
+	* NEW type, for SOAR arcview. Deleted unused controls on front panel.
+	  Fixed the detformat thing, passing the override format to all the
+	  calls (InitGeometry.vi)
+	* added commands for a wider range of artificial patterns
+	  (artifpattern, artifvars)
+
+2007-07-14T18:06:28 UTC <Marco Bonati> DHE version 2.6
+	* Fixed the read timing. Added two new parameters:
+	  exp_overhead: it is added to the minimum exposure time
+	  minexptime: if stated, overrides the automatic calculation
+	  seq_overhead: it is added to the total read time in a sequence
+	* All the timing paramaters can be added now in the DHE configuration
+	  under [READOUT] instead of the submodule. If they are in the
+	  the submodule, then they will be override (so old configs can be
+	  kept)
+	* the FPA parameters name and modifiers can also be added on the
+	  DHE main config file now (under [FPA] name, modifiers)
+	
+2007-07-14T18:06:28 UTC <Marco Bonati> DHE version 2.5
+	* enhanced help
+	* added "get macrodir" to get the current macro directory
+	* macros now support having a "dhe" at the begining of the line,
+	  allowing for a macro to also be executed from the OS (given 
+	  execution permission)
+
+2007-06-12T18:06:28 UTC <Marco Bonati> DHE version 2.4
+	* taken out the async. delete whe closing
+	* added a "trim white space" when sending custom command
+
+2007-06-12T18:06:28 UTC <Marco Bonati> DHE version 2.3
+	* fixed a problem with the macro recursivity, broken  when add "-list"
+	  (v1.5)
+
+2007-06-01T18:06:28 UTC <Marco Bonati> DHE version 2.2
+	* added set/get gain and speed
+
+2007-05-19T18:06:28 UTC <Marco Bonati> DHE version 2.1
+	* supports "con_read" in a more generic way, by adding to the internal
+	  database the keyword "cont_read", and passing it to the sub-module
+
+2007-05-12T18:06:28 UTC <Marco Bonati> DHE version 2.0
+	* added "GetSimpleRead" and "SetSimpleRead"
+
+2007-05-06T18:06:28 UTC <Marco Bonati> DHE version 1.9
+	* fixed the "?" for get and set
+
+2007-05-01T18:06:28 UTC <Marco Bonati> DHE version 1.8
+	* Added the "set shutter type" to select if the shutter gets
+	  operated by the controller or the instrument (dynamic Inst. Lib)
+
+2007-05-01T18:06:28 UTC <Marco Bonati> DHE version 1.7
+	* added InstLib public variable (VAR, Set and Get)
+
+2006-06-12T18:06:28 UTC <Marco Bonati> DHE version 1.6
+	* fixed a problem with the fixed_root if not defined.
+	  Now it uses the home directory if predefined directory
+	  does not exists
+
+2006-06-10T18:06:28 UTC <Marco Bonati> DHE version 1.5
+  	* fixed a problem with the macro "-list"
+
+2006-06-10T17:06:28 UTC <Marco Bonati> DHE version 1.4
+	* added "-list" to list available macros
+
+2006-05-10T17:06:28 UTC <Marco Bonati> DHE version 1.3
+	* added frame_time and read_time parameters
+
+2006-05-10T17:06:28 UTC <Marco Bonati> DHE version 1.2
+	* removed dependencies with database and old Common
+	* added support for IR commands
+
+2006-03-10T17:06:28 UTC <Marco Bonati> DHE version 1.1
+
+	* created. This module has a lot of DHE common vis, and it is meant
+	  as a supporting "common" module for any DHE hardware module
+	  (as SDSU, FLI, EDTP11, etc)
+	 This module does all the job of handling commands, etc, passing only
+	 the driver-specific commands to the specific dhe module. It also
+	 loads some specific long-tasks from the specific dhe module
+	(like INIT and READ procedures)

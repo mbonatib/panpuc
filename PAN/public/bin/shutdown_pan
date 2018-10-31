@@ -1,0 +1,131 @@
+#! /bin/csh -f
+
+set hilite = 1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR '  ;BOLD_OFF; echo \!*)"
+
+set ISSET = `setenv | egrep panport`
+if ("$ISSET" == "") then
+	set WAIT_PORT = 0
+else
+	set WAIT_PORT = $panport
+endif
+set ISSET = `setenv | egrep panhost`
+if ("$ISSET" == "") then
+	set APP_HOST = "localhost"
+else
+	set APP_HOST = $panhost
+endif
+
+set stoped = 0
+set FORCE = 0
+set BLOCK = 0
+set CONFIG_FILE = ""
+
+while ("$1" != "")
+        switch ("$1")
+        case -block:
+		set BLOCK = 1
+		breaksw
+        case -force:
+		set FORCE = 1
+		breaksw
+       case -configfile:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-configfile <configfile>' switch"
+                        exit 1
+                endif
+                set CONFIG_FILE = $1
+                if (! -e $1) then
+                        ERR "config file NOT FOUND. bye"
+                        exit 1
+                endif
+                breaksw
+	default:
+		ERR "unknown argument $1" 
+		goto usage
+	endsw
+        if ("$2" == "") then
+                break
+        else
+                shift
+        endif
+end
+set sendsock = "./sendsockcmd"
+if ($WAIT_PORT == 0) then
+	if ("$CONFIG_FILE" != "") then
+		set WAIT_PORT = `./get_port $CONFIG_FILE cmdport NATIVE`
+	endif
+endif
+if ("APP_HOST" == "") then
+	set APP_HOST = "localhost"
+endif
+
+echo "wait port $WAIT_PORT"
+set tmpfile = "/tmp/arcproc_"`whoami`
+if ($WAIT_PORT > 0) then
+	set APP_NAME = `$sendsock -h $APP_HOST -p $WAIT_PORT "PAN NAME"`
+	set tmpfile = "/tmp/arcproc_"`whoami`"_$APP_NAME"
+	set resp = `$sendsock -h $APP_HOST -p $WAIT_PORT "PAN SHUTDOWN"`
+	echo "name $APP_NAME $resp"
+	if ("$resp[1]" != "DONE") then
+		ERR "Application not responding"
+		goto kill_it
+	else
+		echo "Shutting down $APP_NAME ..."
+		if ($BLOCK) then
+			sleep 5
+			set shutdown_time = 5
+			while ($stoped == 0)
+				echo "waiting for $APP_NAME to stop ($shutdown_time secs)"
+				rm -f $tmpfile
+				ps awx > $tmpfile
+				set procid = ""
+				set procid  = $procid" "`egrep labview $tmpfile | egrep $APP_NAME | awk '{print $1}'`
+				if ($#procid > 1) then
+					sleep 5
+					@ shutdown_time = $shutdown_time + 5
+				else
+					set stoped = 1
+				endif
+				if ($shutdown_time > 50) then
+					echo "ERROR TIMEOUT shutting down application"
+					goto kill_it
+				endif
+			end
+			echo "DONE PAN $APP_NAME Stoped"
+		endif
+		goto bye
+	endif
+endif
+	
+
+kill_it:
+
+if ($FORCE == 1) then
+	echo "Application will be killed ..."
+	rm -f $tmpfile
+	set tmpshot = "/tmp/psshot_"`whoami`
+	rm -f $tmpshot
+	ps awx > $tmpshot
+	set procid = ""
+	set procid  = $procid" "`egrep $PAN_ROOT $tmpshot | egrep labview | awk '{print $1}'`
+	while ( $#procid > 0 )
+        	if ( $procid[1] != "" && $procid[1] != $$ ) then
+                	kill -9 $procid[1]
+        	endif
+        	shift procid
+	end
+	rm -f $tmpshot
+	echo "DONE killing PAN"
+endif
+
+bye:
+exit 0
+
+usage:
+	echo "shutdown_pan [-block]"
+

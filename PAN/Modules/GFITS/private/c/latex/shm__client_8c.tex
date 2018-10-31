@@ -1,0 +1,96 @@
+\section{test/shm\_\-client/shm\_\-client.c File Reference}
+\label{shm__client_8c}\index{test/shm_client/shm_client.c@{test/shm\_\-client/shm\_\-client.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include \char`\"{}shmclient\-Lib.h\char`\"{}}\par
+{\tt \#include \char`\"{}fitsio.h\char`\"{}}\par
+{\tt \#include \char`\"{}longnam.h\char`\"{}}\par
+{\tt \#include \char`\"{}cdl.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{Allocate\_\-local\_\-buffer} (int size)
+\item 
+int \bf{Get\-Pixels} (\bf{fitsfile} $\ast$fptr, int $\ast$bpp, long $\ast$nax1, long $\ast$nax2, void $\ast$\bf{pbuf})
+\item 
+int \bf{Proc\-Image} (\bf{fitsfile} $\ast$fptr, void $\ast$\bf{pbuf})
+\item 
+int \bf{Display\-Image} (\bf{fitsfile} $\ast$fptr, void $\ast$\bf{pbuf})
+\item 
+int \bf{Get\_\-Image} (void $\ast$buff, int size)
+\item 
+int \bf{main} ()
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+short \bf{wfits} = 1
+\item 
+short \bf{process} = 1
+\item 
+int \bf{outbufsize} = 0
+\item 
+void $\ast$ \bf{pix} = NULL
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{shm_client.c@{shm\_\-client.c}!Allocate_local_buffer@{Allocate\_\-local\_\-buffer}}
+\index{Allocate_local_buffer@{Allocate\_\-local\_\-buffer}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Allocate\_\-local\_\-buffer (int {\em size})}\label{shm__client_8c_bd6b0bd0626273c5109acc703ab647b4}
+
+
+\index{shm_client.c@{shm\_\-client.c}!DisplayImage@{DisplayImage}}
+\index{DisplayImage@{DisplayImage}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Display\-Image (\bf{fitsfile} $\ast$ {\em fptr}, void $\ast$ {\em pbuf})}\label{shm__client_8c_ae66536b8cf9d2ee4bfb19ad527d8269}
+
+
+\index{shm_client.c@{shm\_\-client.c}!Get_Image@{Get\_\-Image}}
+\index{Get_Image@{Get\_\-Image}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Get\_\-Image (void $\ast$ {\em buff}, int {\em size})}\label{shm__client_8c_4ae19b67eb1604336c0cb83ea5c37a06}
+
+
+\index{shm_client.c@{shm\_\-client.c}!GetPixels@{GetPixels}}
+\index{GetPixels@{GetPixels}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Get\-Pixels (\bf{fitsfile} $\ast$ {\em fptr}, int $\ast$ {\em bpp}, long $\ast$ {\em nax1}, long $\ast$ {\em nax2}, void $\ast$ {\em pbuf})}\label{shm__client_8c_2a7c44cf39df3e5ea1b2e4a4bddf000b}
+
+
+\index{shm_client.c@{shm\_\-client.c}!main@{main}}
+\index{main@{main}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int main ()}\label{shm__client_8c_e66f6b31b5ad750f1fe042a706a4e3d4}
+
+
+\index{shm_client.c@{shm\_\-client.c}!ProcImage@{ProcImage}}
+\index{ProcImage@{ProcImage}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Proc\-Image (\bf{fitsfile} $\ast$ {\em fptr}, void $\ast$ {\em pbuf})}\label{shm__client_8c_37a8ef4d99d1dbd767467eb1aa8e1400}
+
+
+
+
+\subsection{Variable Documentation}
+\index{shm_client.c@{shm\_\-client.c}!outbufsize@{outbufsize}}
+\index{outbufsize@{outbufsize}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{outbufsize} = 0}\label{shm__client_8c_1555955f792ec629a4330c182fad6009}
+
+
+\index{shm_client.c@{shm\_\-client.c}!pix@{pix}}
+\index{pix@{pix}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{pix} = NULL}\label{shm__client_8c_a360741532ff2ea61ee9f497a00ca567}
+
+
+\index{shm_client.c@{shm\_\-client.c}!process@{process}}
+\index{process@{process}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short \bf{process} = 1}\label{shm__client_8c_29af21f4c18af79773e4346bcd19856e}
+
+
+\index{shm_client.c@{shm\_\-client.c}!wfits@{wfits}}
+\index{wfits@{wfits}!shm_client.c@{shm\_\-client.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short \bf{wfits} = 1}\label{shm__client_8c_85e941e4a1e44d06ba34f07a486bfb04}
+
+

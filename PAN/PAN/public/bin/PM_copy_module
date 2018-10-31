@@ -1,0 +1,65 @@
+#! /bin/csh -f
+
+if ($#argv < 3) then
+	echo "usage: PM_copy_module <newmodule_dir> <module_name> <modules_directory> [-delete]"
+	exit 1
+endif
+
+if (! -e $1) then
+	echo "ERROR new module directory not found"
+	exit 1
+endif
+if (! -e $1/$2) then
+	echo "ERROR new module not found"
+	exit 1
+endif
+if (! -e $3) then
+	echo "ERROR modules directory not found"
+	exit 1
+endif
+
+set newmoddir = "$1"
+set module = "$2"
+set modsdir = "$3"
+
+if ("$4" == "-delete") then
+	set DELETE_OLD = 1
+else
+	set DELETE_OLD = 0
+
+set currdir = `pwd`
+if (-e $modsdir/$module) then
+	set new_module = "0"
+else
+	set new_module = "1"
+endif
+
+set bindir = "$modsdir/../public/bin"
+
+if ($DELETE_OLD == 0) then
+  if (-e $modsdir/$module) then
+	set OLD_VER=`$bindir/PM_extract_version $modsdir $module`	
+	echo "backing up module $module version $OLD_VER"
+	cd $modsdir
+	tar cvf $module-$OLD_VER.tar $module
+	gzip $module-$OLD_VER.tar
+	cd currdir
+	mv $modsdir/$module-$OLD_VER.tar.gz .
+	rm -Rf $modsdir/$module
+  else
+endif
+
+if (-e $modsdir/$module) then
+	rm -Rf $modsdir/$module
+endif
+
+set VER=`$bindir/PM_extract_version $newmoddir $module`	
+echo "installing module $module version $VER"
+
+cp -r $newmoddir/$module $modsdir
+
+if ("$new_module" == "1") then
+	$bindir/PM_update_modinfo $modsdir $module -add
+endif
+
+exit 0

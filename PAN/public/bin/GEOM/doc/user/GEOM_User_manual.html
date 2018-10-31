@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <title>GEOMETRY Module User manual</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+
+<body>
+
+
+
+
+<h1>GEOMETRY User Manual</h1>
+
+
+
+
+<br>
+
+
+
+
+The present document describes how to use the GEOMETRY Module.<br>
+
+
+
+
+<big style="font-weight: bold;"><br>1.- Introduction</big><br>
+
+
+
+
+<br>
+
+
+
+
+The Geometry Module Takes care of defining the geometry (topology) of the
+Focal Plane Array (FPA). According to the basic definitions given by the
+user through a set of files, it will calculate all the information needed
+in order to process the images correctly. The information that the geometry
+calculates is&nbsp; used by the GUNSC,&nbsp; GFITS and GRTD modules. This information
+includes:<br>
+
+
+
+
+<br>
+
+
+
+
+- sizes per amplifer, as well as total sizes in either direction (columns
+and rows), including any "modifier" to the actual data area (like overscan,
+prescans, etc)<br>
+
+
+
+
+- Binning, ROI&nbsp;<br>
+
+
+
+
+- Customized headers for describing the geometry of the array. The user can
+specify which kind of WCS description it may want. Currently only the
+NOAO headers module is implemented.<br>
+
+
+
+
+- Customized headers with information on the FPA itself, as well as from
+any detector that may conform the FPA (like manufacturers, specifications,
+actual parameter values measured, etc)<br>
+
+
+
+
+- All the above information is per-readout mode. If an FPA has more than one readout
+mode, then all the above information will change accordingly depending on
+the selected one<br>
+
+
+<br>
+
+The GEOM module gets all that information from a set of text files that
+are stored on the DET_DATABASE directory. For information on how those
+files are built, see the <a href="../DET_DATABASE/DET_DATA_User_manual.html">DET_DATABASE</a> manual<br>
+
+
+
+
+<big><br style="font-weight: bold;">
+
+
+<span style="font-weight: bold;">2.- Basic Geometry ideas</span></big><br>
+
+
+
+
+<br>
+
+
+
+
+The Input information requiered includes the type of chips in use (model),
+serial number for the specific ones, etc, and the geometric description.
+This geometric description consists basically on the lower-left coordinates
+of every detector on the array. <br>
+
+
+
+
+The output will consists on an array of amplifier structures (1 per amplifier),
+which describes the position of the amplifier on the whole array (relative
+to the lower-left corner), the type of amplifier, any ROI on that amplifier,
+etc.<br>
+
+
+
+
+The general idea is that any FPA can be reduced to an array of amplifiers.
+Besides that, any amplifier can be considered a "lower left" amplifier that
+was rotated or flipped (for example, a "lower right" is a flipped lower-left.
+Then the output will consist basically on an array of amplifier. In reality,
+it can be considered an array of arrays, because 1 array will exists for
+each readout mode of the FPA.<br>
+
+
+
+
+<br>
+
+
+
+
+There are two basic coordinate systems: one relative to the lower-left corner
+of the FPA (general coordinates) and another which is relative to the lower-left
+corner of the amplifier position (particular coordinates). This means that
+for each amplifier we will have two set of coordinates: the position it accupies
+on the whole FPA, and the positon that any ROI, overscan, etc, occupies on
+the specific amplifier (referred to its own lower-left coordinate)<br>
+
+
+
+
+<br>
+
+
+
+
+The per-amplifier information which is handled then is:<br>
+
+
+
+
+- DetNumber: to which detector (on the FPA) it belongs<br>
+
+
+
+
+- Number: amplifier number; the temporary position it ocuppies when the array
+is read out.<br>
+
+
+
+
+- Type: Even when each amplifier can be considered "lower-left", we defined
+four types in order to optimize the unscrambling step: lower-left, lower-right,
+upper-left and upper-right. The advantage of defining these four types, is
+that you avoid the need of flipping and/or rotating in many cases, just for
+ordering the pixels inmediatelly at unscrambling time.<br>
+
+
+
+
+- rotate: amplifier rotation. It must be multiples of 90 degrees.<br>
+
+
+
+
+- flip: horizontal or vertical flip<br>
+
+
+
+
+- FPAcoord: position of the lower-left corner of the amplifier on the whole
+FPA<br>
+
+
+
+
+- Physical size: size of the amplifier (data, phisycal area)<br>
+
+
+
+
+- predata: this is any pixels previous to the actual data (like prescans).
+This can incorporate pixels in both X or Y (columns or/and rows)<br>
+
+
+
+
+- postdata: any pixels after the data pixels (like overscan). Again, it have
+X and/or Y postdata pixels<br>
+
+
+
+
+- Requested ROIs: is an array of the ROI coordinates requested for that amplifier.
+<br>
+
+
+
+
+- Corrected ROIs: the same as the Requested ROI, but it will change according
+to factors like Binning, etc.<br>
+
+
+
+
+<br>
+
+
+
+
+<br>
+
+
+
+
+With the above information, the unscrambler knows how to order the data that
+is arriving, the RTD will know where to display it (position of each amplifier)
+and the FITS module will know how to write the unscrambled data on disk.<br>
+
+The GEOM module also can write to the image headers any information
+requested (including manufacturer, etc) through a header file template.<br>
+<big style="font-weight: bold;"><br>3.- Module Commands</big><br>
+Most of the commands supported by the module are low-level and used
+internally by other modules; the external client should never use them
+externally, so they are not going to be described here, but o n the
+programmer's manual. The only user-available commands are related two
+modifying the automatic WCS calculations, either by overriding the
+actual fields, ot offseting the origin of coordinates (linear
+translation). We will describe this command here<br><br><big style="font-weight: bold;">SET &lt;args ...&gt;</big><br><span style="font-style: italic; text-decoration: underline;">description</span><br>Sets the specified param to the specified value. The available params are<span style="font-style: italic; font-weight: bold;"><br><a name="offcoords"></a>offcoords &lt;xoff&gt; &lt;yoff&gt;</span><span style="font-weight: bold;"></span><br>offsets<span style="font-style: italic; font-weight: bold;"> </span><span style="font-weight: bold;"></span>the
+coordinates origin (1,1) by the specified offset in x and y. This has
+effect on the headers description only, not in the actual image or
+data. basically, translates the WCS by the specified amount of pixels
+in both x and y. This can also be specified in the FPA configuration
+file. It is mostly useful when building multi-fpa folacl planes. <br><span style="font-weight: bold; font-style: italic;">wcskey &lt;keyname&gt; &lt;inix&gt; &lt;endx&gt; &lt;iniy&gt; &lt;endy&gt; [comment]<br></span>overrides
+the standard WCS key specified using the given arguments. The argumtn
+can be number of numerical expresions of the type
+*&lt;operator&gt;&lt;number&gt;, as *+1, meaning: "to the standard wcs
+key, add 1". The operator can be any arithmetical one (+-/*). The
+expression "*" alone would mean "leave untouched". If the comment is
+not specified, it will keep the standard one. <br style="font-style: italic; text-decoration: underline;"><span style="font-style: italic; text-decoration: underline;">examples</span><br><span style="font-weight: bold; font-style: italic;"></span><span style="font-style: italic; font-weight: bold;"><small>SET offcoords 1025 2049</small><br></span>would
+cause, if using multi extensiuons NOAO wcs keys, to offset DETSEC by
+(1025,2049), basically by adding 1025 to &lt;initx&gt; and
+&lt;endx&gt;, and adding 2049 to &lt;iniy&gt; and &lt;endy&gt;, It
+would also add the offstes to the end of DETSIZE<br><small><span style="font-weight: bold; font-style: italic;">SET TSEC22 *+1 *+1 * * this is a new comment</span></small><br>would
+cause to modify the WCS key TSEC22, adding 1 to the begining and end of
+the x part,and leaving untouched the y part. It would also change the
+comment. For example<br>[21:1024,1:2048] &nbsp;-&gt; [22:1025,1:2048]<br><br><span style="font-style: italic; font-weight: bold;"><br></span><span style="font-weight: bold;"><big>GET &lt;args ...&gt;</big></span><span style="font-style: italic; font-weight: bold;"><br></span><span style="font-style: italic; text-decoration: underline;">description</span><span style="font-style: italic; font-weight: bold;"><br></span>gets the same params (args) described under SET<span style="font-style: italic; font-weight: bold;"><br></span>
+
+
+
+
+<br><br><br>
+
+
+<big style="font-weight: bold;"><br>4.- Configuration Files.<br>
+
+
+</big><big><br>
+
+
+<small>The configuration file for the GEOM module itself is found using the <a href="../APP/ArcVIEW_Modules.html">standard way for the module's config files</a></small></big><big style="font-weight: bold;"><br>
+
+
+</big>
+
+The GEOM config file is<br>
+
+
+<br>
+
+<span style="font-weight: bold;">
+[DATABASE]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+path=<span style="font-style: italic;">&lt;database_path&gt;</span></span><br style="font-weight: bold;">
+
+
+<br>
+
+
+/*this indicates where to find the "text database" with the information for the FPA. See the information on <a href="../DET_DATABASE/DET_DATA_User_manual.html">DET_DATABASE</a>*/<br>
+
+
+<br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+[HDRINFO]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+file=<span style="font-style: italic;">&lt;header template file path&gt;<br style="font-weight: bold;"></span></span>
+
+
+<br>
+
+
+/*path to the template file for the header's information. See section 5*/<br><br style="font-weight: bold;"><span style="font-weight: bold;">overwcs=<span style="font-style: italic;">&lt;wcs_override_template&gt;</span></span><br><br>/*this is an optional file to override the standard WCS descriptions. See section 6*/<br><br><br>
+
+
+<br>
+
+
+<br>
+
+<big style="font-weight: bold;">5.- Header file template<br>
+
+<br>
+
+</big><big><small>The template file has the same sintax that the main header template of the application (see the GFITS module manual)<br>
+
+</small></big>
+<br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">KEYWORD = '&lt;expression&gt;' /comment</span><br>
+
+<br>
+
+The KEYWORD is usually the name it will have on the headers, except one exception stated below. <br>
+
+&lt;expression&gt; &nbsp;can be<br>
+
+<span style="font-weight: bold;">WCS &lt;<span style="font-style: italic;">wcs module to use</span>&gt;</span>:
+indicates what WCS to use. Currently the only supported WCS module is
+the NOAO one. In this case the KEYWORD will not appear on the header,
+but here all the WCS information will be added (many KEY=value entries
+on the header)<br>
+
+<span style="font-weight: bold;">detinfo [datatype] &lt;<span style="font-style: italic;">info</span>&gt;</span>
+: this indicates that it is information from the detector information.
+See the DET_DATABASE for information on what this fields can be<br>
+
+<span style="font-weight: bold;">fpainfo [datatype] &lt;<span style="font-style: italic;">info</span>&gt;</span> : this indicates that the information is from the FPA itself. See the DET_DATABASE for information on what these fields can be<br>
+
+<br>
+
+<span style="font-style: italic; text-decoration: underline;">Example<br>
+
+</span><span style="text-decoration: underline;"></span><br>
+
+<small style="font-weight: bold; font-style: italic;">WCS &nbsp; &nbsp; &nbsp; &nbsp; = 'WCS NOAO'&nbsp;&nbsp;&nbsp; /WCS information<br>
+
+DETID &nbsp; &nbsp; &nbsp;= 'detinfo id'&nbsp;&nbsp;&nbsp; /detector name<br>
+
+DETSER &nbsp;= 'detinfo SerialNumber' /detector serial number<br>
+
+FPA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=' fpainfo id&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ' /fpa name<br>
+
+</small><br>
+
+The header may then look like:<br>
+
+<br>
+
+<small style="font-weight: bold; font-style: italic;">...<br>
+
+ASEC1 = '[1:64,1:2048] ' &nbsp; /amplifier section 1(LL)<br>
+
+CSEC1 = ...<br>
+
+...<br>
+
+ASECN = ...<br>
+
+...<br>
+
+DETID = 'Hawaii-IIRG_1'&nbsp;&nbsp;&nbsp; /detector name<br>
+
+DETSER= '103'&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /detector serial<br>
+
+FPA&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ='SNAP_Hawaii'&nbsp;&nbsp;&nbsp; /fpa name</small><br>
+
+<br>
+
+if the key DETSER had been defined as, for example, "<span style="font-weight: bold; font-style: italic;">detinfo (U16) SerialNumber'</span>, it has appeared as integer, and not as string as in the example.<br>
+
+<span style="font-style: italic; text-decoration: underline;"></span><br><br><br>
+
+<span style="font-weight: bold;"><big>6.- Override WCS template file</big><br><br></span>
+
+This is an optional file that has the same effect as the "set wcskey"
+command described above. It basically states what wcs key to modif and
+how<br>The sytanx is the same as any othe template:<br><br><span style="font-weight: bold; font-style: italic;"><small>KEYWORD = '[inix:endx,iniy:endy]' /comment</small><br><br></span>Where KEYWORD is the name of the WCS key to modify and inix, endx, iniy and endy can be<br><br>a) a number: it will just use those number for those sections<br>b) a expression that uses "*" and arithmetical expresions.<br><br><span style="text-decoration: underline; font-style: italic;">Example:</span><br><br><small><span style="font-weight: bold; font-style: italic;">TSEC22 ='[*+1:*+1, *:*]' / this is a new comment</span></small><br><span style="font-weight: bold; font-style: italic;"></span>
+
+ <br>would have the same effect as the wcskey command described in the commands sections. <br>The file can specify multiple keys, separated by newline (one key per line)<br>
+
+
+
+
+</body></html>

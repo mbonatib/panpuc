@@ -1,0 +1,34 @@
+labview.menuSetup: "default"
+labview.saveFloaterLocations: True
+labview.find.viListFlags: 4
+labview.LastErrorListSize: 486x379+0+0
+labview.RecentFiles.pathList: "/home/tspec/panview/PAN/Modules/GFITS/public/vis/GFITS_Main.vi:/home/tspec/panview/PAN/Modules/DHE/public/vis/DHE.vi:/home/tspec/panview/PAN/Modules/Common/public/vis/CMN_buildImageName.vi:/home/tspec/panview/PAN/public/bin/PAN_run.vi:/home/tspec/panview/PAN/Modules/GFITS/public/vis/GFITS_API.vi:/home/tspec/guis/TS4TEMP/OPTGUI/OPTGUI_Main.vi:/home/tspec/apps/TS4TEMP/ArcVIEW/bin/APP_run.vi:/home/tspec/apps/TS4TEMP/ArcVIEW/modules/SYNCDEV/public/vis/SYNC_Device.vi:/home/tspec/apps/TS4TEMP/ArcVIEW/modules/COMSTCPDEV/public/vis/COMSTCP_Device.vi:/home/tspec/apps/TS4TEMP/ArcVIEW/modules/TPCTRLDEV/private/IOMODS/PFEIFFER/TPCTRL_IO_PFEIFFER.vi"
+labview.editRecentPaths: "/home/tspec/apps/TS4TEMP/ArcVIEW/modules/COMSTCPDEV/public/vis:/home/tspec/apps/TS4TEMP/ArcVIEW/modules/SYNCDEV/public/vis:/home/tspec/panview/PAN/Modules/TCSBLANCO/public/vis:/home/tspec/panview/PAN/Modules/DHE/public/vis:/home/tspec/panview/PAN/Modules/SDSU/public/vis:/home/tspec/panview/PAN/Modules/GFITS/public/vis:/home/tspec/panview/PAN/Modules/Common/public/vis"
+labview.find.searchStr: "dhe_mix"
+labview.SaveChanges_ApplyToAll: True
+labview.RecentFiles.projectPathList: "/home/tspec/apps/TS4TEMPclass/TS4TEMP.lvproj"
+labview.colorHistoryItemA: #00FFCCCC
+labview.colorHistoryItemB: #0066FF00
+labview.colorHistoryItemC: #00FF0000
+
+labview.colorHistoryItemE: #0033FF00
+labview.colorHistoryItemF: #00006633
+labview.colorHistoryItemG: #00999999
+labview.colorHistoryItemH: #00000000
+labview.colorHistoryItemI: #00FFCC66
+labview.xwmShellRect.NoTitle: 0x0+0+0
+labview.IsFirstLaunch: False
+labview.xwmShellRect.Title: 2x4+2+26
+labview.EnableAutomaticErrorHandling: False
+labview.defaultErrorHandlingForNewVIs: False
+labview.PropPageBounds: "402;200;898;659"
+labview.colorHistoryItemD: #00663300
+labview.ShowConstantFolding: False
+labview.ShowConstantFoldStructs: False
+labview.WebServer.Enabled: True
+labview.NewDlgRecentMainTemplates.pathList: ""
+labview.NewDlgBounds: "800;600"
+labview.NewDlgSmall: False
+labview.NewDlgRecentTemplates.pathList: ""
+labview.NewDlgLastSelected: "D60740D6-F254-4BBC-5675-8858F35B810E"
+labview.NewDlgCollapsed: "77E350A8-F9AA-43FF-85E2-454279EBB9A7 3F7CF7A8-5E4D-4EDC-AA25-FA4A326988EF 8E4D36AD-F776-4C48-97C6-C1D85EFE889F"

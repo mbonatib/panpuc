@@ -1,0 +1,90 @@
+#! /bin/csh -f
+
+if ($#argv < 3) then
+	echo "usage: MM_update_automodules <module_name> [<-add | -delete>] [-rootdir <dir>] [-autostart] [-noautoload]"
+	exit 1
+endif
+
+if (! -e $1) then
+	echo "ERROR config directory not found"
+	exit 1
+endif
+if (! -e $1/$2) then
+	echo "ERROR module not found"
+	exit 1
+endif
+
+set modsdir = "$1"
+set module = "$2"
+set DELETE = 0
+set ADD = 1
+set autostart = 0
+set autoload = 1
+set rootdir = ""
+shift
+shift
+while ("$1" != "")
+        switch ("$1")
+        case -delete:
+                set DELETE = 1
+                set ADD = 0
+                breaksw
+        case -add:
+                set DELETE = 0
+                set ADD = 1
+                breaksw
+        case -autostart:
+                set autostart = 1
+                breaksw
+        case -noautoload:
+                set autoload = 0
+                breaksw
+     	case -rootdir:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR "missing argument to '-rootdir <dir>' switch"
+                        exit 1
+                endif
+                set rootdir = "$1"
+                breaksw
+        default:
+                ERR  "install: unknown argument $1"
+		exit 1
+        endsw
+	shift
+end
+
+if 
+if (! -e "$modsdir/$module/INFO.txt") then
+	echo "ERROR INFO for module $module was not found"
+	exit 1
+endif
+if (! -e "$modsdir/MODS.INFO") then
+	echo "WARNING MODINFO was not found"
+	if ("$ADD" == "1") then
+		echo "Creating it with $module INFO"
+	endif
+endif
+
+while ($#cf > 0)
+        if ("$MODPATH" != "") then
+                set key = `echo "$cf[1]" | egrep _MODPATH_=`
+                if ("$key" != "") then
+                        echo "_MODPATH_=$MODPATH" >> tmpfile
+                        goto next
+                endif
+        endif
+        if ("$LOGPATH" != "") then
+                set key = `echo "$cf[1]" | egrep _LOGPATH_=`
+                if ("$key" != "") then
+                        echo "_LOGPATH_=$LOGPATH" >> tmpfile
+                        goto next
+                endif
+        endif
+        echo "$cf[1]" >> tmpfile
+next:
+        shift cf
+end
+
+exit 0

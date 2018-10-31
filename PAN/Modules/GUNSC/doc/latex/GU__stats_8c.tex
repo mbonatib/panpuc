@@ -1,0 +1,46 @@
+\section{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-stats.c File Reference}
+\label{GU__stats_8c}\index{panview_current/PAN/Modules/GUNSC/private/c/src/GU_stats.c@{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-stats.c}}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$math.h$>$}\par
+{\tt \#include \char`\"{}GU\_\-transformations.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{PI}~3.141598
+\item 
+\#define \bf{OK}~0
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{GU\_\-SHORT\_\-stats\_\-mean} (unsigned long image\_\-buf, unsigned long nelems, float $\ast$stats)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{GU_stats.c@{GU\_\-stats.c}!OK@{OK}}
+\index{OK@{OK}!GU_stats.c@{GU\_\-stats.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~0}\label{GU__stats_8c_ba51915c87d64af47fb1cc59348961c9}
+
+
+\index{GU_stats.c@{GU\_\-stats.c}!PI@{PI}}
+\index{PI@{PI}!GU_stats.c@{GU\_\-stats.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define PI~3.141598}\label{GU__stats_8c_598a3330b3c21701223ee0ca14316eca}
+
+
+
+
+\subsection{Function Documentation}
+\index{GU_stats.c@{GU\_\-stats.c}!GU_SHORT_stats_mean@{GU\_\-SHORT\_\-stats\_\-mean}}
+\index{GU_SHORT_stats_mean@{GU\_\-SHORT\_\-stats\_\-mean}!GU_stats.c@{GU\_\-stats.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GU\_\-SHORT\_\-stats\_\-mean (unsigned long {\em image\_\-buf}, unsigned long {\em nelems}, float $\ast$ {\em stats})}\label{GU__stats_8c_735e375abc65e233d70417fc55afcc75}
+
+
+Calculates statictics over an image \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em image\_\-buf}]image buffer pointer \item[\mbox{$\leftarrow$} {\em image\_\-buf}]nelems numbe rof elements (pixels) on image \item[\mbox{$\rightarrow$} {\em $\ast$stats}]output stats array: Mean (0), Variance (1), Max (2) and Min (3) \end{description}
+\end{Desc}

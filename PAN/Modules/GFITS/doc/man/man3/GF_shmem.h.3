@@ -1,0 +1,139 @@
+.TH "panview_current/PAN/Modules/GFITS/private/c/src/GF_shmem.h" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GFITS/private/c/src/GF_shmem.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/ipc.h>\fP
+.br
+\fC#include <sys/shm.h>\fP
+.br
+\fC#include <sys/msg.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <linux/version.h>\fP
+.br
+\fC#include <asm/page.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBpangfits_msgbuf\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDIVIDES\fP(a, n)   (!((n) % (a)))"
+.br
+.ti -1c
+.RI "#define \fBSHMSZ\fP   27"
+.br
+.ti -1c
+.RI "#define \fBOK\fP   0"
+.br
+.ti -1c
+.RI "#define \fBMAXLEN\fP   30"
+.br
+.ti -1c
+.RI "#define \fBSHM_NAME\fP   'pangfits'"
+.br
+.ti -1c
+.RI "#define \fBMSGNEWFITS\fP   2"
+.br
+.ti -1c
+.RI "#define \fBMSGSHM\fP   1"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBpangfits_msgbuf\fP \fBqmsg_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBGF_shmDestroy\fP (char *name, void *buffer, int id, int qid)"
+.br
+.ti -1c
+.RI "void * \fBGF_shmAttach\fP (size_t *psize, char *name, void *buffer, int *\fBshmid\fP, int *qid)"
+.br
+.ti -1c
+.RI "void \fBGF_shmSendMsg\fP (int qid, char *msg, long type)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define DIVIDES(a, n)   (!((n) % (a)))"
+.PP
+.SS "#define MAXLEN   30"
+.PP
+.SS "#define MSGNEWFITS   2"
+.PP
+.SS "#define MSGSHM   1"
+.PP
+.SS "#define OK   0"
+.PP
+.SS "#define SHM_NAME   'pangfits'"
+.PP
+.SS "#define SHMSZ   27"
+.PP
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBpangfits_msgbuf\fP  \fBqmsg_t\fP"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "void* GF_shmAttach (size_t * psize, char * name, void * buffer, int * shmid, int * qid)"
+.PP
+Attach shared memory buffer and return ID of the segment 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI*psize\fP as input, the desired size, as output the ctual attached size 
+.br
+\fIattached\fP shared memory buffer 
+.br
+\fI*shmid\fP shared memory ID out 
+.br
+\fI*qid\fP shared meory queue ID out 
+.RE
+.PP
+
+.SS "int GF_shmDestroy (char * name, void * buffer, int id, int qid)"
+.PP
+Destroys shared memory segment 
+.SS "void GF_shmSendMsg (int qid, char * msg, long type)"
+.PP
+Sends a message trhough shared memory queue 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqid\fP shared memory queue ID  *msg string message to send 
+.br
+\fItype\fP message type to send 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

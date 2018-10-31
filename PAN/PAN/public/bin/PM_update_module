@@ -1,0 +1,188 @@
+#! /bin/csh -f
+
+setenv ARCROOT $PAN_ROOT
+set hilite=1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+
+set modsdir = ""
+set newmoddir = ""
+set DELETE_OLD = 0
+
+if ($#argv < 1) then
+	goto usage
+	exit 1
+endif
+
+set module = "$1"
+set configdir = ""
+set update_automods = 1
+set autoload = 1
+set autostart = 0
+set confirm = 1
+set FORCE_UPDATE = 0
+
+shift
+
+if ("$1" == "") then
+	goto start
+endif
+
+while ("$1" != "")
+	switch ("$1")
+	case -h:
+		goto usage
+		breaksw
+	case -delete:
+		set DELETE_OLD = 1
+		breaksw
+	case -force:
+		set FORCE_UPDATE = 1
+		breaksw
+	case -noautomods:
+		set update_automods = 0
+		breaksw
+	case -autostart:
+		set autostart = 1
+		breaksw
+	case -noautoload:
+		set autoload = 0
+		breaksw
+	case -nconfirm:
+		set confirm = 0
+		breaksw
+	case -configdir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-configdir <dir>' switch"
+			exit 1
+		endif
+		set configdir = "$1"
+		breaksw
+	case -modsdir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-modsdir <dir>' switch"
+			exit 1
+		endif
+		set modsdir = "$1"
+		breaksw
+	case -newmoddir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-newmoddir <dir>' switch"
+			exit 1
+		endif
+		set newmoddir = "$1"
+		breaksw
+	default:
+		ERR  "install: unknown argument $1"
+		goto usage
+	endsw
+
+	if ("$2" == "") then
+		break
+	else
+		shift
+	endif
+end
+
+start:
+if ("$DELETE_OLD" == "1") then
+	set delmod = " -delete"
+else
+	set delmod = ""
+
+if ("$modsdir" == "") then
+        set env_arcroot = `setenv | egrep ARCROOT`
+	if ("$env_arcroot" == "") then
+		set currdir = `cd ../../../; pwd`
+                setenv ARCROOT $currdir
+	endif
+	set modsdir = "$ARCROOT/PAN/Modules"
+endif
+
+set bindir = "$modsdir/../public/bin"
+
+if (! -e $modsdir) then
+	echo "ERROR directory $modsdir was not found"
+	exit 1
+endif
+
+set currdir = `pwd`
+
+if ("$newmoddir" == "") then
+	set lastver = `$bindir/PM_get_last_version $module`
+	if ("$lastver[1]" == "ERROR") then
+		echo "$lastver (remote)"
+		exit 1
+	endif
+	set currver = `$bindir/PM_extract_version $modsdir $module` 
+	if ("$currver[1]" == "ERROR") then
+		echo "$currver (installed)"
+		exit 1
+	endif
+	set compar = `$bindir/PM_compare_versions $lastver $currver`
+	if ("$compar" == "0") then
+		echo "OK (up to date)"
+		if ("$FORCE_UPDATE" == "0")  then
+			exit 0
+		endif
+	endif
+	if ("$compar" == "2") then
+		echo "this cannot be... the installed version is > than the later on the rep."
+		echo "aborting"
+		exit 1
+	endif
+
+	if ("$compar" == "1") then
+		echo "There is a newer version available (installed $currver, last available $lastver)"
+	else
+		echo "You are about to re-install the same version (installed $currver)"
+	endif
+	if ("$confirm" == "1") then
+		if ("$compar" == "1") then
+			echo -n "do you want to see the changes since the installed version? (no) "
+     			set ans = "$<"
+       			if ("$ans" == "") then
+         	       		set ans = "n"
+       			endif
+       			if ("$ans" == "y" || "$ans" == "yes") then
+				$bindir/PM_get_last_version $module -chanfrom $currver
+				echo ""
+				echo ""
+        		endif
+		endif
+		echo -n "do you want to install it? (no) "
+     		set ans = "$<"
+       		if ("$ans" == "") then
+         	       set ans = "n"
+       		endif
+       		if ("$ans" == "n" || "$ans" == "no") then
+              		exit 1
+        	endif
+	endif
+	echo "bringing last version of $module ($lastver) ..."
+	$bindir/PM_get_last_module $module
+	echo "updating module $module"
+	set newmoddir = "."
+endif
+
+$bindir/PM_install_module $module -modsdir $modsdir -newmoddir $newmoddir $delmod
+
+
+exit 0
+
+usage:
+	echo ""
+	echo "usage: PM_update <module> [-h] [-delete] [-modsdir <dir>] [-newmoddir <dir>] [-nconfirm] [-force]"
+	echo "		where:"
+	echo "		-h	= displays this help"
+	echo "		-delete = deletes the old module rather than backing it up"
+	echo "		-modsdir = modules directory. <environment ARCROOT> by default"
+	echo "		-newmoddir = directory of module under test. Current (./) by default"
+	echo "		-force = force the update even if the latest and the installed versions are the same"

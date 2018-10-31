@@ -1,0 +1,24 @@
+This simple program takes arguments from the standard input and writes it to the
+specified host:port. THis program can be used from a Csh script
+(see the Csh directory in this demos), or from a compiled program (as a
+system call, for example).
+
+
+usage:
+
+soksendcmd [-?] [-h hostname] [-p portnumber] [-t timeout] [-m mode] "message"
+
+-? : print the usage message
+timeout is in seconds
+<mode> can be:
+	0: waits for the response, but no more than <timeout> secs
+	1: send the cmd, and do not wait for the response
+
+
+This program works fine over LINUX. If you want to use in in a diferent 
+platform, like Solaris or SunOS, you should review the error values.
+ For example, in Linux it returns EGAIN when you peform a read in a 
+Non-Blocking mode, but in SunOS this will be EWOULDBLOCK. 
+I didn't include all this here cause this is just a demo .....
+
+M.B.

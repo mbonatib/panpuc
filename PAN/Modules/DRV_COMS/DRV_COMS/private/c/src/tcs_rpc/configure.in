@@ -1,0 +1,58 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(tcsCmd.c)
+
+system=`uname -s`-`uname -r`
+case $system in
+    SunOS-4*)
+        AC_DEFINE(_SUNOS_)
+	MACHINE="sun"
+	CC="gcc"
+	CFLAGS=""
+        ;;
+    SunOS-5*)
+        AC_DEFINE(_SOLARIS_)
+	MACHINE="sol"
+	CC="cc"
+	CFLAGS=""
+        ;;
+    Linux-2.0*)
+        AC_DEFINE(_LINUX_)
+	MACHINE="rh5x"
+	CC="gcc"
+	CFLAGS="-Wall"
+        ;;
+    Linux-2.2*)
+        AC_DEFINE(_LINUX_)
+	MACHINE="rh6x"
+	CC="gcc"
+	CFLAGS="-Wall"
+        ;;
+    Linux-2.4.*)
+        AC_DEFINE(_LINUX_)
+	version=`cat /etc/redhat-release | awk '{print $5}'`
+	MACHINE="rh"$version"x"
+	CC="gcc"
+	CFLAGS="-Wall"
+	OSYSTEM="ISUNIX"
+	PROCESSOR="ISINTEL"
+	LOCKFCTN="LOCKFCTN none"
+        ;;
+    Linux-2.6.*)
+        AC_DEFINE(_LINUX_)
+	MACHINE="fcx"
+	CC="gcc"
+	CFLAGS="-Wall"
+	OSYSTEM="ISUNIX"
+	PROCESSOR="ISINTEL"
+	LOCKFCTN="LOCKFCTN none"
+        ;;
+    *)
+        AC_DEFINE(_UNKNOWN_ARCH)
+        ;;
+esac
+
+AC_SUBST(MACHINE)
+AC_SUBST(CC)
+AC_SUBST(CFLAGS)
+
+AC_OUTPUT(Makefile)

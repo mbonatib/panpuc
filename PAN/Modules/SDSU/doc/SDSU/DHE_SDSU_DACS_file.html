@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+  
+             
+  
+  <title>DHE_DACS_file_SDSU</title>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+</head>
+
+
+<body>
+
+                   
+<h2>SDSU DACS file</h2>
+
+            The DHE Dacs file defines the system DACS in order to simplify
+ the interface. The DACs&nbsp; can always be accessed through the MEMORY
+commands  (see the <a href="DHE_CommandList_SDSU.html">enginnering command
+list</a>  ), but by using this file you can acces its using defined names
+and predefine  the gains, offsets, locations, etc, so you can later acces
+each DAC through  a name and get (and set) the&nbsp; values in volts rather
+than DAC units. You can still use DAC units, anyway. See the DAC commands
+on the <a href="DHE_CommandList_SDSU.html">command list</a><br>
+
+         <br>
+
+  <br>
+
+  The format of the file is:<br>
+
+<br>
+<span style="font-weight: bold;">
+[RESOLUTION]</span><br>
+<span style="font-weight: bold;">VID</span>=<span style="font-weight: bold; font-style: italic;">&lt;dac_bits&gt;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span> &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<br>
+<span style="font-weight: bold;">CLK</span>=<span style="font-weight: bold; font-style: italic;">&lt;dac_bits&gt;<br>
+<br>
+</span> /*12 bits by default*/<br>
+<br>
+
+<br>
+<span style="font-weight: bold;">
+[CONSTANTS]</span><br>
+
+<span style="font-weight: bold;">name1</span>=<span style="font-style: italic; font-weight: bold;">value1&nbsp;&nbsp;&nbsp; &nbsp;</span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<br>
+
+<span style="font-weight: bold;">name2</span>=<span style="font-weight: bold; font-style: italic;">value2</span><br>
+
+...<br>
+/*any constant to
+be used later on the DACS list, to avoid rewrite all if some parameter changes*/<br>
+
+  <br>
+<span style="font-weight: bold;">
+  [DACS]</span><br>
+<span style="font-weight: bold;">
+  NAME_1</span>="<span style="font-weight: bold; font-style: italic;">boardnum boardtype dacnum gain default [offset] [upperlimit] [lowerlimit]
+ [comment]</span>"<br>
+
+  ...<br>
+<span style="font-weight: bold;">
+  NAME_N</span>="<span style="font-weight: bold; font-style: italic;">boardnum boardtype dacnum gain default [offset] [upperlimit] [lowerlimit]
+ [comment]</span>"<br>
+
+  <br>
+
+        <br>
+
+  where<br>
+
+  <b>boardnum:</b> address of the board<br>
+
+  <b>boardtype:</b> type of board: &lt;VID | CLK&gt;<br>
+
+  <b>dacnum:</b> dac number, on that board<br>
+
+  <b>gain:</b> gain of the DAC path, in mvolts/dac<br>
+
+  <b>default:</b> default value, in volts. This is the initial value, sine it cannot be read back from the controller<br>
+
+  <b>offset:</b> offset of the DAC, in volts. This is used to define a bipolar
+DAC,  for example. If it is not specified, 0 is assumed<br>
+
+  <b>upperlimit:</b> maximum value allowed, in volts. None if not specified<br>
+
+  <b>lowerlimit:</b> minimum value allowed, in volts. None if not specified
+<br>
+
+  <b>comment:</b> description (optional)<br>
+
+  <br>
+
+  <u><b>Important Note</b></u>: In a SDSU system there is no easy way
+of reading back the value of the DACS. What the software does is to
+issue the specified value, and if no error is returned &nbsp;from the
+controller, assumes it
+was placed, and then it remembers the last value sent (which is what
+you
+get when you issue a DAC GET &lt;name&gt; command (see list of
+commands)).
+This means that the "default" parameter specified on the config file is
+requiered
+in order to know the initial value. Since there is no way of actually
+reading
+it back, this value must be synced manually to the starting value
+actually
+specified on the DSP code of the timing board. Another way of ensuring
+perfect synchronization at the begining is to send explicitaly a "DAC
+SET ..." command on the initialization macro for each DAC.<br>
+
+  <br>
+
+      <br>
+
+         <u><i>Example:</i></u> <i><b>sample of the DAC file for the Hawaii-2RG detector:</b></i><br>
+
+  <i><br>
+
+</i>
+<pre>#board_num board_type dac_num gain default [offset] [upperlim]<br># [lowerlim] [comment]<br>#default offset=0<br>#defasult upperlim = 99 <br>#default lowerlim = -99<br>#gain is expressed in mvolts/dac (for example, for a max 5 volts out<br>#				it would be 5000/4095 = 1.221<br>[RESOLUTION]<br>VID=12<br>CLK=12<br><br>#measured dac reference ~ 3.290 [v]<br>[CONSTANTS]<br>gain=0.8034188<br>gain2=1.6095<br>bipol=-3.3<br>unipol=0.0<br>upperlim=3.3<br>lowerlim=0.0<br>lowerloadlim=-0.2<br>lowerlimoff=-3.3<br>highclk=3.3<br>lowclk=0.0<br>minps=3.0<br>maxres=1.7<br>maxLlev=0.2<br>minHlev=3<br><br>[DACS]<br>MODECTRL1="3 VID 1 gain2 3.3 bipol upperlim lowerlim  ctrl 1 (b0 p1)"<br>MODECTRL2="3 VID 2 gain2 3.3 bipol upperlim lowerlim ctrl 2 (b0 p2)"<br>VBIASPOWER="3 VID 4 gain 3.0 unipol upperlim lowerlim bias power (b0 p4)"<br>CELLDRAIN="3 VID 5 gain 0 unipol 0.1 lowerlim celldrain (b0 p5)"<br>DRAIN="3 VID 6 gain 0 unipol 1.0 lowerlim drain (b0 p6)"<br>MAINRESETB="2 VID 1 gain2 3.3 bipol upperlim lowerlim reset registers (b1 p1)"<br>VDDA="2 VID 4 gain 3.3 unipol upperlim minps analog power (b1 p4)"<br>VDD="2 VID 5 gain 3.3 unipol upperlim minps digital power (b1 p5)"<br>DSUB="2 VID 6 gain 0.4 unipol maxres lowerlim detector substrate (b1 p6)"<br>VRESET="2 VID 7 gain 0.15 unipol maxres lowerlim reset voltage (b1 p7)"<br>VBIASGATE="1 VID 4 gain 2.4 unipol upperlim lowerlim bias gate (b2 p4)"<br>VNBIAS="1 VID 5 gain 0.85 unipol upperlim lowerlim npn bias (b2 p5)"<br>VPBIAS="1 VID 6 gain 2.35 unipol upperlim lowerlim pnp bias (b2 p6)"<br>VNCASC="1 VID 7 gain 1.2 unipol upperlim lowerlim npn casc (b2 p7)"<br>VPCASC="0 VID 4 gain 2.0 unipol upperlim lowerlim pnp casc (b3 p4)"<br>VBIASOUTBUF="0 VID 5 gain 0.85 unipol upperlim lowerlim bias outbuf (b3 p5)"<br>REFSAMPLE="0 VID 6 gain 0.85 unipol 2.0 lowerlim sample reference (b3 p6)"<br>REFCOLBUF="0 VID 7 gain 0.85 unipol 2.0 0.8 col buf ref (b3 p7)"<br>LOADBIAS(0)="0 VID 3 gain2 2 bipol upperlim lowerbiaslim unused (b0 p3)"<br>LOADBIAS(1)="1 VID 3 gain2 2 bipol upperlim lowerlim unused (b1 p3)"<br>LOADBIAS(2)="2 VID 3 gain2 2 bipol upperlim lowerlim unused (b2 p3)"<br>LOADBIAS(3)="3 VID 3 gain2 2 bipol upperlim lowerlim unused (b3 p3)"<br>BIAS7(0)="0 VID 7 gain 0 unipol upperlim lowerlim unused (b0 p7)"<br>BIAS2(1)="1 VID 2 gain2 0 bipol upperlim lowerlim ctrl 2 (b1 p2)"<br>BIAS1(2)="2 VID 1 gain2 0 bipol upperlim lowerlim unused (b2 p1)"<br>BIAS2(2)="2 VID 2 gain2 0 bipol upperlim lowerlim unused (b2 p2)"<br>BIAS1(3)="3 VID 1 gain2 0 bipol upperlim lowerlim (b3 p1)"<br>BIAS2(3)="3 VID 2 gain2 0 bipol upperlim lowerlim unused (b3 p2)"<br>FSYNC_H="2 CLK 0 gain highclk unipol upperlim minHlev frame sync high"<br>FSYNC_L="2 CLK 1 gain lowclk unipol maxLlev lowerlim frame sync low"<br>VCLK_H="2 CLK 2 gain highclk unipol upperlim minHlev vertical clk high"<br>VCLK_L="2 CLK 3 gain lowclk unipol maxLlev lowerlim vertical clk low"<br>LSYNCB_H="2 CLK 4 gain highclk unipol upperlim minHlev line sync high"<br>...<br></pre>
+
+<br>
+
+<br>
+
+ <br>
+
+ Note that the DACs of type "CLK" are defined as NAME_H and NAME_L. The _H 
+value stands for the upper level of the clock, and the _L for the lower. It
+is not mandatory doing it in this way, but recommendable, so it is standard, 
+and facilitates for automated clients (like GUIs) to know not only which signals
+are true clocks (it is possible to use the clock voltages as biases), but which dac
+belongs to the same clock (for each level).<br>
+<br>
+Now, by accesing the dac as<br>
+<br>
+DAC SET DSUB 1.2<br>
+<br>
+is as setting at ~ 2000 adus the dac number 6 on the video board number 2<br>
+
+         <br>
+
+         <br>
+
+         &nbsp;<br>
+
+            <br>
+
+     
+</body>
+</html>

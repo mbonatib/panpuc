@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3326"
+   name=""
+   committed-date="2011-11-18T12:44:44.184227Z"
+   url="https://139.229.115.227/svn/tags/DRV_TCSSOAR-2.2/private/c"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="3326"/>
+<entry
+   name="lib"
+   kind="dir"/>
+<entry
+   name="src"
+   kind="dir"/>
+</wc-entries>

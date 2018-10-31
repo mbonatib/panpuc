@@ -1,0 +1,22 @@
+#!/bin/csh -f
+
+set name = "$1"
+set fc = `expr substr "$name" 1 1`
+if ("$fc" == '"' || "$fc" == ',' || "$fc" == ']' || "$fc" == '[')  then
+	set ini = 2
+else
+	set ini = 1
+endif
+set len = `expr length $name`
+set fc = `expr substr "$name" $len $len`
+if ("$fc" == '"' || "$fc" == ',' || "$fc" == ']' || "$fc" == '[')  then
+	@ final = $len - 2
+else
+	set final = $len
+endif
+if ($ini == 1 && $final != $len) then
+	@ final = $len - 1
+endif
+set name = `expr substr "$name" $ini $final`
+echo $name
+

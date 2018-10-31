@@ -1,0 +1,29 @@
+2012-03-08T05:31:29 UTC <Marco Bonati> LOG version 1.7
+	* fixed "set precision" command
+
+2012-03-05T05:31:29 UTC <Marco Bonati> LOG version 1.6
+	* added the parameter "precision" (digits of precision) and "utc" (use
+	uts or not). Defaults are 0/no. 
+	* precision setteable trhough config (MISC/precision=<dec_prec>) and command line
+	  ("set precision), utc setteable trhough config only
+(MISC/utc=true/false)
+
+2011-09-06T10:31:29 UTC <Marco Bonati> LOG version 1.5
+	* can parse <y>,<d>,<m> or <date> in the log path and
+	create a directory if does not exists
+
+2010-05-22T10:31:29 UTC <Marco Bonati> LOG version 1.4
+	* fixd "version" comamnd
+
+2008-11-05T10:31:29 UTC <Marco Bonati> LOG version 1.3
+	* removed OSU tags
+	* changed the renaming of the file to replace "-" and ":" by "_".
+	  This was done to avoid problem when handling this on windows
+
+2008-11-05T10:31:29 UTC <Marco Bonati> LOG version 1.2
+	* added the OSU svn tags
+
+2008-03-05T10:31:29 UTC <Marco Bonati> LOG version 1.1
+	*created
+
+	

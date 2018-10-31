@@ -1,0 +1,937 @@
+\section{test/roimasker/cdl.h File Reference}
+\label{roimasker_2cdl_8h}\index{test/roimasker/cdl.h@{test/roimasker/cdl.h}}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{CDL}
+\item 
+struct \bf{Marker}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{CDL\_\-VERSION}~\char`\"{}Client Display Library V1.8 07/28/01\char`\"{}
+\item 
+\#define \bf{MAX\_\-FBCONFIG}~128
+\item 
+\#define \bf{MAX\_\-FRAMES}~16
+\item 
+\#define \bf{MAX\_\-MAPPINGS}~32
+\item 
+\#define \bf{DEF\_\-CONTRAST}~0.25
+\item 
+\#define \bf{DEF\_\-NSAMPLE}~600
+\item 
+\#define \bf{DEF\_\-NSAMPLINES}~-1
+\item 
+\#define \bf{INDEF}~-999
+\item 
+\#define \bf{FB\_\-AUTO}~-1
+\item 
+\#define \bf{CDL\_\-UNITARY}~0
+\item 
+\#define \bf{CDL\_\-LINEAR}~1
+\item 
+\#define \bf{CDL\_\-LOG}~2
+\item 
+\#define \bf{C\_\-BLACK}~202
+\item 
+\#define \bf{C\_\-WHITE}~203
+\item 
+\#define \bf{C\_\-RED}~204
+\item 
+\#define \bf{C\_\-GREEN}~205
+\item 
+\#define \bf{C\_\-BLUE}~206
+\item 
+\#define \bf{C\_\-YELLOW}~207
+\item 
+\#define \bf{C\_\-CYAN}~208
+\item 
+\#define \bf{C\_\-MAGENTA}~209
+\item 
+\#define \bf{C\_\-CORAL}~210
+\item 
+\#define \bf{C\_\-MAROON}~211
+\item 
+\#define \bf{C\_\-ORANGE}~212
+\item 
+\#define \bf{C\_\-KHAKI}~213
+\item 
+\#define \bf{C\_\-ORCHID}~214
+\item 
+\#define \bf{C\_\-TURQUOISE}~215
+\item 
+\#define \bf{C\_\-VIOLET}~216
+\item 
+\#define \bf{C\_\-WHEAT}~217
+\item 
+\#define \bf{M\_\-FILL}~1
+\item 
+\#define \bf{M\_\-POINT}~2
+\item 
+\#define \bf{M\_\-BOX}~4
+\item 
+\#define \bf{M\_\-PLUS}~8
+\item 
+\#define \bf{M\_\-CROSS}~16
+\item 
+\#define \bf{M\_\-DIAMOND}~32
+\item 
+\#define \bf{M\_\-CIRCLE}~64
+\item 
+\#define \bf{M\_\-STAR}~128
+\item 
+\#define \bf{M\_\-HLINE}~256
+\item 
+\#define \bf{M\_\-VLINE}~512
+\item 
+\#define \bf{M\_\-HBLINE}~1024
+\item 
+\#define \bf{M\_\-VBLINE}~2048
+\item 
+\#define \bf{F\_\-ROMAN}~0
+\item 
+\#define \bf{F\_\-GREEK}~1
+\item 
+\#define \bf{F\_\-FUTURA}~2
+\item 
+\#define \bf{F\_\-TIMES}~3
+\item 
+\#define \bf{F\_\-BOLD}~4
+\item 
+\#define \bf{L\_\-SOLID}~0
+\item 
+\#define \bf{L\_\-DASHED}~1
+\item 
+\#define \bf{L\_\-DOTTED}~2
+\item 
+\#define \bf{L\_\-DOTDASH}~3
+\item 
+\#define \bf{L\_\-HOLLOW}~4
+\item 
+\#define \bf{L\_\-SHADOW}~5
+\item 
+\#define \bf{MK\_\-POINT}~0
+\item 
+\#define \bf{MK\_\-LINE}~1
+\item 
+\#define \bf{MK\_\-BOX}~2
+\item 
+\#define \bf{MK\_\-POLYLINE}~3
+\item 
+\#define \bf{MK\_\-POLYGON}~4
+\item 
+\#define \bf{MK\_\-CIRCLE}~5
+\item 
+\#define \bf{MK\_\-CIRCANN}~6
+\item 
+\#define \bf{MK\_\-ELLIPSE}~7
+\item 
+\#define \bf{MK\_\-ELLIPANN}~8
+\item 
+\#define \bf{MK\_\-TEXT}~9
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{CDL} $\ast$ \bf{CDLPtr}
+\item 
+typedef \bf{Marker} $\ast$ \bf{Marker\-Ptr}
+\item 
+typedef unsigned char \bf{uchar}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\bf{CDLPtr} \bf{cdl\_\-open} ()
+\item 
+char \bf{cdl\_\-read\-Cursor} ()
+\item 
+int \bf{cdl\_\-display\-Pix} ()
+\item 
+int \bf{cdl\_\-display\-IRAF} ()
+\item 
+int \bf{cdl\_\-display\-FITS} ()
+\item 
+int \bf{cdl\_\-read\-IRAF} ()
+\item 
+int \bf{cdl\_\-read\-FITS} ()
+\item 
+int \bf{cdl\_\-clear\-Frame} ()
+\item 
+int \bf{cdl\_\-read\-Image} ()
+\item 
+int \bf{cdl\_\-read\-Frame\-Buffer} ()
+\item 
+int \bf{cdl\_\-read\-Sub\-Raster} ()
+\item 
+int \bf{cdl\_\-write\-Sub\-Raster} ()
+\item 
+int \bf{cdl\_\-set\-Cursor} ()
+\item 
+int \bf{cdl\_\-print\-Pix} ()
+\item 
+int \bf{cdl\_\-print\-Pix\-To\-File} ()
+\item 
+int \bf{cdl\_\-set\-WCS} ()
+\item 
+int \bf{cdl\_\-get\-WCS} ()
+\item 
+int \bf{cdl\_\-get\-Mapping} ()
+\item 
+int \bf{cdl\_\-set\-Mapping} ()
+\item 
+int \bf{cdl\_\-query\-Map} ()
+\item 
+void \bf{cdl\_\-select\-FB} ()
+\item 
+void \bf{cdl\_\-close} ()
+\item 
+void \bf{cdl\_\-compute\-Zscale} ()
+\item 
+void \bf{cdl\_\-zscale\-Image} ()
+\item 
+void \bf{cdl\_\-set\-Frame} ()
+\item 
+void \bf{cdl\_\-set\-FBConfig} ()
+\item 
+void \bf{cdl\_\-set\-ZTrans} ()
+\item 
+void \bf{cdl\_\-set\-Zoom} ()
+\item 
+void \bf{cdl\_\-set\-Sample} ()
+\item 
+void \bf{cdl\_\-set\-Contrast} ()
+\item 
+void \bf{cdl\_\-set\-Name} ()
+\item 
+void \bf{cdl\_\-set\-Title} ()
+\item 
+void \bf{cdl\_\-get\-Frame} ()
+\item 
+void \bf{cdl\_\-get\-FBConfig} ()
+\item 
+void \bf{cdl\_\-get\-ZTrans} ()
+\item 
+void \bf{cdl\_\-get\-Zoom} ()
+\item 
+void \bf{cdl\_\-get\-Sample} ()
+\item 
+void \bf{cdl\_\-get\-Contrast} ()
+\item 
+void \bf{cdl\_\-get\-Name} ()
+\item 
+void \bf{cdl\_\-get\-Title} ()
+\item 
+void \bf{cdl\_\-get\-Sample\-Lines} ()
+\item 
+void \bf{cdl\_\-set\-Sample\-Lines} ()
+\item 
+void \bf{cdl\_\-zscale} ()
+\item 
+void \bf{cdl\_\-set\-ZScale} ()
+\item 
+void \bf{cdl\_\-get\-ZScale} ()
+\item 
+void \bf{cdl\_\-lookup\-FBSize} ()
+\item 
+void \bf{cdl\_\-set\-Debug} ()
+\item 
+int \bf{cdl\_\-mark\-Point} ()
+\item 
+int \bf{cdl\_\-mark\-Line} ()
+\item 
+int \bf{cdl\_\-mark\-Box} ()
+\item 
+int \bf{cdl\_\-mark\-Polyline} ()
+\item 
+int \bf{cdl\_\-mark\-Polygon} ()
+\item 
+int \bf{cdl\_\-mark\-Circle} ()
+\item 
+int \bf{cdl\_\-mark\-Circ\-Annuli} ()
+\item 
+int \bf{cdl\_\-mark\-Ellipse} ()
+\item 
+int \bf{cdl\_\-mark\-Ellip\-Annuli} ()
+\item 
+int \bf{cdl\_\-mark\-Text} ()
+\item 
+int \bf{cdl\_\-delete\-Mark} ()
+\item 
+int \bf{cdl\_\-clear\-Overlay} ()
+\item 
+int \bf{cdl\_\-redraw\-Overlay} ()
+\item 
+int \bf{cdl\_\-mark\-Coords\-File} ()
+\item 
+int \bf{cdl\_\-map\-Frame} ()
+\item 
+void \bf{cdl\_\-set\-Font} ()
+\item 
+void \bf{cdl\_\-set\-Text\-Width} ()
+\item 
+void \bf{cdl\_\-set\-Line\-Width} ()
+\item 
+void \bf{cdl\_\-set\-Line\-Style} ()
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_BLACK@{C\_\-BLACK}}
+\index{C_BLACK@{C\_\-BLACK}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-BLACK~202}\label{roimasker_2cdl_8h_22a9543e081938a146a8bce60a84200a}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_BLUE@{C\_\-BLUE}}
+\index{C_BLUE@{C\_\-BLUE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-BLUE~206}\label{roimasker_2cdl_8h_2e4dd0b4af70107f36c2aa60b1195f01}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_CORAL@{C\_\-CORAL}}
+\index{C_CORAL@{C\_\-CORAL}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-CORAL~210}\label{roimasker_2cdl_8h_783560dd85876b8c3ab9e642ed11061d}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_CYAN@{C\_\-CYAN}}
+\index{C_CYAN@{C\_\-CYAN}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-CYAN~208}\label{roimasker_2cdl_8h_8318e037c99fbf82089b68ba5d603cd0}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_GREEN@{C\_\-GREEN}}
+\index{C_GREEN@{C\_\-GREEN}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-GREEN~205}\label{roimasker_2cdl_8h_448d973f9ee30250ec93e600f5d89ed1}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_KHAKI@{C\_\-KHAKI}}
+\index{C_KHAKI@{C\_\-KHAKI}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-KHAKI~213}\label{roimasker_2cdl_8h_6a82654f95c35e25bdc2b8bbdd778773}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_MAGENTA@{C\_\-MAGENTA}}
+\index{C_MAGENTA@{C\_\-MAGENTA}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-MAGENTA~209}\label{roimasker_2cdl_8h_47da0a04e6c59fa061f60d36c10d9561}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_MAROON@{C\_\-MAROON}}
+\index{C_MAROON@{C\_\-MAROON}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-MAROON~211}\label{roimasker_2cdl_8h_f5821498ca04e540a9ba8b21ccef6607}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_ORANGE@{C\_\-ORANGE}}
+\index{C_ORANGE@{C\_\-ORANGE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-ORANGE~212}\label{roimasker_2cdl_8h_d0da755001370ae88a57535d806cfef5}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_ORCHID@{C\_\-ORCHID}}
+\index{C_ORCHID@{C\_\-ORCHID}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-ORCHID~214}\label{roimasker_2cdl_8h_5aac53c75b1782387b99599e4ffc4630}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_RED@{C\_\-RED}}
+\index{C_RED@{C\_\-RED}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-RED~204}\label{roimasker_2cdl_8h_7adb9aaa1eed15caecd92e3837581b53}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_TURQUOISE@{C\_\-TURQUOISE}}
+\index{C_TURQUOISE@{C\_\-TURQUOISE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-TURQUOISE~215}\label{roimasker_2cdl_8h_3f0addaae591c2bb02d8f602e1b86e30}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_VIOLET@{C\_\-VIOLET}}
+\index{C_VIOLET@{C\_\-VIOLET}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-VIOLET~216}\label{roimasker_2cdl_8h_c6ebda779d59f3d030912c1164ee6ef9}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_WHEAT@{C\_\-WHEAT}}
+\index{C_WHEAT@{C\_\-WHEAT}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-WHEAT~217}\label{roimasker_2cdl_8h_2dc6485628f71fb88135e02600681914}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_WHITE@{C\_\-WHITE}}
+\index{C_WHITE@{C\_\-WHITE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-WHITE~203}\label{roimasker_2cdl_8h_67fead37547ff67ca0a269d712e87822}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!C_YELLOW@{C\_\-YELLOW}}
+\index{C_YELLOW@{C\_\-YELLOW}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C\_\-YELLOW~207}\label{roimasker_2cdl_8h_7749aa942f59b07d1e951066e0aeca73}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!CDL_LINEAR@{CDL\_\-LINEAR}}
+\index{CDL_LINEAR@{CDL\_\-LINEAR}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CDL\_\-LINEAR~1}\label{roimasker_2cdl_8h_392a278497baee21d5f5cd0289b4bc49}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!CDL_LOG@{CDL\_\-LOG}}
+\index{CDL_LOG@{CDL\_\-LOG}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CDL\_\-LOG~2}\label{roimasker_2cdl_8h_5445c6b4fa1c0609131e7902d65de919}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!CDL_UNITARY@{CDL\_\-UNITARY}}
+\index{CDL_UNITARY@{CDL\_\-UNITARY}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CDL\_\-UNITARY~0}\label{roimasker_2cdl_8h_d0ce150d9a42618a19a8fab9b3afb8ef}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!CDL_VERSION@{CDL\_\-VERSION}}
+\index{CDL_VERSION@{CDL\_\-VERSION}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CDL\_\-VERSION~\char`\"{}Client Display Library V1.8 07/28/01\char`\"{}}\label{roimasker_2cdl_8h_a860b053eb25c3fa63735d7a6f662b23}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!DEF_CONTRAST@{DEF\_\-CONTRAST}}
+\index{DEF_CONTRAST@{DEF\_\-CONTRAST}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DEF\_\-CONTRAST~0.25}\label{roimasker_2cdl_8h_bc8408d31e5a398d42ec6125a3ac8985}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!DEF_NSAMPLE@{DEF\_\-NSAMPLE}}
+\index{DEF_NSAMPLE@{DEF\_\-NSAMPLE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DEF\_\-NSAMPLE~600}\label{roimasker_2cdl_8h_2b34937cd0c1b6383a2825dd896658c3}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!DEF_NSAMPLINES@{DEF\_\-NSAMPLINES}}
+\index{DEF_NSAMPLINES@{DEF\_\-NSAMPLINES}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DEF\_\-NSAMPLINES~-1}\label{roimasker_2cdl_8h_e67e8f204950c5fc6a7a315feda37491}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!F_BOLD@{F\_\-BOLD}}
+\index{F_BOLD@{F\_\-BOLD}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define F\_\-BOLD~4}\label{roimasker_2cdl_8h_80d6f334d4d08471a2312d602657d235}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!F_FUTURA@{F\_\-FUTURA}}
+\index{F_FUTURA@{F\_\-FUTURA}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define F\_\-FUTURA~2}\label{roimasker_2cdl_8h_d423761a437b9c714b2f773f4398194e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!F_GREEK@{F\_\-GREEK}}
+\index{F_GREEK@{F\_\-GREEK}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define F\_\-GREEK~1}\label{roimasker_2cdl_8h_35be1ce40f023cb9f9344450dd057dc1}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!F_ROMAN@{F\_\-ROMAN}}
+\index{F_ROMAN@{F\_\-ROMAN}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define F\_\-ROMAN~0}\label{roimasker_2cdl_8h_952dbcb47bb0f8ae962c74d65025a8fc}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!F_TIMES@{F\_\-TIMES}}
+\index{F_TIMES@{F\_\-TIMES}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define F\_\-TIMES~3}\label{roimasker_2cdl_8h_73c437eabee3bda89d2b35ed96525d11}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!FB_AUTO@{FB\_\-AUTO}}
+\index{FB_AUTO@{FB\_\-AUTO}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define FB\_\-AUTO~-1}\label{roimasker_2cdl_8h_fa29aa0a4ba32bd4c6196730402a7c23}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!INDEF@{INDEF}}
+\index{INDEF@{INDEF}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define INDEF~-999}\label{roimasker_2cdl_8h_193d4bc1d1f9d228891f9790478a3ddf}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!L_DASHED@{L\_\-DASHED}}
+\index{L_DASHED@{L\_\-DASHED}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define L\_\-DASHED~1}\label{roimasker_2cdl_8h_984f754b29acb1e1f171217dbd8f6f30}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!L_DOTDASH@{L\_\-DOTDASH}}
+\index{L_DOTDASH@{L\_\-DOTDASH}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define L\_\-DOTDASH~3}\label{roimasker_2cdl_8h_b3b56027ca6ca480b41d757c15dd72cc}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!L_DOTTED@{L\_\-DOTTED}}
+\index{L_DOTTED@{L\_\-DOTTED}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define L\_\-DOTTED~2}\label{roimasker_2cdl_8h_f0d207e5c5d07ecdf16ea5aee274d77e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!L_HOLLOW@{L\_\-HOLLOW}}
+\index{L_HOLLOW@{L\_\-HOLLOW}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define L\_\-HOLLOW~4}\label{roimasker_2cdl_8h_85ae5f88f0274b3ec21634fbdcec2a89}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!L_SHADOW@{L\_\-SHADOW}}
+\index{L_SHADOW@{L\_\-SHADOW}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define L\_\-SHADOW~5}\label{roimasker_2cdl_8h_723612fc5602c1521da9ed24761afb61}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!L_SOLID@{L\_\-SOLID}}
+\index{L_SOLID@{L\_\-SOLID}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define L\_\-SOLID~0}\label{roimasker_2cdl_8h_e3014fa546a2338bb773ee15b7aefcdb}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_BOX@{M\_\-BOX}}
+\index{M_BOX@{M\_\-BOX}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-BOX~4}\label{roimasker_2cdl_8h_12699f139390518114d2ada3f2441da3}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_CIRCLE@{M\_\-CIRCLE}}
+\index{M_CIRCLE@{M\_\-CIRCLE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-CIRCLE~64}\label{roimasker_2cdl_8h_7d028dfce3894d7d7fb036f858c1a1fd}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_CROSS@{M\_\-CROSS}}
+\index{M_CROSS@{M\_\-CROSS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-CROSS~16}\label{roimasker_2cdl_8h_9c212107037845d3ea1a07fb5324df2d}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_DIAMOND@{M\_\-DIAMOND}}
+\index{M_DIAMOND@{M\_\-DIAMOND}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-DIAMOND~32}\label{roimasker_2cdl_8h_243cb8d0ad28170d2683e40c02a198f0}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_FILL@{M\_\-FILL}}
+\index{M_FILL@{M\_\-FILL}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-FILL~1}\label{roimasker_2cdl_8h_ad3d180e0f12d6a6e5278fe0163f4c3e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_HBLINE@{M\_\-HBLINE}}
+\index{M_HBLINE@{M\_\-HBLINE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-HBLINE~1024}\label{roimasker_2cdl_8h_fda37fa696a599084b4fd10d89751ae7}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_HLINE@{M\_\-HLINE}}
+\index{M_HLINE@{M\_\-HLINE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-HLINE~256}\label{roimasker_2cdl_8h_f2ea3a0cf8a69d4f28a2d8b2dc404136}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_PLUS@{M\_\-PLUS}}
+\index{M_PLUS@{M\_\-PLUS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-PLUS~8}\label{roimasker_2cdl_8h_601f2fffb89c0710c00c4bc2fa00620d}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_POINT@{M\_\-POINT}}
+\index{M_POINT@{M\_\-POINT}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-POINT~2}\label{roimasker_2cdl_8h_e1c6eace37b4d498a93dab5514188354}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_STAR@{M\_\-STAR}}
+\index{M_STAR@{M\_\-STAR}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-STAR~128}\label{roimasker_2cdl_8h_bd935e9de08c8e0da45c80c27fb20e97}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_VBLINE@{M\_\-VBLINE}}
+\index{M_VBLINE@{M\_\-VBLINE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-VBLINE~2048}\label{roimasker_2cdl_8h_a967fa926ebd51d09d630602db2aabbb}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!M_VLINE@{M\_\-VLINE}}
+\index{M_VLINE@{M\_\-VLINE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define M\_\-VLINE~512}\label{roimasker_2cdl_8h_3bb4943f6f73e1180ea9e840ec9bdd60}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MAX_FBCONFIG@{MAX\_\-FBCONFIG}}
+\index{MAX_FBCONFIG@{MAX\_\-FBCONFIG}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-FBCONFIG~128}\label{roimasker_2cdl_8h_71b6516b8b2bb7a546b072feff27f97e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MAX_FRAMES@{MAX\_\-FRAMES}}
+\index{MAX_FRAMES@{MAX\_\-FRAMES}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-FRAMES~16}\label{roimasker_2cdl_8h_5b4055201d2d8170e179b1ceaa438b9c}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MAX_MAPPINGS@{MAX\_\-MAPPINGS}}
+\index{MAX_MAPPINGS@{MAX\_\-MAPPINGS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-MAPPINGS~32}\label{roimasker_2cdl_8h_64236b7454a17e17ad3da5164f7ce63b}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_BOX@{MK\_\-BOX}}
+\index{MK_BOX@{MK\_\-BOX}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-BOX~2}\label{roimasker_2cdl_8h_6a50f18c6d84e799d591a0cd8f3d598a}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_CIRCANN@{MK\_\-CIRCANN}}
+\index{MK_CIRCANN@{MK\_\-CIRCANN}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-CIRCANN~6}\label{roimasker_2cdl_8h_8487b589f15aafc82fa160c9eabea75c}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_CIRCLE@{MK\_\-CIRCLE}}
+\index{MK_CIRCLE@{MK\_\-CIRCLE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-CIRCLE~5}\label{roimasker_2cdl_8h_4de62d4120d50e15f2d2a3f50ba05576}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_ELLIPANN@{MK\_\-ELLIPANN}}
+\index{MK_ELLIPANN@{MK\_\-ELLIPANN}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-ELLIPANN~8}\label{roimasker_2cdl_8h_b7459b117908673d73c5da2c8d6ab6ca}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_ELLIPSE@{MK\_\-ELLIPSE}}
+\index{MK_ELLIPSE@{MK\_\-ELLIPSE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-ELLIPSE~7}\label{roimasker_2cdl_8h_03a0c7bb3c00cd90f01b5e284591416a}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_LINE@{MK\_\-LINE}}
+\index{MK_LINE@{MK\_\-LINE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-LINE~1}\label{roimasker_2cdl_8h_13e34d6dc21ff4d1de789689fa86184c}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_POINT@{MK\_\-POINT}}
+\index{MK_POINT@{MK\_\-POINT}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-POINT~0}\label{roimasker_2cdl_8h_395fffc61d672b88bd8d9889078e92b4}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_POLYGON@{MK\_\-POLYGON}}
+\index{MK_POLYGON@{MK\_\-POLYGON}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-POLYGON~4}\label{roimasker_2cdl_8h_3b6e7a14a3c7e904e457c7dd8aef8bed}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_POLYLINE@{MK\_\-POLYLINE}}
+\index{MK_POLYLINE@{MK\_\-POLYLINE}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-POLYLINE~3}\label{roimasker_2cdl_8h_9acda66ff8a8621fbc6186c10a6c6b2e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MK_TEXT@{MK\_\-TEXT}}
+\index{MK_TEXT@{MK\_\-TEXT}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MK\_\-TEXT~9}\label{roimasker_2cdl_8h_4c269887cefa70b2a5667d5424fc08e8}
+
+
+
+
+\subsection{Typedef Documentation}
+\index{roimasker/cdl.h@{roimasker/cdl.h}!CDLPtr@{CDLPtr}}
+\index{CDLPtr@{CDLPtr}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{CDL}$\ast$ \bf{CDLPtr}}\label{roimasker_2cdl_8h_61edd2ae2322644bcd105fd12172db83}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!MarkerPtr@{MarkerPtr}}
+\index{MarkerPtr@{MarkerPtr}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{Marker}$\ast$ \bf{Marker\-Ptr}}\label{roimasker_2cdl_8h_264746b00f4c2ef9ff38b0db69d3fc13}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!uchar@{uchar}}
+\index{uchar@{uchar}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned char \bf{uchar}}\label{roimasker_2cdl_8h_65f85814a8290f9797005d3b28e7e5fc}
+
+
+
+
+\subsection{Function Documentation}
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_clearFrame@{cdl\_\-clearFrame}}
+\index{cdl_clearFrame@{cdl\_\-clearFrame}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-clear\-Frame ()}\label{roimasker_2cdl_8h_b56fa803dbd2c62ddc387b6d321c67d4}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_clearOverlay@{cdl\_\-clearOverlay}}
+\index{cdl_clearOverlay@{cdl\_\-clearOverlay}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-clear\-Overlay ()}\label{roimasker_2cdl_8h_104f07d92601bfb519f5c2a4f302b7b8}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_close@{cdl\_\-close}}
+\index{cdl_close@{cdl\_\-close}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-close ()}\label{roimasker_2cdl_8h_bae2248cc244e0931ab150a470615ed6}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_computeZscale@{cdl\_\-computeZscale}}
+\index{cdl_computeZscale@{cdl\_\-computeZscale}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-compute\-Zscale ()}\label{roimasker_2cdl_8h_def7f8c77e0086a3126608c15589f26b}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_deleteMark@{cdl\_\-deleteMark}}
+\index{cdl_deleteMark@{cdl\_\-deleteMark}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-delete\-Mark ()}\label{roimasker_2cdl_8h_3b5bd637bd0de306eba3305b8a5280bc}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_displayFITS@{cdl\_\-displayFITS}}
+\index{cdl_displayFITS@{cdl\_\-displayFITS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-display\-FITS ()}\label{roimasker_2cdl_8h_76e34675c9bb341d9bd056c459481e4e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_displayIRAF@{cdl\_\-displayIRAF}}
+\index{cdl_displayIRAF@{cdl\_\-displayIRAF}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-display\-IRAF ()}\label{roimasker_2cdl_8h_ec64bf8011299e5aa83610eee0f48dd8}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_displayPix@{cdl\_\-displayPix}}
+\index{cdl_displayPix@{cdl\_\-displayPix}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-display\-Pix ()}\label{roimasker_2cdl_8h_e4e77bfba50201a0809f63ad0c480475}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getContrast@{cdl\_\-getContrast}}
+\index{cdl_getContrast@{cdl\_\-getContrast}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Contrast ()}\label{roimasker_2cdl_8h_0df6c258a0c4c2766fdc917181c8431e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getFBConfig@{cdl\_\-getFBConfig}}
+\index{cdl_getFBConfig@{cdl\_\-getFBConfig}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-FBConfig ()}\label{roimasker_2cdl_8h_06c945542f440a9f407412dc06d3b437}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getFrame@{cdl\_\-getFrame}}
+\index{cdl_getFrame@{cdl\_\-getFrame}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Frame ()}\label{roimasker_2cdl_8h_07e4a8098eb5d9aa3e69b2e3f4cba18b}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getMapping@{cdl\_\-getMapping}}
+\index{cdl_getMapping@{cdl\_\-getMapping}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-get\-Mapping ()}\label{roimasker_2cdl_8h_277c761ee3174e308a6b73d2140e95d5}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getName@{cdl\_\-getName}}
+\index{cdl_getName@{cdl\_\-getName}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Name ()}\label{roimasker_2cdl_8h_64dc79ee998ede452091fafa0614e3ff}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getSample@{cdl\_\-getSample}}
+\index{cdl_getSample@{cdl\_\-getSample}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Sample ()}\label{roimasker_2cdl_8h_dde55c9cddda3c61660ee359068e0083}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getSampleLines@{cdl\_\-getSampleLines}}
+\index{cdl_getSampleLines@{cdl\_\-getSampleLines}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Sample\-Lines ()}\label{roimasker_2cdl_8h_b9e1e8d8b364faf548177f80cb30b330}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getTitle@{cdl\_\-getTitle}}
+\index{cdl_getTitle@{cdl\_\-getTitle}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Title ()}\label{roimasker_2cdl_8h_3374df2ab11cf5dfec5c865e490a0563}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getWCS@{cdl\_\-getWCS}}
+\index{cdl_getWCS@{cdl\_\-getWCS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-get\-WCS ()}\label{roimasker_2cdl_8h_fd7c0155160142b64d71b3f752d51593}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getZoom@{cdl\_\-getZoom}}
+\index{cdl_getZoom@{cdl\_\-getZoom}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-Zoom ()}\label{roimasker_2cdl_8h_0807c9e39ba9d9fa73c904ec5b2ff5bb}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getZScale@{cdl\_\-getZScale}}
+\index{cdl_getZScale@{cdl\_\-getZScale}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-ZScale ()}\label{roimasker_2cdl_8h_0246a7df1c54b630f14bdfb0d9c8f8c5}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_getZTrans@{cdl\_\-getZTrans}}
+\index{cdl_getZTrans@{cdl\_\-getZTrans}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-get\-ZTrans ()}\label{roimasker_2cdl_8h_1905bba6e0a995c68819458ed602c968}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_lookupFBSize@{cdl\_\-lookupFBSize}}
+\index{cdl_lookupFBSize@{cdl\_\-lookupFBSize}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-lookup\-FBSize ()}\label{roimasker_2cdl_8h_d7946b4d58dbca61adbf429372fdaeea}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_mapFrame@{cdl\_\-mapFrame}}
+\index{cdl_mapFrame@{cdl\_\-mapFrame}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-map\-Frame ()}\label{roimasker_2cdl_8h_d368c99eb31ed7739e061bf8a005c0d5}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markBox@{cdl\_\-markBox}}
+\index{cdl_markBox@{cdl\_\-markBox}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Box ()}\label{roimasker_2cdl_8h_ef6f0c658405349bd4bc555abf2e43a3}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markCircAnnuli@{cdl\_\-markCircAnnuli}}
+\index{cdl_markCircAnnuli@{cdl\_\-markCircAnnuli}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Circ\-Annuli ()}\label{roimasker_2cdl_8h_ff967b5311f6cb178c3bd33d76a45398}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markCircle@{cdl\_\-markCircle}}
+\index{cdl_markCircle@{cdl\_\-markCircle}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Circle ()}\label{roimasker_2cdl_8h_843842b0bf878bf46c089ed2058a69df}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markCoordsFile@{cdl\_\-markCoordsFile}}
+\index{cdl_markCoordsFile@{cdl\_\-markCoordsFile}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Coords\-File ()}\label{roimasker_2cdl_8h_21903de479ea0755637df2414a53714e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markEllipAnnuli@{cdl\_\-markEllipAnnuli}}
+\index{cdl_markEllipAnnuli@{cdl\_\-markEllipAnnuli}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Ellip\-Annuli ()}\label{roimasker_2cdl_8h_64d36faa0883ce1935e0defde44cfa5f}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markEllipse@{cdl\_\-markEllipse}}
+\index{cdl_markEllipse@{cdl\_\-markEllipse}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Ellipse ()}\label{roimasker_2cdl_8h_5f7683d1fccea4bcda8aba9141ee6325}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markLine@{cdl\_\-markLine}}
+\index{cdl_markLine@{cdl\_\-markLine}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Line ()}\label{roimasker_2cdl_8h_ea9310dfe9ad5530236fef6e861b0b49}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markPoint@{cdl\_\-markPoint}}
+\index{cdl_markPoint@{cdl\_\-markPoint}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Point ()}\label{roimasker_2cdl_8h_a3b7d72f36545f98e4cb4d692ce98273}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markPolygon@{cdl\_\-markPolygon}}
+\index{cdl_markPolygon@{cdl\_\-markPolygon}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Polygon ()}\label{roimasker_2cdl_8h_a20ad379a50185b48643060837484b87}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markPolyline@{cdl\_\-markPolyline}}
+\index{cdl_markPolyline@{cdl\_\-markPolyline}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Polyline ()}\label{roimasker_2cdl_8h_993a2f002d74f9c456402a95d01f70fe}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_markText@{cdl\_\-markText}}
+\index{cdl_markText@{cdl\_\-markText}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-mark\-Text ()}\label{roimasker_2cdl_8h_64d7ecf3b422c34883336638ce175c48}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_open@{cdl\_\-open}}
+\index{cdl_open@{cdl\_\-open}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{CDLPtr} cdl\_\-open ()}\label{roimasker_2cdl_8h_f7edc20cab04d0790eb338d11076975e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_printPix@{cdl\_\-printPix}}
+\index{cdl_printPix@{cdl\_\-printPix}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-print\-Pix ()}\label{roimasker_2cdl_8h_c1c9ff39182c2119ef2221c9b55aec5e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_printPixToFile@{cdl\_\-printPixToFile}}
+\index{cdl_printPixToFile@{cdl\_\-printPixToFile}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-print\-Pix\-To\-File ()}\label{roimasker_2cdl_8h_f12f0d217aeda17dde70cc6c1fd91e58}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_queryMap@{cdl\_\-queryMap}}
+\index{cdl_queryMap@{cdl\_\-queryMap}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-query\-Map ()}\label{roimasker_2cdl_8h_eb07a3539bb2d3881f2c09e4591c18e9}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_readCursor@{cdl\_\-readCursor}}
+\index{cdl_readCursor@{cdl\_\-readCursor}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char cdl\_\-read\-Cursor ()}\label{roimasker_2cdl_8h_37e8baec4d4e12076518eaae28184973}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_readFITS@{cdl\_\-readFITS}}
+\index{cdl_readFITS@{cdl\_\-readFITS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-read\-FITS ()}\label{roimasker_2cdl_8h_2b0c4285453b0569b5a1ba28865ddd21}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_readFrameBuffer@{cdl\_\-readFrameBuffer}}
+\index{cdl_readFrameBuffer@{cdl\_\-readFrameBuffer}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-read\-Frame\-Buffer ()}\label{roimasker_2cdl_8h_58456c2ee275c21ef65680565d9a295c}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_readImage@{cdl\_\-readImage}}
+\index{cdl_readImage@{cdl\_\-readImage}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-read\-Image ()}\label{roimasker_2cdl_8h_5ef94a2133825dc951fb1d5c1e8bb664}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_readIRAF@{cdl\_\-readIRAF}}
+\index{cdl_readIRAF@{cdl\_\-readIRAF}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-read\-IRAF ()}\label{roimasker_2cdl_8h_ee356dfb64ac2c97922cfb674b4fab82}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_readSubRaster@{cdl\_\-readSubRaster}}
+\index{cdl_readSubRaster@{cdl\_\-readSubRaster}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-read\-Sub\-Raster ()}\label{roimasker_2cdl_8h_2c9f49dc63521214d645d8e61d4c4fb2}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_redrawOverlay@{cdl\_\-redrawOverlay}}
+\index{cdl_redrawOverlay@{cdl\_\-redrawOverlay}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-redraw\-Overlay ()}\label{roimasker_2cdl_8h_f4f53334819b8d8aa1861c5df00f7a59}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_selectFB@{cdl\_\-selectFB}}
+\index{cdl_selectFB@{cdl\_\-selectFB}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-select\-FB ()}\label{roimasker_2cdl_8h_89290be22afac242ec9d4d1405376541}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setContrast@{cdl\_\-setContrast}}
+\index{cdl_setContrast@{cdl\_\-setContrast}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Contrast ()}\label{roimasker_2cdl_8h_f43138c20fce23838f270e1481595e09}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setCursor@{cdl\_\-setCursor}}
+\index{cdl_setCursor@{cdl\_\-setCursor}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-set\-Cursor ()}\label{roimasker_2cdl_8h_fb301c5155686bb49f83f85eef189348}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setDebug@{cdl\_\-setDebug}}
+\index{cdl_setDebug@{cdl\_\-setDebug}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Debug ()}\label{roimasker_2cdl_8h_bb945cffb457f456aa158e72ccef3dcc}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setFBConfig@{cdl\_\-setFBConfig}}
+\index{cdl_setFBConfig@{cdl\_\-setFBConfig}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-FBConfig ()}\label{roimasker_2cdl_8h_576a79deb7df068b22cfbdeb0c11c5e9}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setFont@{cdl\_\-setFont}}
+\index{cdl_setFont@{cdl\_\-setFont}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Font ()}\label{roimasker_2cdl_8h_66ac86ef6cdb9cb59bfac483be83c58e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setFrame@{cdl\_\-setFrame}}
+\index{cdl_setFrame@{cdl\_\-setFrame}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Frame ()}\label{roimasker_2cdl_8h_94b75dd5e2513df8e22f1721d82d03cc}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setLineStyle@{cdl\_\-setLineStyle}}
+\index{cdl_setLineStyle@{cdl\_\-setLineStyle}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Line\-Style ()}\label{roimasker_2cdl_8h_7a51da6c1048654efc98b09f1e6da0a9}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setLineWidth@{cdl\_\-setLineWidth}}
+\index{cdl_setLineWidth@{cdl\_\-setLineWidth}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Line\-Width ()}\label{roimasker_2cdl_8h_f6212f9f2d4ab666cefcd90033200ad7}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setMapping@{cdl\_\-setMapping}}
+\index{cdl_setMapping@{cdl\_\-setMapping}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-set\-Mapping ()}\label{roimasker_2cdl_8h_10aa8d56cb92c9de68353eb97e8201f6}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setName@{cdl\_\-setName}}
+\index{cdl_setName@{cdl\_\-setName}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Name ()}\label{roimasker_2cdl_8h_41a81d42db686b744a3589578e130abd}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setSample@{cdl\_\-setSample}}
+\index{cdl_setSample@{cdl\_\-setSample}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Sample ()}\label{roimasker_2cdl_8h_594cfbeaba93eb9b0047b9032b3e452f}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setSampleLines@{cdl\_\-setSampleLines}}
+\index{cdl_setSampleLines@{cdl\_\-setSampleLines}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Sample\-Lines ()}\label{roimasker_2cdl_8h_b2bfa5448f9e8f6ab3c5654e9f84df81}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setTextWidth@{cdl\_\-setTextWidth}}
+\index{cdl_setTextWidth@{cdl\_\-setTextWidth}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Text\-Width ()}\label{roimasker_2cdl_8h_5923b7403c2b59bfc0851f3f6754e7b6}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setTitle@{cdl\_\-setTitle}}
+\index{cdl_setTitle@{cdl\_\-setTitle}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Title ()}\label{roimasker_2cdl_8h_62ef048d7af7ffc846a6410a66225a3f}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setWCS@{cdl\_\-setWCS}}
+\index{cdl_setWCS@{cdl\_\-setWCS}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-set\-WCS ()}\label{roimasker_2cdl_8h_13f54e39bf4c184f5cb148d0b485fea4}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setZoom@{cdl\_\-setZoom}}
+\index{cdl_setZoom@{cdl\_\-setZoom}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-Zoom ()}\label{roimasker_2cdl_8h_d144880ef4af27d13afb41ae3696411e}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setZScale@{cdl\_\-setZScale}}
+\index{cdl_setZScale@{cdl\_\-setZScale}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-ZScale ()}\label{roimasker_2cdl_8h_2f8b6ab29c81316a38ae0a8024adec9f}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_setZTrans@{cdl\_\-setZTrans}}
+\index{cdl_setZTrans@{cdl\_\-setZTrans}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-set\-ZTrans ()}\label{roimasker_2cdl_8h_1cd74489a6703e97e128794426a7310b}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_writeSubRaster@{cdl\_\-writeSubRaster}}
+\index{cdl_writeSubRaster@{cdl\_\-writeSubRaster}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cdl\_\-write\-Sub\-Raster ()}\label{roimasker_2cdl_8h_657215321bb1d5c3f5466082c8200f1f}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_zscale@{cdl\_\-zscale}}
+\index{cdl_zscale@{cdl\_\-zscale}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-zscale ()}\label{roimasker_2cdl_8h_9eaf01a18e2d5c73623c748ee63a6794}
+
+
+\index{roimasker/cdl.h@{roimasker/cdl.h}!cdl_zscaleImage@{cdl\_\-zscaleImage}}
+\index{cdl_zscaleImage@{cdl\_\-zscaleImage}!roimasker/cdl.h@{roimasker/cdl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cdl\_\-zscale\-Image ()}\label{roimasker_2cdl_8h_f9ab04e8e5fee7329e10aa58005fb485}
+
+

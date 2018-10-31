@@ -1,0 +1,9 @@
+#! /bin/csh -f
+#This script is automatically generated
+#Any edition to this file will be lost!
+
+setenv panport ERROR file /user/tspec/panview/fpas/_timgr/config/PAN.cfg does not exists
+setenv panhost tspec0.ctio.noao.edu
+cd /user/tspec/panview/PAN/public/bin
+./sendsockcmd -h $panhost -p  $panport "$argv" -t 40000
+cd -

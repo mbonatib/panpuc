@@ -1,0 +1,456 @@
+2016-09-21T09:14:28 UTC <Marco Bonati> SDSU version 8.5
+	* handling of multiple aliases mived to DHE level
+
+2016-09-21T09:14:28 UTC <Marco Bonati> SDSU version 8.4
+	* addinh * handling for aliases too
+
+2016-09-12T09:14:28 UTC <Marco Bonati> SDSU version 8.3
+	* added memory alias handling
+
+2015-08-12T09:14:28 UTC <Marco Bonati> SDSU version 8.2
+	* 64 bits supported
+	* added support for PCIe
+
+2015-08-12T09:14:28 UTC <Marco Bonati> SDSU version 8.1
+	* re-added gain and speed. 
+	* DAC alias handling
+
+2013-08-12T09:14:28 UTC <Marco Bonati> SDSU version 8.0
+	* Implemented fast readmodes:
+	a) readtime 100ms < rt < 1s, using "get_frames_progress"
+	b) readtime < 100ms, being shared through shared memory
+	(tested rates up to 30 Hz).
+	
+2013-08-12T09:14:28 UTC <Marco Bonati> SDSU version 7.4
+	* added the disk images for the sim lib
+	* added the database variable "link_type"
+
+2013-07-08T09:14:28 UTC <Marco Bonati> SDSU version 7.3
+	* fixed "dac" when the voltage value to write corresponds to "0" dacs (gave weird dac values
+	before)
+
+2013-06-05T09:14:28 UTC <Marco Bonati> SDSU version 7.2
+	* cleaned DHE_READ
+	* added the fast readmode for NIR (lessthan 1 sec frame time)
+
+2012-11-05T09:14:28 UTC <Marco Bonati> SDSU version 7.1
+	* added "dhe_mix_regs" to make compatible arcview and leach style
+	serial commands to RG devices
+
+2012-05-02T09:14:28 UTC <Marco Bonati> SDSU version 7.0
+	* added command_translation to translate between high level commands
+	and DSP trhee letters command. If no trans specified, uses defaults
+	specified in sdsu_defs.h (so no hardcoding of SNF, etc
+	* It can also specify memory locations for coluns, rows, binning
+	* file path specified in dhe.conf, under Misc, field transfile
+
+2012-05-02T09:14:28 UTC <Marco Bonati> SDSU version 6.1
+	* added memory bitfield commands
+	* changed SNC to SNF to be compatible with lech code
+
+2012-05-02T09:14:28 UTC <Marco Bonati> SDSU version 6.0
+	* support for simulated hardware ("-hardtype sim") for both
+	optical and NIR
+	* moved to the shared library per link type scheme (a la  Monsoon)
+	* currently supported modestypes are genIII_pcix and sim
+
+2011-10-18T09:14:28 UTC <Marco Bonati> SDSU version 5.95
+* added "set mapsize" to change the size of the driver mapping buffer"
+
+2010-10-18T09:14:28 UTC <Marco Bonati> SDSU version 5.94
+ * releases semaphore on the INIT so the init macro can write/read memory
+ * values (as for setpoints)
+
+2010-06-03T09:14:28 UTC <Marco Bonati> SDSU version 5.93
+ * added driver to support kernel > 2.6.24 (not added before)
+
+2010-05-31T09:14:28 UTC <Marco Bonati> SDSU version 5.92
+ * added "memory dump" and support for memory read in multiple
+   locations at the same time 
+
+2010-05-31T09:14:28 UTC <Marco Bonati> SDSU version 5.91
+ * added timeout to the gunsc call at init time
+
+2010-05-31T09:14:28 UTC <Marco Bonati> SDSU version 5.9
+ * added "memory mux" command support
+
+2007-07-16T09:14:28 UTC <Marco Bonati> SDSU version 5.8
+ * Improved the way the DAC file is read, and also the DAC handling
+   (raw values, etc)
+
+2007-07-16T09:14:28 UTC <Marco Bonati> SDSU version 5.7
+ * Fixed multiple timing things. It now reads exp_overhead and seq_overhead
+   as part of the timing calculations
+
+2007-07-15T09:14:28 UTC <Marco Bonati> SDSU version 5.6
+ * fixed the read_tp and write_tp that were passing the wrong arguments
+
+2007-07-12T09:14:28 UTC <Marco Bonati> SDSU version 5.5
+ * fixed the sync command argument
+ * added a parsing for the sync. argument
+
+2007-06-07T09:14:28 UTC <Marco Bonati> SDSU version 5.4
+ * re-added the "sync" command to synchronize timing boards
+
+2007-06-05T29:14:28 UTC <Marco Bonati> SDSU version 5.3
+ * included modified version of the 2.6 kernel driver, fixed for multi
+  processor and multiPCI environment
+
+2007-05-29T29:14:28 UTC <Marco Bonati> SDSU version 5.2
+ * added support for continuous read, by adding a cont_read global on
+   the C code. Based on this variable the number of images os decremented 
+   or not
+ * added DO_IMREAD_CONT, that gets called when cont_read is set. This is like
+   the normal imread, but simpler (no keys for TCS or FITS)
+
+2006-08-07T29:14:28 UTC <Marco Bonati> SDSU version 5.1
+  * fixed DO_IMREAD and timeout (queue from Logical)
+
+2006-08-07T27:14:28 UTC <Marco Bonati> SDSU version 5.0
+  * removed last dependencies with database. Full handling through DHE module
+
+2006-06-07T27:14:28 UTC <Marco Bonati> SDSU version 4.5
+  * added "get dettype"
+  * fixed "get firmware"
+
+2006-06-07T27:14:28 UTC <Marco Bonati> SDSU version 4.4
+ * fixed some bugs with fixed_root thingi (like the imprefix and imsufix)
+ * updated DEP file (Common 1.5)
+
+2006-06-07T27:14:28 UTC <Marco Bonati> SDSU version 4.3
+ * added the command "image.fixed_root", which allows to set a "baseline"
+   directory upon all subsequent directory requests are based. This allows
+   to set a directory so the clients cannot go beyond certain point
+   (for example, if fixed_root could be /data/20060707/, so any image will be
+    written beyond that point). If fixed_root is "/", then the system behaives
+   as before
+
+2006-06-07T27:14:28 UTC <Marco Bonati> SDSU version 4.2
+ * Changed both the labview and the C support routine for stop_coadd to send
+   an actual command to the DSP, changing the coadd number to 1, so acting
+   as an efective "stop coadd". This is needed because coadd is handled on the
+   DSP in version 1.7 of the DSP/driver (SDSU-III).
+ * Fixed the old problem on "writeframes" on the mismatch between the set/get
+   names for the frames. Now it can be used "expo" or "exposed", etc
+ * Replaced the "SendAsyncMsg" for CMN_SendAsyncMsg, clearing the dependency
+   with the aplication core. Increased the Common dependency to 1.3
+ * added the "async send update" command to async. send many image parameters
+   as "changed: IMVARS ...." (as basename, exposure, etc). Useful for script
+   to force sync. on the gui
+ * added also "async send <message>", so clients can force an async broadcast
+  (dangerous, but useful)
+ * changed the database variable for the firmare from "dhe_software" to 
+    "dhe_firmware" (returned with "get firmware")
+ * added the "stop_sample_up_the_ramp" in both C and Labview. 
+ * Moved DO_IMREAD and DO_SDSUINIT to SDSU_DO_IMREAD and DSDU_DO_INIT
+ * Moved INIT and EXPOSE to private/SDSU_INIT and private/SDSU_EXPOSE
+
+2006-05-04T27:14:28 UTC <Marco Bonati> SDSU version 4.1
+ * added the "support_hardtime" optional parameter under [Readout] on the
+   config file (tru/false) to tell if hardware (DSP) frame time calculations
+   are allowed or not. If they are, it issue the hardware command, if it not
+   it uses the defined parameter under readout to calculate
+
+2006-05-04T27:14:28 UTC <Marco Bonati> SDSU version 4.0
+ * running under Linux kernel 2.6.X without any change to the Clibs, only the
+   driver, so it now runs in either 2.4 or 2.6
+ * added the command "get readmodes" that brings all the available readmodes.
+ * Removed a lot of unnecesary dependencies with Database Module. Most of the
+   globals are now SDSU globals
+ * fixed some things related time calculation.
+
+2006-04-01T27:14:28 UTC <Marco Bonati> SDSU version 3.81
+ * Found bug in Labview 7.1. Labview generates an error whhen trying to access
+  a caption not created. This caused a problem for the grt timminginfo
+  command, who reads a cluster that had no captions visible. By making the
+  captions visibles the problem get fixed. This may be a problem for some
+   other modules also
+
+ * Updated documentation
+
+
+2006-03-03T27:14:28 UTC <Marco Bonati> SDSU version 3.8
+ * added the command "dhe get frame_time", that reads the frame time from the
+   DSP. Added the low level C read_frame_time on sdsdLib.c, that sends the
+   command RFT to the timing board, and the upper labview driver on the same
+   name. 
+ * Created GetFrameTimeFromHardware to call the above command, and set it
+   on the database. If the command is not available on the DSP (not
+   implemented), it will use the usual way of calculating the read time
+   (parameters from init file). Modified DO_IMREAD and SetTiming to use this
+   vi
+ * Added the command "dhe set exptime [<relative | absolute>]" used for
+   select between corrected/uncorrected exposure time for the fowler/CDS
+   frames. Modified DO_IMREAD to read a DBS variable with this info and
+   correct or not accordingly
+* Modified DACS so now both get and set take arguments of type *pattern*,
+  just like any OS based command (for searching)
+
+
+2005-12-02T27:14:28 UTC <Marco Bonati> SDSU version 3.7 
+ * the macros now accept arguments. The command in the macro has to state
+   "XXXX _ARG_[1] _ARG_[2]_ ..." and it wil be replaced by the arguments passed
+   to the macro on the command line
+ * added the "sync" command (set and get) for external sync. (more than 1
+   controller in sync)
+ * added the "get firmware" command that allows to read the tim.lod version 
+   loaded (as it goes into the headers)
+ * added the "set detformat colsxrows" that allows to change the size of the
+   "on the fly". This can be used only with GEOM 3.4 or superior
+
+2005-12-02T27:14:28 UTC <Marco Bonati> SDSU version 3.6
+ * added the command "GET FPAINFO", and "GET DETINFO"
+ * added DEP file
+
+2005-11-02T27:14:28 UTC <Marco Bonati> SDSU version 3.5
+ * added the capability of specified the datatype on the header TP file,
+   like (FLOAT) tp VBIASGATE
+ * now exposure time is corrected for true exposure time, on fowler sampling.
+
+2005-05-27T27:14:28 UTC <Marco Bonati> SDSU version 3.4
+ * Added the "minimu exposure time" parameter (alternate "min_exptime",
+	under "Misc" on the config file. 
+ * Added the dhe_software to the database, so it can be added into the headers
+   In the SDSU case, it is the tim.lod file path 
+ * Added the "InitMacro" global, and the "GET Initmacro" command, so clients
+   can change programatically the macro (if using Arcview 2.4-> )
+
+2005-05-13T27:14:28 UTC <Marco Bonati> SDSU version 3.3
+ * fixed race condition on DO_IMREAD between the feed_buffers and the
+  read_ended global variable
+
+2005-05-12T27:14:28 UTC <Marco Bonati> SDSU version 3.2
+ * added the capab. of changing the number of images on the fly
+ * added the "image type" actions (by now only implemented the "dark" for not
+  opening the shutter)
+
+2005-04-24T27:14:28 UTC <Marco Bonati> SDSU version 3.1
+ * added the cap. of changing exposure time on the fly 
+
+2005-02-24T17:14:28 UTC <Marco Bonati> SDSU version 3.0
+ * Labview 7.0
+ * Many changes to support DBSP
+
+
+2005-02-24T17:14:28 UTC <Marco Bonati> SDSU version 2.95
+ * removed dependencies with ArcVIEW/Common (redirected to Modules/Common
+
+2005-02-24T17:14:28 UTC <Marco Bonati> SDSU version 2.94
+ * fixed the "set readmode" command (readmode was not wired)
+ * fixed the "set readmode" command, adding the size change and the geometry
+    and ROI calculations
+
+2005-01-24T10:14:28 UTC <Marco Bonati> SDSU version 2.93
+ * Added the support for "*" when setting a DAC (like "dac set off*" for all
+the biases that starts with "off*"
+ * Fixed the BIG probl;em on DO_IMREAD, where the queue waiting for the Logic 
+   process to finish was timing out before the read finished (if more than 60
+   seconds)
+ * Oncreased the resolution og of the value of the DAC/OFFSETS on the headers
+   to 3 decimal points (to mV accuracy)
+
+2005-05-29T10:14:28 UTC <Marco Bonati> SDSU version 2.92
+ * DO_IMREAD wires the error to the CMN_addststusmessage
+
+2004-12-29T10:14:28 UTC <Marco Bonati> SDSU version 2.91
+ * added the posibility of adding the DAC offsets to the headers, as
+  testpoints. Modified SDSU_DACS.vi
+
+2004-11-29T10:14:28 UTC <Marco Bonati> SDSU version 2.9
+ * Changed the response sheme. It returns now "DONE" for short commands, and
+   "OK (CB <estimated_timeout>)" for long (callback) commands
+
+2004-11-29T10:14:28 UTC <Marco Bonati> SDSU version 2.8
+ * Replaced ConfigVals for CMN_ConfigVals
+ * Replaced the SDSUGlobal Buffers for CMN_GetBuffers and CMN_SetBuffers
+ * Modified DO_IMREAD; now it sends a queue name to the Logical module, and
+   this, instead of generating the callback automatically, sends the message
+   back to the local queue, and it is DO_IMREAD who sends the callback. This
+   makes the process cleaner and clearer.
+
+2004-10-19T10:14:28 UTC <Marco Bonati> SDSU version 2.7
+ * Added the macro capability (SDSU_Macro.vi) which allows to handle short
+   sequences of commands 
+
+2004-09-02T20:12:46 UTC Marco Bonati> SDSU version 2.6
+ * Added the support for ROI and binning. This includes changes on the clib
+  (API) as well as the labview driver (P60 changes)
+ * Added the "version" support (DHE version [-full])
+ * modified the INIT option under ParseCmds. Now the error line from the vi
+   that read the DAC file is not ocnnected to the one which calls the
+   initialization. This because under Labview 7 an error is generated if not
+   DAC file is found, causing the module to not initialize because of that
+ * added a new Makefile for gcc 3.3 or superior. Adde the file
+   COMPILING_README where the needed changed for compiling the driver are
+    explained (if gcc is 3.3 or superior)
+
+2004-07-07T20:12:46 UTC Marco Bonati> SDSU version 2.4.1
+ * Interim version with all the chages needed to spport ROI and Binning
+
+2004-07-07T20:12:46 UTC Marco Bonati> SDSU version 2.4
+ * On astroLibIII.c, separated the optical from the IR exposure. Created 
+   the expose_optical function. 
+
+2004-07-02T20:12:46 UTC Marco Bonati> SDSU version 2.3
+  * taken out the hardcoded pci.lod loading on startup. Now it gets loaded
+	as the tim or util.lod. Modified astroIIILib.c and sdsuLib.c
+	This done in order to make ArcVIEW independent on the /home dir.
+
+2004-02-06T20:12:46 UTC Marco Bonati> SDSU version 2.2
+  * added the return of options when command is sent without arguments
+
+2004-02-06T20:12:46 UTC Marco Bonati> SDSU version 2.1
+  * Zillions of Changes, mostly related with the DBShandler thing.
+	Not compatible with previous versions
+  * added Sample Up the Ramp support
+
+2004-02-06T20:12:46 UTC Marco Bonati> SDSU version 1.2.3
+  * Fixed the INIT.vi. Now the path to the init macro can be a relative one
+  * Now the DAC file can have constant definitions, avoiding the annoying
+    task of repeating values many times. If something changes, you just
+    change the constant. Modifyed SDSU_ReadDACs.vi, and add
+    SDSU_DAC_ReadConstans.vi
+
+2004-02-06T20:12:46 UTC Marco Bonati> SDSU version 1.2.2
+  * Deleted the "askTCSInfo" vi from DO_IMREAD. Now it just calls the standard
+    "toTCS" from the common module (independent on the TCS to which 
+    is connected, if any. This avoids a nasty delay that was happening when
+    it was not connected to any TCS
+  * Added the "ALTERNATIVE" key on the list of available commands (through the
+    command line). 
+
+2004-02-05T20:12:46 UTC Marco Bonati> SDSU version 1.2.1
+  * Changed DO_IMREAD: replaced the tologic.vi from the logic module, for
+    the one on Common
+
+2004-02-02T19:43:17 UTC <Marco Bonati> SDSU version 1.2
+  * added SDSU_CalRemainingExpTime vi.
+  * TP values can be sent while exposing, if the remaining exposure time is
+   greater than 15 secs, avoiding the danger of reading the memory when
+   reading out, but alowing to do it while long-exposing
+  * added the "START" command (as an alternative to INIT)
+  * modified SDSU-IIMemory.vi so it strips the path for the "file"
+    argument to verify if the last name in the path is "none"
+  * Changed to the "parent.field" sintax for the SET/GET commands. Most
+    of the old commands are still supported just for back compatibility
+  * moved the "clib" directory to "src" on private/c/SDSUIII
+  * SDSU-II was taken out, since it looms like it will not be supported
+    anymore ....
+
+2004-12-23T14:00:07 UTC <Marco Bonati> SDSU version 1.1.21
+  * added the "opened" interlock on the astroIIILib.c, so it avoids
+    reopening the driver when it is in use
+  * added the "images_started" on the get_KEY routine (astrolib) so the
+    the UTShut value is sent to labview at the begining of the image,
+    allowing more time for the TCS info to arrive 
+  * taken out the Mem_Array stuff from the astrolib, because it was not being
+    used
+  * Now, if it is busy (Check_Busy -on ParseCommand.vi, "EXPOSE" case), it
+  * will return the error inmediatelly and will not call the DO_IMREAD. The
+    callback gets done anyway by the Server itself, who detects the error and
+    send it through the callback line. Otherwise, the "Pending Callback"
+    global is overriden
+  * Added a wire on DO_IMREAD, from the initial pointer clearence to the 
+    sequence holding the "expose" call, defining an explicit order. In this
+    we avoid a dangerous race condition of the pointers being cleared
+    after they has been set by the exposure c routine
+
+2004-12-15T14:00:07 UTC <Marco Bonati> SDSU version 1.1.20
+  * ON EXPOSE.vi, added the imagestoread (DBS) variable for checking
+    the disk space
+  * On SET and GET, added the "type.field" (like "image.comment") alternative
+    style for commands
+  * On DO_IMREAD, added the "imagestatus=idle" when there is an error
+    incoming (error case)
+  * On DO_IMREAD, now the call to the Logic process occurs after the C 
+    pointers are cleared (avoiding a dangerous race condition)
+  * On DO_IMREAD, the imgstatus variable is never updated to "idle" from
+    this routine, but only externally (busy state before calling this vi, and
+    idle state only after this vi has finished). This ensures the state of the
+    variable
+  * Modified the CheckBusy..vi. A little while loop added, so it will wait
+    some time (default 2 secs) if the imgstate is still busy
+  * On the astroIIILib.c routine, the status of the detector (detstatus) is
+    changed now before actually issuing the start_exposure command, so the
+    status for the rest of the world is not idle even e little before the 
+    exposure started. This avoided a possible race condition with the
+    loop of the TPNT module (when asking for power supply data, etc)
+  
+
+2003-12-15T14:00:07 UTC <Marco Bonati> SDSU version 1.1.19
+  * added the SDSU_DAC.vi, for handling the DAC definitions on the controller
+   side
+  * fixed a problem with the timoeout calculations when exposing
+   (GetFromDBS.vi)
+
+2003-12-03T19:00:07 UTC <Marco Bonati> SDSU version 1.1.18
+  * fixed a problem on the template2key.vi (for updating the TP headers)
+  * added the "on/off" option to both autoshutter and artif_data
+  * changed autoshutter to the Y memory space instead of X (?)
+  * added the while loop on both GoExpose and IRExpose, so if the DO_IMREAD
+    is busy, it will attempt a couple of more times. If fails, converts the
+    "1000" labview error to the "-1" unix error
+
+2003-11-24T19:00:07 UTC <Marco Bonati> SDSU version 1.1.17
+  * added the extra config option of sending a command to the hardware
+    when chaning readmode. It can send the specified command, with the
+    specified argument. If no specification is done on the config file
+    then acts as before, sending nothing to the hardware when readmode
+    is changed
+
+2003-11-14T19:00:07 UTC <Marco Bonati> SDSU version 1.1.16
+  * fixed the problem of mfpb ehrn reading a single frame (like in a ccd)
+  * fixed the unclear error "samples" when no boot was made
+
+2003-11-14T19:00:07 UTC <Marco Bonati> SDSU version 1.1.15
+  * fixed the fowler/coadd/sequences for multiple frames per buffer
+	(only SDSU-III). Now the coadds are handled by the dsp code
+	on the timing board. 
+  * added the "imstatus" as part of the response to "DHE GET progress", so
+    it return now messages like ("waiting next frame", or "coadding" to the
+    client)
+
+2003-10-29T19:00:07 UTC <Marco Bonati> SDSU version 1.1.14.1
+  * added the ".mc" capabilitie for initial macro
+  * fixed many problems when reading out in continuos mode (frames per bufer)
+    (CDS command to the dsp code). 
+  * fixed stuff on the TP side (fixed over P60 machine)
+
+2003-10-29T19:00:07 UTC <Marco Bonati> SDSU version 1.1.14
+  * added the "deafault" and "default all" option to the SDSu_REGS.vi
+
+2003-10-27T18:26:11 UTC <Marco Bonati> SDSU version 1.1.13
+  * added the "CHANGE" option on the SDSU_ReadTPs.vi.
+  * added the space for the TP2ARRAY
+
+2003-10-20T20:06:55 UTC <Marco Bonati> SDSU version 1.1.12
+  * Added all the REG capabilities for handling the RG devices or, in general,
+    any register-oriented commands. Added the upper level SDSU_REGS.vi and
+    all the lower level vis
+
+2003-10-16T21:05:53 UTC <Marco Bonati> SDSU version 1.1.11
+ * Added the "TP get -params" option for getting the parameters of a testpoint
+   "TP params" is still supported
+ * Fixed the "location:", by changing it "location=" on the TP2string vi
+
+2003-10-08T21:38:18 UTC <Marco Bonati> SDSU version 1.1.10
+ * Now it will switch automatically OFF the monitoring if the point is not
+  responding for more than "maxerrs" (set on the TP definition file). This
+  avoids the annoying "hangs" every x seconds when the controller is not
+responding
+ * Added the TP vi on the INIT.vi vi, so the commands can be set as 
+   "commands when starting up", on the initialization file. 
+
+2003-10-07T21:38:18 UTC <Marco Bonati> SDSU version 1.1.9
+
+ * added the capability of writing the testpoints to the database,
+    so they can be used in the headers (template file)
+
+2003-10-01T20:21:13 UTC <Marco Bonati> SDSU version 1.1.8
+
+ *added setpoint algoritms (read and write algoritms)
+
+2003-09-30T17:06:28 UTC <Marco Bonati> SDSU version 1.1.5
+
+* added telemetry (TP vis). This includes the algorithms things
+

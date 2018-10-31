@@ -1,0 +1,129 @@
+.TH "panview_current/PAN/Modules/GUNSC/private/c/src/GU_transformations.c" 3 "29 May 2012" "Version 10.2" "GUNSC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GUNSC/private/c/src/GU_transformations.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <math.h>\fP
+.br
+\fC#include 'GU_transformations.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPI\fP   3.141598"
+.br
+.ti -1c
+.RI "#define \fBOK\fP   0"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "double_t \fBRI_angle_vals\fP (i32 degrees, double_t *sine, double_t *cosine)"
+.br
+.ti -1c
+.RI "i32 \fBRI_SHORT\fP (i16 *imptr, u32 ncols, u32 nrows, i32 rotation)"
+.br
+.ti -1c
+.RI "i32 \fBRI_LONG\fP (i32 *imptr, u32 ncols, u32 nrows, i32 rotation)"
+.br
+.ti -1c
+.RI "i32 \fBRI_FLOAT\fP (f32 *imptr, u32 ncols, u32 nrows, i32 rotation)"
+.br
+.ti -1c
+.RI "i32 \fBRotate_Image\fP (ptr_t imageptr, u32 ncols, u32 nrows, i32 bpp, i32 rotation)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define OK   0"
+.PP
+.SS "#define PI   3.141598"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "double_t RI_angle_vals (i32 degrees, double_t * sine, double_t * cosine)"
+.PP
+Receive degrees, return radians, cosine and sine 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdegrees\fP input angle in degrees param[out] sine pointer to output angle sine param[out] cosine pointer to output angle cosine 
+.RE
+.PP
+
+.SS "i32 RI_FLOAT (f32 * imptr, u32 ncols, u32 nrows, i32 rotation)"
+.PP
+Routine to rotate FLOAT image in the specified angle. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIimptr\fP image buffer pointer 
+.br
+\fIncols\fP number of image columns 
+.br
+\fInrows\fP number of image rows ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) 
+.RE
+.PP
+
+.SS "i32 RI_LONG (i32 * imptr, u32 ncols, u32 nrows, i32 rotation)"
+.PP
+Routine to rotate LONG image in the specified angle. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIimptr\fP image buffer pointer 
+.br
+\fIncols\fP number of image columns 
+.br
+\fInrows\fP number of image rows ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) 
+.RE
+.PP
+
+.SS "i32 RI_SHORT (i16 * imptr, u32 ncols, u32 nrows, i32 rotation)"
+.PP
+Routine to rotate SHORT image in the specified angle. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIimptr\fP image buffer pointer 
+.br
+\fIncols\fP number of image columns 
+.br
+\fInrows\fP number of image rows ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) 
+.RE
+.PP
+
+.SS "i32 Rotate_Image (ptr_t imageptr, u32 ncols, u32 nrows, i32 bpp, i32 rotation)"
+.PP
+Routine to rotate an image in the specified angle. This calls the aproproate routine depending on the image datatype (bpp parameter) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIimptr\fP image buffer pointer 
+.br
+\fIncols\fP number of image columns 
+.br
+\fInrows\fP number of image rows 
+.br
+\fIbpp\fP bits per pixels in image (16, 32 or -32(float)) ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GUNSC from the source code.

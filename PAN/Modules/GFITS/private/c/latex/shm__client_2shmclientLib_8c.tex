@@ -1,0 +1,58 @@
+\section{test/shm\_\-client/shmclient\-Lib.c File Reference}
+\label{shm__client_2shmclientLib_8c}\index{test/shm_client/shmclientLib.c@{test/shm\_\-client/shmclientLib.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include \char`\"{}shmclient\-Lib.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{CLI\_\-shm\-Get\-Key} (char $\ast$name)
+\item 
+void $\ast$ \bf{CLI\_\-shm\-Get\-Add} (char $\ast$name, int $\ast$size, int $\ast$id, int $\ast$qid)
+\item 
+void \bf{CLI\_\-shm\-Dettach} (void $\ast$add)
+\item 
+int \bf{CLI\_\-shm\-Get\-Msg} (int qid, char $\ast$msg, long $\ast$type, int wait)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\bf{qmsg\_\-t} \bf{message}
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}!CLI_shmDettach@{CLI\_\-shmDettach}}
+\index{CLI_shmDettach@{CLI\_\-shmDettach}!shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void CLI\_\-shm\-Dettach (void $\ast$ {\em add})}\label{shm__client_2shmclientLib_8c_6eb3ac0ec0b8f5a3d724d68ffbb1d9c0}
+
+
+\index{shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}!CLI_shmGetAdd@{CLI\_\-shmGetAdd}}
+\index{CLI_shmGetAdd@{CLI\_\-shmGetAdd}!shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ CLI\_\-shm\-Get\-Add (char $\ast$ {\em name}, int $\ast$ {\em size}, int $\ast$ {\em id}, int $\ast$ {\em qid})}\label{shm__client_2shmclientLib_8c_fd41e64f384cd2aeae8ac6c79b4b57ed}
+
+
+\index{shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}!CLI_shmGetKey@{CLI\_\-shmGetKey}}
+\index{CLI_shmGetKey@{CLI\_\-shmGetKey}!shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int CLI\_\-shm\-Get\-Key (char $\ast$ {\em name})}\label{shm__client_2shmclientLib_8c_855c34dc8f8830583d0186d655072ccb}
+
+
+\index{shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}!CLI_shmGetMsg@{CLI\_\-shmGetMsg}}
+\index{CLI_shmGetMsg@{CLI\_\-shmGetMsg}!shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int CLI\_\-shm\-Get\-Msg (int {\em qid}, char $\ast$ {\em msg}, long $\ast$ {\em type}, int {\em wait})}\label{shm__client_2shmclientLib_8c_e9331b80bd3e7646c60c0c48bc8d8afc}
+
+
+
+
+\subsection{Variable Documentation}
+\index{shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}!message@{message}}
+\index{message@{message}!shm_client/shmclientLib.c@{shm\_\-client/shmclient\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{qmsg\_\-t} \bf{message}}\label{shm__client_2shmclientLib_8c_f84da652e38afc80516ebb40c60642c1}
+
+

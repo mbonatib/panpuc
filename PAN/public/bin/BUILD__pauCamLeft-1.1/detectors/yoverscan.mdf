@@ -1,0 +1,6 @@
+[YOVERSCAN]
+header="BIASSEC"
+binned=no
+where=postdata
+add_in=rows
+comment="overscan rows"

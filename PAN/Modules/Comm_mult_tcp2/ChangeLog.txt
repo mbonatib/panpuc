@@ -1,0 +1,19 @@
+2011-09-03T21:18:02 UTC <Marco Bonati> Comm_mult_tcp2 version 4.1
+	* added "openpanel" to show the spawned connection's panels
+	* the async listener has a "mult_tcp2" so the core can request
+	things back to this module
+
+2010-05-11T21:18:02 UTC <Marco Bonati> Comm_mult_tcp2 version 4.0
+	* All the private vis were called MULTTCP3, which caused a conflict
+	* when used along with mult_tcp3. Fixed
+
+2010-05-11T21:18:02 UTC <Marco Bonati> Comm_mult_tcp2 version 3.0
+	* major cleanup
+	* added "get info" local command
+
+2009-06-29T21:18:02 UTC <Marco Bonati> Comm_mult_tcp2 version 2.0
+	* fixed a BIG bug -it will not take any cmdset other than 
+	  NATIVE. Now it should take any
+
+2008-11-08T21:18:02 UTC <Marco Bonati> Comm_mult_tcp2 version 1.1
+	* Created

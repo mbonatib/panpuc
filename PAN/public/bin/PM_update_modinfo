@@ -1,0 +1,58 @@
+#! /bin/csh -f
+
+if ($#argv < 3) then
+	echo "usage: MM_update_modinfo <modules_dir> <module_name> [<-add | -delete>]"
+	exit 1
+endif
+
+if (! -e $1) then
+	echo "ERROR modules directory not found"
+	exit 1
+endif
+if (! -e $1/$2) then
+	echo "ERROR module not found"
+	exit 1
+endif
+
+set modsdir = "$1"
+set module = "$2"
+set DELETE = 0
+set ADD = 1
+shift
+shift
+while ("$1" != "")
+        switch ("$1")
+        case -delete:
+                set DELETE = 1
+                set ADD = 0
+                breaksw
+        case -add:
+                set DELETE = 0
+                set ADD = 1
+                breaksw
+        default:
+                ERR  "install: unknown argument $1"
+		exit 1
+        endsw
+	shift
+end
+
+
+if (! -e "$modsdir/$module/INFO.txt") then
+	echo "ERROR INFO for module $module was not found"
+	exit 1
+endif
+if (! -e "$modsdir/MODS.INFO") then
+	echo "WARNING MODINFO was not found"
+	if ("$ADD" == "1") then
+		echo "Creating it with $module INFO"
+	endif
+endif
+
+echo "Updating modules info ..."
+if ("$ADD" == 1) then
+	echo "*****************************************************" >> "$modsdir/MODS.INFO"
+	cat $modsdir/$module/INFO.txt >> "$modsdir/MODS.INFO"
+endif
+	
+exit 0

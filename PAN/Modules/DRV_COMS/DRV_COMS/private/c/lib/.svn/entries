@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2650"
+   name=""
+   committed-date="2008-10-11T01:17:17.545855Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private/c/lib"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="libserial_1.so"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="46ad5494ee8ec64c36814237d977bce5"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="libuniv.so"
+   text-time="2008-10-02T20:44:59.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="8c1d9efd3f9271564a9373ac26674aa2"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+</wc-entries>

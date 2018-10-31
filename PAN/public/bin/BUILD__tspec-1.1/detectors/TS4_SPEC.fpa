@@ -1,0 +1,17 @@
+[INFO]
+DATE=08/08/2002
+Mount="Rockwell"
+Controller="SDSU-III"
+Software="ArcVIEW"
+
+[DET_1]
+ID="Hawaii-IIRG_1"
+POSITION=(1,1)
+
+[MODIFIERS]
+order="prescans overscan"
+
+[FPAREADMODES]
+32ch="interleaved: 32ch"
+8ch="interleaved: 8ch"
+1ch="interleaved: 1ch"

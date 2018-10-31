@@ -1,0 +1,51 @@
+[INFO]
+DATE=12/12/12
+Mount="PAUCam"
+Author="J.Jimenez"
+Controller="Monsoon, fermi hardware"
+Software="ArcVIEW"
+
+[COORDSORIG]
+origin=(1,1)
+totfpasize=(8*cols, 2*rows)
+
+[DET_1]
+ID="CCDHPK_S10892-04_14"
+POSITION=(1,1)
+
+[DET_2]
+ID="CCDHPK_S10892-04_7"
+POSITION=(cols+1,1)
+
+[DET_3]
+ID="CCDHPK_S10892-04_5"
+POSITION=(2*cols+1,1)
+
+[DET_4]
+ID="CCDHPK_S10892-04_3"
+POSITION=(3*cols+1,1)
+
+[DET_5]
+ID="CCDHPK_S10892-04_1"
+POSITION=(4*cols+1,1)
+
+[DET_6]
+ID="CCDHPK_S10892-04_18"
+POSITION=(5*cols+1,1)
+
+[DET_7]
+ID="CCDHPK_S10892-04_16"
+POSITION=(6*cols,1)
+
+[DET_8]
+ID="CCDHPK_S10892-04_15"
+POSITION=(7*cols+1,1)
+
+
+[MODIFIERS]
+order="prescan overscan yprescan yoverscan"
+
+[FPAREADMODES]
+full="interleaved: hpkquad hpkquad hpkquad hpkquad hpkquad hpkquad hpkquad hpkquad"
+center="interleaved: hpkquad hpkquad hpkquad hpkquad hpkquad hpkquad hpkquad_discard hpkquad_discard"
+

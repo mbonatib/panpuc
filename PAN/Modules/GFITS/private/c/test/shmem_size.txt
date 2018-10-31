@@ -1,0 +1,5 @@
+# To change the defaul max shmem, as root:
+# sysctl -w kernel.shmmax=<bytes>   
+# for example:
+
+sysctl -w kernel.shmmax=63554432

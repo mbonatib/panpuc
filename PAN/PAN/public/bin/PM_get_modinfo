@@ -1,0 +1,43 @@
+#! /bin/csh -f
+
+if ($#argv < 2) then
+	echo "ERROR: usage: PM_get_info <module_name> <key> [module_dir]"
+	exit 1
+endif
+set bindir = "$PAN_ROOT/PAN/public/bin"
+set modname = $1
+set tkey = $2
+set okey = $tkey
+if ("$3" != "") then
+	set moddir = $3
+else
+	set moddir = $PAN_ROOT/PAN/Modules
+endif
+
+set minfo = $moddir/$modname/INFO.txt
+set nlines=`cat $minfo | wc | awk '{print $1}'`
+set keyval = ""
+set lineN = 1
+set tkey = `echo $tkey | awk '{print tolower ($0)'}`
+while ($lineN <= $nlines)
+        set line = `head -$lineN $minfo | tail -1`
+        set key = `echo "$line" | awk -F = '{print $1}' | awk '{print tolower ($0)}'`
+        if ("$key" == "$tkey") then
+                set keyval  = `echo "$line" | awk -F = '{print $2}'`
+		echo $keyval
+		exit 0
+        endif
+        set key = `echo "$line" | awk -F : '{print $1}' | awk '{print tolower ($0)}'`
+        if ("$key" == "$tkey") then
+                set keyval  = `echo "$line" | awk -F : '{print $2}'`
+		echo $keyval
+		exit 0
+	endif
+        @ lineN = $lineN + 1
+end
+
+if ("$keyval" == "") then
+	echo "ERROR $okey not found"
+endif
+
+exit 0

@@ -1,0 +1,17 @@
+SDSU driver system installation
+-------------------------------
+
+In order the SDSU ArcVIEW module to run, the proper driver must be loaded to
+the running kernel.
+
+For loading the driver, please see the READ_ME file under the src dir.
+If you want the driver to be loaded automatically at startup time, then
+you must be sure that the astropci_load script gets ran automatically
+(it loads the driver to the kernel, and creates the appropiate entry on the
+/dev directory). The easiest way is to copy the astropci_load_system script
+to some common place (like /usr/local/bin), and then call it at start time from
+/etc/rc.local
+
+For installing the driver on the standard /lib/modules/<release>, then run "make
+install" after "make". The astropci_load_system script will try to load it
+from there

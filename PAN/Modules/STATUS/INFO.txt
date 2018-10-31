@@ -1,0 +1,10 @@
+Name= STATUS
+Description= tcp/ip status module to broadcast variable son demand
+Type= resident
+Class = General
+Dynamic_Calls= 0
+Clib= yes
+Driver= none
+Standard= yes
+keywords= tcp/ip, communications, status
+VERSION= 5.1

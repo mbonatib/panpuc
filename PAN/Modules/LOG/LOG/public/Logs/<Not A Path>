@@ -1,0 +1,18 @@
+2010-04-16T08:24:51 imediateReply: DONE
+2010-04-16T08:24:51 command: MOD /home/bonati/panview_current/PAN/Modules/TPNT/public/vis/TPNT_API.vi START
+2010-04-16T08:24:51 imediateReply: DONE
+2010-04-16T08:24:51 command: MOD /home/bonati/panview_current/PAN/Modules/ADSHUTTER/public/vis/ADSHUTTER_API.vi START
+2010-04-16T08:24:51 imediateReply: DONE
+2010-04-16T08:24:51 command: BOOT 80000 START
+2010-04-16T08:24:51 imediateReply: DONE
+2010-04-16T08:24:51 command: APP NAME
+2010-04-16T08:24:51 imediateReply: _pccd1m
+2010-04-16T08:25:48 imediateReply: DONE
+2010-04-16T08:25:48 command: MOD /home/bonati/panview_current/PAN/Modules/TPNT/public/vis/TPNT_API.vi START
+2010-04-16T08:25:48 imediateReply: DONE
+2010-04-16T08:25:48 command: MOD /home/bonati/panview_current/PAN/Modules/ADSHUTTER/public/vis/ADSHUTTER_API.vi START
+2010-04-16T08:25:48 imediateReply: DONE
+2010-04-16T08:25:48 command: BOOT 80000 START
+2010-04-16T08:25:48 imediateReply: DONE
+2010-04-16T08:25:48 command: APP NAME
+2010-04-16T08:25:48 imediateReply: _pccd1m

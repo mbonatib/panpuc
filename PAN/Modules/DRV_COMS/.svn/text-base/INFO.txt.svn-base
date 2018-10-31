@@ -1,0 +1,11 @@
+NAME:            DRV_COMS
+FULLNAME:        Driver Communication
+AUTHOR:          M Bonati
+RESPONSIBLE:     
+MAINFILE:        
+CREATIONDATE:    
+OSVER:           Linux 2.6.22.9-61.fc6
+LANGUAGEVER:     
+LASTVERSIONDATE: 2008-05-05
+LASTVERSIONID:   1.1
+DESCRIPTION:     generic communications media driver (tcpip/udp/serial/etc)

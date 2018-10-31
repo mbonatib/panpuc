@@ -1,0 +1,22 @@
+#!/bin/csh -f
+
+cd $1
+
+again:
+set fits = `ls *roi.fits`
+set syncs = `ls *roi.DONE`
+
+while ("$fits" != "")
+        set image = "$fits[1]"
+        rm  $image
+	echo "deleting $image"
+        shift fits
+end
+while ("$syncs" != "")
+        set sync = "$syncs[1]"
+        rm  $sync
+        shift syncs
+end
+sleep 1
+goto again	
+

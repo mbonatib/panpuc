@@ -1,0 +1,9 @@
+#! /bin/csh -f
+#This script is automatically generated
+#Any edition to this file will be lost!
+
+setenv panport 5425
+setenv panhost ctioyq.ctio.noao.edu
+cd /uyq0/bonati/panview_steles/PAN/public/bin
+./sendsockcmd -h $panhost -p  $panport "$argv" -t 40000
+cd -

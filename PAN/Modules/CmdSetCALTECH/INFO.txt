@@ -1,0 +1,11 @@
+Name= CmdSetCALTECH
+Description= Command Set for Caltech instruments/GUIs 
+Type= resident
+Class = General
+Dynamic_Calls= 0
+Clib= yes
+Driver= none
+Standard= yes
+keywords= command, set
+VERSION= 5.1
+VERSION= 5.4

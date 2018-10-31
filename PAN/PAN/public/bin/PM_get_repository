@@ -1,0 +1,14 @@
+#! /bin/csh -f
+
+set ISSET = `setenv | egrep ARCROOT`
+if ("$ISSET" == "") then
+        set currdir = `cd ../../../; pwd`
+        setenv ARCROOT $currdir
+endif
+cd $ARCROOT/PAN/public/bin/
+set REPUSER = `./get_modkey PM.cfg REPUSER`
+set REPHOST = `./get_modkey PM.cfg REPHOST`
+set WEBREP = `./get_modkey PM.cfg WEBREP`
+cd -
+echo $REPUSER $REPHOST $WEBREP
+

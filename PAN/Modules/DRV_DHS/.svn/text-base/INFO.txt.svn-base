@@ -1,0 +1,10 @@
+Name= DRV_DHS
+Description= driver to handle DHS
+Class = General
+Dynamic_Calls= 0
+Clib= no
+Driver= none
+Standard= yes
+keywords= image, fits
+VERSION= 1.1
+VERSION= 1.2

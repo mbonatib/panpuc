@@ -1,0 +1,11 @@
+Name= Logical
+Description= Data Flow controller
+Type= resident
+Class= Process
+Dynamic_Calls= dynamic
+Clib= none
+Driver= none
+Standard= yes
+keywords= algor, fowler, coadd, cds, preprocessing, flow
+VERSION= 4.2
+VERSION= 4.6

@@ -1,0 +1,12 @@
+i32 GU_GetMaxAmps (void);
+i32 GU_compute (i32 datatype);
+i32 GU_enable (i16 flag);
+i32 GU_call_pix_swap (i32 flag);
+i32 GU_call_clear_amps (void);
+i32 GU_call_add_det (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 nxamps, i32 nyamps, i32 discard);
+i32 GU_call_add_amp (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 xdetstart, i32 ydetstart, i16 type, i32 rotate, i16 flip, i32 extension, i32 detno, i32 ampno, i32 discard);
+ptr_t GU_call_get_amps_ptr (void);
+i32 GU_call_SetPhysMap (ptr_t array, i32 num_elements);
+i32 GU_call_show_amps (void);
+i32 GU_call_unscrambling (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 *err);
+ptr_t GU_call_get_raw_ptr (i32 *namplif);

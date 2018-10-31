@@ -1,0 +1,17 @@
+CC= gcc -shared
+WFLAGS = -Wall 
+OFLAGS = -O
+U_SRCS = univLib.c  getLib.c
+M_SRCS = media_libs/DEV_SerialLib.c media_libs/DEV_TcpLib.c
+DEBFLAG = -D_DEBUG_
+SHLIB = libuniv.so
+
+all: clean exec install
+
+exec: 
+	$(CC) $(WFLAGS) $(DEBFLAG) $(OFLAGS) $(U_SRCS) $(M_SRCS) -ldl -lm -o $(SHLIB)
+
+install:
+	mv $(SHLIB) ../../lib/.
+clean: 
+	-rm -f *.so* *.o *.out *.so* ../../lib/$(SHLIB) 

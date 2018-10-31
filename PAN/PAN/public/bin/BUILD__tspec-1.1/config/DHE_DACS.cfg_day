@@ -1,0 +1,103 @@
+#board_num board_type dac_num gain default [offset] [upperlim] [lowerlim] [comment]
+#default offset=0
+#default upperlim = 99
+#default lowerlim = -99
+#UC = Unit Cell, SF = Source Follower
+
+[DEFAULTS]
+InOffA_0=6.0
+InOffB_0=0x800 [adu]
+
+
+[RESOLUTION]
+VID=12
+CLK=12
+
+[CONSTANTS]
+outoffgain=4.884 
+biasgain1=5.4945 
+biasgain2=3.6630 
+biasgain3=4.884
+clkgain=5.8593
+clkoff=-12
+rhclk=12.0
+rlclk=0.0
+dhclk=12.0
+dlclk=0.0
+phclk=10.0
+plclk=0.0
+shclk=11.0
+slclk=1.0
+swhclk=11.0
+swlclk=1.0
+minhclk=-12.0
+maxhclk=12.0
+minlclk=-12.0
+maxlclk=12.0
+biasoff1=7.5
+biasoff2=5.0
+biasoff3=-10
+biasoff4=-10 
+
+
+[DACS]
+OutOffA_0="0 VID 2 outoffgain -0.06 biasoff4 output offset chA"
+OutOffB_0="0 VID 3 outoffgain -0.06 biasoff4 output offset chB"
+OutOffA_1="1 VID 2 outoffgain -0.06 biasoff4 output offset chA"
+OutOffB_1="1 VID 3 outoffgain -0.06 biasoff4 output offset chB"
+DR_C="0 VID 4 biasgain1 27.5 biasoff1 30 0 Output DrainC"
+DR_D="0 VID 5 biasgain1 27.5 biasoff1 Output DrainD"
+DR_A="1 VID 4 biasgain1 27.5 biasoff1 Output DrainA"
+DR_B="1 VID 5 biasgain1 27.5 biasoff1 Output DrainB"
+RD_C="0 VID 0 biasgain2 17.0 biasoff2 Reset DrainC"
+RD_D="0 VID 1 biasgain2 17.0 biasoff2 Reset DrainD"
+RD_A="1 VID 0 biasgain2 17.0 biasoff2 Reset DrainA"
+RD_B="1 VID 1 biasgain2 17.0 biasoff2 Reset DrainB"
+DD_L="0 VID 6 biasgain1 29.0 biasoff1 Dump DrainLower"
+DD_U="1 VID 6 biasgain1 29.0 biasoff1 Dump DrainUpper"
+OG_C="0 VID 8 biasgain3 2.0 biasoff3 Output GateC"
+OG_D="0 VID 9 biasgain3 2.0 biasoff3 Output GateD"
+OG_A="1 VID 8 biasgain3 2.0 biasoff3 Output GateA"
+OG_B="1 VID 9 biasgain3 2.0 biasoff3 Output GateB"
+RGc_H="2 CLK 0 clkgain rhclk clkoff maxhclk minhclk Reset Gate Clock high"
+RGc_L="2 CLK 1 clkgain rlclk clkoff maxlclk minlclk Reset Gate Clock low"
+S1c_H="2 CLK 2 clkgain shclk clkoff maxhclk minhclk Serial Clock 1 high"
+S1c_L="2 CLK 3 clkgain slclk clkoff maxlclk minlclk Serial Clock 1 low"
+S2c_H="2 CLK 4 clkgain shclk clkoff maxhclk minhclk Serial Clock 2 high"
+S2c_L="2 CLK 5 clkgain slclk clkoff maxlclk minlclk Serial Clock 2 low"
+S3c_H="2 CLK 6 clkgain shclk clkoff maxhclk minhclk Serial Clock 3 high"
+S3c_L="2 CLK 7 clkgain slclk clkoff maxlclk minlclk Serial Clock 3 low"
+SWc_H="2 CLK 8 clkgain swhclk clkoff maxhclk minhclk Summing Well high"
+SWc_L="2 CLK 9 clkgain swlclk clkoff maxlclk minlclk Summing Well low"
+DGl_H="2 CLK 10 clkgain dhclk clkoff maxhclk minhclk Dump Gate high"
+DGl_L="2 CLK 11 clkgain dlclk clkoff maxlclk minlclk Dump Gate low"
+P1l_H="2 CLK 12 clkgain phclk clkoff maxhclk minhclk Par1 Clock high"
+P1l_L="2 CLK 13 clkgain plclk clkoff maxlclk minlclk Par1 Clock low"
+P2l_H="2 CLK 14 clkgain phclk clkoff maxhclk minhclk Par2 Clock high"
+P2l_L="2 CLK 15 clkgain plclk clkoff maxlclk minlclk Par2 Clock low"
+P3l_H="2 CLK 16 clkgain phclk clkoff maxhclk minhclk Par3 Clock high"
+P3l_L="2 CLK 17 clkgain plclk clkoff maxlclk minlclk Par3 Clock low"
+P4l_H="2 CLK 18 clkgain phclk clkoff maxhclk minhclk Par4 Clock high"
+P4l_L="2 CLK 19 clkgain plclk clkoff maxlclk minlclk Par4 Clock low"
+TGl_H="2 CLK 20 clkgain phclk clkoff maxhclk minhclk Transfer Gate high"
+TGl_L="2 CLK 21 clkgain plclk clkoff maxlclk minlclk Transfer Gate low"
+RGb_H="2 CLK 24 clkgain rhclk clkoff maxhclk minhclk RGb_HI"
+RGb_L="2 CLK 25 clkgain rlclk clkoff maxlclk minlclk RGb_LO"
+S1b_H="2 CLK 26 clkgain shclk clkoff maxhclk minhclk S1b_HI"
+S1b_L="2 CLK 27 clkgain slclk clkoff maxlclk minlclk S1b_LO"
+S2b_H="2 CLK 28 clkgain shclk clkoff maxhclk minhclk S2b_HI"
+S2b_L="2 CLK 29 clkgain slclk clkoff maxlclk minlclk S2b_LO"
+SWb_H="2 CLK 32 clkgain swhclk clkoff maxhclk minhclk SWb_HI"
+SWb_L="2 CLK 33 clkgain swlclk clkoff maxlclk minlclk SWb_LO"
+DGu_H="2 CLK 34 clkgain dhclk clkoff maxhclk minhclk DGu_HI"
+DGu_L="2 CLK 35 clkgain dlclk clkoff maxlclk minlclk DGu_LO"
+P1u_H="2 CLK 36 clkgain phclk clkoff maxhclk minhclk P1u_HI"
+P1u_L="2 CLK 37 clkgain plclk clkoff maxlclk minlclk P1u_LO"
+P2u_H="2 CLK 38 clkgain phclk clkoff maxhclk minhclk P2u_HI"
+P2u_L="2 CLK 39 clkgain plclk clkoff maxlclk minlclk P2u_LO"
+P3u_H="2 CLK 40 clkgain phclk clkoff maxhclk minhclk P3u_HI"
+P3u_L="2 CLK 41 clkgain plclk clkoff maxlclk minlclk P3u_LO"
+P4u_H="2 CLK 42 clkgain phclk clkoff maxhclk minhclk P4u_HI"
+P4u_L="2 CLK 43 clkgain plclk clkoff maxlclk minlclk P4u_LO"
+TGu_H="2 CLK 46 clkgain phclk clkoff maxhclk minhclk TGu_HI"
+TGu_L="2 CLK 47 clkgain plclk clkoff maxlclk minlclk TGu_LO"

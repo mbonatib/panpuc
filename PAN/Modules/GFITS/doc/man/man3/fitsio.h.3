@@ -1,0 +1,4300 @@
+.TH "panview_current/PAN/Modules/GFITS/private/c/src/fitsio.h" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GFITS/private/c/src/fitsio.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <limits.h>\fP
+.br
+\fC#include 'longnam.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBtcolumn\fP"
+.br
+.ti -1c
+.RI "struct \fBFITSfile\fP"
+.br
+.ti -1c
+.RI "struct \fBfitsfile\fP"
+.br
+.ti -1c
+.RI "struct \fBiteratorCol\fP"
+.br
+.ti -1c
+.RI "struct \fBwtbarr\fP"
+.br
+.ti -1c
+.RI "struct \fBPixelFilter\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBCFITSIO_VERSION\fP   3.10"
+.br
+.ti -1c
+.RI "#define \fBOFF_T\fP   long"
+.br
+.ti -1c
+.RI "#define \fBUSE_LL_SUFFIX\fP   1"
+.br
+.ti -1c
+.RI "#define \fBLONGLONG_TYPE\fP"
+.br
+.ti -1c
+.RI "#define \fBLONGLONG_MAX\fP   9223372036854775807LL"
+.br
+.ti -1c
+.RI "#define \fBLONGLONG_MIN\fP   (-LONGLONG_MAX -1LL)"
+.br
+.ti -1c
+.RI "#define \fBFLEN_FILENAME\fP   1025"
+.br
+.ti -1c
+.RI "#define \fBFLEN_KEYWORD\fP   72"
+.br
+.ti -1c
+.RI "#define \fBFLEN_CARD\fP   81"
+.br
+.ti -1c
+.RI "#define \fBFLEN_VALUE\fP   71"
+.br
+.ti -1c
+.RI "#define \fBFLEN_COMMENT\fP   73"
+.br
+.ti -1c
+.RI "#define \fBFLEN_ERRMSG\fP   81"
+.br
+.ti -1c
+.RI "#define \fBFLEN_STATUS\fP   31"
+.br
+.ti -1c
+.RI "#define \fBTBIT\fP   1"
+.br
+.ti -1c
+.RI "#define \fBTBYTE\fP   11"
+.br
+.ti -1c
+.RI "#define \fBTSBYTE\fP   12"
+.br
+.ti -1c
+.RI "#define \fBTLOGICAL\fP   14"
+.br
+.ti -1c
+.RI "#define \fBTSTRING\fP   16"
+.br
+.ti -1c
+.RI "#define \fBTUSHORT\fP   20"
+.br
+.ti -1c
+.RI "#define \fBTSHORT\fP   21"
+.br
+.ti -1c
+.RI "#define \fBTUINT\fP   30"
+.br
+.ti -1c
+.RI "#define \fBTINT\fP   31"
+.br
+.ti -1c
+.RI "#define \fBTULONG\fP   40"
+.br
+.ti -1c
+.RI "#define \fBTLONG\fP   41"
+.br
+.ti -1c
+.RI "#define \fBTINT32BIT\fP   41"
+.br
+.ti -1c
+.RI "#define \fBTFLOAT\fP   42"
+.br
+.ti -1c
+.RI "#define \fBTLONGLONG\fP   81"
+.br
+.ti -1c
+.RI "#define \fBTDOUBLE\fP   82"
+.br
+.ti -1c
+.RI "#define \fBTCOMPLEX\fP   83"
+.br
+.ti -1c
+.RI "#define \fBTDBLCOMPLEX\fP   163"
+.br
+.ti -1c
+.RI "#define \fBTYP_STRUC_KEY\fP   10"
+.br
+.ti -1c
+.RI "#define \fBTYP_CMPRS_KEY\fP   20"
+.br
+.ti -1c
+.RI "#define \fBTYP_SCAL_KEY\fP   30"
+.br
+.ti -1c
+.RI "#define \fBTYP_NULL_KEY\fP   40"
+.br
+.ti -1c
+.RI "#define \fBTYP_DIM_KEY\fP   50"
+.br
+.ti -1c
+.RI "#define \fBTYP_RANG_KEY\fP   60"
+.br
+.ti -1c
+.RI "#define \fBTYP_UNIT_KEY\fP   70"
+.br
+.ti -1c
+.RI "#define \fBTYP_DISP_KEY\fP   80"
+.br
+.ti -1c
+.RI "#define \fBTYP_HDUID_KEY\fP   90"
+.br
+.ti -1c
+.RI "#define \fBTYP_CKSUM_KEY\fP   100"
+.br
+.ti -1c
+.RI "#define \fBTYP_WCS_KEY\fP   110"
+.br
+.ti -1c
+.RI "#define \fBTYP_REFSYS_KEY\fP   120"
+.br
+.ti -1c
+.RI "#define \fBTYP_COMM_KEY\fP   130"
+.br
+.ti -1c
+.RI "#define \fBTYP_CONT_KEY\fP   140"
+.br
+.ti -1c
+.RI "#define \fBTYP_USER_KEY\fP   150"
+.br
+.ti -1c
+.RI "#define \fBINT32BIT\fP   int"
+.br
+.ti -1c
+.RI "#define \fBBYTE_IMG\fP   8"
+.br
+.ti -1c
+.RI "#define \fBSHORT_IMG\fP   16"
+.br
+.ti -1c
+.RI "#define \fBLONG_IMG\fP   32"
+.br
+.ti -1c
+.RI "#define \fBLONGLONG_IMG\fP   64"
+.br
+.ti -1c
+.RI "#define \fBFLOAT_IMG\fP   -32"
+.br
+.ti -1c
+.RI "#define \fBDOUBLE_IMG\fP   -64"
+.br
+.ti -1c
+.RI "#define \fBSBYTE_IMG\fP   10"
+.br
+.ti -1c
+.RI "#define \fBUSHORT_IMG\fP   20"
+.br
+.ti -1c
+.RI "#define \fBULONG_IMG\fP   40"
+.br
+.ti -1c
+.RI "#define \fBIMAGE_HDU\fP   0"
+.br
+.ti -1c
+.RI "#define \fBASCII_TBL\fP   1"
+.br
+.ti -1c
+.RI "#define \fBBINARY_TBL\fP   2"
+.br
+.ti -1c
+.RI "#define \fBANY_HDU\fP   -1"
+.br
+.ti -1c
+.RI "#define \fBREADONLY\fP   0"
+.br
+.ti -1c
+.RI "#define \fBREADWRITE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBFLOATNULLVALUE\fP   -9.11912E-36F"
+.br
+.ti -1c
+.RI "#define \fBDOUBLENULLVALUE\fP   -9.1191291391491E-36"
+.br
+.ti -1c
+.RI "#define \fBMAX_COMPRESS_DIM\fP   6"
+.br
+.ti -1c
+.RI "#define \fBRICE_1\fP   11"
+.br
+.ti -1c
+.RI "#define \fBGZIP_1\fP   21"
+.br
+.ti -1c
+.RI "#define \fBPLIO_1\fP   31"
+.br
+.ti -1c
+.RI "#define \fBHCOMPRESS_1\fP   41"
+.br
+.ti -1c
+.RI "#define \fBNOCOMPRESS\fP   0"
+.br
+.ti -1c
+.RI "#define \fBTRUE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBFALSE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBCASESEN\fP   1"
+.br
+.ti -1c
+.RI "#define \fBCASEINSEN\fP   0"
+.br
+.ti -1c
+.RI "#define \fBGT_ID_ALL_URI\fP   0"
+.br
+.ti -1c
+.RI "#define \fBGT_ID_REF\fP   1"
+.br
+.ti -1c
+.RI "#define \fBGT_ID_POS\fP   2"
+.br
+.ti -1c
+.RI "#define \fBGT_ID_ALL\fP   3"
+.br
+.ti -1c
+.RI "#define \fBGT_ID_REF_URI\fP   11"
+.br
+.ti -1c
+.RI "#define \fBGT_ID_POS_URI\fP   12"
+.br
+.ti -1c
+.RI "#define \fBOPT_RM_GPT\fP   0"
+.br
+.ti -1c
+.RI "#define \fBOPT_RM_ENTRY\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOPT_RM_MBR\fP   2"
+.br
+.ti -1c
+.RI "#define \fBOPT_RM_ALL\fP   3"
+.br
+.ti -1c
+.RI "#define \fBOPT_GCP_GPT\fP   0"
+.br
+.ti -1c
+.RI "#define \fBOPT_GCP_MBR\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOPT_GCP_ALL\fP   2"
+.br
+.ti -1c
+.RI "#define \fBOPT_MCP_ADD\fP   0"
+.br
+.ti -1c
+.RI "#define \fBOPT_MCP_NADD\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOPT_MCP_REPL\fP   2"
+.br
+.ti -1c
+.RI "#define \fBOPT_MCP_MOV\fP   3"
+.br
+.ti -1c
+.RI "#define \fBOPT_MRG_COPY\fP   0"
+.br
+.ti -1c
+.RI "#define \fBOPT_MRG_MOV\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOPT_CMT_MBR\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOPT_CMT_MBR_DEL\fP   11"
+.br
+.ti -1c
+.RI "#define \fBVALIDSTRUC\fP   555"
+.br
+.ti -1c
+.RI "#define \fBInputCol\fP   0"
+.br
+.ti -1c
+.RI "#define \fBInputOutputCol\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOutputCol\fP   2"
+.br
+.ti -1c
+.RI "#define \fBCREATE_DISK_FILE\fP   -106"
+.br
+.ti -1c
+.RI "#define \fBOPEN_DISK_FILE\fP   -105"
+.br
+.ti -1c
+.RI "#define \fBSKIP_TABLE\fP   -104"
+.br
+.ti -1c
+.RI "#define \fBSKIP_IMAGE\fP   -103"
+.br
+.ti -1c
+.RI "#define \fBSKIP_NULL_PRIMARY\fP   -102"
+.br
+.ti -1c
+.RI "#define \fBUSE_MEM_BUFF\fP   -101"
+.br
+.ti -1c
+.RI "#define \fBOVERFLOW_ERR\fP   -11"
+.br
+.ti -1c
+.RI "#define \fBPREPEND_PRIMARY\fP   -9"
+.br
+.ti -1c
+.RI "#define \fBSAME_FILE\fP   101"
+.br
+.ti -1c
+.RI "#define \fBTOO_MANY_FILES\fP   103"
+.br
+.ti -1c
+.RI "#define \fBFILE_NOT_OPENED\fP   104"
+.br
+.ti -1c
+.RI "#define \fBFILE_NOT_CREATED\fP   105"
+.br
+.ti -1c
+.RI "#define \fBWRITE_ERROR\fP   106"
+.br
+.ti -1c
+.RI "#define \fBEND_OF_FILE\fP   107"
+.br
+.ti -1c
+.RI "#define \fBREAD_ERROR\fP   108"
+.br
+.ti -1c
+.RI "#define \fBFILE_NOT_CLOSED\fP   110"
+.br
+.ti -1c
+.RI "#define \fBARRAY_TOO_BIG\fP   111"
+.br
+.ti -1c
+.RI "#define \fBREADONLY_FILE\fP   112"
+.br
+.ti -1c
+.RI "#define \fBMEMORY_ALLOCATION\fP   113"
+.br
+.ti -1c
+.RI "#define \fBBAD_FILEPTR\fP   114"
+.br
+.ti -1c
+.RI "#define \fBNULL_INPUT_PTR\fP   115"
+.br
+.ti -1c
+.RI "#define \fBSEEK_ERROR\fP   116"
+.br
+.ti -1c
+.RI "#define \fBBAD_URL_PREFIX\fP   121"
+.br
+.ti -1c
+.RI "#define \fBTOO_MANY_DRIVERS\fP   122"
+.br
+.ti -1c
+.RI "#define \fBDRIVER_INIT_FAILED\fP   123"
+.br
+.ti -1c
+.RI "#define \fBNO_MATCHING_DRIVER\fP   124"
+.br
+.ti -1c
+.RI "#define \fBURL_PARSE_ERROR\fP   125"
+.br
+.ti -1c
+.RI "#define \fBRANGE_PARSE_ERROR\fP   126"
+.br
+.ti -1c
+.RI "#define \fBSHARED_ERRBASE\fP   (150)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_BADARG\fP   (SHARED_ERRBASE + 1)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_NULPTR\fP   (SHARED_ERRBASE + 2)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_TABFULL\fP   (SHARED_ERRBASE + 3)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_NOTINIT\fP   (SHARED_ERRBASE + 4)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_IPCERR\fP   (SHARED_ERRBASE + 5)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_NOMEM\fP   (SHARED_ERRBASE + 6)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_AGAIN\fP   (SHARED_ERRBASE + 7)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_NOFILE\fP   (SHARED_ERRBASE + 8)"
+.br
+.ti -1c
+.RI "#define \fBSHARED_NORESIZE\fP   (SHARED_ERRBASE + 9)"
+.br
+.ti -1c
+.RI "#define \fBHEADER_NOT_EMPTY\fP   201"
+.br
+.ti -1c
+.RI "#define \fBKEY_NO_EXIST\fP   202"
+.br
+.ti -1c
+.RI "#define \fBKEY_OUT_BOUNDS\fP   203"
+.br
+.ti -1c
+.RI "#define \fBVALUE_UNDEFINED\fP   204"
+.br
+.ti -1c
+.RI "#define \fBNO_QUOTE\fP   205"
+.br
+.ti -1c
+.RI "#define \fBBAD_INDEX_KEY\fP   206"
+.br
+.ti -1c
+.RI "#define \fBBAD_KEYCHAR\fP   207"
+.br
+.ti -1c
+.RI "#define \fBBAD_ORDER\fP   208"
+.br
+.ti -1c
+.RI "#define \fBNOT_POS_INT\fP   209"
+.br
+.ti -1c
+.RI "#define \fBNO_END\fP   210"
+.br
+.ti -1c
+.RI "#define \fBBAD_BITPIX\fP   211"
+.br
+.ti -1c
+.RI "#define \fBBAD_NAXIS\fP   212"
+.br
+.ti -1c
+.RI "#define \fBBAD_NAXES\fP   213"
+.br
+.ti -1c
+.RI "#define \fBBAD_PCOUNT\fP   214"
+.br
+.ti -1c
+.RI "#define \fBBAD_GCOUNT\fP   215"
+.br
+.ti -1c
+.RI "#define \fBBAD_TFIELDS\fP   216"
+.br
+.ti -1c
+.RI "#define \fBNEG_WIDTH\fP   217"
+.br
+.ti -1c
+.RI "#define \fBNEG_ROWS\fP   218"
+.br
+.ti -1c
+.RI "#define \fBCOL_NOT_FOUND\fP   219"
+.br
+.ti -1c
+.RI "#define \fBBAD_SIMPLE\fP   220"
+.br
+.ti -1c
+.RI "#define \fBNO_SIMPLE\fP   221"
+.br
+.ti -1c
+.RI "#define \fBNO_BITPIX\fP   222"
+.br
+.ti -1c
+.RI "#define \fBNO_NAXIS\fP   223"
+.br
+.ti -1c
+.RI "#define \fBNO_NAXES\fP   224"
+.br
+.ti -1c
+.RI "#define \fBNO_XTENSION\fP   225"
+.br
+.ti -1c
+.RI "#define \fBNOT_ATABLE\fP   226"
+.br
+.ti -1c
+.RI "#define \fBNOT_BTABLE\fP   227"
+.br
+.ti -1c
+.RI "#define \fBNO_PCOUNT\fP   228"
+.br
+.ti -1c
+.RI "#define \fBNO_GCOUNT\fP   229"
+.br
+.ti -1c
+.RI "#define \fBNO_TFIELDS\fP   230"
+.br
+.ti -1c
+.RI "#define \fBNO_TBCOL\fP   231"
+.br
+.ti -1c
+.RI "#define \fBNO_TFORM\fP   232"
+.br
+.ti -1c
+.RI "#define \fBNOT_IMAGE\fP   233"
+.br
+.ti -1c
+.RI "#define \fBBAD_TBCOL\fP   234"
+.br
+.ti -1c
+.RI "#define \fBNOT_TABLE\fP   235"
+.br
+.ti -1c
+.RI "#define \fBCOL_TOO_WIDE\fP   236"
+.br
+.ti -1c
+.RI "#define \fBCOL_NOT_UNIQUE\fP   237"
+.br
+.ti -1c
+.RI "#define \fBBAD_ROW_WIDTH\fP   241"
+.br
+.ti -1c
+.RI "#define \fBUNKNOWN_EXT\fP   251"
+.br
+.ti -1c
+.RI "#define \fBUNKNOWN_REC\fP   252"
+.br
+.ti -1c
+.RI "#define \fBEND_JUNK\fP   253"
+.br
+.ti -1c
+.RI "#define \fBBAD_HEADER_FILL\fP   254"
+.br
+.ti -1c
+.RI "#define \fBBAD_DATA_FILL\fP   255"
+.br
+.ti -1c
+.RI "#define \fBBAD_TFORM\fP   261"
+.br
+.ti -1c
+.RI "#define \fBBAD_TFORM_DTYPE\fP   262"
+.br
+.ti -1c
+.RI "#define \fBBAD_TDIM\fP   263"
+.br
+.ti -1c
+.RI "#define \fBBAD_HEAP_PTR\fP   264"
+.br
+.ti -1c
+.RI "#define \fBBAD_HDU_NUM\fP   301"
+.br
+.ti -1c
+.RI "#define \fBBAD_COL_NUM\fP   302"
+.br
+.ti -1c
+.RI "#define \fBNEG_FILE_POS\fP   304"
+.br
+.ti -1c
+.RI "#define \fBNEG_BYTES\fP   306"
+.br
+.ti -1c
+.RI "#define \fBBAD_ROW_NUM\fP   307"
+.br
+.ti -1c
+.RI "#define \fBBAD_ELEM_NUM\fP   308"
+.br
+.ti -1c
+.RI "#define \fBNOT_ASCII_COL\fP   309"
+.br
+.ti -1c
+.RI "#define \fBNOT_LOGICAL_COL\fP   310"
+.br
+.ti -1c
+.RI "#define \fBBAD_ATABLE_FORMAT\fP   311"
+.br
+.ti -1c
+.RI "#define \fBBAD_BTABLE_FORMAT\fP   312"
+.br
+.ti -1c
+.RI "#define \fBNO_NULL\fP   314"
+.br
+.ti -1c
+.RI "#define \fBNOT_VARI_LEN\fP   317"
+.br
+.ti -1c
+.RI "#define \fBBAD_DIMEN\fP   320"
+.br
+.ti -1c
+.RI "#define \fBBAD_PIX_NUM\fP   321"
+.br
+.ti -1c
+.RI "#define \fBZERO_SCALE\fP   322"
+.br
+.ti -1c
+.RI "#define \fBNEG_AXIS\fP   323"
+.br
+.ti -1c
+.RI "#define \fBNOT_GROUP_TABLE\fP   340"
+.br
+.ti -1c
+.RI "#define \fBHDU_ALREADY_MEMBER\fP   341"
+.br
+.ti -1c
+.RI "#define \fBMEMBER_NOT_FOUND\fP   342"
+.br
+.ti -1c
+.RI "#define \fBGROUP_NOT_FOUND\fP   343"
+.br
+.ti -1c
+.RI "#define \fBBAD_GROUP_ID\fP   344"
+.br
+.ti -1c
+.RI "#define \fBTOO_MANY_HDUS_TRACKED\fP   345"
+.br
+.ti -1c
+.RI "#define \fBHDU_ALREADY_TRACKED\fP   346"
+.br
+.ti -1c
+.RI "#define \fBBAD_OPTION\fP   347"
+.br
+.ti -1c
+.RI "#define \fBIDENTICAL_POINTERS\fP   348"
+.br
+.ti -1c
+.RI "#define \fBBAD_GROUP_ATTACH\fP   349"
+.br
+.ti -1c
+.RI "#define \fBBAD_GROUP_DETACH\fP   350"
+.br
+.ti -1c
+.RI "#define \fBBAD_I2C\fP   401"
+.br
+.ti -1c
+.RI "#define \fBBAD_F2C\fP   402"
+.br
+.ti -1c
+.RI "#define \fBBAD_INTKEY\fP   403"
+.br
+.ti -1c
+.RI "#define \fBBAD_LOGICALKEY\fP   404"
+.br
+.ti -1c
+.RI "#define \fBBAD_FLOATKEY\fP   405"
+.br
+.ti -1c
+.RI "#define \fBBAD_DOUBLEKEY\fP   406"
+.br
+.ti -1c
+.RI "#define \fBBAD_C2I\fP   407"
+.br
+.ti -1c
+.RI "#define \fBBAD_C2F\fP   408"
+.br
+.ti -1c
+.RI "#define \fBBAD_C2D\fP   409"
+.br
+.ti -1c
+.RI "#define \fBBAD_DATATYPE\fP   410"
+.br
+.ti -1c
+.RI "#define \fBBAD_DECIM\fP   411"
+.br
+.ti -1c
+.RI "#define \fBNUM_OVERFLOW\fP   412"
+.br
+.ti -1c
+.RI "#define \fBDATA_COMPRESSION_ERR\fP   413"
+.br
+.ti -1c
+.RI "#define \fBDATA_DECOMPRESSION_ERR\fP   414"
+.br
+.ti -1c
+.RI "#define \fBNO_COMPRESSED_TILE\fP   415"
+.br
+.ti -1c
+.RI "#define \fBBAD_DATE\fP   420"
+.br
+.ti -1c
+.RI "#define \fBPARSE_SYNTAX_ERR\fP   431"
+.br
+.ti -1c
+.RI "#define \fBPARSE_BAD_TYPE\fP   432"
+.br
+.ti -1c
+.RI "#define \fBPARSE_LRG_VECTOR\fP   433"
+.br
+.ti -1c
+.RI "#define \fBPARSE_NO_OUTPUT\fP   434"
+.br
+.ti -1c
+.RI "#define \fBPARSE_BAD_COL\fP   435"
+.br
+.ti -1c
+.RI "#define \fBPARSE_BAD_OUTPUT\fP   436"
+.br
+.ti -1c
+.RI "#define \fBANGLE_TOO_BIG\fP   501"
+.br
+.ti -1c
+.RI "#define \fBBAD_WCS_VAL\fP   502"
+.br
+.ti -1c
+.RI "#define \fBWCS_ERROR\fP   503"
+.br
+.ti -1c
+.RI "#define \fBBAD_WCS_PROJ\fP   504"
+.br
+.ti -1c
+.RI "#define \fBNO_WCS_KEY\fP   505"
+.br
+.ti -1c
+.RI "#define \fBAPPROX_WCS_KEY\fP   506"
+.br
+.ti -1c
+.RI "#define \fBNO_CLOSE_ERROR\fP   999"
+.br
+.ti -1c
+.RI "#define \fBNGP_ERRBASE\fP   (360)"
+.br
+.ti -1c
+.RI "#define \fBNGP_OK\fP   (0)"
+.br
+.ti -1c
+.RI "#define \fBNGP_NO_MEMORY\fP   (NGP_ERRBASE + 0)"
+.br
+.ti -1c
+.RI "#define \fBNGP_READ_ERR\fP   (NGP_ERRBASE + 1)"
+.br
+.ti -1c
+.RI "#define \fBNGP_NUL_PTR\fP   (NGP_ERRBASE + 2)"
+.br
+.ti -1c
+.RI "#define \fBNGP_EMPTY_CURLINE\fP   (NGP_ERRBASE + 3)"
+.br
+.ti -1c
+.RI "#define \fBNGP_UNREAD_QUEUE_FULL\fP   (NGP_ERRBASE + 4)"
+.br
+.ti -1c
+.RI "#define \fBNGP_INC_NESTING\fP   (NGP_ERRBASE + 5)"
+.br
+.ti -1c
+.RI "#define \fBNGP_ERR_FOPEN\fP   (NGP_ERRBASE + 6)"
+.br
+.ti -1c
+.RI "#define \fBNGP_EOF\fP   (NGP_ERRBASE + 7)"
+.br
+.ti -1c
+.RI "#define \fBNGP_BAD_ARG\fP   (NGP_ERRBASE + 8)"
+.br
+.ti -1c
+.RI "#define \fBNGP_TOKEN_NOT_EXPECT\fP   (NGP_ERRBASE + 9)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef long long \fBLONGLONG\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBfits_read_wcstab\fP (\fBfitsfile\fP *fptr, int nwtb, \fBwtbarr\fP *wtb, int *status)"
+.br
+.ti -1c
+.RI "int \fBCFITS2Unit\fP (\fBfitsfile\fP *fptr)"
+.br
+.ti -1c
+.RI "\fBfitsfile\fP * \fBCUnit2FITS\fP (int unit)"
+.br
+.ti -1c
+.RI "int \fBfits_get_token\fP (char **ptr, char *delimiter, char *token, int *isanumber)"
+.br
+.ti -1c
+.RI "char * \fBfits_split_names\fP (char *list)"
+.br
+.ti -1c
+.RI "int \fBffiurl\fP (char *url, char *urltype, char *infile, char *outfile, char *extspec, char *rowfilter, char *binspec, char *colspec, int *status)"
+.br
+.ti -1c
+.RI "int \fBffifile\fP (char *url, char *urltype, char *infile, char *outfile, char *extspec, char *rowfilter, char *binspec, char *colspec, char *pixfilter, int *status)"
+.br
+.ti -1c
+.RI "int \fBffrtnm\fP (char *url, char *rootname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffexist\fP (const char *infile, int *exists, int *status)"
+.br
+.ti -1c
+.RI "int \fBffexts\fP (char *extspec, int *extnum, char *extname, int *extvers, int *\fBhdutype\fP, char *colname, char *rowexpress, int *status)"
+.br
+.ti -1c
+.RI "int \fBffextn\fP (char *url, int *extension_num, int *status)"
+.br
+.ti -1c
+.RI "int \fBffurlt\fP (\fBfitsfile\fP *fptr, char *urlType, int *status)"
+.br
+.ti -1c
+.RI "int \fBffbins\fP (char *binspec, int *imagetype, int *haxis, char colname[4][FLEN_VALUE], double *minin, double *maxin, double *binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], double *weight, char *wtname, int *recip, int *status)"
+.br
+.ti -1c
+.RI "int \fBffbinr\fP (char **binspec, char *colname, double *minin, double *maxin, double *binsizein, char *minname, char *maxname, char *binname, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_copy_cell2image\fP (\fBfitsfile\fP *fptr, \fBfitsfile\fP *newptr, char *colname, long rownum, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_copy_image2cell\fP (\fBfitsfile\fP *fptr, \fBfitsfile\fP *newptr, char *colname, long rownum, int copykeyflag, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_copy_pixlist2image\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int firstkey, int naxis, int *colnum, int *status)"
+.br
+.ti -1c
+.RI "int \fBffimport_file\fP (char *filename, char **contents, int *status)"
+.br
+.ti -1c
+.RI "int \fBffrwrg\fP (char *rowlist, \fBLONGLONG\fP maxrows, int maxranges, int *numranges, long *minrow, long *maxrow, int *status)"
+.br
+.ti -1c
+.RI "int \fBffrwrgll\fP (char *rowlist, \fBLONGLONG\fP maxrows, int maxranges, int *numranges, \fBLONGLONG\fP *minrow, \fBLONGLONG\fP *maxrow, int *status)"
+.br
+.ti -1c
+.RI "int \fBffomem\fP (\fBfitsfile\fP **fptr, const char *name, int mode, void **buffptr, size_t *buffsize, size_t deltasize, void *(*mem_realloc)(void *p, size_t newsize), int *status)"
+.br
+.ti -1c
+.RI "int \fBffopen\fP (\fBfitsfile\fP **fptr, const char *filename, int iomode, int *status)"
+.br
+.ti -1c
+.RI "int \fBffopentest\fP (double version, \fBfitsfile\fP **fptr, const char *filename, int iomode, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdopn\fP (\fBfitsfile\fP **fptr, const char *filename, int iomode, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftopn\fP (\fBfitsfile\fP **fptr, const char *filename, int iomode, int *status)"
+.br
+.ti -1c
+.RI "int \fBffiopn\fP (\fBfitsfile\fP **fptr, const char *filename, int iomode, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdkopn\fP (\fBfitsfile\fP **fptr, const char *filename, int iomode, int *status)"
+.br
+.ti -1c
+.RI "int \fBffreopen\fP (\fBfitsfile\fP *openfptr, \fBfitsfile\fP **newfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffinit\fP (\fBfitsfile\fP **fptr, const char *filename, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdkinit\fP (\fBfitsfile\fP **fptr, const char *filename, int *status)"
+.br
+.ti -1c
+.RI "int \fBffimem\fP (\fBfitsfile\fP **fptr, void **buffptr, size_t *buffsize, size_t deltasize, void *(*mem_realloc)(void *p, size_t newsize), int *status)"
+.br
+.ti -1c
+.RI "int \fBfftplt\fP (\fBfitsfile\fP **fptr, const char *filename, const char *tempname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffflus\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffflsh\fP (\fBfitsfile\fP *fptr, int clearbuf, int *status)"
+.br
+.ti -1c
+.RI "int \fBffclos\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdelt\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffflnm\fP (\fBfitsfile\fP *fptr, char *filename, int *status)"
+.br
+.ti -1c
+.RI "int \fBffflmd\fP (\fBfitsfile\fP *fptr, int *filemode, int *status)"
+.br
+.ti -1c
+.RI "float \fBffvers\fP (float *version)"
+.br
+.ti -1c
+.RI "void \fBffupch\fP (char *string)"
+.br
+.ti -1c
+.RI "void \fBffgerr\fP (int status, char *errtext)"
+.br
+.ti -1c
+.RI "void \fBffpmsg\fP (const char *err_message)"
+.br
+.ti -1c
+.RI "void \fBffpmrk\fP (void)"
+.br
+.ti -1c
+.RI "int \fBffgmsg\fP (char *err_message)"
+.br
+.ti -1c
+.RI "void \fBffcmsg\fP (void)"
+.br
+.ti -1c
+.RI "void \fBffcmrk\fP (void)"
+.br
+.ti -1c
+.RI "void \fBffrprt\fP (FILE *stream, int status)"
+.br
+.ti -1c
+.RI "void \fBffcmps\fP (char *templt, char *colname, int casesen, int *match, int *exact)"
+.br
+.ti -1c
+.RI "int \fBfftkey\fP (const char *keyword, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftrec\fP (char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffnchk\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffkeyn\fP (const char *keyroot, int value, char *keyname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffnkey\fP (int value, char *keyroot, char *keyname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkcl\fP (char *card)"
+.br
+.ti -1c
+.RI "int \fBffdtyp\fP (char *cval, char *dtype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpsvc\fP (char *card, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgknm\fP (char *card, char *name, int *length, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgthd\fP (char *tmplt, char *card, int *hdtype, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_translate_keyword\fP (char *inrec, char *outrec, char *patterns[][2], int npat, int n_value, int n_offset, int n_range, int *pat_num, int *i, int *j, int *m, int *n, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_translate_keywords\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int firstkey, char *patterns[][2], int npat, int n_value, int n_offset, int n_range, int *status)"
+.br
+.ti -1c
+.RI "int \fBffasfm\fP (char *tform, int *datacode, long *width, int *decim, int *status)"
+.br
+.ti -1c
+.RI "int \fBffbnfm\fP (char *tform, int *datacode, long *repeat, long *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffbnfmll\fP (char *tform, int *datacode, \fBLONGLONG\fP *repeat, long *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgabc\fP (int tfields, char **tform, int space, long *rowlen, long *tbcol, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_section_range\fP (char **ptr, long *secmin, long *secmax, long *incre, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmbyt\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP bytpos, int ignore_err, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpky\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, const char *keyname, void *value, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffprec\fP (\fBfitsfile\fP *fptr, const char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcom\fP (\fBfitsfile\fP *fptr, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpunt\fP (\fBfitsfile\fP *fptr, const char *keyname, char *unit, int *status)"
+.br
+.ti -1c
+.RI "int \fBffphis\fP (\fBfitsfile\fP *fptr, const char *history, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpdat\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffverifydate\fP (int year, int month, int day, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgstm\fP (char *timestr, int *timeref, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsdt\fP (int *day, int *month, int *year, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdt2s\fP (int year, int month, int day, char *datestr, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftm2s\fP (int year, int month, int day, int hour, int minute, double second, int decimals, char *datestr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffs2dt\fP (char *datestr, int *year, int *month, int *day, int *status)"
+.br
+.ti -1c
+.RI "int \fBffs2tm\fP (char *datestr, int *year, int *month, int *day, int *hour, int *minute, double *second, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyu\fP (\fBfitsfile\fP *fptr, const char *keyname, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkys\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkls\fP (\fBfitsfile\fP *fptr, const char *keyname, const char *value, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffplsw\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyl\fP (\fBfitsfile\fP *fptr, const char *keyname, int value, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyj\fP (\fBfitsfile\fP *fptr, const char *keyname, \fBLONGLONG\fP value, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyf\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkye\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyg\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyd\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkym\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkfc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkfm\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkyt\fP (\fBfitsfile\fP *fptr, const char *keyname, long intval, double frac, const char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffptdm\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffptdmll\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, \fBLONGLONG\fP naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkns\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, char *value[], char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpknl\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, int *value, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpknj\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, long *value, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpknjj\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, \fBLONGLONG\fP *value, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpknf\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, float *value, int decim, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkne\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, float *value, int decim, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpkng\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, double *value, int decim, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffpknd\fP (\fBfitsfile\fP *fptr, const char *keyroot, int nstart, int nkey, double *value, int decim, char *comm[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffcpky\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int incol, int outcol, char *rootname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffphps\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, long naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffphpsll\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, \fBLONGLONG\fP naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffphpr\fP (\fBfitsfile\fP *fptr, int simple, int bitpix, int naxis, long naxes[], \fBLONGLONG\fP pcount, \fBLONGLONG\fP gcount, int extend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffphprll\fP (\fBfitsfile\fP *fptr, int simple, int bitpix, int naxis, \fBLONGLONG\fP naxes[], \fBLONGLONG\fP pcount, \fBLONGLONG\fP gcount, int extend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffphtb\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int tfields, char **ttype, long *tbcol, char **tform, char **tunit, const char *extname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffphbn\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP naxis2, int tfields, char **ttype, char **tform, char **tunit, const char *extname, \fBLONGLONG\fP pcount, int *status)"
+.br
+.ti -1c
+.RI "int \fBffphext\fP (\fBfitsfile\fP *fptr, const char *xtension, int bitpix, int naxis, long naxes[], \fBLONGLONG\fP pcount, \fBLONGLONG\fP gcount, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpktp\fP (\fBfitsfile\fP *fptr, const char *filename, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghsp\fP (\fBfitsfile\fP *fptr, int *nexist, int *nmore, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghps\fP (\fBfitsfile\fP *fptr, int *nexist, int *position, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmaky\fP (\fBfitsfile\fP *fptr, int nrec, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmrky\fP (\fBfitsfile\fP *fptr, int nrec, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgnxk\fP (\fBfitsfile\fP *fptr, char **inclist, int ninc, char **exclist, int nexc, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgrec\fP (\fBfitsfile\fP *fptr, int nrec, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcrd\fP (\fBfitsfile\fP *fptr, const char *keyname, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgunt\fP (\fBfitsfile\fP *fptr, const char *keyname, char *unit, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyn\fP (\fBfitsfile\fP *fptr, int nkey, char *keyname, char *keyval, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkey\fP (\fBfitsfile\fP *fptr, const char *keyname, char *keyval, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgky\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, const char *keyname, void *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkys\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkls\fP (\fBfitsfile\fP *fptr, const char *keyname, char **value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyl\fP (\fBfitsfile\fP *fptr, const char *keyname, int *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyj\fP (\fBfitsfile\fP *fptr, const char *keyname, long *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyjj\fP (\fBfitsfile\fP *fptr, const char *keyname, \fBLONGLONG\fP *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkye\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyd\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkym\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkyt\fP (\fBfitsfile\fP *fptr, const char *keyname, long *ivalue, double *dvalue, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtdm\fP (\fBfitsfile\fP *fptr, int colnum, int maxdim, int *naxis, long naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtdmll\fP (\fBfitsfile\fP *fptr, int colnum, int maxdim, int *naxis, \fBLONGLONG\fP naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffdtdm\fP (\fBfitsfile\fP *fptr, char *tdimstr, int colnum, int maxdim, int *naxis, long naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffdtdmll\fP (\fBfitsfile\fP *fptr, char *tdimstr, int colnum, int maxdim, int *naxis, \fBLONGLONG\fP naxes[], int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkns\fP (\fBfitsfile\fP *fptr, const char *keyname, int nstart, int nmax, char *value[], int *nfound, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgknl\fP (\fBfitsfile\fP *fptr, const char *keyname, int nstart, int nmax, int *value, int *nfound, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgknj\fP (\fBfitsfile\fP *fptr, const char *keyname, int nstart, int nmax, long *value, int *nfound, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgknjj\fP (\fBfitsfile\fP *fptr, const char *keyname, int nstart, int nmax, \fBLONGLONG\fP *value, int *nfound, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgkne\fP (\fBfitsfile\fP *fptr, const char *keyname, int nstart, int nmax, float *value, int *nfound, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgknd\fP (\fBfitsfile\fP *fptr, const char *keyname, int nstart, int nmax, double *value, int *nfound, int *status)"
+.br
+.ti -1c
+.RI "int \fBffh2st\fP (\fBfitsfile\fP *fptr, char **header, int *status)"
+.br
+.ti -1c
+.RI "int \fBffhdr2str\fP (\fBfitsfile\fP *fptr, int exclude_comm, char **exclist, int nexc, char **header, int *nkeys, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghpr\fP (\fBfitsfile\fP *fptr, int maxdim, int *simple, int *bitpix, int *naxis, long naxes[], long *pcount, long *gcount, int *extend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghprll\fP (\fBfitsfile\fP *fptr, int maxdim, int *simple, int *bitpix, int *naxis, \fBLONGLONG\fP naxes[], long *pcount, long *gcount, int *extend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghtb\fP (\fBfitsfile\fP *fptr, int maxfield, long *naxis1, long *naxis2, int *tfields, char **ttype, long *tbcol, char **tform, char **tunit, char *extname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghtbll\fP (\fBfitsfile\fP *fptr, int maxfield, \fBLONGLONG\fP *naxis1, \fBLONGLONG\fP *naxis2, int *tfields, char **ttype, \fBLONGLONG\fP *tbcol, char **tform, char **tunit, char *extname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghbn\fP (\fBfitsfile\fP *fptr, int maxfield, long *naxis2, int *tfields, char **ttype, char **tform, char **tunit, char *extname, long *pcount, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghbnll\fP (\fBfitsfile\fP *fptr, int maxfield, \fBLONGLONG\fP *naxis2, int *tfields, char **ttype, char **tform, char **tunit, char *extname, \fBLONGLONG\fP *pcount, int *status)"
+.br
+.ti -1c
+.RI "int \fBffuky\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, const char *keyname, void *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffucrd\fP (\fBfitsfile\fP *fptr, const char *keyname, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyu\fP (\fBfitsfile\fP *fptr, const char *keyname, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukys\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukls\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyl\fP (\fBfitsfile\fP *fptr, const char *keyname, int value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyj\fP (\fBfitsfile\fP *fptr, const char *keyname, \fBLONGLONG\fP value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyf\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukye\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyg\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyd\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukyc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukym\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukfc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffukfm\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmrec\fP (\fBfitsfile\fP *fptr, int nkey, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmcrd\fP (\fBfitsfile\fP *fptr, const char *keyname, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmnam\fP (\fBfitsfile\fP *fptr, const char *oldname, const char *newname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmcom\fP (\fBfitsfile\fP *fptr, const char *keyname, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyu\fP (\fBfitsfile\fP *fptr, const char *keyname, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkys\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkls\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyl\fP (\fBfitsfile\fP *fptr, const char *keyname, int value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyj\fP (\fBfitsfile\fP *fptr, const char *keyname, \fBLONGLONG\fP value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyf\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkye\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyg\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyd\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkyc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkym\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkfc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmkfm\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffirec\fP (\fBfitsfile\fP *fptr, int nkey, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikey\fP (\fBfitsfile\fP *fptr, char *card, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyu\fP (\fBfitsfile\fP *fptr, const char *keyname, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikys\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikls\fP (\fBfitsfile\fP *fptr, const char *keyname, char *value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyl\fP (\fBfitsfile\fP *fptr, const char *keyname, int value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyj\fP (\fBfitsfile\fP *fptr, const char *keyname, \fBLONGLONG\fP value, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyf\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikye\fP (\fBfitsfile\fP *fptr, const char *keyname, float value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyg\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyd\fP (\fBfitsfile\fP *fptr, const char *keyname, double value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikyc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikym\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikfc\fP (\fBfitsfile\fP *fptr, const char *keyname, float *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffikfm\fP (\fBfitsfile\fP *fptr, const char *keyname, double *value, int decim, char *comm, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdkey\fP (\fBfitsfile\fP *fptr, const char *keyname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdrec\fP (\fBfitsfile\fP *fptr, int keypos, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghdn\fP (\fBfitsfile\fP *fptr, int *chdunum)"
+.br
+.ti -1c
+.RI "int \fBffghdt\fP (\fBfitsfile\fP *fptr, int *exttype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghad\fP (\fBfitsfile\fP *fptr, long *headstart, long *datastart, long *dataend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghadll\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP *headstart, \fBLONGLONG\fP *datastart, \fBLONGLONG\fP *dataend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffghof\fP (\fBfitsfile\fP *fptr, OFF_T *headstart, OFF_T *datastart, OFF_T *dataend, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgipr\fP (\fBfitsfile\fP *fptr, int maxaxis, int *imgtype, int *naxis, long *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgiprll\fP (\fBfitsfile\fP *fptr, int maxaxis, int *imgtype, int *naxis, \fBLONGLONG\fP *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgidt\fP (\fBfitsfile\fP *fptr, int *imgtype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgiet\fP (\fBfitsfile\fP *fptr, int *imgtype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgidm\fP (\fBfitsfile\fP *fptr, int *naxis, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgisz\fP (\fBfitsfile\fP *fptr, int nlen, long *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgiszll\fP (\fBfitsfile\fP *fptr, int nlen, \fBLONGLONG\fP *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmahd\fP (\fBfitsfile\fP *fptr, int hdunum, int *exttype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmrhd\fP (\fBfitsfile\fP *fptr, int hdumov, int *exttype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmnhd\fP (\fBfitsfile\fP *fptr, int exttype, char *hduname, int hduvers, int *status)"
+.br
+.ti -1c
+.RI "int \fBffthdu\fP (\fBfitsfile\fP *fptr, int *nhdu, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcrhd\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcrim\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, long *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcrimll\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, \fBLONGLONG\fP *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcrtb\fP (\fBfitsfile\fP *fptr, int tbltype, \fBLONGLONG\fP naxis2, int tfields, char **ttype, char **tform, char **tunit, const char *extname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffiimg\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, long *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffiimgll\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, \fBLONGLONG\fP *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffitab\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int tfields, char **ttype, long *tbcol, char **tform, char **tunit, const char *extname, int *status)"
+.br
+.ti -1c
+.RI "int \fBffibin\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP naxis2, int tfields, char **ttype, char **tform, char **tunit, const char *extname, \fBLONGLONG\fP pcount, int *status)"
+.br
+.ti -1c
+.RI "int \fBffrsim\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, long *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffrsimll\fP (\fBfitsfile\fP *fptr, int bitpix, int naxis, \fBLONGLONG\fP *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdhdu\fP (\fBfitsfile\fP *fptr, int *\fBhdutype\fP, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcopy\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int morekeys, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcpfl\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int prev, int cur, int follow, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcphd\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcpdt\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffchfl\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcdfl\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffwrhdu\fP (\fBfitsfile\fP *fptr, FILE *outstream, int *status)"
+.br
+.ti -1c
+.RI "int \fBffrdef\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffhdef\fP (\fBfitsfile\fP *fptr, int morekeys, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpthp\fP (\fBfitsfile\fP *fptr, long theap, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcsum\fP (\fBfitsfile\fP *fptr, long nrec, unsigned long *sum, int *status)"
+.br
+.ti -1c
+.RI "void \fBffesum\fP (unsigned long sum, int complm, char *ascii)"
+.br
+.ti -1c
+.RI "unsigned long \fBffdsum\fP (char *ascii, int complm, unsigned long *sum)"
+.br
+.ti -1c
+.RI "int \fBffpcks\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffupck\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffvcks\fP (\fBfitsfile\fP *fptr, int *datastatus, int *hdustatus, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcks\fP (\fBfitsfile\fP *fptr, unsigned long *datasum, unsigned long *hdusum, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpscl\fP (\fBfitsfile\fP *fptr, double scale, double zero, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpnul\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftscl\fP (\fBfitsfile\fP *fptr, int colnum, double scale, double zero, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftnul\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffsnul\fP (\fBfitsfile\fP *fptr, int colnum, char *nulstring, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcno\fP (\fBfitsfile\fP *fptr, int casesen, char *templt, int *colnum, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcnn\fP (\fBfitsfile\fP *fptr, int casesen, char *templt, char *colname, int *colnum, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtcl\fP (\fBfitsfile\fP *fptr, int colnum, int *typecode, long *repeat, long *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtclll\fP (\fBfitsfile\fP *fptr, int colnum, int *typecode, \fBLONGLONG\fP *repeat, \fBLONGLONG\fP *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffeqty\fP (\fBfitsfile\fP *fptr, int colnum, int *typecode, long *repeat, long *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffeqtyll\fP (\fBfitsfile\fP *fptr, int colnum, int *typecode, \fBLONGLONG\fP *repeat, \fBLONGLONG\fP *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgncl\fP (\fBfitsfile\fP *fptr, int *ncols, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgnrw\fP (\fBfitsfile\fP *fptr, long *nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgnrwll\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP *nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgacl\fP (\fBfitsfile\fP *fptr, int colnum, char *ttype, long *tbcol, char *tunit, char *tform, double *tscal, double *tzero, char *tnull, char *tdisp, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgbcl\fP (\fBfitsfile\fP *fptr, int colnum, char *ttype, char *tunit, char *dtype, long *repeat, double *tscal, double *tzero, long *tnull, char *tdisp, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgbclll\fP (\fBfitsfile\fP *fptr, int colnum, char *ttype, char *tunit, char *dtype, \fBLONGLONG\fP *repeat, double *tscal, double *tzero, \fBLONGLONG\fP *tnull, char *tdisp, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgrsz\fP (\fBfitsfile\fP *fptr, long *nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcdw\fP (\fBfitsfile\fP *fptr, int colnum, int *width, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpxv\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, long *firstpix, \fBLONGLONG\fP nelem, void *nulval, void *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpxvll\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP *firstpix, \fBLONGLONG\fP nelem, void *nulval, void *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpxf\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, long *firstpix, \fBLONGLONG\fP nelem, void *array, char *nullarray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpxfll\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP *firstpix, \fBLONGLONG\fP nelem, void *array, char *nullarray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsv\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, long *blc, long *trc, long *inc, void *nulval, void *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpv\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *nulval, void *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpf\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *array, char *nullarray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char nulval, unsigned char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvsb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char nulval, signed char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvui\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short nulval, unsigned short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvi\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short nulval, short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvuj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long nulval, unsigned long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long nulval, long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvjj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP nulval, \fBLONGLONG\fP *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvuk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int nulval, unsigned int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int nulval, int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpve\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float nulval, float *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpvd\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double nulval, double *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfsb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfui\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfi\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfuj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfjj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfuk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfe\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgpfd\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2db\fP (\fBfitsfile\fP *fptr, long group, unsigned char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2dsb\fP (\fBfitsfile\fP *fptr, long group, signed char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, signed char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2dui\fP (\fBfitsfile\fP *fptr, long group, unsigned short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2di\fP (\fBfitsfile\fP *fptr, long group, short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2duj\fP (\fBfitsfile\fP *fptr, long group, unsigned long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2dj\fP (\fBfitsfile\fP *fptr, long group, long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2djj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2duk\fP (\fBfitsfile\fP *fptr, long group, unsigned int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2dk\fP (\fBfitsfile\fP *fptr, long group, int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2de\fP (\fBfitsfile\fP *fptr, long group, float nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, float *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg2dd\fP (\fBfitsfile\fP *fptr, long group, double nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, double *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3db\fP (\fBfitsfile\fP *fptr, long group, unsigned char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3dsb\fP (\fBfitsfile\fP *fptr, long group, signed char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, signed char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3dui\fP (\fBfitsfile\fP *fptr, long group, unsigned short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3di\fP (\fBfitsfile\fP *fptr, long group, short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3duj\fP (\fBfitsfile\fP *fptr, long group, unsigned long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3dj\fP (\fBfitsfile\fP *fptr, long group, long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3djj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, \fBLONGLONG\fP *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3duk\fP (\fBfitsfile\fP *fptr, long group, unsigned int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3dk\fP (\fBfitsfile\fP *fptr, long group, int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3de\fP (\fBfitsfile\fP *fptr, long group, float nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, float *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffg3dd\fP (\fBfitsfile\fP *fptr, long group, double nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, double *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvb\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned char nulval, unsigned char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvsb\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, signed char nulval, signed char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvui\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned short nulval, unsigned short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvi\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, short nulval, short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvuj\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned long nulval, unsigned long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvj\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, long nulval, long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvjj\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, \fBLONGLONG\fP nulval, \fBLONGLONG\fP *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvuk\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned int nulval, unsigned int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvk\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, int nulval, int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsve\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, float nulval, float *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsvd\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, double nulval, double *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfb\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned char *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfsb\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, signed char *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfui\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned short *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfi\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, short *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfuj\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned long *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfj\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, long *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfjj\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, \fBLONGLONG\fP *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfuk\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, unsigned int *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfk\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, int *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfe\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, float *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgsfd\fP (\fBfitsfile\fP *fptr, int colnum, int naxis, long *naxes, long *blc, long *trc, long *inc, double *array, char *flagval, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpb\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpsb\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpui\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpi\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpuj\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpj\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpjj\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpuk\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpk\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpe\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffggpd\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcv\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *nulval, void *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcf\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *array, char *nullarray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvs\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char *nulval, char **array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcl\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvl\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char nulval, char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char nulval, unsigned char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvsb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char nulval, signed char *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvui\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short nulval, unsigned short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvi\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short nulval, short *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvuj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long nulval, unsigned long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long nulval, long *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvjj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP nulval, \fBLONGLONG\fP *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvuk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int nulval, unsigned int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int nulval, int *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcve\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float nulval, float *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvd\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double nulval, double *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvc\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float nulval, float *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcvm\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double nulval, double *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcx\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstbit, \fBLONGLONG\fP nbits, char *larray, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcxui\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, long firstbit, int nbits, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcxuk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, long firstbit, int nbits, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfs\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char **array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfl\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfsb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfui\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfi\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfuj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfjj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfuk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfe\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfd\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfc\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgcfm\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, char *nularray, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgdes\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP rownum, long *length, long *heapaddr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgdesll\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP rownum, \fBLONGLONG\fP *length, \fBLONGLONG\fP *heapaddr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgdess\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, long *length, long *heapaddr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgdessll\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, \fBLONGLONG\fP *length, \fBLONGLONG\fP *heapaddr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpdes\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP rownum, \fBLONGLONG\fP length, \fBLONGLONG\fP heapaddr, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftheap\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP *heapsize, \fBLONGLONG\fP *unused, \fBLONGLONG\fP *overlap, int *valid, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcmph\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtbb\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstchar, \fBLONGLONG\fP nchars, unsigned char *values, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgextn\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP offset, \fBLONGLONG\fP nelem, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpextn\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP offset, \fBLONGLONG\fP nelem, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppx\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, long *firstpix, \fBLONGLONG\fP nelem, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppxll\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP *firstpix, \fBLONGLONG\fP nelem, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppxn\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, long *firstpix, \fBLONGLONG\fP nelem, void *array, void *nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppxnll\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP *firstpix, \fBLONGLONG\fP nelem, void *array, void *nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppr\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprsb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprui\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppri\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppruj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppruk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppre\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprd\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprjj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppru\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpprn\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppn\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *array, void *nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char *array, unsigned char nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnsb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char *array, signed char nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnui\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short *array, unsigned short nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppni\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short *array, short nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long *array, long nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnuj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long *array, unsigned long nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnuk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int *array, unsigned int nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *array, int nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppne\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, float nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnd\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, double nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffppnjj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP *array, \fBLONGLONG\fP nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2db\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2dsb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2dui\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2di\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2duj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2dj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2duk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2dk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2de\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2dd\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp2djj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3db\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3dsb\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3dui\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3di\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3duj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3dj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3duk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3dk\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3de\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3dd\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffp3djj\fP (\fBfitsfile\fP *fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpss\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, long *fpixel, long *lpixel, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssb\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpsssb\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssui\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssi\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssuj\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssj\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssuk\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssk\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpsse\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssd\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpssjj\fP (\fBfitsfile\fP *fptr, long group, long naxis, long *naxes, long *fpixel, long *lpixel, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpb\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpsb\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpui\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpi\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpuj\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpj\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpuk\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpk\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpe\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpd\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpgpjj\fP (\fBfitsfile\fP *fptr, long group, long firstelem, long nelem, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_by_name\fP (\fBiteratorCol\fP *col, \fBfitsfile\fP *fptr, char *colname, int \fBdatatype\fP, int iotype)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_by_num\fP (\fBiteratorCol\fP *col, \fBfitsfile\fP *fptr, int colnum, int \fBdatatype\fP, int iotype)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_file\fP (\fBiteratorCol\fP *col, \fBfitsfile\fP *fptr)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_colname\fP (\fBiteratorCol\fP *col, char *colname)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_colnum\fP (\fBiteratorCol\fP *col, int colnum)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_datatype\fP (\fBiteratorCol\fP *col, int \fBdatatype\fP)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_set_iotype\fP (\fBiteratorCol\fP *col, int iotype)"
+.br
+.ti -1c
+.RI "\fBfitsfile\fP * \fBfits_iter_get_file\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "char * \fBfits_iter_get_colname\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_get_colnum\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_get_datatype\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "int \fBfits_iter_get_iotype\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "void * \fBfits_iter_get_array\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "long \fBfits_iter_get_tlmin\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "long \fBfits_iter_get_tlmax\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "long \fBfits_iter_get_repeat\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "char * \fBfits_iter_get_tunit\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "char * \fBfits_iter_get_tdisp\fP (\fBiteratorCol\fP *col)"
+.br
+.ti -1c
+.RI "int \fBffiter\fP (int ncols, \fBiteratorCol\fP *data, long offset, long nPerLoop, int(*workFn)(long totaln, long offset, long firstn, long nvalues, int narrays, \fBiteratorCol\fP *data, void *userPointer), void *userPointer, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcl\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcls\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char **array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcll\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclsb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclui\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcli\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcluj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcluk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcle\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcld\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclc\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclm\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclu\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *status)"
+.br
+.ti -1c
+.RI "int \fBffprwu\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcljj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP *array, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpclx\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP frow, long fbit, long nbit, char *larray, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcn\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void *array, void *nulval, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcns\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char **array, char *nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnl\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char *array, char nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char *array, unsigned char nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnsb\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char *array, signed char nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnui\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short *array, unsigned short nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcni\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short *array, short nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnuj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long *array, unsigned long nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long *array, long nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnuk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int *array, unsigned int nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnk\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int *array, int nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcne\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float *array, float nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnd\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double *array, double nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffpcnjj\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP *array, \fBLONGLONG\fP nulvalue, int *status)"
+.br
+.ti -1c
+.RI "int \fBffptbb\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstchar, \fBLONGLONG\fP nchars, unsigned char *values, int *status)"
+.br
+.ti -1c
+.RI "int \fBffirow\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdrow\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdrrg\fP (\fBfitsfile\fP *fptr, char *ranges, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdrws\fP (\fBfitsfile\fP *fptr, long *rownum, long nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdrwsll\fP (\fBfitsfile\fP *fptr, \fBLONGLONG\fP *rownum, \fBLONGLONG\fP nrows, int *status)"
+.br
+.ti -1c
+.RI "int \fBfficol\fP (\fBfitsfile\fP *fptr, int numcol, char *ttype, char *tform, int *status)"
+.br
+.ti -1c
+.RI "int \fBfficls\fP (\fBfitsfile\fP *fptr, int firstcol, int ncols, char **ttype, char **tform, int *status)"
+.br
+.ti -1c
+.RI "int \fBffmvec\fP (\fBfitsfile\fP *fptr, int colnum, \fBLONGLONG\fP newveclen, int *status)"
+.br
+.ti -1c
+.RI "int \fBffdcol\fP (\fBfitsfile\fP *fptr, int numcol, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcpcl\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int incol, int outcol, int create_col, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgics\fP (\fBfitsfile\fP *fptr, double *xrval, double *yrval, double *xrpix, double *yrpix, double *xinc, double *yinc, double *rot, char *type, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtcs\fP (\fBfitsfile\fP *fptr, int xcol, int ycol, double *xrval, double *yrval, double *xrpix, double *yrpix, double *xinc, double *yinc, double *rot, char *type, int *status)"
+.br
+.ti -1c
+.RI "int \fBffwldp\fP (double xpix, double ypix, double xref, double yref, double xrefpix, double yrefpix, double xinc, double yinc, double rot, char *type, double *xpos, double *ypos, int *status)"
+.br
+.ti -1c
+.RI "int \fBffxypx\fP (double xpos, double ypos, double xref, double yref, double xrefpix, double yrefpix, double xinc, double yinc, double rot, char *type, double *xpix, double *ypix, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgiwcs\fP (\fBfitsfile\fP *fptr, char **header, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtwcs\fP (\fBfitsfile\fP *fptr, int xcol, int ycol, char **header, int *status)"
+.br
+.ti -1c
+.RI "int \fBfftexp\fP (\fBfitsfile\fP *fptr, char *expr, int maxdim, int *\fBdatatype\fP, long *nelem, int *naxis, long *naxes, int *status)"
+.br
+.ti -1c
+.RI "int \fBfffrow\fP (\fBfitsfile\fP *infptr, char *expr, long firstrow, long nrows, long *n_good_rows, char *row_status, int *status)"
+.br
+.ti -1c
+.RI "int \fBffffrw\fP (\fBfitsfile\fP *fptr, char *expr, long *rownum, int *status)"
+.br
+.ti -1c
+.RI "int \fBfffrwc\fP (\fBfitsfile\fP *fptr, char *expr, char *timeCol, char *parCol, char *valCol, long ntimes, double *times, char *time_status, int *status)"
+.br
+.ti -1c
+.RI "int \fBffsrow\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, char *expr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcrow\fP (\fBfitsfile\fP *fptr, int \fBdatatype\fP, char *expr, long firstrow, long nelements, void *nulval, void *array, int *anynul, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcalc_rng\fP (\fBfitsfile\fP *infptr, char *expr, \fBfitsfile\fP *outfptr, char *parName, char *parInfo, int nRngs, long *start, long *end, int *status)"
+.br
+.ti -1c
+.RI "int \fBffcalc\fP (\fBfitsfile\fP *infptr, char *expr, \fBfitsfile\fP *outfptr, char *parName, char *parInfo, int *status)"
+.br
+.ti -1c
+.RI "int \fBffhist\fP (\fBfitsfile\fP **fptr, char *outfile, int imagetype, int naxis, char colname[4][FLEN_VALUE], double *minin, double *maxin, double *binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], double weightin, char wtcol[FLEN_VALUE], int recip, char *rowselect, int *status)"
+.br
+.ti -1c
+.RI "int \fBffhist2\fP (\fBfitsfile\fP **fptr, char *outfile, int imagetype, int naxis, char colname[4][FLEN_VALUE], double *minin, double *maxin, double *binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], double weightin, char wtcol[FLEN_VALUE], int recip, char *rowselect, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_select_image_section\fP (\fBfitsfile\fP **fptr, char *outfile, char *imagesection, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_copy_image_section\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfile, char *imagesection, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_calc_binning\fP (\fBfitsfile\fP *fptr, int naxis, char colname[4][FLEN_VALUE], double *minin, double *maxin, double *binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], int *colnum, long *haxes, float *amin, float *amax, float *binsize, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_write_keys_histo\fP (\fBfitsfile\fP *fptr, \fBfitsfile\fP *histptr, int naxis, int *colnum, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_rebin_wcs\fP (\fBfitsfile\fP *fptr, int naxis, float *amin, float *binsize, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_make_hist\fP (\fBfitsfile\fP *fptr, \fBfitsfile\fP *histptr, int bitpix, int naxis, long *naxes, int *colnum, float *amin, float *amax, float *binsize, float weight, int wtcolnum, int recip, char *selectrow, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_pixel_filter\fP (\fBPixelFilter\fP *filter, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtcr\fP (\fBfitsfile\fP *fptr, char *grpname, int grouptype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtis\fP (\fBfitsfile\fP *fptr, char *grpname, int grouptype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtch\fP (\fBfitsfile\fP *gfptr, int grouptype, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtrm\fP (\fBfitsfile\fP *gfptr, int rmopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtcp\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int cpopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtmg\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int mgopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtcm\fP (\fBfitsfile\fP *gfptr, int cmopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtvf\fP (\fBfitsfile\fP *gfptr, long *firstfailed, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtop\fP (\fBfitsfile\fP *mfptr, int group, \fBfitsfile\fP **gfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtam\fP (\fBfitsfile\fP *gfptr, \fBfitsfile\fP *mfptr, int hdupos, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgtnm\fP (\fBfitsfile\fP *gfptr, long *nmembers, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgmng\fP (\fBfitsfile\fP *mfptr, long *nmembers, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgmop\fP (\fBfitsfile\fP *gfptr, long member, \fBfitsfile\fP **mfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgmcp\fP (\fBfitsfile\fP *gfptr, \fBfitsfile\fP *mfptr, long member, int cpopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgmtf\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, long member, int tfopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBffgmrm\fP (\fBfitsfile\fP *fptr, long member, int rmopt, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_execute_template\fP (\fBfitsfile\fP *ff, char *ngp_template, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_img_stats_short\fP (short *array, long nx, long ny, int nullcheck, short nullvalue, long *ngoodpix, short *minvalue, short *maxvalue, double *mean, double *sigma, double *noise1, double *noise3, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_img_stats_int\fP (int *array, long nx, long ny, int nullcheck, int nullvalue, long *ngoodpix, int *minvalue, int *maxvalue, double *mean, double *sigma, double *noise1, double *noise3, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_img_stats_float\fP (float *array, long nx, long ny, int nullcheck, float nullvalue, long *ngoodpix, float *minvalue, float *maxvalue, double *mean, double *sigma, double *noise1, double *noise3, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_set_compression_type\fP (\fBfitsfile\fP *fptr, int ctype, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_set_tile_dim\fP (\fBfitsfile\fP *fptr, int ndim, long *dims, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_set_noise_bits\fP (\fBfitsfile\fP *fptr, int noisebits, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_set_quantize_level\fP (\fBfitsfile\fP *fptr, float qlevel, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_set_hcomp_scale\fP (\fBfitsfile\fP *fptr, float scale, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_set_hcomp_smooth\fP (\fBfitsfile\fP *fptr, int smooth, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_compression_type\fP (\fBfitsfile\fP *fptr, int *ctype, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_tile_dim\fP (\fBfitsfile\fP *fptr, int ndim, long *dims, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_quantize_level\fP (\fBfitsfile\fP *fptr, float *qlevel, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_noise_bits\fP (\fBfitsfile\fP *fptr, int *noisebits, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_hcomp_scale\fP (\fBfitsfile\fP *fptr, float *scale, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_get_hcomp_smooth\fP (\fBfitsfile\fP *fptr, int *smooth, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_img_compress\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_compress_img\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int compress_type, long *tilesize, int parm1, int parm2, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_is_compressed_image\fP (\fBfitsfile\fP *fptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_decompress_img\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_img_decompress\fP (\fBfitsfile\fP *infptr, \fBfitsfile\fP *outfptr, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_hcompress\fP (int *a, int nx, int ny, int scale, char *output, long *nbytes, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_hcompress64\fP (\fBLONGLONG\fP *a, int nx, int ny, int scale, char *output, long *nbytes, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_hdecompress\fP (unsigned char *input, int smooth, int *a, int *nx, int *ny, int *scale, int *status)"
+.br
+.ti -1c
+.RI "int \fBfits_hdecompress64\fP (unsigned char *input, int smooth, \fBLONGLONG\fP *a, int *nx, int *ny, int *scale, int *status)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define ANGLE_TOO_BIG   501"
+.PP
+.SS "#define ANY_HDU   -1"
+.PP
+.SS "#define APPROX_WCS_KEY   506"
+.PP
+.SS "#define ARRAY_TOO_BIG   111"
+.PP
+.SS "#define ASCII_TBL   1"
+.PP
+.SS "#define BAD_ATABLE_FORMAT   311"
+.PP
+.SS "#define BAD_BITPIX   211"
+.PP
+.SS "#define BAD_BTABLE_FORMAT   312"
+.PP
+.SS "#define BAD_C2D   409"
+.PP
+.SS "#define BAD_C2F   408"
+.PP
+.SS "#define BAD_C2I   407"
+.PP
+.SS "#define BAD_COL_NUM   302"
+.PP
+.SS "#define BAD_DATA_FILL   255"
+.PP
+.SS "#define BAD_DATATYPE   410"
+.PP
+.SS "#define BAD_DATE   420"
+.PP
+.SS "#define BAD_DECIM   411"
+.PP
+.SS "#define BAD_DIMEN   320"
+.PP
+.SS "#define BAD_DOUBLEKEY   406"
+.PP
+.SS "#define BAD_ELEM_NUM   308"
+.PP
+.SS "#define BAD_F2C   402"
+.PP
+.SS "#define BAD_FILEPTR   114"
+.PP
+.SS "#define BAD_FLOATKEY   405"
+.PP
+.SS "#define BAD_GCOUNT   215"
+.PP
+.SS "#define BAD_GROUP_ATTACH   349"
+.PP
+.SS "#define BAD_GROUP_DETACH   350"
+.PP
+.SS "#define BAD_GROUP_ID   344"
+.PP
+.SS "#define BAD_HDU_NUM   301"
+.PP
+.SS "#define BAD_HEADER_FILL   254"
+.PP
+.SS "#define BAD_HEAP_PTR   264"
+.PP
+.SS "#define BAD_I2C   401"
+.PP
+.SS "#define BAD_INDEX_KEY   206"
+.PP
+.SS "#define BAD_INTKEY   403"
+.PP
+.SS "#define BAD_KEYCHAR   207"
+.PP
+.SS "#define BAD_LOGICALKEY   404"
+.PP
+.SS "#define BAD_NAXES   213"
+.PP
+.SS "#define BAD_NAXIS   212"
+.PP
+.SS "#define BAD_OPTION   347"
+.PP
+.SS "#define BAD_ORDER   208"
+.PP
+.SS "#define BAD_PCOUNT   214"
+.PP
+.SS "#define BAD_PIX_NUM   321"
+.PP
+.SS "#define BAD_ROW_NUM   307"
+.PP
+.SS "#define BAD_ROW_WIDTH   241"
+.PP
+.SS "#define BAD_SIMPLE   220"
+.PP
+.SS "#define BAD_TBCOL   234"
+.PP
+.SS "#define BAD_TDIM   263"
+.PP
+.SS "#define BAD_TFIELDS   216"
+.PP
+.SS "#define BAD_TFORM   261"
+.PP
+.SS "#define BAD_TFORM_DTYPE   262"
+.PP
+.SS "#define BAD_URL_PREFIX   121"
+.PP
+.SS "#define BAD_WCS_PROJ   504"
+.PP
+.SS "#define BAD_WCS_VAL   502"
+.PP
+.SS "#define BINARY_TBL   2"
+.PP
+.SS "#define BYTE_IMG   8"
+.PP
+.SS "#define CASEINSEN   0"
+.PP
+.SS "#define CASESEN   1"
+.PP
+.SS "#define CFITSIO_VERSION   3.10"
+.PP
+.SS "#define COL_NOT_FOUND   219"
+.PP
+.SS "#define COL_NOT_UNIQUE   237"
+.PP
+.SS "#define COL_TOO_WIDE   236"
+.PP
+.SS "#define CREATE_DISK_FILE   -106"
+.PP
+.SS "#define DATA_COMPRESSION_ERR   413"
+.PP
+.SS "#define DATA_DECOMPRESSION_ERR   414"
+.PP
+.SS "#define DOUBLE_IMG   -64"
+.PP
+.SS "#define DOUBLENULLVALUE   -9.1191291391491E-36"
+.PP
+.SS "#define DRIVER_INIT_FAILED   123"
+.PP
+.SS "#define END_JUNK   253"
+.PP
+.SS "#define END_OF_FILE   107"
+.PP
+.SS "#define FALSE   0"
+.PP
+.SS "#define FILE_NOT_CLOSED   110"
+.PP
+.SS "#define FILE_NOT_CREATED   105"
+.PP
+.SS "#define FILE_NOT_OPENED   104"
+.PP
+.SS "#define FLEN_CARD   81"
+.PP
+.SS "#define FLEN_COMMENT   73"
+.PP
+.SS "#define FLEN_ERRMSG   81"
+.PP
+.SS "#define FLEN_FILENAME   1025"
+.PP
+.SS "#define FLEN_KEYWORD   72"
+.PP
+.SS "#define FLEN_STATUS   31"
+.PP
+.SS "#define FLEN_VALUE   71"
+.PP
+.SS "#define FLOAT_IMG   -32"
+.PP
+.SS "#define FLOATNULLVALUE   -9.11912E-36F"
+.PP
+.SS "#define GROUP_NOT_FOUND   343"
+.PP
+.SS "#define GT_ID_ALL   3"
+.PP
+.SS "#define GT_ID_ALL_URI   0"
+.PP
+.SS "#define GT_ID_POS   2"
+.PP
+.SS "#define GT_ID_POS_URI   12"
+.PP
+.SS "#define GT_ID_REF   1"
+.PP
+.SS "#define GT_ID_REF_URI   11"
+.PP
+.SS "#define GZIP_1   21"
+.PP
+.SS "#define HCOMPRESS_1   41"
+.PP
+.SS "#define HDU_ALREADY_MEMBER   341"
+.PP
+.SS "#define HDU_ALREADY_TRACKED   346"
+.PP
+.SS "#define HEADER_NOT_EMPTY   201"
+.PP
+.SS "#define IDENTICAL_POINTERS   348"
+.PP
+.SS "#define IMAGE_HDU   0"
+.PP
+.SS "#define InputCol   0"
+.PP
+.SS "#define InputOutputCol   1"
+.PP
+.SS "#define INT32BIT   int"
+.PP
+.SS "#define KEY_NO_EXIST   202"
+.PP
+.SS "#define KEY_OUT_BOUNDS   203"
+.PP
+.SS "#define LONG_IMG   32"
+.PP
+.SS "#define LONGLONG_IMG   64"
+.PP
+.SS "#define LONGLONG_MAX   9223372036854775807LL"
+.PP
+.SS "#define LONGLONG_MIN   (-LONGLONG_MAX -1LL)"
+.PP
+.SS "#define LONGLONG_TYPE"
+.PP
+.SS "#define MAX_COMPRESS_DIM   6"
+.PP
+.SS "#define MEMBER_NOT_FOUND   342"
+.PP
+.SS "#define MEMORY_ALLOCATION   113"
+.PP
+.SS "#define NEG_AXIS   323"
+.PP
+.SS "#define NEG_BYTES   306"
+.PP
+.SS "#define NEG_FILE_POS   304"
+.PP
+.SS "#define NEG_ROWS   218"
+.PP
+.SS "#define NEG_WIDTH   217"
+.PP
+.SS "#define NGP_BAD_ARG   (NGP_ERRBASE + 8)"
+.PP
+.SS "#define NGP_EMPTY_CURLINE   (NGP_ERRBASE + 3)"
+.PP
+.SS "#define NGP_EOF   (NGP_ERRBASE + 7)"
+.PP
+.SS "#define NGP_ERR_FOPEN   (NGP_ERRBASE + 6)"
+.PP
+.SS "#define NGP_ERRBASE   (360)"
+.PP
+.SS "#define NGP_INC_NESTING   (NGP_ERRBASE + 5)"
+.PP
+.SS "#define NGP_NO_MEMORY   (NGP_ERRBASE + 0)"
+.PP
+.SS "#define NGP_NUL_PTR   (NGP_ERRBASE + 2)"
+.PP
+.SS "#define NGP_OK   (0)"
+.PP
+.SS "#define NGP_READ_ERR   (NGP_ERRBASE + 1)"
+.PP
+.SS "#define NGP_TOKEN_NOT_EXPECT   (NGP_ERRBASE + 9)"
+.PP
+.SS "#define NGP_UNREAD_QUEUE_FULL   (NGP_ERRBASE + 4)"
+.PP
+.SS "#define NO_BITPIX   222"
+.PP
+.SS "#define NO_CLOSE_ERROR   999"
+.PP
+.SS "#define NO_COMPRESSED_TILE   415"
+.PP
+.SS "#define NO_END   210"
+.PP
+.SS "#define NO_GCOUNT   229"
+.PP
+.SS "#define NO_MATCHING_DRIVER   124"
+.PP
+.SS "#define NO_NAXES   224"
+.PP
+.SS "#define NO_NAXIS   223"
+.PP
+.SS "#define NO_NULL   314"
+.PP
+.SS "#define NO_PCOUNT   228"
+.PP
+.SS "#define NO_QUOTE   205"
+.PP
+.SS "#define NO_SIMPLE   221"
+.PP
+.SS "#define NO_TBCOL   231"
+.PP
+.SS "#define NO_TFIELDS   230"
+.PP
+.SS "#define NO_TFORM   232"
+.PP
+.SS "#define NO_WCS_KEY   505"
+.PP
+.SS "#define NO_XTENSION   225"
+.PP
+.SS "#define NOCOMPRESS   0"
+.PP
+.SS "#define NOT_ASCII_COL   309"
+.PP
+.SS "#define NOT_ATABLE   226"
+.PP
+.SS "#define NOT_BTABLE   227"
+.PP
+.SS "#define NOT_GROUP_TABLE   340"
+.PP
+.SS "#define NOT_IMAGE   233"
+.PP
+.SS "#define NOT_LOGICAL_COL   310"
+.PP
+.SS "#define NOT_POS_INT   209"
+.PP
+.SS "#define NOT_TABLE   235"
+.PP
+.SS "#define NOT_VARI_LEN   317"
+.PP
+.SS "#define NULL_INPUT_PTR   115"
+.PP
+.SS "#define NUM_OVERFLOW   412"
+.PP
+.SS "#define OFF_T   long"
+.PP
+.SS "#define OPEN_DISK_FILE   -105"
+.PP
+.SS "#define OPT_CMT_MBR   1"
+.PP
+.SS "#define OPT_CMT_MBR_DEL   11"
+.PP
+.SS "#define OPT_GCP_ALL   2"
+.PP
+.SS "#define OPT_GCP_GPT   0"
+.PP
+.SS "#define OPT_GCP_MBR   1"
+.PP
+.SS "#define OPT_MCP_ADD   0"
+.PP
+.SS "#define OPT_MCP_MOV   3"
+.PP
+.SS "#define OPT_MCP_NADD   1"
+.PP
+.SS "#define OPT_MCP_REPL   2"
+.PP
+.SS "#define OPT_MRG_COPY   0"
+.PP
+.SS "#define OPT_MRG_MOV   1"
+.PP
+.SS "#define OPT_RM_ALL   3"
+.PP
+.SS "#define OPT_RM_ENTRY   1"
+.PP
+.SS "#define OPT_RM_GPT   0"
+.PP
+.SS "#define OPT_RM_MBR   2"
+.PP
+.SS "#define OutputCol   2"
+.PP
+.SS "#define OVERFLOW_ERR   -11"
+.PP
+.SS "#define PARSE_BAD_COL   435"
+.PP
+.SS "#define PARSE_BAD_OUTPUT   436"
+.PP
+.SS "#define PARSE_BAD_TYPE   432"
+.PP
+.SS "#define PARSE_LRG_VECTOR   433"
+.PP
+.SS "#define PARSE_NO_OUTPUT   434"
+.PP
+.SS "#define PARSE_SYNTAX_ERR   431"
+.PP
+.SS "#define PLIO_1   31"
+.PP
+.SS "#define PREPEND_PRIMARY   -9"
+.PP
+.SS "#define RANGE_PARSE_ERROR   126"
+.PP
+.SS "#define READ_ERROR   108"
+.PP
+.SS "#define READONLY   0"
+.PP
+.SS "#define READONLY_FILE   112"
+.PP
+.SS "#define READWRITE   1"
+.PP
+.SS "#define RICE_1   11"
+.PP
+.SS "#define SAME_FILE   101"
+.PP
+.SS "#define SBYTE_IMG   10"
+.PP
+.SS "#define SEEK_ERROR   116"
+.PP
+.SS "#define SHARED_AGAIN   (SHARED_ERRBASE + 7)"
+.PP
+.SS "#define SHARED_BADARG   (SHARED_ERRBASE + 1)"
+.PP
+.SS "#define SHARED_ERRBASE   (150)"
+.PP
+.SS "#define SHARED_IPCERR   (SHARED_ERRBASE + 5)"
+.PP
+.SS "#define SHARED_NOFILE   (SHARED_ERRBASE + 8)"
+.PP
+.SS "#define SHARED_NOMEM   (SHARED_ERRBASE + 6)"
+.PP
+.SS "#define SHARED_NORESIZE   (SHARED_ERRBASE + 9)"
+.PP
+.SS "#define SHARED_NOTINIT   (SHARED_ERRBASE + 4)"
+.PP
+.SS "#define SHARED_NULPTR   (SHARED_ERRBASE + 2)"
+.PP
+.SS "#define SHARED_TABFULL   (SHARED_ERRBASE + 3)"
+.PP
+.SS "#define SHORT_IMG   16"
+.PP
+.SS "#define SKIP_IMAGE   -103"
+.PP
+.SS "#define SKIP_NULL_PRIMARY   -102"
+.PP
+.SS "#define SKIP_TABLE   -104"
+.PP
+.SS "#define TBIT   1"
+.PP
+.SS "#define TBYTE   11"
+.PP
+.SS "#define TCOMPLEX   83"
+.PP
+.SS "#define TDBLCOMPLEX   163"
+.PP
+.SS "#define TDOUBLE   82"
+.PP
+.SS "#define TFLOAT   42"
+.PP
+.SS "#define TINT   31"
+.PP
+.SS "#define TINT32BIT   41"
+.PP
+.SS "#define TLOGICAL   14"
+.PP
+.SS "#define TLONG   41"
+.PP
+.SS "#define TLONGLONG   81"
+.PP
+.SS "#define TOO_MANY_DRIVERS   122"
+.PP
+.SS "#define TOO_MANY_FILES   103"
+.PP
+.SS "#define TOO_MANY_HDUS_TRACKED   345"
+.PP
+.SS "#define TRUE   1"
+.PP
+.SS "#define TSBYTE   12"
+.PP
+.SS "#define TSHORT   21"
+.PP
+.SS "#define TSTRING   16"
+.PP
+.SS "#define TUINT   30"
+.PP
+.SS "#define TULONG   40"
+.PP
+.SS "#define TUSHORT   20"
+.PP
+.SS "#define TYP_CKSUM_KEY   100"
+.PP
+.SS "#define TYP_CMPRS_KEY   20"
+.PP
+.SS "#define TYP_COMM_KEY   130"
+.PP
+.SS "#define TYP_CONT_KEY   140"
+.PP
+.SS "#define TYP_DIM_KEY   50"
+.PP
+.SS "#define TYP_DISP_KEY   80"
+.PP
+.SS "#define TYP_HDUID_KEY   90"
+.PP
+.SS "#define TYP_NULL_KEY   40"
+.PP
+.SS "#define TYP_RANG_KEY   60"
+.PP
+.SS "#define TYP_REFSYS_KEY   120"
+.PP
+.SS "#define TYP_SCAL_KEY   30"
+.PP
+.SS "#define TYP_STRUC_KEY   10"
+.PP
+.SS "#define TYP_UNIT_KEY   70"
+.PP
+.SS "#define TYP_USER_KEY   150"
+.PP
+.SS "#define TYP_WCS_KEY   110"
+.PP
+.SS "#define ULONG_IMG   40"
+.PP
+.SS "#define UNKNOWN_EXT   251"
+.PP
+.SS "#define UNKNOWN_REC   252"
+.PP
+.SS "#define URL_PARSE_ERROR   125"
+.PP
+.SS "#define USE_LL_SUFFIX   1"
+.PP
+.SS "#define USE_MEM_BUFF   -101"
+.PP
+.SS "#define USHORT_IMG   20"
+.PP
+.SS "#define VALIDSTRUC   555"
+.PP
+.SS "#define VALUE_UNDEFINED   204"
+.PP
+.SS "#define WCS_ERROR   503"
+.PP
+.SS "#define WRITE_ERROR   106"
+.PP
+.SS "#define ZERO_SCALE   322"
+.PP
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef long long \fBLONGLONG\fP"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "int CFITS2Unit (\fBfitsfile\fP * fptr)"
+.PP
+.SS "\fBfitsfile\fP* CUnit2FITS (int unit)"
+.PP
+.SS "int ffasfm (char * tform, int * datacode, long * width, int * decim, int * status)"
+.PP
+.SS "int ffbinr (char ** binspec, char * colname, double * minin, double * maxin, double * binsizein, char * minname, char * maxname, char * binname, int * status)"
+.PP
+.SS "int ffbins (char * binspec, int * imagetype, int * haxis, char colname[4][FLEN_VALUE], double * minin, double * maxin, double * binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], double * weight, char * wtname, int * recip, int * status)"
+.PP
+.SS "int ffbnfm (char * tform, int * datacode, long * repeat, long * width, int * status)"
+.PP
+.SS "int ffbnfmll (char * tform, int * datacode, \fBLONGLONG\fP * repeat, long * width, int * status)"
+.PP
+.SS "int ffcalc (\fBfitsfile\fP * infptr, char * expr, \fBfitsfile\fP * outfptr, char * parName, char * parInfo, int * status)"
+.PP
+.SS "int ffcalc_rng (\fBfitsfile\fP * infptr, char * expr, \fBfitsfile\fP * outfptr, char * parName, char * parInfo, int nRngs, long * start, long * end, int * status)"
+.PP
+.SS "int ffcdfl (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffchfl (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffclos (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffcmph (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "void ffcmps (char * templt, char * colname, int casesen, int * match, int * exact)"
+.PP
+.SS "void ffcmrk (void)"
+.PP
+.SS "void ffcmsg (void)"
+.PP
+.SS "int ffcopy (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int morekeys, int * status)"
+.PP
+.SS "int ffcpcl (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int incol, int outcol, int create_col, int * status)"
+.PP
+.SS "int ffcpdt (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int * status)"
+.PP
+.SS "int ffcpfl (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int prev, int cur, int follow, int * status)"
+.PP
+.SS "int ffcphd (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int * status)"
+.PP
+.SS "int ffcpky (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int incol, int outcol, char * rootname, int * status)"
+.PP
+.SS "int ffcrhd (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffcrim (\fBfitsfile\fP * fptr, int bitpix, int naxis, long * naxes, int * status)"
+.PP
+.SS "int ffcrimll (\fBfitsfile\fP * fptr, int bitpix, int naxis, \fBLONGLONG\fP * naxes, int * status)"
+.PP
+.SS "int ffcrow (\fBfitsfile\fP * fptr, int datatype, char * expr, long firstrow, long nelements, void * nulval, void * array, int * anynul, int * status)"
+.PP
+.SS "int ffcrtb (\fBfitsfile\fP * fptr, int tbltype, \fBLONGLONG\fP naxis2, int tfields, char ** ttype, char ** tform, char ** tunit, const char * extname, int * status)"
+.PP
+.SS "int ffcsum (\fBfitsfile\fP * fptr, long nrec, unsigned long * sum, int * status)"
+.PP
+.SS "int ffdcol (\fBfitsfile\fP * fptr, int numcol, int * status)"
+.PP
+.SS "int ffdelt (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffdhdu (\fBfitsfile\fP * fptr, int * hdutype, int * status)"
+.PP
+.SS "int ffdkey (\fBfitsfile\fP * fptr, const char * keyname, int * status)"
+.PP
+.SS "int ffdkinit (\fBfitsfile\fP ** fptr, const char * filename, int * status)"
+.PP
+.SS "int ffdkopn (\fBfitsfile\fP ** fptr, const char * filename, int iomode, int * status)"
+.PP
+.SS "int ffdopn (\fBfitsfile\fP ** fptr, const char * filename, int iomode, int * status)"
+.PP
+.SS "int ffdrec (\fBfitsfile\fP * fptr, int keypos, int * status)"
+.PP
+.SS "int ffdrow (\fBfitsfile\fP * fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, int * status)"
+.PP
+.SS "int ffdrrg (\fBfitsfile\fP * fptr, char * ranges, int * status)"
+.PP
+.SS "int ffdrws (\fBfitsfile\fP * fptr, long * rownum, long nrows, int * status)"
+.PP
+.SS "int ffdrwsll (\fBfitsfile\fP * fptr, \fBLONGLONG\fP * rownum, \fBLONGLONG\fP nrows, int * status)"
+.PP
+.SS "unsigned long ffdsum (char * ascii, int complm, unsigned long * sum)"
+.PP
+.SS "int ffdt2s (int year, int month, int day, char * datestr, int * status)"
+.PP
+.SS "int ffdtdm (\fBfitsfile\fP * fptr, char * tdimstr, int colnum, int maxdim, int * naxis, long naxes[], int * status)"
+.PP
+.SS "int ffdtdmll (\fBfitsfile\fP * fptr, char * tdimstr, int colnum, int maxdim, int * naxis, \fBLONGLONG\fP naxes[], int * status)"
+.PP
+.SS "int ffdtyp (char * cval, char * dtype, int * status)"
+.PP
+.SS "int ffeqty (\fBfitsfile\fP * fptr, int colnum, int * typecode, long * repeat, long * width, int * status)"
+.PP
+.SS "int ffeqtyll (\fBfitsfile\fP * fptr, int colnum, int * typecode, \fBLONGLONG\fP * repeat, \fBLONGLONG\fP * width, int * status)"
+.PP
+.SS "void ffesum (unsigned long sum, int complm, char * ascii)"
+.PP
+.SS "int ffexist (const char * infile, int * exists, int * status)"
+.PP
+.SS "int ffextn (char * url, int * extension_num, int * status)"
+.PP
+.SS "int ffexts (char * extspec, int * extnum, char * extname, int * extvers, int * hdutype, char * colname, char * rowexpress, int * status)"
+.PP
+.SS "int ffffrw (\fBfitsfile\fP * fptr, char * expr, long * rownum, int * status)"
+.PP
+.SS "int ffflmd (\fBfitsfile\fP * fptr, int * filemode, int * status)"
+.PP
+.SS "int ffflnm (\fBfitsfile\fP * fptr, char * filename, int * status)"
+.PP
+.SS "int ffflsh (\fBfitsfile\fP * fptr, int clearbuf, int * status)"
+.PP
+.SS "int ffflus (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int fffrow (\fBfitsfile\fP * infptr, char * expr, long firstrow, long nrows, long * n_good_rows, char * row_status, int * status)"
+.PP
+.SS "int fffrwc (\fBfitsfile\fP * fptr, char * expr, char * timeCol, char * parCol, char * valCol, long ntimes, double * times, char * time_status, int * status)"
+.PP
+.SS "int ffg2db (\fBfitsfile\fP * fptr, long group, unsigned char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned char * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2dd (\fBfitsfile\fP * fptr, long group, double nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, double * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2de (\fBfitsfile\fP * fptr, long group, float nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, float * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2di (\fBfitsfile\fP * fptr, long group, short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, short * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2dj (\fBfitsfile\fP * fptr, long group, long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, long * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2djj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2dk (\fBfitsfile\fP * fptr, long group, int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2dsb (\fBfitsfile\fP * fptr, long group, signed char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, signed char * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2dui (\fBfitsfile\fP * fptr, long group, unsigned short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned short * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2duj (\fBfitsfile\fP * fptr, long group, unsigned long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned long * array, int * anynul, int * status)"
+.PP
+.SS "int ffg2duk (\fBfitsfile\fP * fptr, long group, unsigned int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned int * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3db (\fBfitsfile\fP * fptr, long group, unsigned char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned char * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3dd (\fBfitsfile\fP * fptr, long group, double nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, double * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3de (\fBfitsfile\fP * fptr, long group, float nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, float * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3di (\fBfitsfile\fP * fptr, long group, short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, short * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3dj (\fBfitsfile\fP * fptr, long group, long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, long * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3djj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, \fBLONGLONG\fP * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3dk (\fBfitsfile\fP * fptr, long group, int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, int * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3dsb (\fBfitsfile\fP * fptr, long group, signed char nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, signed char * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3dui (\fBfitsfile\fP * fptr, long group, unsigned short nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned short * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3duj (\fBfitsfile\fP * fptr, long group, unsigned long nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned long * array, int * anynul, int * status)"
+.PP
+.SS "int ffg3duk (\fBfitsfile\fP * fptr, long group, unsigned int nulval, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgabc (int tfields, char ** tform, int space, long * rowlen, long * tbcol, int * status)"
+.PP
+.SS "int ffgacl (\fBfitsfile\fP * fptr, int colnum, char * ttype, long * tbcol, char * tunit, char * tform, double * tscal, double * tzero, char * tnull, char * tdisp, int * status)"
+.PP
+.SS "int ffgbcl (\fBfitsfile\fP * fptr, int colnum, char * ttype, char * tunit, char * dtype, long * repeat, double * tscal, double * tzero, long * tnull, char * tdisp, int * status)"
+.PP
+.SS "int ffgbclll (\fBfitsfile\fP * fptr, int colnum, char * ttype, char * tunit, char * dtype, \fBLONGLONG\fP * repeat, double * tscal, double * tzero, \fBLONGLONG\fP * tnull, char * tdisp, int * status)"
+.PP
+.SS "int ffgcdw (\fBfitsfile\fP * fptr, int colnum, int * width, int * status)"
+.PP
+.SS "int ffgcf (\fBfitsfile\fP * fptr, int datatype, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * array, char * nullarray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfc (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfd (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfe (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfi (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfjj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfl (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfm (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfs (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char ** array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfsb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfui (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfuj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcfuk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgcks (\fBfitsfile\fP * fptr, unsigned long * datasum, unsigned long * hdusum, int * status)"
+.PP
+.SS "int ffgcl (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char * array, int * status)"
+.PP
+.SS "int ffgcnn (\fBfitsfile\fP * fptr, int casesen, char * templt, char * colname, int * colnum, int * status)"
+.PP
+.SS "int ffgcno (\fBfitsfile\fP * fptr, int casesen, char * templt, int * colnum, int * status)"
+.PP
+.SS "int ffgcrd (\fBfitsfile\fP * fptr, const char * keyname, char * card, int * status)"
+.PP
+.SS "int ffgcv (\fBfitsfile\fP * fptr, int datatype, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * nulval, void * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char nulval, unsigned char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvc (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float nulval, float * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvd (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double nulval, double * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcve (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float nulval, float * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvi (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short nulval, short * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long nulval, long * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvjj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP nulval, \fBLONGLONG\fP * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int nulval, int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvl (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char nulval, char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvm (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double nulval, double * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvs (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char * nulval, char ** array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvsb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char nulval, signed char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvui (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short nulval, unsigned short * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvuj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long nulval, unsigned long * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcvuk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int nulval, unsigned int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgcx (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstbit, \fBLONGLONG\fP nbits, char * larray, int * status)"
+.PP
+.SS "int ffgcxui (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, long firstbit, int nbits, unsigned short * array, int * status)"
+.PP
+.SS "int ffgcxuk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, long firstbit, int nbits, unsigned int * array, int * status)"
+.PP
+.SS "int ffgdes (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP rownum, long * length, long * heapaddr, int * status)"
+.PP
+.SS "int ffgdesll (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP rownum, \fBLONGLONG\fP * length, \fBLONGLONG\fP * heapaddr, int * status)"
+.PP
+.SS "int ffgdess (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, long * length, long * heapaddr, int * status)"
+.PP
+.SS "int ffgdessll (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, \fBLONGLONG\fP * length, \fBLONGLONG\fP * heapaddr, int * status)"
+.PP
+.SS "void ffgerr (int status, char * errtext)"
+.PP
+.SS "int ffgextn (\fBfitsfile\fP * fptr, \fBLONGLONG\fP offset, \fBLONGLONG\fP nelem, void * array, int * status)"
+.PP
+.SS "int ffggpb (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned char * array, int * status)"
+.PP
+.SS "int ffggpd (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, double * array, int * status)"
+.PP
+.SS "int ffggpe (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, float * array, int * status)"
+.PP
+.SS "int ffggpi (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, short * array, int * status)"
+.PP
+.SS "int ffggpj (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, long * array, int * status)"
+.PP
+.SS "int ffggpjj (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffggpk (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, int * array, int * status)"
+.PP
+.SS "int ffggpsb (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, signed char * array, int * status)"
+.PP
+.SS "int ffggpui (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned short * array, int * status)"
+.PP
+.SS "int ffggpuj (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned long * array, int * status)"
+.PP
+.SS "int ffggpuk (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned int * array, int * status)"
+.PP
+.SS "int ffghad (\fBfitsfile\fP * fptr, long * headstart, long * datastart, long * dataend, int * status)"
+.PP
+.SS "int ffghadll (\fBfitsfile\fP * fptr, \fBLONGLONG\fP * headstart, \fBLONGLONG\fP * datastart, \fBLONGLONG\fP * dataend, int * status)"
+.PP
+.SS "int ffghbn (\fBfitsfile\fP * fptr, int maxfield, long * naxis2, int * tfields, char ** ttype, char ** tform, char ** tunit, char * extname, long * pcount, int * status)"
+.PP
+.SS "int ffghbnll (\fBfitsfile\fP * fptr, int maxfield, \fBLONGLONG\fP * naxis2, int * tfields, char ** ttype, char ** tform, char ** tunit, char * extname, \fBLONGLONG\fP * pcount, int * status)"
+.PP
+.SS "int ffghdn (\fBfitsfile\fP * fptr, int * chdunum)"
+.PP
+.SS "int ffghdt (\fBfitsfile\fP * fptr, int * exttype, int * status)"
+.PP
+.SS "int ffghof (\fBfitsfile\fP * fptr, OFF_T * headstart, OFF_T * datastart, OFF_T * dataend, int * status)"
+.PP
+.SS "int ffghpr (\fBfitsfile\fP * fptr, int maxdim, int * simple, int * bitpix, int * naxis, long naxes[], long * pcount, long * gcount, int * extend, int * status)"
+.PP
+.SS "int ffghprll (\fBfitsfile\fP * fptr, int maxdim, int * simple, int * bitpix, int * naxis, \fBLONGLONG\fP naxes[], long * pcount, long * gcount, int * extend, int * status)"
+.PP
+.SS "int ffghps (\fBfitsfile\fP * fptr, int * nexist, int * position, int * status)"
+.PP
+.SS "int ffghsp (\fBfitsfile\fP * fptr, int * nexist, int * nmore, int * status)"
+.PP
+.SS "int ffghtb (\fBfitsfile\fP * fptr, int maxfield, long * naxis1, long * naxis2, int * tfields, char ** ttype, long * tbcol, char ** tform, char ** tunit, char * extname, int * status)"
+.PP
+.SS "int ffghtbll (\fBfitsfile\fP * fptr, int maxfield, \fBLONGLONG\fP * naxis1, \fBLONGLONG\fP * naxis2, int * tfields, char ** ttype, \fBLONGLONG\fP * tbcol, char ** tform, char ** tunit, char * extname, int * status)"
+.PP
+.SS "int ffgics (\fBfitsfile\fP * fptr, double * xrval, double * yrval, double * xrpix, double * yrpix, double * xinc, double * yinc, double * rot, char * type, int * status)"
+.PP
+.SS "int ffgidm (\fBfitsfile\fP * fptr, int * naxis, int * status)"
+.PP
+.SS "int ffgidt (\fBfitsfile\fP * fptr, int * imgtype, int * status)"
+.PP
+.SS "int ffgiet (\fBfitsfile\fP * fptr, int * imgtype, int * status)"
+.PP
+.SS "int ffgipr (\fBfitsfile\fP * fptr, int maxaxis, int * imgtype, int * naxis, long * naxes, int * status)"
+.PP
+.SS "int ffgiprll (\fBfitsfile\fP * fptr, int maxaxis, int * imgtype, int * naxis, \fBLONGLONG\fP * naxes, int * status)"
+.PP
+.SS "int ffgisz (\fBfitsfile\fP * fptr, int nlen, long * naxes, int * status)"
+.PP
+.SS "int ffgiszll (\fBfitsfile\fP * fptr, int nlen, \fBLONGLONG\fP * naxes, int * status)"
+.PP
+.SS "int ffgiwcs (\fBfitsfile\fP * fptr, char ** header, int * status)"
+.PP
+.SS "int ffgkcl (char * card)"
+.PP
+.SS "int ffgkey (\fBfitsfile\fP * fptr, const char * keyname, char * keyval, char * comm, int * status)"
+.PP
+.SS "int ffgkls (\fBfitsfile\fP * fptr, const char * keyname, char ** value, char * comm, int * status)"
+.PP
+.SS "int ffgknd (\fBfitsfile\fP * fptr, const char * keyname, int nstart, int nmax, double * value, int * nfound, int * status)"
+.PP
+.SS "int ffgkne (\fBfitsfile\fP * fptr, const char * keyname, int nstart, int nmax, float * value, int * nfound, int * status)"
+.PP
+.SS "int ffgknj (\fBfitsfile\fP * fptr, const char * keyname, int nstart, int nmax, long * value, int * nfound, int * status)"
+.PP
+.SS "int ffgknjj (\fBfitsfile\fP * fptr, const char * keyname, int nstart, int nmax, \fBLONGLONG\fP * value, int * nfound, int * status)"
+.PP
+.SS "int ffgknl (\fBfitsfile\fP * fptr, const char * keyname, int nstart, int nmax, int * value, int * nfound, int * status)"
+.PP
+.SS "int ffgknm (char * card, char * name, int * length, int * status)"
+.PP
+.SS "int ffgkns (\fBfitsfile\fP * fptr, const char * keyname, int nstart, int nmax, char * value[], int * nfound, int * status)"
+.PP
+.SS "int ffgky (\fBfitsfile\fP * fptr, int datatype, const char * keyname, void * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyc (\fBfitsfile\fP * fptr, const char * keyname, float * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyd (\fBfitsfile\fP * fptr, const char * keyname, double * value, char * comm, int * status)"
+.PP
+.SS "int ffgkye (\fBfitsfile\fP * fptr, const char * keyname, float * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyj (\fBfitsfile\fP * fptr, const char * keyname, long * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyjj (\fBfitsfile\fP * fptr, const char * keyname, \fBLONGLONG\fP * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyl (\fBfitsfile\fP * fptr, const char * keyname, int * value, char * comm, int * status)"
+.PP
+.SS "int ffgkym (\fBfitsfile\fP * fptr, const char * keyname, double * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyn (\fBfitsfile\fP * fptr, int nkey, char * keyname, char * keyval, char * comm, int * status)"
+.PP
+.SS "int ffgkys (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffgkyt (\fBfitsfile\fP * fptr, const char * keyname, long * ivalue, double * dvalue, char * comm, int * status)"
+.PP
+.SS "int ffgmcp (\fBfitsfile\fP * gfptr, \fBfitsfile\fP * mfptr, long member, int cpopt, int * status)"
+.PP
+.SS "int ffgmng (\fBfitsfile\fP * mfptr, long * nmembers, int * status)"
+.PP
+.SS "int ffgmop (\fBfitsfile\fP * gfptr, long member, \fBfitsfile\fP ** mfptr, int * status)"
+.PP
+.SS "int ffgmrm (\fBfitsfile\fP * fptr, long member, int rmopt, int * status)"
+.PP
+.SS "int ffgmsg (char * err_message)"
+.PP
+.SS "int ffgmtf (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, long member, int tfopt, int * status)"
+.PP
+.SS "int ffgncl (\fBfitsfile\fP * fptr, int * ncols, int * status)"
+.PP
+.SS "int ffgnrw (\fBfitsfile\fP * fptr, long * nrows, int * status)"
+.PP
+.SS "int ffgnrwll (\fBfitsfile\fP * fptr, \fBLONGLONG\fP * nrows, int * status)"
+.PP
+.SS "int ffgnxk (\fBfitsfile\fP * fptr, char ** inclist, int ninc, char ** exclist, int nexc, char * card, int * status)"
+.PP
+.SS "int ffgpf (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * array, char * nullarray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfd (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfe (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfi (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfjj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfsb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfui (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfuj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpfuk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int * array, char * nularray, int * anynul, int * status)"
+.PP
+.SS "int ffgpv (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * nulval, void * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char nulval, unsigned char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvd (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double nulval, double * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpve (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float nulval, float * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvi (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short nulval, short * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long nulval, long * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvjj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP nulval, \fBLONGLONG\fP * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int nulval, int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvsb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char nulval, signed char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvui (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short nulval, unsigned short * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvuj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long nulval, unsigned long * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpvuk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int nulval, unsigned int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpxf (\fBfitsfile\fP * fptr, int datatype, long * firstpix, \fBLONGLONG\fP nelem, void * array, char * nullarray, int * anynul, int * status)"
+.PP
+.SS "int ffgpxfll (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP * firstpix, \fBLONGLONG\fP nelem, void * array, char * nullarray, int * anynul, int * status)"
+.PP
+.SS "int ffgpxv (\fBfitsfile\fP * fptr, int datatype, long * firstpix, \fBLONGLONG\fP nelem, void * nulval, void * array, int * anynul, int * status)"
+.PP
+.SS "int ffgpxvll (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP * firstpix, \fBLONGLONG\fP nelem, void * nulval, void * array, int * anynul, int * status)"
+.PP
+.SS "int ffgrec (\fBfitsfile\fP * fptr, int nrec, char * card, int * status)"
+.PP
+.SS "int ffgrsz (\fBfitsfile\fP * fptr, long * nrows, int * status)"
+.PP
+.SS "int ffgsdt (int * day, int * month, int * year, int * status)"
+.PP
+.SS "int ffgsfb (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned char * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfd (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, double * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfe (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, float * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfi (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, short * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfj (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, long * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfjj (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, \fBLONGLONG\fP * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfk (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, int * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfsb (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, signed char * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfui (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned short * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfuj (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned long * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgsfuk (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned int * array, char * flagval, int * anynul, int * status)"
+.PP
+.SS "int ffgstm (char * timestr, int * timeref, int * status)"
+.PP
+.SS "int ffgsv (\fBfitsfile\fP * fptr, int datatype, long * blc, long * trc, long * inc, void * nulval, void * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvb (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned char nulval, unsigned char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvd (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, double nulval, double * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsve (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, float nulval, float * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvi (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, short nulval, short * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvj (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, long nulval, long * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvjj (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, \fBLONGLONG\fP nulval, \fBLONGLONG\fP * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvk (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, int nulval, int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvsb (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, signed char nulval, signed char * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvui (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned short nulval, unsigned short * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvuj (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned long nulval, unsigned long * array, int * anynul, int * status)"
+.PP
+.SS "int ffgsvuk (\fBfitsfile\fP * fptr, int colnum, int naxis, long * naxes, long * blc, long * trc, long * inc, unsigned int nulval, unsigned int * array, int * anynul, int * status)"
+.PP
+.SS "int ffgtam (\fBfitsfile\fP * gfptr, \fBfitsfile\fP * mfptr, int hdupos, int * status)"
+.PP
+.SS "int ffgtbb (\fBfitsfile\fP * fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstchar, \fBLONGLONG\fP nchars, unsigned char * values, int * status)"
+.PP
+.SS "int ffgtch (\fBfitsfile\fP * gfptr, int grouptype, int * status)"
+.PP
+.SS "int ffgtcl (\fBfitsfile\fP * fptr, int colnum, int * typecode, long * repeat, long * width, int * status)"
+.PP
+.SS "int ffgtclll (\fBfitsfile\fP * fptr, int colnum, int * typecode, \fBLONGLONG\fP * repeat, \fBLONGLONG\fP * width, int * status)"
+.PP
+.SS "int ffgtcm (\fBfitsfile\fP * gfptr, int cmopt, int * status)"
+.PP
+.SS "int ffgtcp (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int cpopt, int * status)"
+.PP
+.SS "int ffgtcr (\fBfitsfile\fP * fptr, char * grpname, int grouptype, int * status)"
+.PP
+.SS "int ffgtcs (\fBfitsfile\fP * fptr, int xcol, int ycol, double * xrval, double * yrval, double * xrpix, double * yrpix, double * xinc, double * yinc, double * rot, char * type, int * status)"
+.PP
+.SS "int ffgtdm (\fBfitsfile\fP * fptr, int colnum, int maxdim, int * naxis, long naxes[], int * status)"
+.PP
+.SS "int ffgtdmll (\fBfitsfile\fP * fptr, int colnum, int maxdim, int * naxis, \fBLONGLONG\fP naxes[], int * status)"
+.PP
+.SS "int ffgthd (char * tmplt, char * card, int * hdtype, int * status)"
+.PP
+.SS "int ffgtis (\fBfitsfile\fP * fptr, char * grpname, int grouptype, int * status)"
+.PP
+.SS "int ffgtmg (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int mgopt, int * status)"
+.PP
+.SS "int ffgtnm (\fBfitsfile\fP * gfptr, long * nmembers, int * status)"
+.PP
+.SS "int ffgtop (\fBfitsfile\fP * mfptr, int group, \fBfitsfile\fP ** gfptr, int * status)"
+.PP
+.SS "int ffgtrm (\fBfitsfile\fP * gfptr, int rmopt, int * status)"
+.PP
+.SS "int ffgtvf (\fBfitsfile\fP * gfptr, long * firstfailed, int * status)"
+.PP
+.SS "int ffgtwcs (\fBfitsfile\fP * fptr, int xcol, int ycol, char ** header, int * status)"
+.PP
+.SS "int ffgunt (\fBfitsfile\fP * fptr, const char * keyname, char * unit, int * status)"
+.PP
+.SS "int ffh2st (\fBfitsfile\fP * fptr, char ** header, int * status)"
+.PP
+.SS "int ffhdef (\fBfitsfile\fP * fptr, int morekeys, int * status)"
+.PP
+.SS "int ffhdr2str (\fBfitsfile\fP * fptr, int exclude_comm, char ** exclist, int nexc, char ** header, int * nkeys, int * status)"
+.PP
+.SS "int ffhist (\fBfitsfile\fP ** fptr, char * outfile, int imagetype, int naxis, char colname[4][FLEN_VALUE], double * minin, double * maxin, double * binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], double weightin, char wtcol[FLEN_VALUE], int recip, char * rowselect, int * status)"
+.PP
+.SS "int ffhist2 (\fBfitsfile\fP ** fptr, char * outfile, int imagetype, int naxis, char colname[4][FLEN_VALUE], double * minin, double * maxin, double * binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], double weightin, char wtcol[FLEN_VALUE], int recip, char * rowselect, int * status)"
+.PP
+.SS "int ffibin (\fBfitsfile\fP * fptr, \fBLONGLONG\fP naxis2, int tfields, char ** ttype, char ** tform, char ** tunit, const char * extname, \fBLONGLONG\fP pcount, int * status)"
+.PP
+.SS "int fficls (\fBfitsfile\fP * fptr, int firstcol, int ncols, char ** ttype, char ** tform, int * status)"
+.PP
+.SS "int fficol (\fBfitsfile\fP * fptr, int numcol, char * ttype, char * tform, int * status)"
+.PP
+.SS "int ffifile (char * url, char * urltype, char * infile, char * outfile, char * extspec, char * rowfilter, char * binspec, char * colspec, char * pixfilter, int * status)"
+.PP
+.SS "int ffiimg (\fBfitsfile\fP * fptr, int bitpix, int naxis, long * naxes, int * status)"
+.PP
+.SS "int ffiimgll (\fBfitsfile\fP * fptr, int bitpix, int naxis, \fBLONGLONG\fP * naxes, int * status)"
+.PP
+.SS "int ffikey (\fBfitsfile\fP * fptr, char * card, int * status)"
+.PP
+.SS "int ffikfc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikfm (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikls (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffikyc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikyd (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikye (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikyf (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikyg (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikyj (\fBfitsfile\fP * fptr, const char * keyname, \fBLONGLONG\fP value, char * comm, int * status)"
+.PP
+.SS "int ffikyl (\fBfitsfile\fP * fptr, const char * keyname, int value, char * comm, int * status)"
+.PP
+.SS "int ffikym (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffikys (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffikyu (\fBfitsfile\fP * fptr, const char * keyname, char * comm, int * status)"
+.PP
+.SS "int ffimem (\fBfitsfile\fP ** fptr, void ** buffptr, size_t * buffsize, size_t deltasize, void *(*)(void *p, size_t newsize) mem_realloc, int * status)"
+.PP
+.SS "int ffimport_file (char * filename, char ** contents, int * status)"
+.PP
+.SS "int ffinit (\fBfitsfile\fP ** fptr, const char * filename, int * status)"
+.PP
+.SS "int ffiopn (\fBfitsfile\fP ** fptr, const char * filename, int iomode, int * status)"
+.PP
+.SS "int ffirec (\fBfitsfile\fP * fptr, int nkey, char * card, int * status)"
+.PP
+.SS "int ffirow (\fBfitsfile\fP * fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, int * status)"
+.PP
+.SS "int ffitab (\fBfitsfile\fP * fptr, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int tfields, char ** ttype, long * tbcol, char ** tform, char ** tunit, const char * extname, int * status)"
+.PP
+.SS "int ffiter (int ncols, \fBiteratorCol\fP * data, long offset, long nPerLoop, int(*)(long totaln, long offset, long firstn, long nvalues, int narrays, \fBiteratorCol\fP *data, void *userPointer) workFn, void * userPointer, int * status)"
+.PP
+.SS "int ffiurl (char * url, char * urltype, char * infile, char * outfile, char * extspec, char * rowfilter, char * binspec, char * colspec, int * status)"
+.PP
+.SS "int ffkeyn (const char * keyroot, int value, char * keyname, int * status)"
+.PP
+.SS "int ffmahd (\fBfitsfile\fP * fptr, int hdunum, int * exttype, int * status)"
+.PP
+.SS "int ffmaky (\fBfitsfile\fP * fptr, int nrec, int * status)"
+.PP
+.SS "int ffmbyt (\fBfitsfile\fP * fptr, \fBLONGLONG\fP bytpos, int ignore_err, int * status)"
+.PP
+.SS "int ffmcom (\fBfitsfile\fP * fptr, const char * keyname, char * comm, int * status)"
+.PP
+.SS "int ffmcrd (\fBfitsfile\fP * fptr, const char * keyname, char * card, int * status)"
+.PP
+.SS "int ffmkfc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkfm (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkls (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffmkyc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkyd (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkye (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkyf (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkyg (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkyj (\fBfitsfile\fP * fptr, const char * keyname, \fBLONGLONG\fP value, char * comm, int * status)"
+.PP
+.SS "int ffmkyl (\fBfitsfile\fP * fptr, const char * keyname, int value, char * comm, int * status)"
+.PP
+.SS "int ffmkym (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffmkys (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffmkyu (\fBfitsfile\fP * fptr, const char * keyname, char * comm, int * status)"
+.PP
+.SS "int ffmnam (\fBfitsfile\fP * fptr, const char * oldname, const char * newname, int * status)"
+.PP
+.SS "int ffmnhd (\fBfitsfile\fP * fptr, int exttype, char * hduname, int hduvers, int * status)"
+.PP
+.SS "int ffmrec (\fBfitsfile\fP * fptr, int nkey, char * card, int * status)"
+.PP
+.SS "int ffmrhd (\fBfitsfile\fP * fptr, int hdumov, int * exttype, int * status)"
+.PP
+.SS "int ffmrky (\fBfitsfile\fP * fptr, int nrec, int * status)"
+.PP
+.SS "int ffmvec (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP newveclen, int * status)"
+.PP
+.SS "int ffnchk (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffnkey (int value, char * keyroot, char * keyname, int * status)"
+.PP
+.SS "int ffomem (\fBfitsfile\fP ** fptr, const char * name, int mode, void ** buffptr, size_t * buffsize, size_t deltasize, void *(*)(void *p, size_t newsize) mem_realloc, int * status)"
+.PP
+.SS "int ffopen (\fBfitsfile\fP ** fptr, const char * filename, int iomode, int * status)"
+.PP
+.SS "int ffopentest (double version, \fBfitsfile\fP ** fptr, const char * filename, int iomode, int * status)"
+.PP
+.SS "int ffp2db (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned char * array, int * status)"
+.PP
+.SS "int ffp2dd (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, double * array, int * status)"
+.PP
+.SS "int ffp2de (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, float * array, int * status)"
+.PP
+.SS "int ffp2di (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, short * array, int * status)"
+.PP
+.SS "int ffp2dj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, long * array, int * status)"
+.PP
+.SS "int ffp2djj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffp2dk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int * array, int * status)"
+.PP
+.SS "int ffp2dsb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, signed char * array, int * status)"
+.PP
+.SS "int ffp2dui (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned short * array, int * status)"
+.PP
+.SS "int ffp2duj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned long * array, int * status)"
+.PP
+.SS "int ffp2duk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, unsigned int * array, int * status)"
+.PP
+.SS "int ffp3db (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned char * array, int * status)"
+.PP
+.SS "int ffp3dd (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, double * array, int * status)"
+.PP
+.SS "int ffp3de (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, float * array, int * status)"
+.PP
+.SS "int ffp3di (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, short * array, int * status)"
+.PP
+.SS "int ffp3dj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, long * array, int * status)"
+.PP
+.SS "int ffp3djj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffp3dk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, int * array, int * status)"
+.PP
+.SS "int ffp3dsb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, signed char * array, int * status)"
+.PP
+.SS "int ffp3dui (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned short * array, int * status)"
+.PP
+.SS "int ffp3duj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned long * array, int * status)"
+.PP
+.SS "int ffp3duk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP ncols, \fBLONGLONG\fP nrows, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, \fBLONGLONG\fP naxis3, unsigned int * array, int * status)"
+.PP
+.SS "int ffpcks (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffpcl (\fBfitsfile\fP * fptr, int datatype, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * array, int * status)"
+.PP
+.SS "int ffpclb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char * array, int * status)"
+.PP
+.SS "int ffpclc (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, int * status)"
+.PP
+.SS "int ffpcld (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, int * status)"
+.PP
+.SS "int ffpcle (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, int * status)"
+.PP
+.SS "int ffpcli (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short * array, int * status)"
+.PP
+.SS "int ffpclj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long * array, int * status)"
+.PP
+.SS "int ffpcljj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffpclk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * array, int * status)"
+.PP
+.SS "int ffpcll (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char * array, int * status)"
+.PP
+.SS "int ffpclm (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, int * status)"
+.PP
+.SS "int ffpcls (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char ** array, int * status)"
+.PP
+.SS "int ffpclsb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char * array, int * status)"
+.PP
+.SS "int ffpclu (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * status)"
+.PP
+.SS "int ffpclui (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short * array, int * status)"
+.PP
+.SS "int ffpcluj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long * array, int * status)"
+.PP
+.SS "int ffpcluk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int * array, int * status)"
+.PP
+.SS "int ffpclx (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP frow, long fbit, long nbit, char * larray, int * status)"
+.PP
+.SS "int ffpcn (\fBfitsfile\fP * fptr, int datatype, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * array, void * nulval, int * status)"
+.PP
+.SS "int ffpcnb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char * array, unsigned char nulvalue, int * status)"
+.PP
+.SS "int ffpcnd (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, double nulvalue, int * status)"
+.PP
+.SS "int ffpcne (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, float nulvalue, int * status)"
+.PP
+.SS "int ffpcni (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short * array, short nulvalue, int * status)"
+.PP
+.SS "int ffpcnj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long * array, long nulvalue, int * status)"
+.PP
+.SS "int ffpcnjj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP * array, \fBLONGLONG\fP nulvalue, int * status)"
+.PP
+.SS "int ffpcnk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * array, int nulvalue, int * status)"
+.PP
+.SS "int ffpcnl (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char * array, char nulvalue, int * status)"
+.PP
+.SS "int ffpcns (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, char ** array, char * nulvalue, int * status)"
+.PP
+.SS "int ffpcnsb (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char * array, signed char nulvalue, int * status)"
+.PP
+.SS "int ffpcnui (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short * array, unsigned short nulvalue, int * status)"
+.PP
+.SS "int ffpcnuj (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long * array, unsigned long nulvalue, int * status)"
+.PP
+.SS "int ffpcnuk (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int * array, unsigned int nulvalue, int * status)"
+.PP
+.SS "int ffpcom (\fBfitsfile\fP * fptr, const char * comm, int * status)"
+.PP
+.SS "int ffpdat (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffpdes (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP rownum, \fBLONGLONG\fP length, \fBLONGLONG\fP heapaddr, int * status)"
+.PP
+.SS "int ffpextn (\fBfitsfile\fP * fptr, \fBLONGLONG\fP offset, \fBLONGLONG\fP nelem, void * array, int * status)"
+.PP
+.SS "int ffpgpb (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned char * array, int * status)"
+.PP
+.SS "int ffpgpd (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, double * array, int * status)"
+.PP
+.SS "int ffpgpe (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, float * array, int * status)"
+.PP
+.SS "int ffpgpi (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, short * array, int * status)"
+.PP
+.SS "int ffpgpj (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, long * array, int * status)"
+.PP
+.SS "int ffpgpjj (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffpgpk (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, int * array, int * status)"
+.PP
+.SS "int ffpgpsb (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, signed char * array, int * status)"
+.PP
+.SS "int ffpgpui (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned short * array, int * status)"
+.PP
+.SS "int ffpgpuj (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned long * array, int * status)"
+.PP
+.SS "int ffpgpuk (\fBfitsfile\fP * fptr, long group, long firstelem, long nelem, unsigned int * array, int * status)"
+.PP
+.SS "int ffphbn (\fBfitsfile\fP * fptr, \fBLONGLONG\fP naxis2, int tfields, char ** ttype, char ** tform, char ** tunit, const char * extname, \fBLONGLONG\fP pcount, int * status)"
+.PP
+.SS "int ffphext (\fBfitsfile\fP * fptr, const char * xtension, int bitpix, int naxis, long naxes[], \fBLONGLONG\fP pcount, \fBLONGLONG\fP gcount, int * status)"
+.PP
+.SS "int ffphis (\fBfitsfile\fP * fptr, const char * history, int * status)"
+.PP
+.SS "int ffphpr (\fBfitsfile\fP * fptr, int simple, int bitpix, int naxis, long naxes[], \fBLONGLONG\fP pcount, \fBLONGLONG\fP gcount, int extend, int * status)"
+.PP
+.SS "int ffphprll (\fBfitsfile\fP * fptr, int simple, int bitpix, int naxis, \fBLONGLONG\fP naxes[], \fBLONGLONG\fP pcount, \fBLONGLONG\fP gcount, int extend, int * status)"
+.PP
+.SS "int ffphps (\fBfitsfile\fP * fptr, int bitpix, int naxis, long naxes[], int * status)"
+.PP
+.SS "int ffphpsll (\fBfitsfile\fP * fptr, int bitpix, int naxis, \fBLONGLONG\fP naxes[], int * status)"
+.PP
+.SS "int ffphtb (\fBfitsfile\fP * fptr, \fBLONGLONG\fP naxis1, \fBLONGLONG\fP naxis2, int tfields, char ** ttype, long * tbcol, char ** tform, char ** tunit, const char * extname, int * status)"
+.PP
+.SS "int ffpkfc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkfm (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkls (\fBfitsfile\fP * fptr, const char * keyname, const char * value, const char * comm, int * status)"
+.PP
+.SS "int ffpknd (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, double * value, int decim, char * comm[], int * status)"
+.PP
+.SS "int ffpkne (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, float * value, int decim, char * comm[], int * status)"
+.PP
+.SS "int ffpknf (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, float * value, int decim, char * comm[], int * status)"
+.PP
+.SS "int ffpkng (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, double * value, int decim, char * comm[], int * status)"
+.PP
+.SS "int ffpknj (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, long * value, char * comm[], int * status)"
+.PP
+.SS "int ffpknjj (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, \fBLONGLONG\fP * value, char * comm[], int * status)"
+.PP
+.SS "int ffpknl (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, int * value, char * comm[], int * status)"
+.PP
+.SS "int ffpkns (\fBfitsfile\fP * fptr, const char * keyroot, int nstart, int nkey, char * value[], char * comm[], int * status)"
+.PP
+.SS "int ffpktp (\fBfitsfile\fP * fptr, const char * filename, int * status)"
+.PP
+.SS "int ffpky (\fBfitsfile\fP * fptr, int datatype, const char * keyname, void * value, const char * comm, int * status)"
+.PP
+.SS "int ffpkyc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkyd (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkye (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkyf (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkyg (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkyj (\fBfitsfile\fP * fptr, const char * keyname, \fBLONGLONG\fP value, const char * comm, int * status)"
+.PP
+.SS "int ffpkyl (\fBfitsfile\fP * fptr, const char * keyname, int value, const char * comm, int * status)"
+.PP
+.SS "int ffpkym (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, const char * comm, int * status)"
+.PP
+.SS "int ffpkys (\fBfitsfile\fP * fptr, const char * keyname, char * value, const char * comm, int * status)"
+.PP
+.SS "int ffpkyt (\fBfitsfile\fP * fptr, const char * keyname, long intval, double frac, const char * comm, int * status)"
+.PP
+.SS "int ffpkyu (\fBfitsfile\fP * fptr, const char * keyname, const char * comm, int * status)"
+.PP
+.SS "int ffplsw (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "void ffpmrk (void)"
+.PP
+.SS "void ffpmsg (const char * err_message)"
+.PP
+.SS "int ffpnul (\fBfitsfile\fP * fptr, \fBLONGLONG\fP nulvalue, int * status)"
+.PP
+.SS "int ffppn (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * array, void * nulval, int * status)"
+.PP
+.SS "int ffppnb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char * array, unsigned char nulval, int * status)"
+.PP
+.SS "int ffppnd (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, double nulval, int * status)"
+.PP
+.SS "int ffppne (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, float nulval, int * status)"
+.PP
+.SS "int ffppni (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short * array, short nulval, int * status)"
+.PP
+.SS "int ffppnj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long * array, long nulval, int * status)"
+.PP
+.SS "int ffppnjj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP * array, \fBLONGLONG\fP nulval, int * status)"
+.PP
+.SS "int ffppnk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * array, int nulval, int * status)"
+.PP
+.SS "int ffppnsb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char * array, signed char nulval, int * status)"
+.PP
+.SS "int ffppnui (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short * array, unsigned short nulval, int * status)"
+.PP
+.SS "int ffppnuj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long * array, unsigned long nulval, int * status)"
+.PP
+.SS "int ffppnuk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int * array, unsigned int nulval, int * status)"
+.PP
+.SS "int ffppr (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, void * array, int * status)"
+.PP
+.SS "int ffpprb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned char * array, int * status)"
+.PP
+.SS "int ffpprd (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, double * array, int * status)"
+.PP
+.SS "int ffppre (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, float * array, int * status)"
+.PP
+.SS "int ffppri (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, short * array, int * status)"
+.PP
+.SS "int ffpprj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, long * array, int * status)"
+.PP
+.SS "int ffpprjj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffpprk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * array, int * status)"
+.PP
+.SS "int ffpprn (\fBfitsfile\fP * fptr, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * status)"
+.PP
+.SS "int ffpprsb (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, signed char * array, int * status)"
+.PP
+.SS "int ffppru (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, int * status)"
+.PP
+.SS "int ffpprui (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned short * array, int * status)"
+.PP
+.SS "int ffppruj (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned long * array, int * status)"
+.PP
+.SS "int ffppruk (\fBfitsfile\fP * fptr, long group, \fBLONGLONG\fP firstelem, \fBLONGLONG\fP nelem, unsigned int * array, int * status)"
+.PP
+.SS "int ffppx (\fBfitsfile\fP * fptr, int datatype, long * firstpix, \fBLONGLONG\fP nelem, void * array, int * status)"
+.PP
+.SS "int ffppxll (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP * firstpix, \fBLONGLONG\fP nelem, void * array, int * status)"
+.PP
+.SS "int ffppxn (\fBfitsfile\fP * fptr, int datatype, long * firstpix, \fBLONGLONG\fP nelem, void * array, void * nulval, int * status)"
+.PP
+.SS "int ffppxnll (\fBfitsfile\fP * fptr, int datatype, \fBLONGLONG\fP * firstpix, \fBLONGLONG\fP nelem, void * array, void * nulval, int * status)"
+.PP
+.SS "int ffprec (\fBfitsfile\fP * fptr, const char * card, int * status)"
+.PP
+.SS "int ffprwu (\fBfitsfile\fP * fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP nrows, int * status)"
+.PP
+.SS "int ffpscl (\fBfitsfile\fP * fptr, double scale, double zero, int * status)"
+.PP
+.SS "int ffpss (\fBfitsfile\fP * fptr, int datatype, long * fpixel, long * lpixel, void * array, int * status)"
+.PP
+.SS "int ffpssb (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, unsigned char * array, int * status)"
+.PP
+.SS "int ffpssd (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, double * array, int * status)"
+.PP
+.SS "int ffpsse (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, float * array, int * status)"
+.PP
+.SS "int ffpssi (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, short * array, int * status)"
+.PP
+.SS "int ffpssj (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, long * array, int * status)"
+.PP
+.SS "int ffpssjj (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, \fBLONGLONG\fP * array, int * status)"
+.PP
+.SS "int ffpssk (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, int * array, int * status)"
+.PP
+.SS "int ffpsssb (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, signed char * array, int * status)"
+.PP
+.SS "int ffpssui (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, unsigned short * array, int * status)"
+.PP
+.SS "int ffpssuj (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, unsigned long * array, int * status)"
+.PP
+.SS "int ffpssuk (\fBfitsfile\fP * fptr, long group, long naxis, long * naxes, long * fpixel, long * lpixel, unsigned int * array, int * status)"
+.PP
+.SS "int ffpsvc (char * card, char * value, char * comm, int * status)"
+.PP
+.SS "int ffptbb (\fBfitsfile\fP * fptr, \fBLONGLONG\fP firstrow, \fBLONGLONG\fP firstchar, \fBLONGLONG\fP nchars, unsigned char * values, int * status)"
+.PP
+.SS "int ffptdm (\fBfitsfile\fP * fptr, int colnum, int naxis, long naxes[], int * status)"
+.PP
+.SS "int ffptdmll (\fBfitsfile\fP * fptr, int colnum, int naxis, \fBLONGLONG\fP naxes[], int * status)"
+.PP
+.SS "int ffpthp (\fBfitsfile\fP * fptr, long theap, int * status)"
+.PP
+.SS "int ffpunt (\fBfitsfile\fP * fptr, const char * keyname, char * unit, int * status)"
+.PP
+.SS "int ffrdef (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffreopen (\fBfitsfile\fP * openfptr, \fBfitsfile\fP ** newfptr, int * status)"
+.PP
+.SS "void ffrprt (FILE * stream, int status)"
+.PP
+.SS "int ffrsim (\fBfitsfile\fP * fptr, int bitpix, int naxis, long * naxes, int * status)"
+.PP
+.SS "int ffrsimll (\fBfitsfile\fP * fptr, int bitpix, int naxis, \fBLONGLONG\fP * naxes, int * status)"
+.PP
+.SS "int ffrtnm (char * url, char * rootname, int * status)"
+.PP
+.SS "int ffrwrg (char * rowlist, \fBLONGLONG\fP maxrows, int maxranges, int * numranges, long * minrow, long * maxrow, int * status)"
+.PP
+.SS "int ffrwrgll (char * rowlist, \fBLONGLONG\fP maxrows, int maxranges, int * numranges, \fBLONGLONG\fP * minrow, \fBLONGLONG\fP * maxrow, int * status)"
+.PP
+.SS "int ffs2dt (char * datestr, int * year, int * month, int * day, int * status)"
+.PP
+.SS "int ffs2tm (char * datestr, int * year, int * month, int * day, int * hour, int * minute, double * second, int * status)"
+.PP
+.SS "int ffsnul (\fBfitsfile\fP * fptr, int colnum, char * nulstring, int * status)"
+.PP
+.SS "int ffsrow (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, char * expr, int * status)"
+.PP
+.SS "int fftexp (\fBfitsfile\fP * fptr, char * expr, int maxdim, int * datatype, long * nelem, int * naxis, long * naxes, int * status)"
+.PP
+.SS "int ffthdu (\fBfitsfile\fP * fptr, int * nhdu, int * status)"
+.PP
+.SS "int fftheap (\fBfitsfile\fP * fptr, \fBLONGLONG\fP * heapsize, \fBLONGLONG\fP * unused, \fBLONGLONG\fP * overlap, int * valid, int * status)"
+.PP
+.SS "int fftkey (const char * keyword, int * status)"
+.PP
+.SS "int fftm2s (int year, int month, int day, int hour, int minute, double second, int decimals, char * datestr, int * status)"
+.PP
+.SS "int fftnul (\fBfitsfile\fP * fptr, int colnum, \fBLONGLONG\fP nulvalue, int * status)"
+.PP
+.SS "int fftopn (\fBfitsfile\fP ** fptr, const char * filename, int iomode, int * status)"
+.PP
+.SS "int fftplt (\fBfitsfile\fP ** fptr, const char * filename, const char * tempname, int * status)"
+.PP
+.SS "int fftrec (char * card, int * status)"
+.PP
+.SS "int fftscl (\fBfitsfile\fP * fptr, int colnum, double scale, double zero, int * status)"
+.PP
+.SS "int ffucrd (\fBfitsfile\fP * fptr, const char * keyname, char * card, int * status)"
+.PP
+.SS "int ffukfc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukfm (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukls (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffuky (\fBfitsfile\fP * fptr, int datatype, const char * keyname, void * value, char * comm, int * status)"
+.PP
+.SS "int ffukyc (\fBfitsfile\fP * fptr, const char * keyname, float * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukyd (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukye (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukyf (\fBfitsfile\fP * fptr, const char * keyname, float value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukyg (\fBfitsfile\fP * fptr, const char * keyname, double value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukyj (\fBfitsfile\fP * fptr, const char * keyname, \fBLONGLONG\fP value, char * comm, int * status)"
+.PP
+.SS "int ffukyl (\fBfitsfile\fP * fptr, const char * keyname, int value, char * comm, int * status)"
+.PP
+.SS "int ffukym (\fBfitsfile\fP * fptr, const char * keyname, double * value, int decim, char * comm, int * status)"
+.PP
+.SS "int ffukys (\fBfitsfile\fP * fptr, const char * keyname, char * value, char * comm, int * status)"
+.PP
+.SS "int ffukyu (\fBfitsfile\fP * fptr, const char * keyname, char * comm, int * status)"
+.PP
+.SS "void ffupch (char * string)"
+.PP
+.SS "int ffupck (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "int ffurlt (\fBfitsfile\fP * fptr, char * urlType, int * status)"
+.PP
+.SS "int ffvcks (\fBfitsfile\fP * fptr, int * datastatus, int * hdustatus, int * status)"
+.PP
+.SS "int ffverifydate (int year, int month, int day, int * status)"
+.PP
+.SS "float ffvers (float * version)"
+.PP
+.SS "int ffwldp (double xpix, double ypix, double xref, double yref, double xrefpix, double yrefpix, double xinc, double yinc, double rot, char * type, double * xpos, double * ypos, int * status)"
+.PP
+.SS "int ffwrhdu (\fBfitsfile\fP * fptr, FILE * outstream, int * status)"
+.PP
+.SS "int ffxypx (double xpos, double ypos, double xref, double yref, double xrefpix, double yrefpix, double xinc, double yinc, double rot, char * type, double * xpix, double * ypix, int * status)"
+.PP
+.SS "int fits_calc_binning (\fBfitsfile\fP * fptr, int naxis, char colname[4][FLEN_VALUE], double * minin, double * maxin, double * binsizein, char minname[4][FLEN_VALUE], char maxname[4][FLEN_VALUE], char binname[4][FLEN_VALUE], int * colnum, long * haxes, float * amin, float * amax, float * binsize, int * status)"
+.PP
+.SS "int fits_compress_img (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int compress_type, long * tilesize, int parm1, int parm2, int * status)"
+.PP
+.SS "int fits_copy_cell2image (\fBfitsfile\fP * fptr, \fBfitsfile\fP * newptr, char * colname, long rownum, int * status)"
+.PP
+.SS "int fits_copy_image2cell (\fBfitsfile\fP * fptr, \fBfitsfile\fP * newptr, char * colname, long rownum, int copykeyflag, int * status)"
+.PP
+.SS "int fits_copy_image_section (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfile, char * imagesection, int * status)"
+.PP
+.SS "int fits_copy_pixlist2image (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int firstkey, int naxis, int * colnum, int * status)"
+.PP
+.SS "int fits_decompress_img (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int * status)"
+.PP
+.SS "int fits_execute_template (\fBfitsfile\fP * ff, char * ngp_template, int * status)"
+.PP
+.SS "int fits_get_compression_type (\fBfitsfile\fP * fptr, int * ctype, int * status)"
+.PP
+.SS "int fits_get_hcomp_scale (\fBfitsfile\fP * fptr, float * scale, int * status)"
+.PP
+.SS "int fits_get_hcomp_smooth (\fBfitsfile\fP * fptr, int * smooth, int * status)"
+.PP
+.SS "int fits_get_noise_bits (\fBfitsfile\fP * fptr, int * noisebits, int * status)"
+.PP
+.SS "int fits_get_quantize_level (\fBfitsfile\fP * fptr, float * qlevel, int * status)"
+.PP
+.SS "int fits_get_section_range (char ** ptr, long * secmin, long * secmax, long * incre, int * status)"
+.PP
+.SS "int fits_get_tile_dim (\fBfitsfile\fP * fptr, int ndim, long * dims, int * status)"
+.PP
+.SS "int fits_get_token (char ** ptr, char * delimiter, char * token, int * isanumber)"
+.PP
+.SS "int fits_hcompress (int * a, int nx, int ny, int scale, char * output, long * nbytes, int * status)"
+.PP
+.SS "int fits_hcompress64 (\fBLONGLONG\fP * a, int nx, int ny, int scale, char * output, long * nbytes, int * status)"
+.PP
+.SS "int fits_hdecompress (unsigned char * input, int smooth, int * a, int * nx, int * ny, int * scale, int * status)"
+.PP
+.SS "int fits_hdecompress64 (unsigned char * input, int smooth, \fBLONGLONG\fP * a, int * nx, int * ny, int * scale, int * status)"
+.PP
+.SS "int fits_img_compress (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int * status)"
+.PP
+.SS "int fits_img_decompress (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int * status)"
+.PP
+.SS "int fits_img_stats_float (float * array, long nx, long ny, int nullcheck, float nullvalue, long * ngoodpix, float * minvalue, float * maxvalue, double * mean, double * sigma, double * noise1, double * noise3, int * status)"
+.PP
+.SS "int fits_img_stats_int (int * array, long nx, long ny, int nullcheck, int nullvalue, long * ngoodpix, int * minvalue, int * maxvalue, double * mean, double * sigma, double * noise1, double * noise3, int * status)"
+.PP
+.SS "int fits_img_stats_short (short * array, long nx, long ny, int nullcheck, short nullvalue, long * ngoodpix, short * minvalue, short * maxvalue, double * mean, double * sigma, double * noise1, double * noise3, int * status)"
+.PP
+.SS "int fits_is_compressed_image (\fBfitsfile\fP * fptr, int * status)"
+.PP
+.SS "void* fits_iter_get_array (\fBiteratorCol\fP * col)"
+.PP
+.SS "char* fits_iter_get_colname (\fBiteratorCol\fP * col)"
+.PP
+.SS "int fits_iter_get_colnum (\fBiteratorCol\fP * col)"
+.PP
+.SS "int fits_iter_get_datatype (\fBiteratorCol\fP * col)"
+.PP
+.SS "\fBfitsfile\fP* fits_iter_get_file (\fBiteratorCol\fP * col)"
+.PP
+.SS "int fits_iter_get_iotype (\fBiteratorCol\fP * col)"
+.PP
+.SS "long fits_iter_get_repeat (\fBiteratorCol\fP * col)"
+.PP
+.SS "char* fits_iter_get_tdisp (\fBiteratorCol\fP * col)"
+.PP
+.SS "long fits_iter_get_tlmax (\fBiteratorCol\fP * col)"
+.PP
+.SS "long fits_iter_get_tlmin (\fBiteratorCol\fP * col)"
+.PP
+.SS "char* fits_iter_get_tunit (\fBiteratorCol\fP * col)"
+.PP
+.SS "int fits_iter_set_by_name (\fBiteratorCol\fP * col, \fBfitsfile\fP * fptr, char * colname, int datatype, int iotype)"
+.PP
+.SS "int fits_iter_set_by_num (\fBiteratorCol\fP * col, \fBfitsfile\fP * fptr, int colnum, int datatype, int iotype)"
+.PP
+.SS "int fits_iter_set_colname (\fBiteratorCol\fP * col, char * colname)"
+.PP
+.SS "int fits_iter_set_colnum (\fBiteratorCol\fP * col, int colnum)"
+.PP
+.SS "int fits_iter_set_datatype (\fBiteratorCol\fP * col, int datatype)"
+.PP
+.SS "int fits_iter_set_file (\fBiteratorCol\fP * col, \fBfitsfile\fP * fptr)"
+.PP
+.SS "int fits_iter_set_iotype (\fBiteratorCol\fP * col, int iotype)"
+.PP
+.SS "int fits_make_hist (\fBfitsfile\fP * fptr, \fBfitsfile\fP * histptr, int bitpix, int naxis, long * naxes, int * colnum, float * amin, float * amax, float * binsize, float weight, int wtcolnum, int recip, char * selectrow, int * status)"
+.PP
+.SS "int fits_pixel_filter (\fBPixelFilter\fP * filter, int * status)"
+.PP
+.SS "int fits_read_wcstab (\fBfitsfile\fP * fptr, int nwtb, \fBwtbarr\fP * wtb, int * status)"
+.PP
+.SS "int fits_rebin_wcs (\fBfitsfile\fP * fptr, int naxis, float * amin, float * binsize, int * status)"
+.PP
+.SS "int fits_select_image_section (\fBfitsfile\fP ** fptr, char * outfile, char * imagesection, int * status)"
+.PP
+.SS "int fits_set_compression_type (\fBfitsfile\fP * fptr, int ctype, int * status)"
+.PP
+.SS "int fits_set_hcomp_scale (\fBfitsfile\fP * fptr, float scale, int * status)"
+.PP
+.SS "int fits_set_hcomp_smooth (\fBfitsfile\fP * fptr, int smooth, int * status)"
+.PP
+.SS "int fits_set_noise_bits (\fBfitsfile\fP * fptr, int noisebits, int * status)"
+.PP
+.SS "int fits_set_quantize_level (\fBfitsfile\fP * fptr, float qlevel, int * status)"
+.PP
+.SS "int fits_set_tile_dim (\fBfitsfile\fP * fptr, int ndim, long * dims, int * status)"
+.PP
+.SS "char* fits_split_names (char * list)"
+.PP
+.SS "int fits_translate_keyword (char * inrec, char * outrec, char * patterns[][2], int npat, int n_value, int n_offset, int n_range, int * pat_num, int * i, int * j, int * m, int * n, int * status)"
+.PP
+.SS "int fits_translate_keywords (\fBfitsfile\fP * infptr, \fBfitsfile\fP * outfptr, int firstkey, char * patterns[][2], int npat, int n_value, int n_offset, int n_range, int * status)"
+.PP
+.SS "int fits_write_keys_histo (\fBfitsfile\fP * fptr, \fBfitsfile\fP * histptr, int naxis, int * colnum, int * status)"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

@@ -1,0 +1,12 @@
+#! /bin/csh
+
+set orig_dir = `pwd`
+
+cd $1
+set makelist = `find . -name src -print`
+foreach mk ($makelist)
+	echo "\n****** compiling directory $mk ...******"
+	cd $mk; make; cd $1
+end
+
+cd $orig_dir

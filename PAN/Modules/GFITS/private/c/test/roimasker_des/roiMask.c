@@ -1,0 +1,585 @@
+#include <sys/types.h>
+#include <sys/msg.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <time.h>
+#include <sys/time.h>
+#include "fitsio.h"
+#include "longnam.h"
+#include "roiMask.h"
+
+char tmpstr[150];
+int nextimg = 0;
+int datatype=TUSHORT;
+void *detbuf=NULL;
+void *overbuf=NULL;
+void *outbuf=NULL;
+void *databuf=NULL;
+long totcols;
+long outbpp=4;
+int gbl_overcorr=1;
+int biasclear=0;
+unsigned long detbufsize = 0;
+unsigned long overbufsize = 0;
+unsigned long outbufsize = 0;
+unsigned long databufsize = 0;
+float VERSION=2.3;
+
+#define	ADDETIME	1
+
+int RMASK_ParseSec (char *sec, int *xs, int *xe, int *ys, int *ye)
+{
+const char delim[] ="'[:,]";
+char *tok=NULL;
+
+        *xs = *xe = *ys = *ye = -1;
+        tok = strtok (sec, delim);
+        if (tok != NULL)
+                *xs = atoi (tok);
+        else
+                return (OK);
+        tok = strtok (NULL, delim);
+        if (tok != NULL)
+                *xe = atoi (tok);
+        else
+                return (OK);
+        tok = strtok (NULL, delim);
+        if (tok != NULL)
+                *ys = atoi (tok);
+        else
+                return (OK);
+        tok = strtok (NULL, delim);
+        if (tok != NULL)
+                *ye = atoi (tok);
+
+        return (OK);
+}
+
+int RMASK_GetSubSet (fitsfile *fptr, int xs, int xe, int ys, int ye, void *buf)
+{
+long inc[2]={1,1};
+long fpixel[2]={1,1};
+long lpixel[2]={0,0};
+int status=0;
+
+	pdebug ("GetSubSet %d %d %d %d (data %d)\n", xs, xe, ys, ye, datatype);
+        fpixel[0] = xs;
+        fpixel[1] = ys;
+        lpixel[0] = xe;
+        lpixel[1] = ye;
+        fits_read_subset (fptr, datatype, fpixel, lpixel, inc, NULL, buf, NULL, &status);
+        if (status != 0){
+		printf ("error from read_subset %ld %ld %ld %ld\n", fpixel[0], lpixel[0], fpixel[1], lpixel[1]);
+                return (-status);
+	}
+/*return number of elements*/
+        return ((ye - ys + 1)*(xe - xs + 1));
+}
+
+int RMASK_GetNamedSection (fitsfile *fptr, char *secname, int *xs, int *xe, int *ys, int *ye, void *buf)
+{
+int status=0;
+char sec[60];
+
+        fits_read_keyword (fptr, secname, sec, NULL, &status);
+        if (status != 0)   /*no section defined defined*/
+                return (-status);
+
+        RMASK_ParseSec (sec, xs, xe, ys, ye);
+	return (RMASK_GetSubSet (fptr, *xs, *xe, *ys, *ye, buf));
+}
+
+
+float RMASK_GetMean (void *pointer, unsigned long n)
+{
+float mean=0;
+int i;
+unsigned short *p;
+
+	p = (unsigned short *) pointer;
+	mean = 0;
+	for (i=0; i<n; i++){
+			mean = mean + (float) *p;
+			p++;
+	}
+	mean = mean / n;
+	return (mean);
+}
+
+float RMASK_GetMeanF (void *pointer, unsigned long n)
+{
+float mean=0;
+int i;
+float *p;
+
+        p = (float *) pointer;
+        mean = 0;
+        for (i=0; i<n; i++){
+                        mean = mean +  *p;
+                        p++;
+        }
+        mean = mean / n;
+        return (mean);
+}
+
+int RMASK_GetBias (void *pointer, long ncols, long rstart, long nrows, float *biasline)
+{
+float mean=0;
+unsigned short *p;
+int l, c;
+
+        p = (unsigned short *) pointer;
+//	p = p + (unsigned short *)((rstart-1)*ncols);
+	p = p + (rstart-1)*ncols;
+        mean = 0;
+	pdebug ("Getting bias lines %d %d %d\n", ncols, rstart, nrows);
+        for (l=0; l<nrows; l++){
+        	for (c=0; c<ncols; c++){
+                        mean = mean +  *p;
+                        p++;
+		}
+		mean = mean / ncols;
+		biasline[l] = mean;
+		mean=0; 
+        }
+	biasclear=0;
+        return (OK);
+}
+
+void RMASK_ZeroBias (long nrows, float *biasline)
+{
+int l;
+//	if (!biasclear){
+		for (l=0; l<nrows; l++)
+			biasline[l] = 0;
+		biasclear=1;
+//	}
+}
+	
+
+void RMASK_ReleaseBuffers (void)
+{
+	if (detbuf != NULL){
+		free (detbuf);
+		detbufsize = 0;
+		detbuf = NULL;
+	}
+	if (overbuf != NULL){
+		free (overbuf);
+		overbufsize = 0;
+		overbuf = NULL;
+	}
+	if (databuf != NULL){
+		free (databuf);
+		databufsize = 0;
+		databuf = NULL;
+	}
+	if (outbuf != NULL){
+		free (outbuf);
+		outbufsize = 0;
+		outbuf = NULL;
+	}
+}
+int RMASK_GetBuffer (int nelems, int bpp)
+{
+unsigned long outsize;
+unsigned long ampsize;
+
+	outsize = EXTPERDET * nelems * outbpp;
+	ampsize = nelems * bpp;
+
+	if (databufsize < ampsize){
+		RMASK_ReleaseBuffers ();
+		databuf = malloc (ampsize);
+		overbuf = malloc (ampsize);
+		detbuf = malloc (outsize);
+		outbuf = malloc (outsize);
+		if (outbuf == NULL){
+			RMASK_ReleaseBuffers();
+			return (-ENOMEM);
+		}
+		detbufsize = outbufsize = outsize;
+		overbufsize = databufsize = ampsize;
+		pdebug ("GetBuffer allocated %ld and %ld bytes\n", databufsize, outbufsize);
+	}
+	return (OK);
+}
+
+
+int RMASK_GetROI (fitsfile *fptr, int xs, int xlen, int ys, int ylen, void *destbuf)
+{
+int biasnelems=0;
+int datanelems=-1;
+int ret=0;
+int oxs, oxe, oys, oye, dxs, dxe, dys, dye;
+unsigned short *dbuf;
+float *obuf;
+char sec[60];
+int status=0;
+int xe, ye;
+float biasarr[4500];
+int biascols, l, c;
+	
+        fits_read_keyword (fptr, "DATASEC", sec, NULL, &status);
+	pdebug ("datasec %s\n", sec);
+        if (status != 0)   /*no data section*/
+                return (-status);
+        RMASK_ParseSec (sec, &dxs, &dxe, &dys, &dye);
+
+	if (gbl_overcorr){	
+        	if ((biasnelems = RMASK_GetNamedSection (fptr, "BIASSEC", &oxs, &oxe, &oys, &oye, overbuf))<0){
+                	RMASK_ZeroBias (ys+ylen-1, biasarr);
+        	} else {
+			biascols = oxe - oxs  + 1;
+                	ret = RMASK_GetBias (overbuf, biascols,ys, ylen, biasarr);
+		}
+	} else {
+               	RMASK_ZeroBias (ys+ylen-1, biasarr);
+	}
+
+       	xe = xs + xlen + dxs-2;
+        xs += dxs-1;
+
+	ye = ys + ylen - 1;
+
+	pdebug ("dxs %d dxe %d dys %d dye %d xs %d xe %d\n", dxs, dxe, dys, dye, xs, xe);
+        if ((datanelems = RMASK_GetSubSet (fptr, xs, xe, ys, ye, databuf)) < 0){
+		printf ("GetROI: error from GetSubset %d\n", datanelems);
+                return (datanelems);
+	}
+	pdebug ("xs %d ys %d xe %d ye %d\n", xs, ys, xe, ye);
+	pdebug ("xlen %d ylen %d datanelems %d\n", xlen, ylen, datanelems);
+
+        dbuf = (unsigned short *)databuf;
+        obuf = (float *) destbuf;
+        for (l=0; l<ylen; l++){
+        	for (c=0; c<xlen; c++){
+	//		pdebug ("[%d, %d] data %d, bias %g\n", l, c, *dbuf, biasarr[l]);
+            		*obuf = (float)*dbuf - biasarr[l];
+            		dbuf++; obuf++;
+		}
+        }
+        return (datanelems);
+}
+
+int RMASK_MixAmplifiers (void *obuf, void *dbuf1, void *dbuf2, int datanelems1, int datanelems2, int rylen, int *tcols)
+{
+int cols1, cols2;
+int y;
+void *p1, *p2, *po;
+int b1, b2;
+
+//	printf ("MixAmp: dbuf1 %8.4f dbuf2 %8.4f\n", RMASK_GetMeanF (dbuf1, datanelems1), RMASK_GetMeanF (dbuf2, datanelems2));
+
+	cols1 = (int) datanelems1/rylen; 
+	cols2 = (int) datanelems2/rylen;
+	b1 = cols1*outbpp;
+	b2 = cols2*outbpp;
+	p1 = dbuf1;
+	p2 = dbuf2;
+	po = obuf;
+	*tcols = cols1 + cols2;
+	for (y=0; y<rylen; y++){
+		memcpy (po, p1, b1); po+=b1; p1+=b1;
+		memcpy (po, p2, b2); po+=b2; p2+=b2;
+	}
+//	pdebug ("MixAmp: obuf %8.4f (cols1 %d cols2 %d)\n", RMASK_GetMeanF (obuf, datanelems1+datanelems2), cols1, cols2);
+	return (datanelems1+datanelems2);
+}
+
+void RMASK_GetAmpROIs (int *rs, int *rl, int *as, int *alen, int numdets, int *totsize)
+{
+int amp=0;
+int det;
+
+	if (*rl == 0)
+		*rl = EXTPERDET*XDATASIZE;
+
+	*totsize = 0;
+	for (det=0; det<numdets; det++){
+		amp = det*EXTPERDET;
+		if (rs[det] < XDATASIZE){
+			as[amp] = rs[det];
+			if ((rs[det] + *rl-1) > XDATASIZE){
+				alen[amp] = XDATASIZE - rs[det] + 1;
+				amp++;
+				as[amp] = 1;
+				alen[amp] = *rl - alen[amp-1];
+			} else {
+				alen[amp] = *rl;
+				amp++;
+				as[amp] = alen[amp] = 0;
+			}
+		} else {
+			as[amp] = alen[amp] = 0;
+			amp++;
+			as[amp]=rs[det] - XDATASIZE;
+			if ((rs[det] + *rl-1) > 2*XDATASIZE)
+				alen[amp] = 2*XDATASIZE - rs[det] + 1;
+			else
+				alen[amp] = *rl;
+		}
+		*totsize = *totsize + alen[amp-1] + alen[amp];
+		pdebug ("DET %d rs=%d, rl=%d\n", det, rs[det], *rl);
+		pdebug ("	%d as=%d, alen=%d\n", amp-1, as[amp-1], alen[amp-1]);
+		pdebug ("	%d as=%d, alen=%d\n", amp, as[amp], alen[amp]);
+	}
+}	
+
+
+int RMASK_GetImage (char *impath, int delimg, int display, int overcorr, int outut)
+{
+fitsfile *fptr;
+fitsfile *outfptr;
+int status=0;
+int bitpix;
+int naxis=0;
+long naxes[2] = {1,1};
+char sec[60];
+//char outname[256];
+char *outname;
+char outpath[256];
+char outsync[256];
+char impath2[256];
+char dispcomm[256];
+char utshut[80];
+float exptime;
+char posid[10];
+short ut=0;
+short etime=0;
+short pid=0;
+int nelems;
+int datanelems1, datanelems2, outdatanelems;
+int ret=0;
+FILE *sfd;
+int bpp;
+int rs[6];
+int as[12];
+int alen[8];
+int rlen, det;
+int ydisc;
+int rylen;
+int numhdus, numdets; 
+void *dbuf1=NULL;
+void *dbuf2=NULL;
+int amp, xpos, roicols, totsize;
+int nconv;
+time_t	startsecs, startusecs;
+struct tm *tm_time;
+struct timeval tval;
+
+    gbl_overcorr = overcorr;
+    strcpy (impath2, impath);
+    outname = strtok (impath2, ".");
+    sprintf (outpath, "%s_roi.fits", outname);
+    sprintf (outsync, "%s_roi.DONE", outname);
+
+    pdebug ("Getting image %s ...\n", impath);
+    fits_open_file (&fptr, impath, READONLY, &status);
+    if (status != 0){
+	printf ("error %d opening file %s\n", status, impath);
+	return (-status);
+    }
+   fits_read_keyword (fptr, "ROICOLS", sec, NULL, &status);
+    if (status != 0){	/*no roisection1 defined*/
+	rs[0] = rs[1] = rs[2] = rs[3] = 1;
+	rlen = 0;
+	ydisc = 0;
+	status = 0;
+    } else {
+	pdebug ("found ROISEC %s\n", sec);
+	nconv = sscanf (sec+1, "%d %d %d %d %d %d", &rs[0], &rs[1], &rs[2], &rs[3], &rlen, &ydisc);
+	if (nconv < 5){
+		rs[0] = rs[1] = rs[2] = rs[3] = 1;
+		rlen = 0;
+		ydisc = 0;
+	}
+	pdebug ("%d %d %d %d %d %d\n", rs[0], rs[1], rs[2], rs[3], rlen, ydisc);
+   }
+   fits_read_key (fptr, TSTRING, "UTSHUT", utshut, NULL, &status);
+    if (status != 0){	/*no utshut defined*/
+	ut = 0;
+	status = 0;
+    } else {
+	ut = 1;
+   }
+#if ADDETIME
+   fits_read_key (fptr, TFLOAT, "EXPTIME", &exptime, NULL, &status);
+    if (status != 0){	/*no exptime defined*/
+	etime = 0;
+	status = 0;
+    } else {
+	etime = 1;
+   }
+#endif
+   fits_get_num_hdus (fptr, &numhdus, &status);
+   fits_movabs_hdu (fptr, 2, NULL, &status);
+   fits_get_img_param(fptr, 2,  &bitpix, &naxis, naxes, &status);
+   if (status != 0){
+	ret = -status;
+	goto bye_img;
+    }
+    switch (bitpix){
+		case SHORT_IMG: 
+			datatype = TUSHORT;
+			break;
+		case USHORT_IMG: 
+			datatype = TUSHORT;
+			break;
+		default:
+			return (-EINVAL);
+    }
+    nelems = naxes[0] * naxes[1];
+    totcols = naxes[0];
+    bpp = abs(bitpix/8);
+    pdebug ("naxes[0] %d naxes[1] %d (nelems %d) bpp %d\n", naxes[0], naxes[1], nelems, bpp);
+    if ((ret = RMASK_GetBuffer (nelems, bpp)) < 0){
+	goto bye_img;
+    }
+
+    if ((ydisc >= naxes[1]) || (ydisc < 0))
+		ydisc=0;
+
+    rylen = naxes[1]-ydisc;
+    numdets = (int)((numhdus-1) / EXTPERDET);	
+    if (numdets > MAXDETS)
+	numdets = MAXDETS;
+
+    RMASK_GetAmpROIs (rs, &rlen, as, alen, numdets, &totsize);
+    xpos = 1;
+    for (det = 0; det<numdets; det++){
+	amp = det*EXTPERDET;
+   	fits_movabs_hdu (fptr, amp+2, NULL, &status);
+   	fits_read_key (fptr, TSTRING, "DETPOS", posid, NULL, &status);
+	if (status != 0){   /*no posid defined*/
+       		 pid = 0;
+       		 status = 0;
+        } else {
+       		 pid = 1;
+	}
+
+	dbuf1 = detbuf;
+	if (as[amp] > 0){
+		pdebug ("getting data for detector %d (amp %d) roi %d %d %d %d\n", det, amp, as[amp], alen[amp], ydisc+1, rylen);
+		if ((datanelems1 = RMASK_GetROI (fptr, as[amp], alen[amp], ydisc+1, rylen, dbuf1)) < 0)
+			return (datanelems1);
+	} else
+		datanelems1 = 0;
+	amp++;
+   	fits_movabs_hdu (fptr, amp+2, NULL, &status);
+	if (as[amp] > 0) {
+		pdebug ("getting data for detector %d (amp %d) roi %d %d %d %d\n", det, amp, as[amp], alen[amp], ydisc+1, rylen);
+		dbuf2 = detbuf + datanelems1*outbpp; 
+		if ((datanelems2 = RMASK_GetROI (fptr, as[amp], alen[amp], ydisc+1, rylen, dbuf2)) < 0)
+			return (datanelems2);
+	} else
+		datanelems2 = 0;
+
+	pdebug ("Mixing amplifiers ...\n");
+	if ((outdatanelems = RMASK_MixAmplifiers (outbuf, dbuf1, dbuf2, datanelems1, datanelems2, rylen, &roicols)) < 0){
+		return (outdatanelems);
+	}
+	if (det == 0){
+		naxes[1] = naxes[0] = 0;
+		status = 0;
+ 	   	fits_create_file (&outfptr, outpath, &status);
+    		if (status != 0){
+			ret = -status;
+			printf ("error creatig file %s\n", outpath);
+			goto bye_img;
+    		}
+	    	fits_create_img (outfptr, FLOAT_IMG, 0, naxes, &status);
+	    	if (status != 0){
+			ret = -status;
+			printf ("error creatig image\n");
+			goto bye_img;
+    		}
+		fits_set_hdrsize (outfptr, 1, &status);
+	    	if (status != 0){
+			ret = -status;
+			printf ("error creatig image\n");
+			goto bye_img;
+    		}
+		if (ut){
+			fits_write_key (outfptr, TSTRING, "UTSHUT", (void *) utshut, NULL, &status);
+			status = 0;
+		}
+		if (etime){
+			fits_write_key (outfptr, TFLOAT, "EXPTIME", (void *) &exptime, NULL, &status);
+			status = 0;
+		}
+	}
+
+	fits_create_hdu (outfptr, &status);
+	if (status != 0){
+		ret = -status;
+		printf ("error creating hdu\n");
+		goto bye_img;
+	}
+	naxes[0] = rlen;
+	naxes[1] = rylen;
+	fits_insert_img (outfptr, FLOAT_IMG, 2, naxes, &status);
+	fits_set_hdrsize (outfptr, 3, &status);
+	if (status != 0){
+		ret = -status;
+		printf ("error inserting image\n");
+		goto bye_img;
+	}
+	sprintf (sec, "[%d:%d,1:%d]", xpos, xpos+roicols-1,rylen);
+//	printf ("detsec %s\n", sec);
+	xpos+=roicols+10;
+	fits_write_key (outfptr, TSTRING, "DETSEC", (void *) sec, NULL, &status);
+	sprintf (sec, "[1:%d,1:%d]", totsize,rylen);
+//	printf ("detsize %s\n", sec);
+	fits_write_key (outfptr, TSTRING, "DETSIZE", (void *) sec, NULL, &status);
+	status = 0;
+        fits_write_img (outfptr, TFLOAT, 1, outdatanelems, outbuf, &status);
+    	if (status != 0){
+		ret = -status;
+		printf ("error writing data\n");
+		goto bye_img;
+    	}
+        if (pid){
+                 fits_write_key (outfptr, TSTRING, "DETPOS", (void *) posid, NULL, &status);
+                 status = 0;
+        }
+    }
+bye_img:	
+     if (outut){
+        status = 0;
+        fits_movabs_hdu (outfptr, 1, NULL, &status);
+        gettimeofday (&tval, NULL);
+        startsecs = tval.tv_sec;
+        startusecs = (double) tval.tv_usec / 1E6;
+        tm_time = gmtime (&startsecs);
+        sprintf (utshut, "%d-%02d-%02dT%02d:%02d:%06.3f", 1900 + tm_time -> tm_year, 1 + tm_time -> tm_mon, tm_time -> tm_mday,  tm_time -> tm_hour, tm_time -> tm_min, (double) tm_time -> tm_sec+(double) tval.tv_usec/1000000);
+	fits_write_key (outfptr, TSTRING, "UTFILE", (void *) utshut, NULL, &status);
+	status = 0;
+    }
+    fits_close_file (outfptr, &status);
+    fits_close_file (fptr, &status);
+    if (display){
+	sprintf (dispcomm, "xpaset -p ds9 file mosaicimageiraf %s &", outpath);
+	system (dispcomm);
+    }
+    if (ret == 0) {
+	sfd = fopen (outsync, "w+");
+	fclose (sfd);
+	if (delimg) {
+    		if (unlink (impath)< 0)
+			ret = -errno;
+	}
+    }
+
+    return (ret);
+}
+
+void RMASK_Close (void)
+{
+	RMASK_ReleaseBuffers ();
+	pdebug ("roimask stoped\n");
+}

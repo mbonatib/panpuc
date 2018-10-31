@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2854"
+   name=""
+   committed-date="2009-12-11T13:52:27.581135Z"
+   url="https://139.229.115.227/svn/tags/DRV_TCSSOAR-2.2/test"
+   last-author="bonati"
+   kind="dir"
+   uuid="e6f60f9c-5abb-4710-8859-6e645079aa37"
+   repos="https://139.229.115.227/svn"
+   revision="3325"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_test.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="91caecd0185949c453f3ec345133149b"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="2854"
+   name="test.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-12-11T13:52:27.581135Z"
+   checksum="67ab8b48212b3b111b4df3f44cad6e02"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   name="DRV_TCSCT60_test.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+</wc-entries>

@@ -1,0 +1,81 @@
+\section{test/dispatcher\_\-shm/dispatcher.c File Reference}
+\label{shm_2dispatcher_8c}\index{test/dispatcher_shm/dispatcher.c@{test/dispatcher\_\-shm/dispatcher.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include \char`\"{}shmclient\-Lib.h\char`\"{}}\par
+{\tt \#include \char`\"{}Fsender\-Lib.h\char`\"{}}\par
+{\tt \#include \char`\"{}tcpserver.h\char`\"{}}\par
+{\tt \#include $<$pthread.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{CMD}~1
+\item 
+\#define \bf{DATA}~2
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void $\ast$ \bf{Get\-Cmd} ()
+\item 
+int \bf{main} ()
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{shmqid} = 0
+\item 
+int \bf{running} = 1
+\item 
+int \bf{ready} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{shm/dispatcher.c@{shm/dispatcher.c}!CMD@{CMD}}
+\index{CMD@{CMD}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CMD~1}\label{shm_2dispatcher_8c_0a5ceb9ceb914e08d345410b561cb37a}
+
+
+\index{shm/dispatcher.c@{shm/dispatcher.c}!DATA@{DATA}}
+\index{DATA@{DATA}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DATA~2}\label{shm_2dispatcher_8c_ad9ae913bdfab20dd94ad04ee2d5b045}
+
+
+
+
+\subsection{Function Documentation}
+\index{shm/dispatcher.c@{shm/dispatcher.c}!GetCmd@{GetCmd}}
+\index{GetCmd@{GetCmd}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Get\-Cmd ()}\label{shm_2dispatcher_8c_9ab8d44953ee3c4f3c33b62c9223676c}
+
+
+\index{shm/dispatcher.c@{shm/dispatcher.c}!main@{main}}
+\index{main@{main}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int main ()}\label{shm_2dispatcher_8c_e66f6b31b5ad750f1fe042a706a4e3d4}
+
+
+
+
+\subsection{Variable Documentation}
+\index{shm/dispatcher.c@{shm/dispatcher.c}!ready@{ready}}
+\index{ready@{ready}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{ready} = 0}\label{shm_2dispatcher_8c_4adb4fb035eed17910c98225be64ec83}
+
+
+\index{shm/dispatcher.c@{shm/dispatcher.c}!running@{running}}
+\index{running@{running}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{running} = 1}\label{shm_2dispatcher_8c_2f45113638a0b749a8a205d2cd7fb42b}
+
+
+\index{shm/dispatcher.c@{shm/dispatcher.c}!shmqid@{shmqid}}
+\index{shmqid@{shmqid}!shm/dispatcher.c@{shm/dispatcher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{shmqid} = 0}\label{shm_2dispatcher_8c_532df43ed27970f11fa599a96a867fe1}
+
+

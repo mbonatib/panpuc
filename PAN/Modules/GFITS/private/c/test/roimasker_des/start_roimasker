@@ -1,0 +1,12 @@
+#!/bin/csh -f
+
+if ("$1" == "") then
+	set cm = "-s -d"
+else
+	set cm = "$argv"
+endif
+#xterm -sb -bg indianred -title "roimasker" -e "./roimasker -p $ASYNCPORT -s" &
+#xterm -sb -bg indianred -title "roimasker" -e "./roimasker -p $ASYNCPORT -s -d" &
+echo $cm 
+xterm -sb -bg indianred -title "roimasker" -e "./roimasker -p $ASYNCPORT $cm" &
+#xterm -sb -bg indianred -title "roimasker" -e "./roimasker -p 5335 -s -d -n" &

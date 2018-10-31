@@ -1,0 +1,2 @@
+ssh bonati@ctioyq "rm ~/fpas/_tspec/config/DETECTOR/tim.lod"
+scp tim.lod bonati@ctioyq:~/fpas/_tspec/config/DETECTOR/.

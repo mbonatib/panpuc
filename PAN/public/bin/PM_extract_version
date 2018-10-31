@@ -1,0 +1,28 @@
+#! /bin/csh -f
+
+if ($#argv < 2) then
+	echo "ERROR: usage: MM_extract_version <module_dir> <module_name>"
+	exit 1
+endif
+
+if (! -e $1) then
+	echo "ERROR directory not found"
+	exit 1
+endif
+
+if (! -e $1/$2) then
+	echo "ERROR module not found"
+	exit 1
+endif
+if (! -e $1/$2/ChangeLog.txt) then
+	echo "ERROR no version available"
+	exit 1
+endif
+cd $1
+set module = `basename $2 /`
+
+set VER=`grep -m1 -o "$module .*version [0-9|\.]*" $module/ChangeLog.txt | awk '{print $NF}'`
+cd -
+
+echo $VER
+exit 0

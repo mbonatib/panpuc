@@ -1,0 +1,768 @@
+.TH "panview_current/PAN/Modules/GFITS/private/c/src/GfitsLib.c" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GFITS/private/c/src/GfitsLib.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <errno.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <sys/mman.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include 'fitsio_64.h'\fP
+.br
+\fC#include 'GfitsLib.h'\fP
+.br
+\fC#include '../../../../GUNSC/public/c/include/GUnscrambling.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBpdebug\fP(fmt, args...)"
+.br
+.ti -1c
+.RI "#define \fBMAX_HEADER\fP   24"
+.br
+.ti -1c
+.RI "#define \fBOK\fP   0"
+.br
+.ti -1c
+.RI "#define \fBBADREF\fP   0"
+.br
+.ti -1c
+.RI "#define \fBDERTOIZ\fP   1"
+.br
+.ti -1c
+.RI "#define \fBIZTODER\fP   -1"
+.br
+.ti -1c
+.RI "#define \fBDIVIDES\fP(a, n)   (!((n) % (a)))"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBGF_set_mbufs\fP (i32 mbufs)"
+.br
+.ti -1c
+.RI "void \fBGF_set_bpp\fP (i32 data)"
+.br
+.ti -1c
+.RI "void \fBGF_printmsg\fP (char *msg)"
+.br
+.ti -1c
+.RI "void \fBGF_set_memfits\fP (short flag)"
+.br
+.ti -1c
+.RI "short \fBGF_get_memfits\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGF_release_image_buf\fP (i32 *err, i32 size, i32 snd)"
+.br
+.ti -1c
+.RI "void * \fBGF_allocate_image_buf\fP (size_t *size, i32 *id, i32 *qid)"
+.br
+.ti -1c
+.RI "short \fBGF_get_shmem\fP (void)"
+.br
+.ti -1c
+.RI "void \fBGF_set_shmem\fP (short flag)"
+.br
+.ti -1c
+.RI "ptr_t \fBGF_get_membufptr\fP (i32 *fitsize)"
+.br
+.ti -1c
+.RI "i32 \fBGF_compress_img\fP (\fBfitsfile\fP *fptr, char *name)"
+.br
+.ti -1c
+.RI "dptr_t \fBGF_create_file\fP (char *name, i32 *err)"
+.br
+.ti -1c
+.RI "char * \fBGF_get_error_text\fP (i32 status)"
+.br
+.ti -1c
+.RI "i32 \fBGF_fits_set_zaxis\fP (i32 nz)"
+.br
+.ti -1c
+.RI "i32 \fBGF_fits_set_values\fP (i32 data, i32 hdu, i32 mult, ptr_t amplifiers)"
+.br
+.ti -1c
+.RI "ptr_t \fBGF_create_img\fP (char *name, i32 data, i32 hdu, i32 mult, ptr_t amplifiers, i32 nkeys, i32 *err)"
+.br
+.ti -1c
+.RI "i32 \fBGF_fits_close_file\fP (ptr_t ref, i32 err)"
+.br
+.ti -1c
+.RI "i32 \fBGF_fits_write_from_mem\fP (char *filename)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_write_date\fP (ptr_t ref)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_write_comment\fP (ptr_t ref, char *comment)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_write_geom_single\fP (ptr_t ref, char *Asec, char *Bsec, char *Csec, char *Dsec, char *Tsec, char *amplifier)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_write_geom_multiple\fP (ptr_t ref, char *data, char *bias, char *ccd, char *amp, char *trim, char *det, char *ccdsize, char *amplifier)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_write_key\fP (ptr_t ref, i32 \fBdatatype\fP, char *keyname, void *value, char *comment)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_write_key_from_char\fP (ptr_t ref, i32 \fBdatatype\fP, char *keyname, char *value, char *comment)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_writw_key_from_array\fP (ptr_t ref, dptr_t *typearr, char *namearr, char *valarr, char *commarr, i32 nkeys)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_create_hdu\fP (ptr_t ref)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_insert_img\fP (ptr_t ref, i32 bitpix, i32 naxis, \fBflong\fP *naxes)"
+.br
+.ti -1c
+.RI "i32 \fBGF_fits_movabs_hdu\fP (ptr_t ref, i32 hdunum, i32 hdutyp)"
+.br
+.ti -1c
+.RI "i32 \fBlabfits_movrel_hdu\fP (ptr_t ref, i32 nmove, i32 *hdutyp)"
+.br
+.ti -1c
+.RI "void \fBGF_close\fP ()"
+.br
+.ti -1c
+.RI "void \fBGF_InitExtensions\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGF_GetMaxAmps\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGF_GetExtensions\fP (dptr_t *array, i32 *discard, i32 nelems)"
+.br
+.ti -1c
+.RI "i32 \fBGF_SetExtensions\fP (dptr_t array, i32 elements)"
+.br
+.ti -1c
+.RI "i32 \fBGF_init\fP (i32 data, i32 hdu, i32 mult, ptr_t amplifiers, i32 namp, i32 totalcols, i32 totalrows)"
+.br
+.ti -1c
+.RI "i32 \fBGF_add_subimage\fP (dptr_t genptr, dptr_t subimptr, i32 subxstart, i32 subystart, i32 subcols, i32 subrows, i32 totalcols)"
+.br
+.ti -1c
+.RI "i32 \fBGF_writeImage_Multiple\fP (ptr_t ref, ptr_t amplifiers, i32 eleRead, i32 *progress, i32 *zcnt, i32 *num_amps)"
+.br
+.ti -1c
+.RI "i32 \fBGF_writeImage_Single\fP (ptr_t ref, ptr_t amplifiers, i32 eleRead, i32 *progress, i32 *zcnt, i32 *num_amps)"
+.br
+.ti -1c
+.RI "i32 \fBGF_writeImage\fP (ptr_t ref, ptr_t amplifiers, i32 eleRead, i32 *progress, i32 *zcnt, i32 *num_amps)"
+.br
+.ti -1c
+.RI "i32 \fBGF_writeImage_from_buf\fP (ptr_t ref, ptr_t buffer, i32 eleRead, i32 *progress, i32 *zcnt, i32 *num_amps)"
+.br
+.ti -1c
+.RI "ptr_t \fBGF_simple_data_write\fP (char *name, i32 ncols, i32 nrows, i32 dtype, ptr_t bptr, i32 ntries, i32 *err)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static i32 \fBtotEleRead\fP [MAX_AMPS]"
+.br
+.ti -1c
+.RI "static i32 \fBExtension\fP [MAX_AMPS]"
+.br
+.ti -1c
+.RI "static i32 \fBdatatype\fP = 0"
+.br
+.ti -1c
+.RI "static \fBfint\fP \fBhdutype\fP"
+.br
+.ti -1c
+.RI "static i32 \fBnzim\fP = 1"
+.br
+.ti -1c
+.RI "static i32 \fBnzcnt\fP = 0"
+.br
+.ti -1c
+.RI "static i32 \fBbytes_pp\fP = 0"
+.br
+.ti -1c
+.RI "static amp_t \fBfitsamp\fP [MAX_AMPS]"
+.br
+.ti -1c
+.RI "static u32 \fBtotElePerAmp\fP"
+.br
+.ti -1c
+.RI "static u32 \fBtotEle\fP"
+.br
+.ti -1c
+.RI "static u32 \fBtotcols\fP = 0"
+.br
+.ti -1c
+.RI "static u32 \fBtotrows\fP = 0"
+.br
+.ti -1c
+.RI "static u32 \fBtotPixels\fP"
+.br
+.ti -1c
+.RI "static i32 \fBnamps\fP = 0"
+.br
+.ti -1c
+.RI "static i16 \fBmext\fP"
+.br
+.ti -1c
+.RI "static i16 \fBmemfits\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBshmid\fP = -1"
+.br
+.ti -1c
+.RI "i32 \fBshmqid\fP = -1"
+.br
+.ti -1c
+.RI "i32 \fBshmem\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBis_shared\fP = 0"
+.br
+.ti -1c
+.RI "void * \fBmembuf\fP = NULL"
+.br
+.ti -1c
+.RI "size_t \fBmembufsize\fP = 0"
+.br
+.ti -1c
+.RI "size_t \fBmemfitssize\fP = 0"
+.br
+.ti -1c
+.RI "size_t \fBimsize\fP = 0"
+.br
+.ti -1c
+.RI "size_t \fBhdrsize\fP = 0"
+.br
+.ti -1c
+.RI "void * \fBnextbuf\fP"
+.br
+.ti -1c
+.RI "i32 \fBbufcnt\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBnbufs\fP = 1"
+.br
+.ti -1c
+.RI "static dptr_t \fBtmpptr\fP [MAX_AMPS]"
+.br
+.ti -1c
+.RI "static i16 \fBamptype\fP [MAX_AMPS]"
+.br
+.ti -1c
+.RI "char \fBerror_msg\fP [100]"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define BADREF   0"
+.PP
+.SS "#define DERTOIZ   1"
+.PP
+.SS "#define DIVIDES(a, n)   (!((n) % (a)))"
+.PP
+.SS "#define IZTODER   -1"
+.PP
+.SS "#define MAX_HEADER   24"
+.PP
+.SS "#define OK   0"
+.PP
+.SS "#define pdebug(fmt, args...)"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "i32 GF_add_subimage (dptr_t genptr, dptr_t subimptr, i32 subxstart, i32 subystart, i32 subcols, i32 subrows, i32 totalcols)"
+.PP
+Adds a subimage into a memory buffer. This is used to generate a simple (flat) fits image from multiple amplifiers. Basicaly 'builds' the image geometry on memory 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgenptr\fP pointer to big (complete) image buffer 
+.br
+\fIsubimptr\fP pointer to pice of image to be added 
+.br
+\fIsubxstart\fP x position of the subimage to be added, in general image coordinate 
+.br
+\fIsubxstart\fP x position of the subimage to be added, in general image coordinate [in] subcols number of cols of subimage [in] subrows number of rows of subimage [in] totalcols total number of cols of big image 
+.RE
+.PP
+
+.SS "void* GF_allocate_image_buf (size_t * size, i32 * id, i32 * qid)"
+.PP
+Allocates a memory buffer for the fits image. If using shared memory the segment is shared 
+.SS "void GF_close ()"
+.PP
+closes all, and releases the buffers 
+.SS "i32 GF_compress_img (\fBfitsfile\fP * fptr, char * name)"
+.PP
+Sets the data compression for the fits image 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIname\fP the name of the fits image, containing the compression directives 
+.br
+\fIfitsfile\fP the fits file descriptor 
+.RE
+.PP
+
+.PP
+parses the compressionn instructions in the name. This is used only for compressing memory fits files; otherwise, the cfistio functions take care of this by themselves 
+.SS "dptr_t GF_create_file (char * name, i32 * err)"
+.PP
+Creates fits file called by \fBGF_create_img()\fP [in] name fits file name (in disk) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIerr\fP status out 
+.RE
+.PP
+
+.SS "ptr_t GF_create_img (char * name, i32 data, i32 hdu, i32 mult, ptr_t amplifiers, i32 nkeys, i32 * err)"
+.PP
+Creates an image in the file (acording to the given parameters) called by the user program 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIname\fP image name 
+.br
+\fIdata\fP image datatype (ushort,short, etc) 
+.br
+\fIhdu\fP hdu type 
+.br
+\fImult\fP multiple (>0) or single (==0) extensions file 
+.br
+\fIamplifiers\fP pointer to the internal amplifiers structure 
+.br
+\fInkeys\fP optional parameter to preallocate space for the keywords. Ignored if <=0 
+.br
+\fI*err\fP status code out 
+.RE
+.PP
+
+.SS "i32 GF_fits_close_file (ptr_t ref, i32 err)"
+.PP
+Closes fits file 
+.SS "i32 GF_fits_movabs_hdu (ptr_t ref, i32 hdunum, i32 hdutyp)"
+.PP
+Moves the current hdu to the specified absolute one hdunum (over which the operations are performed) in an absolute way (absolute reference) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits file 
+.br
+\fIhdunum\fP number of target hdu 
+.br
+\fIhdutyp\fP type of hdu (cfitsio types) 
+.RE
+.PP
+
+.SS "i32 GF_fits_set_values (i32 data, i32 hdu, i32 mult, ptr_t amplifiers)"
+.PP
+Sets basic setup values for the fits image to be created. This is called prior to writing the data Fills the internal fits amplifiers structure coming from outside (unscrambler/geometry modules) called by \fBGF_create_img()\fP 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP image datatype (short, ushort, etc) 
+.br
+\fIhdu\fP hdutype 
+.br
+\fImult\fP multiple (>0) or single (==0) extensions fits image 
+.br
+\fIamplifiers\fP pointer to the internal amplifier structure (containing the geometry) 
+.RE
+.PP
+
+.SS "i32 GF_fits_set_zaxis (i32 nz)"
+.PP
+Sets the value of the Z coordinate (depth) in a datacube (third axis) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIz\fP amount of frames in cube 
+.RE
+.PP
+
+.SS "i32 GF_fits_write_from_mem (char * filename)"
+.PP
+Writes image in mmeory to the file name specified 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP name of the output file 
+.RE
+.PP
+
+.SS "char* GF_get_error_text (i32 status)"
+.PP
+Gets the error (status) in ascii form (returns the an ascii string) [in] status the status code 
+.SS "ptr_t GF_get_membufptr (i32 * fitsize)"
+.PP
+.SS "short GF_get_memfits (void)"
+.PP
+is the fits file going to be written in memory? 
+.SS "short GF_get_shmem (void)"
+.PP
+.SS "i32 GF_GetExtensions (dptr_t * array, i32 * discard, i32 nelems)"
+.PP
+Gets the extension to amplifier mapping 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI*array\fP array of extensions 
+.br
+\fI*discard\fP discarded extensions in the output image 
+.br
+\fInelems\fP number of extensions to map 
+.RE
+.PP
+
+.SS "i32 GF_GetMaxAmps (void)"
+.PP
+Gets the maximum number of amplifiers allowed 
+.SS "i32 GF_init (i32 data, i32 hdu, i32 mult, ptr_t amplifiers, i32 namp, i32 totalcols, i32 totalrows)"
+.PP
+Inits image. This has to be called before everything else 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP datatype (cfitsio types) 
+.br
+\fIhdu\fP dhu type (cfitsio) 
+.br
+\fImult\fP multiple or single (flat) extensions 
+.br
+\fIamplifiers\fP pointer to internal amplifiers extensions 
+.br
+\fInumber\fP of amplifiers 
+.br
+\fItotal\fP number of cols and rows 
+.RE
+.PP
+
+.SS "void GF_InitExtensions (void)"
+.PP
+Initialies the extensions structure 
+.SS "void GF_printmsg (char * msg)"
+.PP
+.SS "i32 GF_release_image_buf (i32 * err, i32 size, i32 snd)"
+.PP
+Releases the memory block where the memory fits is allocated 
+.SS "void GF_set_bpp (i32 data)"
+.PP
+Sets the fits data size 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP (ushort, short, float or long) 
+.RE
+.PP
+
+.SS "void GF_set_mbufs (i32 mbufs)"
+.PP
+.SS "void GF_set_memfits (short flag)"
+.PP
+Sets memory fits file 
+.SS "void GF_set_shmem (short flag)"
+.PP
+.SS "i32 GF_SetExtensions (dptr_t array, i32 elements)"
+.PP
+Set the mapping metween extensions and amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIarray\fP array containing mapping 
+.br
+\fIelements\fP number of extensions to map 
+.RE
+.PP
+
+.SS "ptr_t GF_simple_data_write (char * name, i32 ncols, i32 nrows, i32 dtype, ptr_t bptr, i32 ntries, i32 * err)"
+.PP
+Writes a fits image using no internal structure, but just thedata passed here, from the provided buffer 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIname\fP is the name of the fits file to be written (full path) 
+.br
+\fIncols\fP total number of columns 
+.br
+\fInrows\fP total number of rows 
+.br
+\fIdtype\fP image data type (cfitsio types) 
+.br
+\fI*bptr\fP pointer to buffer with the pixel data to be written 
+.br
+\fIntries\fP number of attemptrs before giving up [out] *err output status 
+.RE
+.PP
+
+.SS "i32 GF_writeImage (ptr_t ref, ptr_t amplifiers, i32 eleRead, i32 * progress, i32 * zcnt, i32 * num_amps)"
+.PP
+Writes a single or multiple extension fits image or piece of fits image to disk (or memory) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits image 
+.br
+\fIamplifiers\fP pointer to amplifiers structure 
+.br
+\fIeleRead\fP number of elements to write 
+.br
+\fI*progress\fP percentage of progress over the total image [out] *zcn counbter of number of frames if writen a datacube (3 axes) [out] *num_amps number of valid amplifiers (total amps - discraded amps) 
+.RE
+.PP
+
+.SS "i32 GF_writeImage_from_buf (ptr_t ref, ptr_t buffer, i32 eleRead, i32 * progress, i32 * zcnt, i32 * num_amps)"
+.PP
+Writes to file an image from a memorty buffer 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits image 
+.br
+\fIamplifiers\fP pointer to amplifiers structure 
+.br
+\fIeleRead\fP number of elements to write 
+.br
+\fI*progress\fP percentage of progress over the total image [out] *zcn counbter of number of frames if writen a datacube (3 axes) [out] *num_amps number of valid amplifiers (total amps - discraded amps) 
+.RE
+.PP
+
+.SS "i32 GF_writeImage_Multiple (ptr_t ref, ptr_t amplifiers, i32 eleRead, i32 * progress, i32 * zcnt, i32 * num_amps)"
+.PP
+Writes a multiple extension fits image or piece of fits image to disk (or memory) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits image 
+.br
+\fIamplifiers\fP pointer to amplifiers structure 
+.br
+\fIeleRead\fP number of elements to write 
+.br
+\fI*progress\fP percentage of progress over the total image [out] *zcn counbter of number of frames if writen a datacube (3 axes) [out] *num_amps number of valid amplifiers (total amps - discraded amps) 
+.RE
+.PP
+
+.SS "i32 GF_writeImage_Single (ptr_t ref, ptr_t amplifiers, i32 eleRead, i32 * progress, i32 * zcnt, i32 * num_amps)"
+.PP
+Writes a single extension fits image or piece of fits image to disk (or memory) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits image 
+.br
+\fIamplifiers\fP pointer to amplifiers structure 
+.br
+\fIeleRead\fP number of elements to write 
+.br
+\fI*progress\fP percentage of progress over the total image [out] *zcn counbter of number of frames if writen a datacube (3 axes) [out] *num_amps number of valid amplifiers (total amps - discraded amps) 
+.RE
+.PP
+
+.SS "i32 labfits_create_hdu (ptr_t ref)"
+.PP
+Creates an hdu in the file 
+.SS "i32 labfits_insert_img (ptr_t ref, i32 bitpix, i32 naxis, \fBflong\fP * naxes)"
+.PP
+Inserts a new image into a file (for a new extension) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits file 
+.br
+\fIbitpix\fP type of image (BITPIX cfitsio types) 
+.br
+\fInaxis\fP number of axes in the image (2 for regular fits image, 3 for a datacube) 
+.br
+\fInaxes\fP array containing the size (in elements/pixels) in each dimension 
+.RE
+.PP
+
+.SS "i32 labfits_movrel_hdu (ptr_t ref, i32 nmove, i32 * hdutyp)"
+.PP
+Moves the current hdu to the specified relative nmoves (over which the operations are performed) in a relative way (offset relative to the current hdu) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits file 
+.br
+\fInmove\fP number of relative movements 
+.br
+\fIhdutyp\fP type of hdu (cfitsio types) 
+.RE
+.PP
+
+.SS "i32 labfits_write_comment (ptr_t ref, char * comment)"
+.PP
+Writes a comment into the headers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP fits reference [in] comment string to write 
+.RE
+.PP
+
+.SS "i32 labfits_write_date (ptr_t ref)"
+.PP
+Writes the creation date into the headers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP fits reference 
+.RE
+.PP
+
+.SS "i32 labfits_write_geom_multiple (ptr_t ref, char * data, char * bias, char * ccd, char * amp, char * trim, char * det, char * ccdsize, char * amplifier)"
+.PP
+Add into the headers all the geometry keywords that correspons to a multiple-extension fits file (per-amp basis). DEPRECATED 
+.SS "i32 labfits_write_geom_single (ptr_t ref, char * Asec, char * Bsec, char * Csec, char * Dsec, char * Tsec, char * amplifier)"
+.PP
+Add into the headers all the geometry keywords that correspons to a single-extension fits file. DEPRECATED. 
+.SS "i32 labfits_write_key (ptr_t ref, i32 datatype, char * keyname, void * value, char * comment)"
+.PP
+Adds a keyword into the headers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits file 
+.br
+\fIdatatype\fP type of keyword (cfitsio types) 
+.br
+\fIkeyname\fP name of the keyword 
+.br
+\fIvalue\fP pointer to value 
+.br
+\fIcomment\fP string comment to write to the keyword 
+.RE
+.PP
+
+.SS "i32 labfits_write_key_from_char (ptr_t ref, i32 datatype, char * keyname, char * value, char * comment)"
+.PP
+Adds a keyword into the headers, taking the value as a string, and converting it internally 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits file 
+.br
+\fIdatatype\fP type of keyword (cfitsio types) 
+.br
+\fIkeyname\fP name of the keyword 
+.br
+\fIvalue\fP string value. For example. '5' 
+.br
+\fIcomment\fP string comment to write to the keyword 
+.RE
+.PP
+
+.SS "i32 labfits_writw_key_from_array (ptr_t ref, dptr_t * typearr, char * namearr, char * valarr, char * commarr, i32 nkeys)"
+.PP
+Adds an array into several keyword into the headers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIref\fP reference to fits file 
+.br
+\fItypearr\fP array containing the datatype of each keyword in the array 
+.br
+\fInamearr\fP array of names of each keyword in the array (same size as typearr) 
+.br
+\fIvalarr\fP char values of each keyword in the array (same size as namearr and typearr) 
+.br
+\fIcommarr\fP string array of comment for each keyword (same size as the others) 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "i16 \fBamptype\fP[MAX_AMPS]\fC [static]\fP"
+.PP
+.SS "i32 \fBbufcnt\fP = 0"
+.PP
+.SS "i32 \fBbytes_pp\fP = 0\fC [static]\fP"
+.PP
+.SS "i32 \fBdatatype\fP = 0\fC [static]\fP"
+.PP
+.SS "char \fBerror_msg\fP[100]"
+.PP
+.SS "i32 \fBExtension\fP[MAX_AMPS]\fC [static]\fP"
+.PP
+.SS "amp_t \fBfitsamp\fP[MAX_AMPS]\fC [static]\fP"
+.PP
+internal fits amplifier structure. Filled externally, at Init 
+.SS "size_t \fBhdrsize\fP = 0"
+.PP
+.SS "\fBfint\fP \fBhdutype\fP\fC [static]\fP"
+.PP
+.SS "size_t \fBimsize\fP = 0"
+.PP
+.SS "i32 \fBis_shared\fP = 0"
+.PP
+.SS "void* \fBmembuf\fP = NULL"
+.PP
+.SS "size_t \fBmembufsize\fP = 0"
+.PP
+.SS "i16 \fBmemfits\fP = 0\fC [static]\fP"
+.PP
+.SS "size_t \fBmemfitssize\fP = 0"
+.PP
+.SS "i16 \fBmext\fP\fC [static]\fP"
+.PP
+.SS "i32 \fBnamps\fP = 0\fC [static]\fP"
+.PP
+.SS "i32 \fBnbufs\fP = 1"
+.PP
+.SS "void* \fBnextbuf\fP"
+.PP
+.SS "i32 \fBnzcnt\fP = 0\fC [static]\fP"
+.PP
+.SS "i32 \fBnzim\fP = 1\fC [static]\fP"
+.PP
+.SS "i32 \fBshmem\fP = 0"
+.PP
+.SS "i32 \fBshmid\fP = -1"
+.PP
+.SS "i32 \fBshmqid\fP = -1"
+.PP
+.SS "dptr_t \fBtmpptr\fP[MAX_AMPS]\fC [static]\fP"
+.PP
+.SS "u32 \fBtotcols\fP = 0\fC [static]\fP"
+.PP
+.SS "u32 \fBtotEle\fP\fC [static]\fP"
+.PP
+.SS "u32 \fBtotElePerAmp\fP\fC [static]\fP"
+.PP
+.SS "i32 \fBtotEleRead\fP[MAX_AMPS]\fC [static]\fP"
+.PP
+.SS "u32 \fBtotPixels\fP\fC [static]\fP"
+.PP
+.SS "u32 \fBtotrows\fP = 0\fC [static]\fP"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

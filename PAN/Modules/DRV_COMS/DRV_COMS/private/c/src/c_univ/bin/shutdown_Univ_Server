@@ -1,0 +1,3 @@
+#!/bin/csh -f
+
+$HOME/Univ_Server/bin/send_Univ_Server_cmd -h 139.229.12.114 -p 5100 "UNIV SHUTDOWN"

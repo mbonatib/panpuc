@@ -1,0 +1,70 @@
+\section{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-transformations.h File Reference}
+\label{GU__transformations_8h}\index{panview_current/PAN/Modules/GUNSC/private/c/src/GU_transformations.h@{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-transformations.h}}
+{\tt \#include \char`\"{}../../../public/c/include/GUnscrambling.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{pdebug}(fmt, args...)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+i32 \bf{Rotate\_\-Image} (ptr\_\-t imageptr, u32 ncols, u32 nrows, i32 bpp, i32 rotation)
+\item 
+i32 \bf{RI\_\-SHORT} (i16 $\ast$imptr, u32 ncols, u32 nrows, i32 rotation)
+\item 
+i32 \bf{RI\_\-LONG} (i32 $\ast$imptr, u32 ncols, u32 nrows, i32 rotation)
+\item 
+i32 \bf{RI\_\-FLOAT} (f32 $\ast$imptr, u32 ncols, u32 nrows, i32 rotation)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{GU_transformations.h@{GU\_\-transformations.h}!pdebug@{pdebug}}
+\index{pdebug@{pdebug}!GU_transformations.h@{GU\_\-transformations.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define pdebug(fmt, args...)}\label{GU__transformations_8h_8c966da20fb8302f3c1dd18e5db6a22f}
+
+
+
+
+\subsection{Function Documentation}
+\index{GU_transformations.h@{GU\_\-transformations.h}!RI_FLOAT@{RI\_\-FLOAT}}
+\index{RI_FLOAT@{RI\_\-FLOAT}!GU_transformations.h@{GU\_\-transformations.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 RI\_\-FLOAT (f32 $\ast$ {\em imptr}, u32 {\em ncols}, u32 {\em nrows}, i32 {\em rotation})}\label{GU__transformations_8h_c6b9093dd001418072247d73f6c5dda7}
+
+
+Routine to rotate FLOAT image in the specified angle. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em imptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em ncols}]number of image columns \item[\mbox{$\leftarrow$} {\em nrows}]number of image rows ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) \end{description}
+\end{Desc}
+\index{GU_transformations.h@{GU\_\-transformations.h}!RI_LONG@{RI\_\-LONG}}
+\index{RI_LONG@{RI\_\-LONG}!GU_transformations.h@{GU\_\-transformations.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 RI\_\-LONG (i32 $\ast$ {\em imptr}, u32 {\em ncols}, u32 {\em nrows}, i32 {\em rotation})}\label{GU__transformations_8h_523be0534bbdecee55a3c541e039ef72}
+
+
+Routine to rotate LONG image in the specified angle. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em imptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em ncols}]number of image columns \item[\mbox{$\leftarrow$} {\em nrows}]number of image rows ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) \end{description}
+\end{Desc}
+\index{GU_transformations.h@{GU\_\-transformations.h}!RI_SHORT@{RI\_\-SHORT}}
+\index{RI_SHORT@{RI\_\-SHORT}!GU_transformations.h@{GU\_\-transformations.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 RI\_\-SHORT (i16 $\ast$ {\em imptr}, u32 {\em ncols}, u32 {\em nrows}, i32 {\em rotation})}\label{GU__transformations_8h_3b854749d807498df8019084d13d65c5}
+
+
+Routine to rotate SHORT image in the specified angle. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em imptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em ncols}]number of image columns \item[\mbox{$\leftarrow$} {\em nrows}]number of image rows ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) \end{description}
+\end{Desc}
+\index{GU_transformations.h@{GU\_\-transformations.h}!Rotate_Image@{Rotate\_\-Image}}
+\index{Rotate_Image@{Rotate\_\-Image}!GU_transformations.h@{GU\_\-transformations.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 Rotate\_\-Image (ptr\_\-t {\em imageptr}, u32 {\em ncols}, u32 {\em nrows}, i32 {\em bpp}, i32 {\em rotation})}\label{GU__transformations_8h_4f3146b6980c53fdb4f0c2c7aaf03d39}
+
+
+Routine to rotate an image in the specified angle. This calls the aproproate routine depending on the image datatype (bpp parameter) \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em imptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em ncols}]number of image columns \item[\mbox{$\leftarrow$} {\em nrows}]number of image rows \item[\mbox{$\leftarrow$} {\em bpp}]bits per pixels in image (16, 32 or -32(float)) ,[in] rotation desired rotation angle (90, 180 or 270 degrees only) \end{description}
+\end{Desc}

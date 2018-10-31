@@ -1,0 +1,13 @@
+[A_1]
+coords=(1,1)
+format=(cols/2Xrows)
+type=UL
+rotated=0
+fliped=none
+
+[A_2]
+coords=(cols/2+1,1)
+format=(cols./2Xrows)
+type=UR
+rotated=0
+fliped=none

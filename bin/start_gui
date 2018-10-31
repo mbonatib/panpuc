@@ -1,0 +1,157 @@
+#! /bin/csh -f
+
+if ("$1" == "") then
+	 goto usage
+	exit 1
+endif
+
+set type = `expr substr $1 1 3`
+
+set ISSET = `setenv | egrep GUIROOT`
+if ("$ISSET" == "") then
+        setenv GUIROOT $PAN_ROOT/guis
+        echo "Enviromental variable GUIROOT not set. Set it to $GUIROOT"
+endif
+
+if ("$type" == "pan") then
+	set GUIROOT = $GUIROOT/pan
+	set len = `expr length $1`
+	set NAME = `expr substr $1 4 $len`
+else
+	set NAME = $1
+endif
+
+if (! -e $GUIROOT/$NAME/bin) then
+	cd $GUIROOT
+	ln -s _generic $NAME
+	cd -
+endif
+set GUI_BIN = $GUIROOT/$NAME/bin
+echo "GUI_BIN $GUI_BIN"
+set sendsock = $GUI_BIN/sendsockcmd
+#source $GUIROOT/$NAME/guirc
+set hilite = 1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR '  ;BOLD_OFF; echo \!*)"
+
+set started = 0
+set APP_HOST = ""
+set APP_NAME_SW = ""
+set APP_PORT = ""
+set ASYNC_PORT = ""
+set WAIT_PORT = 0
+set BIN = "" 
+set cmdargs = ""
+
+shift
+while ("$1" != "")
+        switch ("$1")
+        case -waitport:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-waitport <port>' switch"
+                        exit 1
+                endif
+                set WAIT_PORT = $1
+                breaksw
+       case -cmdport:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-cmdport <port>' switch"
+                        exit 1
+                endif
+                set APP_PORT = $1
+                breaksw
+        case -asyncport:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-asyncport <port>' switch"
+                        exit 1
+                endif
+                set ASYNC_PORT = $1
+                breaksw
+        case -apphost:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-apphost <address>' switch"
+                        exit 1
+                endif
+                set APP_HOST = $1
+                breaksw
+        case -app:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-app <name>' switch"
+                        exit 1
+                endif
+                set APP_NAME_SW = "-app $1"
+                breaksw
+        case -bin:
+        case -bin:
+                set BIN = " -bin"
+                breaksw
+        default:
+               set cmdargs = $cmdargs $1
+               breaksw
+        endsw
+        if ("$2" == "") then
+                break
+        else
+                shift
+        endif
+end
+
+set tmpfile = "/tmp/arcproc_"`whoami`
+rm -f $tmpfile
+ps awx > $tmpfile
+
+set procid = ""
+set procid  = $procid" "`egrep $GUI_BIN $tmpfile |awk '{print $1}'`
+echo $procid
+if ($#procid > 1) then
+	ERR "another arcview gui instance is already running. NOT started"
+	exit 1
+else
+	echo "OK (Starting...)"
+	sleep 2
+	set att = 1
+	set boot_time = 5
+	echo "OK (Starting...)"
+	while ($started == 0)
+		echo "attempting communication to DHE  ($att $APP_HOST $WAIT_PORT)"
+		set dhestat = `$sendsock -h $APP_HOST -p $WAIT_PORT "DHE get status"`
+		echo $dhestat
+		if (("$dhestat" != "ERROR 111 writing_message") && ("$dhestat[2]" == "Initialization") && ("$dhestat[1]" != "ERROR")) then
+			set started = 1
+		else
+			sleep 5
+			@ att = $att + 1
+			@ boot_time = $boot_time + 5
+		endif
+		if ($boot_time > 60) then
+			echo "ERROR TIMEOUT starting gui"
+			exit 1
+		endif
+	end
+	echo "DONE"
+	echo "Status $dhestat"
+	if ("$dhestat[0]" != "ERROR") then
+		cd $GUI_BIN
+		./start_GUI $APP_HOST $APP_PORT $ASYNC_PORT $BIN $APP_NAME_SW
+	else
+		echo "GUI NOT started"
+	endif
+	echo "boot_time ~ $boot_time"
+endif
+rm -f $tmpfile
+exit 0
+
+usage:
+	echo "start_gui [-cmdport <port>] [-asyncport <port>] [-waitport <port>] [-apphost <address>]"
+

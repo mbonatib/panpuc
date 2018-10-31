@@ -1,0 +1,20 @@
+CONTENTS
+--------
+
+
+- astroLibIII.c	: sources for readout/control from ArcVIEW
+- readLib.h	: header definitions
+- driver_funcs.h: header declarating calls from the driver API source
+
+Makefile.src: makefile for generating a shared library using the driver api sources
+Makefile.static: makefile for generating a shared library linking to a static
+		 library containing the driver api calls.
+
+Important NOTE: The natural (and cleanest) thing to use here would be to link with
+		a static library. However, Labview seems to have problems when
+		the shared library was generated in that way. This is why the 
+		"Makefile.src" is provided
+
+driver_api dir:
+	Pure API for the controller. This API can be called or used by any client
+	See README inside directory

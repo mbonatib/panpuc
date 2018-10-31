@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2445"
+   name=""
+   committed-date="2008-05-05T15:16:10.888549Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2649"/>
+<entry
+   name="vis"
+   kind="dir"/>
+<entry
+   name="c"
+   kind="dir"/>
+</wc-entries>

@@ -1,0 +1,9 @@
+Name= TPNT
+Description= General Purpose testpoints logging/monitoring 
+Type= resident
+Class = General
+Dynamic_Calls= none
+Clib= none
+Driver= none
+Standard= yes
+keywords= log, temperature, alarm, check, loop

@@ -1,0 +1,11 @@
+Name= GUNSC
+Description= Generic Image Unscrambler Module
+Type= resident
+Class = General
+Dynamic_Calls= 0
+Clib= yes
+Driver= none
+Standard= yes
+keywords= image, unscrambling, descrambling, deinterlacing, amplifiers
+VERSION= 3.5
+VERSION= 4.1

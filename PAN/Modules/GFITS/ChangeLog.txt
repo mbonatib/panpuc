@@ -1,0 +1,575 @@
+2018-07-18T:2118:02 UTC <Marco Bonati> GFITS version 16.2
+	* added proper support for boolean headers keywords
+	(datatype TLOGICAL used when BOOL is specified in the dbs type)
+
+2016-04-07T:2118:02 UTC <Marco Bonati> GFITS version 16.1
+	* added "fitsnumbering" in the api (set and get)
+	* modified so is accepts to change name (writekey imname) even
+	if "autonumbering" is disabled
+
+2016-02-12T:2118:02 UTC <Marco Bonati> GFITS version 16.0
+	* added "ignorename" so it does not notify when an image with that
+	name -or partial name- is written.
+
+2015-06-30T:2118:02 UTC <Marco Bonati> GFITS version 15.9
+	* fixed "writenext"
+
+2015-06-12T:2118:02 UTC <Marco Bonati> GFITS version 15.8
+	* fixed SWRITE, to allow passing a different image name(path)
+
+2015-05-20T:2118:02 UTC <Marco Bonati> GFITS version 15.7
+	* added the "testmode" to overrite images
+	* added the modes for autonumbering images
+	* added the "writenext" command to rename the next
+	image as indicated
+
+2015-05-03T:2118:02 UTC <Marco Bonati> GFITS version 15.6
+	* fixed the checking of the ID on the 2D dbs variables
+
+2015-05-01T:2118:02 UTC <Marco Bonati> GFITS version 15.5
+	* added imfilename to the database (filename only, not full path as
+	imname
+
+2015-02-24T:2118:02 UTC <Marco Bonati> GFITS version 15.4
+	* fixed roi (yroilen was being used instead to start instead of
+	yroist, on GfitsLib.c)
+
+2015-02-19T:2118:02 UTC <Marco Bonati> GFITS version 15.3
+	* fixed "addhdrs" -addition of headers after reading a fits 
+	from file
+
+2013-10-22T:2118:02 UTC <Marco Bonati> GFITS version 15.2
+	* fixed/tested roimasker_paus (in situ)
+
+2013-10-22T:2118:02 UTC <Marco Bonati> GFITS version 15.1
+	* fixed paths
+
+2013-04-22T:2118:02 UTC <Marco Bonati> GFITS version 15.0
+	* 14.4 archiving failed. Using new numbering
+	* added "flushhdrs" to force re-reading the template when using static
+	modes
+
+2013-04-22T:2118:02 UTC <Marco Bonati> GFITS version 14.3
+	* added "postimg" script, that is called before the NEWFITS and
+	* filemsgs are sent -so something can be done to the image before 
+	telling it is ready-. The "postproc" script continues as before, called after
+	the NEWFITS message
+
+2013-04-22T:2118:02 UTC <Marco Bonati> GFITS version 14.2
+	* recompiled library
+
+2013-04-14T:2118:02 UTC <Marco Bonati> GFITS version 14.1
+	* changed the lasthgdrs manager to use a struct instead of a 3D array
+
+2013-04-08T:2118:02 UTC <Marco Bonati> GFITS version 14.0
+	* modified so when compressed the async message has the compression
+	suffix incorportaed
+
+2013-04-08T:2118:02 UTC <Marco Bonati> GFITS version 13.99
+	* the postproc script can now incorporate enviromental variables
+	and/or relative/absolute paths
+
+2013-03-22T:2118:02 UTC <Marco Bonati> GFITS version 13.98
+	* fixed racd conditioon for storehdrs for first image
+
+2013-03-18T:2118:02 UTC <Marco Bonati> GFITS version 13.97
+	* add set/get memhdrs and "get lasthdrs" to store and get then
+	complete headers done in the last image
+
+2013-02-18T:2118:02 UTC <Marco Bonati> GFITS version 13.96
+	* fixed 13.95 - it crashed if bpp was changed after setting roi
+
+2013-02-01T:2118:02 UTC <Marco Bonati> GFITS version 13.95
+	* added "set_roi", that if defined and in "flat mode" (no mext)
+	will write just the specified area.
+
+2012-12-22T:2118:02 UTC <Marco Bonati> GFITS version 13.94
+	* In flat mode, it trims areas, on the border, which where discarded
+	(changed mostly C library)
+
+2012-07-23T:2118:02 UTC <Marco Bonati> GFITS version 13.93
+	* Fixed a race condition with the file reference when using the DHS server.
+	This was causing a segmentation fault hard to track when the high
+level software was settinh headers throuhg dhs_data
+	
+2012-07-11T:2118:02 UTC <Marco Bonati> GFITS version 13.92
+	* fixed a bug when using multiple "fil <path> in the header template
+	* added the ID checking of 2DARR variables
+
+2012-06-12T:2118:02 UTC <Marco Bonati> GFITS version 13.91
+	* Added defmultext option to tell what headers to use in
+	 geommode=static
+
+2012-06-10T:2118:02 UTC <Marco Bonati> GFITS version 13.9
+	* Added SetHdrs example
+
+2012-05-30T:2118:02 UTC <Marco Bonati> GFITS version 13.8
+	* fixed WRITE function so it writes the last fits file name too
+
+2012-05-30T:2118:02 UTC <Marco Bonati> GFITS version 13.7
+	* replaced double_t with pan_double_t to avoid conflicts
+
+2012-05-24T:2118:02 UTC <Marco Bonati> GFITS version 13.6
+	* updated C documentation (doxygen)
+
+2012-04-22T:2118:02 UTC <Marco Bonati> GFITS version 13.5
+	* fixed the "write" command -> it was not setting fref to 0, causing seg fault
+	the second time (used in NIR)
+
+2012-04-05T:2118:02 UTC <Marco Bonati> GFITS version 13.4
+	* fixed problem of extra information when some amplifier was being
+	 discarded. Modified C function GetExtMap to get the total number of
+	non-discarded amplifiers
+
+2012-02-28T:2118:02 UTC <Marco Bonati> GFITS version 13.3
+	* roimasker_des now also passes the PosID of to the headers
+	
+2011-11-15T:2118:02 UTC <Marco Bonati> GFITS version 13.2
+	* fixed roimasker so it does not crashes with 2x4K full frame
+	(the problem was ther size of the biasarr)
+
+2011-11-03T:2118:02 UTC <Marco Bonati> GFITS version 13.1
+	* fixed a bug where a path containing a "fits" in it would be cut
+
+2011-10-28T:2118:02 UTC <Marco Bonati> GFITS version 13
+	* fixed a problem that was causing a segmentation fault
+	the next image after a failed readout (closing reference twice)
+
+2011-07-21T:2118:02 UTC <Marco Bonati> GFITS version 12.5
+	* fixed "AddKey" so the timning directive does not get repeated in the directive
+	(for command "key add ...") if stated in aline that already had it
+
+2011-07-21T:2118:02 UTC <Marco Bonati> GFITS version 12.4
+	* added the comment directive "__IFNDEF__" that states what
+	to do in the headers if variable is not found
+	(it can specify any number/value, or __DELETE__ which means that
+	it won't be writen if not found
+
+2011-07-21T:2118:02 UTC <Marco Bonati> GFITS version 12.3
+	* improved the interface to imlist 
+	("imlist get <fullpath | name | id>")
+	("get last [n]")
+	* added command to start/stop the logginf of images on the fly, and
+	* also to change/set image list log path
+	* updated documentation
+
+2011-07-21T:2118:02 UTC <Marco Bonati> GFITS version 12.2
+	* added roimasker_des into c/tests
+
+2011-04-28T:2118:02 UTC <Marco Bonati> GFITS version 12.1
+	* for separating compress parameter, the cmd line
+	accepts "//" instead of the ";" (Rice // q 10.0)
+	* adds extension ".fz" when fits compressed 
+	* added "set compress external <gzip | unix> to
+	invoke external compression 
+
+2011-04-28T:2118:02 UTC <Marco Bonati> GFITS version 12.0
+	* tested the C code in a 64 bits machine. Ready
+	for 64b labview (if ever comes)
+
+2011-03-31T:2118:02 UTC <Marco Bonati> GFITS version 11.2
+	* cleaned up some old CMN dependencies
+
+2011-03-31T:2118:02 UTC <Marco Bonati> GFITS version 11.1
+	* new libcfitsio.a (latest)
+	* preparation for 64 bits cfitsio version (placeholder)
+
+2011-03-24T:2118:02 UTC <Marco Bonati> GFITS version 11
+	* modified to be 64 bits compatible. 
+	* Added customdata types,and all the pointer references 
+	  passed between c and labview are 64 bits -cast down
+	  at the C level if 32 bits
+	* modified the labview code to use 64 bits pointers
+
+2010-12-28T:2118:02 UTC <Marco Bonati> GFITS version 10.6
+	* fixed the handling of ROIs for single (flat) fits
+	  (it allocates the biggest space netween the number
+	  of pixels and maxx*maxy -considering all amplifs)
+
+2010-12-28T:2118:02 UTC <Marco Bonati> GFITS version 10.5
+	* Closed the DONE file explicitely
+	* added the "ACQERR" command that closes the opened file and dumps
+	(if filemsg is enabled) a .INCOMPLETE file
+
+2010-09-26T:2118:02 UTC <Marco Bonati> GFITS version 10.4
+	* added some commands to make the extension mapping
+	  friendler (set/get extmap)
+
+2010-09-26T:2118:02 UTC <Marco Bonati> GFITS version 10.3
+	* eliminated a 300 ms delay in the header separation
+	(no idea why it was there)
+	* added roimasker_des in private/c/test
+	* updated documentation
+
+2010-09-23T:2118:02 UTC <Marco Bonati> GFITS version 10.2
+	* added commands to speed up the headers writng
+	(hdrmode, geomhdrmode, prealloc).
+	* updated documentation
+
+2010-09-23T:2118:02 UTC <Marco Bonati> GFITS version 10.1
+	* fixed the imstats global status
+
+2010-09-16T:2118:02 UTC <Marco Bonati> GFITS version 10.0
+	* Reduced the header writing time by preallocationg the
+	size for the total keywords to be written (fits_set_hdrsize)
+	A preview of the headers is done before creation and based on the
+	number of keys the preallocation is than. This saves A LOT of time
+	for large arrays (like decam or pt48)
+
+2010-08-08T:2118:02 UTC <Marco Bonati> GFITS version 9.9
+	* fixed a bug (if first amplifier was discarded, the progress
+	  would always be reprted as 0)
+
+2010-08-08T:2118:02 UTC <Marco Bonati> GFITS version 9.8
+	* deleted wrong/incomplete Doxyfiles
+
+2010-08-08T:2118:02 UTC <Marco Bonati> GFITS version 9.7
+	* added "evaluate" as an option to evaluate expressions
+	  on the fly in the fits headers
+
+2010-08-08T:2118:02 UTC <Marco Bonati> GFITS version 9.6
+	* added imnumformat in the init file
+	* cleaned up a bit the diagram (a lot to go yet)
+
+2010-06-07T:2118:02 UTC <Marco Bonati> GFITS version 9.5
+	* added "set imnumformat" to set the image numbering format
+	  default value is still "%04d" but it can be changed now
+
+2010-06-07T:2118:02 UTC <Marco Bonati> GFITS version 9.4
+	* added capability of waiting for IMSTATS if required
+	 (set waitstats <msecs_tmout | off>)
+
+2010-06-07T:2118:02 UTC <Marco Bonati> GFITS version 9.3
+	* added support for imstats (send pointers to, if running)
+
+2010-06-03T:2118:02 UTC <Marco Bonati> GFITS version 9.2
+	* added "preimg" script, to be executed -if specified- before
+	  the creation of each image (to call an external script)
+	* updated local doc
+
+2010-05-14T:2118:02 UTC <Marco Bonati> GFITS version 9.1
+	* modified GF_shmem.h and GF_shmem.c to accomodate changes
+	  in kernerl 2.6.30 or superior
+
+2010-04-05T:2118:02 UTC <Marco Bonati> GFITS version 9.0
+	* added the capability of discarding some amplifiers (nor writing them
+	* to disk. To be used with GUNSC 6.0 ->
+ 
+2010-01-14T:2118:02 UTC <Marco Bonati> GFITS version 8.91
+	* Modifier the file template, so it will ignore any line
+	that starts with [, *, ], ;, #. Before it will ignore any
+	line that had the characters [ or ] in them. This mod allows
+	to have comments or value with brackets in the template, and
+	it also allows comments on the template. Modified File2Fits.vi
+
+2010-01-14T:2118:02 UTC <Marco Bonati> GFITS version 8.9
+	* fixed "simple_write" (SWRITE) that was generating an error for
+	fd < 0 (changed to error if ==0)
+
+2010-01-14T:2118:02 UTC <Marco Bonati> GFITS version 8.8
+	* added postproc capabilities. If specified in the config file
+	it can make a system call with the last finished image to executed
+	some external post processing (it can be anything, like backup
+	-as Save The Bits-, network copy, etc. The process is called usin a
+	diferent library, so no dependency with the main process. The external
+	process can also be called in background. 
+	* added GfitsPPLib.c, GF_PostPrc.vi and Gf_ExecPostProc.vi
+	* Modified GF_Main.vi
+
+2009-11-10T:2118:02 UTC <Marco Bonati> GFITS version 8.7
+	* fixed a problem in the header reading when more than 1 "file" was
+	being used (ctio1m run)
+
+2009-11-05T21:18:02 UTC <Marco Bonati> GFITS version 8.6
+	* the 2D and 3D Arrays specified by index can now also state
+	a diferent keyword for the headers
+
+2009-11-04T21:18:02 UTC <Marco Bonati> GFITS version 8.5
+	* fixed a problem with the multi extensions file template
+	 (GFITS_file2fitsMult.vi)
+
+2009-10-28T21:18:02 UTC <Marco Bonati> GFITS version 8.4
+	* fixed num_amplifiers when no GUNSC is present
+
+2009-10-28T21:18:02 UTC <Marco Bonati> GFITS version 8.3
+	* Now it is allowe3d to typecast varaiables from dbs in
+	  the headers, for example "dbs (FLOAT) myvar" which
+	  overrides the interal variable datatype
+	* fixed "num_ext" dbs variable
+
+2009-10-21T21:18:02 UTC <Marco Bonati> GFITS version 8.2
+	* Added the capability of spceciying the 2D and 3D arrays
+	using [] in the name to get an specific line of the array
+	(ex: INFO = 'dbs 2DARR TPCTRLINFO[1] '/comment)
+
+2009-10-21T21:18:02 UTC <Marco Bonati> GFITS version 8.1
+	* Added support for 3DARR hdr datatype (Z dim is extension)
+
+2009-08-09T21:18:02 UTC <Marco Bonati> GFITS version 8.0
+	* Added some datatypes (BOOL, INT)
+	* fixed DHS server when writing dat_dhs 2Dstr (storing 2dstr arrays)
+
+2009-06-09T21:18:02 UTC <Marco Bonati> GFITS version 7.9
+	* Improved DHS server (to write keys to specifc extensions,
+	  as 2Dstr or 2D bin.
+
+2009-06-09T21:18:02 UTC <Marco Bonati> GFITS version 7.81
+	* aded display features to roimasker
+	* tested on the 1m telescope for output to the des guider
+
+2009-05-26T21:18:02 UTC <Marco Bonati> GFITS version 7.8
+	* added roimasker and dispatcher as examples (private/c/test)
+
+2009-04-23T21:18:02 UTC <Marco Bonati> GFITS version 7.7
+	* Added the FILEMSG sync. mechanism -adds a "done" file
+	  on the image directory -file name can be customized
+	* Changed all the "OK" responses for a "DONE" response
+	* added "get lastimg" (equivalent to the dbs command)
+
+2009-04-18T21:18:02 UTC <Marco Bonati> GFITS version 7.6
+	* improved the image compressiion to work also with
+	  memory fits files
+	* fixed a bug when computing the image size (just tio chek
+	  the disk size)
+
+2009-04-08T21:18:02 UTC <Marco Bonati> GFITS version 7.5
+	* added the capability of generating compressed fits file.
+	* added "set compress <cfitsio_brackets_compress_args>" and "set compress none"
+	  (to disable compresion). 
+
+2009-04-08T21:18:02 UTC <Marco Bonati> GFITS version 7.4
+	* added the cokmand "set nbufs" to set dinamically the number
+	  of buffers for the circular memfits buffer (shared or local)
+
+2009-04-01T21:18:02 UTC <Marco Bonati> GFITS version 7.3.3
+	* added "dispatcher" on the examples (gets from shmem and send fits to a
+	 remote machine
+
+2009-03-28T21:18:02 UTC <Marco Bonati> GFITS version 7.3.2
+	* added the shm client test -gets, display and writes throuhg
+	  shared memory-
+
+2009-03-20T21:18:02 UTC <Marco Bonati> GFITS version 7.3.1
+	* added multiple buffering to the memfits (circular)
+	  (not 100% tested)
+
+2009-03-20T21:18:02 UTC <Marco Bonati> GFITS version 7.3
+	* Fixed some problems when making memory fits, whenre cfistio would
+	 get confused from the second image on (reported by Daekwang at Fermi)
+	 Added an explicit claring of the buffer before every new image
+	 (bzero)
+
+2009-02-06T21:18:02 UTC <Marco Bonati> GFITS version 7.2
+	* Improved the handling of the queued variables (dequeue when writing
+	 the header, but not suring the preview)
+	* Increased the dependency to DBSHAND 1.6 ->
+
+2009-01-26T21:18:02 UTC <Marco Bonati> GFITS version 7.1
+	* If it does not finds the hdr template on the specified path,
+	  seraches for the same name but in the current config dir.
+	  This allows for a default tpl that could be overriden
+
+2008-12-12T21:18:02 UTC <Marco Bonati> GFITS version 7.0
+	* Now it can use Shared Memory for the memfits image -if compiled to
+	 do so
+
+2008-12-12T21:18:02 UTC <Marco Bonati> GFITS version 6.2
+	* Fixed a small problem on the 2D array "dbs" keys
+	* Added a vi to ensure that "lastimg" always has the ".fits" extension
+	  (problem reported by D. Hale)
+
+2008-11-08T21:18:02 UTC <Marco Bonati> GFITS version 6.1
+	* added set/get writeheaders, that allows to generated the fits image
+	  but without the header delay (no headers are written)
+
+2008-11-06T21:18:02 UTC <Marco Bonati> GFITS version 6.0
+	* fixed the "writebuf" command
+	* added the capability for sending async messages, including the expID
+	  from the queued variable "expID" on the database
+	* pending to understan why the "memfits" is complete in memory only if
+	  "quickhdrs" is ON
+	* added the OSU svn tags
+
+2008-10-24T21:18:02 UTC <Marco Bonati> GFITS version 5.9
+	* fixed the TINT type that was being badly written
+
+2008-10-24T21:18:02 UTC <Marco Bonati> GFITS version 5.8
+	* added the commands for writting memory fits files (set memfits yes/no)
+	* added the commands for writting to disk a previously created memfits
+	  (writememfits [path]. If no [path] uses "lastimg")
+
+2008-10-22T21:18:02 UTC <Marco Bonati> GFITS version 5.7
+	* In beta: added the imlist manager and the optional async message
+	  when an image is done. 
+
+2008-09-26T21:18:02 UTC <Marco Bonati> GFITS version 5.6
+	* added the capability of writting to "aux" templates, so the
+	  "add, delete", etc can be done on any file, not just the main
+	  template
+	* added the same template through the auxiliary port (not just the
+	  binary things, as before)
+ 
+2008-08-26T21:18:02 UTC <Marco Bonati> GFITS version 5.5
+	* added a delay in the SeparateHeaders vi before it starts; in some
+          machines a crash at random times is caused if not (in the CREATE
+	  comman)
+
+2008-07-26T21:18:02 UTC <Marco Bonati> GFITS version 5.4
+	* Now the path for a new template can be specified based on the nodeID
+	 or any global defined path
+
+2008-07-23T21:18:02 UTC <Marco Bonati> GFITS version 5.3
+	* added "SWRITE" to make a simple write without even the need
+	  of an INIT -a totally stand-alone fits write call
+
+2008-07-03T21:18:02 UTC <Marco Bonati> GFITS version 5.2
+	* added debug and safety for null pointers
+
+2008-02-03T21:18:02 UTC <Marco Bonati> GFITS version 5.1
+	* added dependency for loval DHS driver
+
+2007-05-03T21:18:02 UTC <Marco Bonati> GFITS version 5.0
+	* Labview 8.5
+	* SOAR-style compatible only
+	* added datacubes (z images)
+
+2006-12-03T21:18:02 UTC <Marco Bonati> GFITS version 4.2
+	* Taken debug off. Added the understanding of "queued" as well as
+	 "database" for queued variables (like UTSHUT)
+
+2006-11-23T21:18:02 UTC <Marco Bonati> GFITS version 4.1
+	* fixed wrong dependance with MDMGR and old Common
+
+2006-10-23T21:18:02 UTC <Marco Bonati> GFITS version 4.0
+	* fixed the checking of the internal pointers from <=0 to (void *) to
+	  avoid erroneous problems.
+
+2006-05-23T21:18:02 UTC <Marco Bonati> GFITS version 3.9
+	* fixed a bug when no datatype was specified in the keyword. It was
+	  assuming STR as it should, but it was skipping the first word
+	 Changed CollectHeaders and Write_1ext
+	  
+2006-05-23T21:18:02 UTC <Marco Bonati> GFITS version 3.8
+	* removed dependencies with Database 
+	* added the "autosavecfg" option on the config file to save or not
+	  the config file when shutdown
+
+2006-04-01T21:18:02 UTC <Marco Bonati> GFITS version 3.7 
+	* using new cfitsio library (3.006)
+	* Updated documentation
+	* added the "get preview" command
+
+2006-03-31T21:18:02 UTC <Marco Bonati> GFITS version 3.6 
+	* added the "EXTENDED" datatype for the creation of the headers
+
+2006-01-31T21:18:02 UTC <Marco Bonati> GFITS version 3.5 
+	* changed the datatype of the "naxes" control on GetImageParams.vi
+	  from U16 to U32, allowiing large format images (more than 65K long).
+	  Done in order to create wavefrom sensing images with very large
+	  amount of frames (like 3x3 boxes, so we create an image of 3x350000)
+
+2005-10-17T21:18:02 UTC <Marco Bonati> GFITS version 3.4
+	* Added the ABORT command, which will rename the current image to
+          name_ABORTED
+
+2005-09-06T21:18:02 UTC <Marco Bonati> GFITS version 3.3
+	* Changed the "XXX = file <path> /comment'. Now the specified file
+	  also supports the datatype in front of the information, so external
+          files can also write the values with diferent data types
+	* The path specified now can also be relative.
+
+2005-08-30T21:18:02 UTC <Marco Bonati> GFITS version 3.2
+	* changed how the COMMENT is written on the headers. If the template
+	  says "dbs FITSCOM <varname>" writes the value of the variable as
+	  a comment. For consistency also changed FITSDATE (dbs FITSDATE)
+
+2005-05-07T21:18:02 UTC <Marco Bonati> GFITS version 3.1
+	* fixed the space problem when specified STR
+	* It checks the permissions and generates an error if it can't
+	  right the header template
+
+2005-04-19T21:18:02 UTC <Marco Bonati> GFITS version 3.0
+	* Labview 7.0
+	* Fixed probems with the header timing (__BEFORE__ and __AFTER__)
+	* fixed problem when deleting a keyword
+
+2005-02-19T21:18:02 UTC <Marco Bonati> GFITS version 2.4
+	* Removed dependencies with ArcVIEW/Common (except SCL)
+	* taken out the debug by default
+
+2004-09-08T21:18:02 UTC <Marco Bonati> GFITS version 2.3
+	* Added the "VERSION" option (including the header keyword)
+
+2004-04-26T21:18:02 UTC <Marco Bonati> GFITS version 2.2
+	* Added the "write date" and "write comment" options on the
+	  image headers
+
+2004-04-26T21:18:02 UTC <Marco Bonati> GFITS version 2.1
+	* Added the capabilitie of write keyword headers at the begining or
+	  the end of the exposure
+
+2004-04-26T21:18:02 UTC <Marco Bonati> GFITS version 2.0
+	* ALL the globals from the database module were taken out. Now it uses
+	 extenbsivelly the "DBSHANDLER" type of database
+
+
+2004-03-15T14:10:21 UTC <Marco Bonati> GFITS version 1.11
+        * changed the FITS key like TCSINFO, FILT, etc, to go to the first
+          extension also. Added cases, for FILTTINFO, and DHETP. Changed the
+          GetValuesfromdatabase VI
+
+2004-09-14T14:10:21 UTC <Marco Bonati> GFITS version 1.10
+	* added the GetKeyValue.vi. When requesting data to the DBS, now
+	  it will keep locally the data previously requested, and it will
+	  use the local data (rather tahn asking the DBS again) if it is
+	  requiered again (for a diferent extension, for example)
+	  in the same image. For a 32 extensions systems, this reduced
+	  the time of header gathering from about 200 ms to 35 ms
+	* in ImageFinished.vi, changed the call to the DBS for the CMN_toDBS
+
+2003-11-14T14:10:21 UTC <Marco Bonati> GFITS version 1.9
+	* added the "resetprogress" key for resetting the "writeprogress"
+	 global
+
+2003-10-27T19:17:17 UTC <Marco Bonati> GFITS version 1.8
+	* added the "writefrombuffer" function on the c library
+	* added the "writeamps" case on the main menu, so it is
+	  called from the unscrambler to write directly from the amplifier
+	  sructure. If some other calls the fits for writting an image
+	  and it passes the standard buffer, it should call the "write"
+	  command
+
+2003-10-07T21:38:18 UTC <Marco Bonati> GFITS version 1.7
+        *added the DHETP keyword entry (testpoints)
+
+2003-10-03T21:16:36 UTC <Marco Bonati> GFITS version 1.6
+	*fixed the multiple extensions thing (kirmos)
+
+2003-04-23T06:32:09 UTC <Marco Bonati> GFITS version 1.4
+
+	*added _DEBUG_ directive to the C source
+
+2003-08-20T00:44:28 UTC
+
+	*Moved "create_file" function call to before "set_values" on "create_img",
+avoiding multiples calls if there are many attempts to create the file
+		- GF_fitsLib.c
+	*added verification of emtpy "hdrfile" template, avoiding the annoying
+"which file?" labview dialog. If no hdrfile is specified, then no hdrfile will
+be added
+		- Modified: GFITS_file2fits.vi
+`		 	    GFITS_file2fits_mult.vi
+
+2003-08-21T21:36:20 UTC M.B.
+
+	*fixed mismatch between amplifiers structure and cols/rows handling
+when amplifier is rotated.
+		- Modified GfitsLib.c
+	*added "commands" handling at init (through configuration file)
+	*added the capabilitie of changing the extension order throug a
+command line. (Map ampkifier --> extension). Added the call to geometry for
+ordering the headers of a multiple extension file accordingly
+		-Modifier GFITS_Main.vi --> writekey --> extensions
+	*Added the if which handles the case when arrive more data than the
+totPix specified.
+		Modified GfitsLib.c

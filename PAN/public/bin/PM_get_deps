@@ -1,0 +1,31 @@
+#! /bin/csh -f
+
+if ($#argv < 3) then
+	echo "ERROR: usage: PM_get_deps <test_module_dir> <test_module_name> <installed_mods_dir>"
+	exit 1
+endif
+set bindir = "$PAN_ROOT/PAN/public/bin"
+set deps = ""
+set DEP = `$bindir/PM_extract_dep $1 $2`
+if ("$DEP[1]" == "ERROR") then
+	set DEP = ""
+endif
+
+if (! -e "$3") then
+	echo "ERROR $3 does not exists"
+	exit 1
+endif
+while ("$DEP" != "")
+	set module = $DEP[1]
+	shift DEP
+	set min_ver = $DEP[1]
+	set mdep = $module-$min_ver
+	set deps = "$deps"" ""$mdep"
+	shift DEP
+end
+if ("$deps" == "") then
+	echo "no DEP found"
+else
+	echo $deps
+endif
+exit 0

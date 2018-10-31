@@ -1,0 +1,4 @@
+#!/bin/csh -f
+
+
+./sendsockcmd -h localhost -p 5004 $argv

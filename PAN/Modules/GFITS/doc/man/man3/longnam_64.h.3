@@ -1,0 +1,2687 @@
+.TH "panview_current/PAN/Modules/GFITS/private/c/src/longnam_64.h" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GFITS/private/c/src/longnam_64.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBfits_parse_input_url\fP   ffiurl"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_input_filename\fP   ffifile"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_rootname\fP   ffrtnm"
+.br
+.ti -1c
+.RI "#define \fBfits_file_exists\fP   ffexist"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_output_url\fP   ffourl"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_extspec\fP   ffexts"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_extnum\fP   ffextn"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_binspec\fP   ffbins"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_binrange\fP   ffbinr"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_range\fP   ffrwrg"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_rangell\fP   ffrwrgll"
+.br
+.ti -1c
+.RI "#define \fBfits_open_memfile\fP   ffomem"
+.br
+.ti -1c
+.RI "#define \fBfits_open_file\fP(A, B, C, D)   ffopentest( CFITSIO_VERSION, A, B, C, D)"
+.br
+.ti -1c
+.RI "#define \fBfits_open_data\fP   ffdopn"
+.br
+.ti -1c
+.RI "#define \fBfits_open_table\fP   fftopn"
+.br
+.ti -1c
+.RI "#define \fBfits_open_image\fP   ffiopn"
+.br
+.ti -1c
+.RI "#define \fBfits_open_diskfile\fP   ffdkopn"
+.br
+.ti -1c
+.RI "#define \fBfits_reopen_file\fP   ffreopen"
+.br
+.ti -1c
+.RI "#define \fBfits_create_file\fP   ffinit"
+.br
+.ti -1c
+.RI "#define \fBfits_create_diskfile\fP   ffdkinit"
+.br
+.ti -1c
+.RI "#define \fBfits_create_memfile\fP   ffimem"
+.br
+.ti -1c
+.RI "#define \fBfits_create_template\fP   fftplt"
+.br
+.ti -1c
+.RI "#define \fBfits_flush_file\fP   ffflus"
+.br
+.ti -1c
+.RI "#define \fBfits_flush_buffer\fP   ffflsh"
+.br
+.ti -1c
+.RI "#define \fBfits_close_file\fP   ffclos"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_file\fP   ffdelt"
+.br
+.ti -1c
+.RI "#define \fBfits_file_name\fP   ffflnm"
+.br
+.ti -1c
+.RI "#define \fBfits_file_mode\fP   ffflmd"
+.br
+.ti -1c
+.RI "#define \fBfits_url_type\fP   ffurlt"
+.br
+.ti -1c
+.RI "#define \fBfits_get_version\fP   ffvers"
+.br
+.ti -1c
+.RI "#define \fBfits_uppercase\fP   ffupch"
+.br
+.ti -1c
+.RI "#define \fBfits_get_errstatus\fP   ffgerr"
+.br
+.ti -1c
+.RI "#define \fBfits_write_errmsg\fP   ffpmsg"
+.br
+.ti -1c
+.RI "#define \fBfits_write_errmark\fP   ffpmrk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_errmsg\fP   ffgmsg"
+.br
+.ti -1c
+.RI "#define \fBfits_clear_errmsg\fP   ffcmsg"
+.br
+.ti -1c
+.RI "#define \fBfits_clear_errmark\fP   ffcmrk"
+.br
+.ti -1c
+.RI "#define \fBfits_report_error\fP   ffrprt"
+.br
+.ti -1c
+.RI "#define \fBfits_compare_str\fP   ffcmps"
+.br
+.ti -1c
+.RI "#define \fBfits_test_keyword\fP   fftkey"
+.br
+.ti -1c
+.RI "#define \fBfits_test_record\fP   fftrec"
+.br
+.ti -1c
+.RI "#define \fBfits_null_check\fP   ffnchk"
+.br
+.ti -1c
+.RI "#define \fBfits_make_keyn\fP   ffkeyn"
+.br
+.ti -1c
+.RI "#define \fBfits_make_nkey\fP   ffnkey"
+.br
+.ti -1c
+.RI "#define \fBfits_get_keyclass\fP   ffgkcl"
+.br
+.ti -1c
+.RI "#define \fBfits_get_keytype\fP   ffdtyp"
+.br
+.ti -1c
+.RI "#define \fBfits_get_inttype\fP   ffinttyp"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_value\fP   ffpsvc"
+.br
+.ti -1c
+.RI "#define \fBfits_get_keyname\fP   ffgknm"
+.br
+.ti -1c
+.RI "#define \fBfits_parse_template\fP   ffgthd"
+.br
+.ti -1c
+.RI "#define \fBfits_ascii_tform\fP   ffasfm"
+.br
+.ti -1c
+.RI "#define \fBfits_binary_tform\fP   ffbnfm"
+.br
+.ti -1c
+.RI "#define \fBfits_binary_tformll\fP   ffbnfmll"
+.br
+.ti -1c
+.RI "#define \fBfits_get_tbcol\fP   ffgabc"
+.br
+.ti -1c
+.RI "#define \fBfits_get_rowsize\fP   ffgrsz"
+.br
+.ti -1c
+.RI "#define \fBfits_get_col_display_width\fP   ffgcdw"
+.br
+.ti -1c
+.RI "#define \fBfits_write_record\fP   ffprec"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key\fP   ffpky"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_unit\fP   ffpunt"
+.br
+.ti -1c
+.RI "#define \fBfits_write_comment\fP   ffpcom"
+.br
+.ti -1c
+.RI "#define \fBfits_write_history\fP   ffphis"
+.br
+.ti -1c
+.RI "#define \fBfits_write_date\fP   ffpdat"
+.br
+.ti -1c
+.RI "#define \fBfits_get_system_time\fP   ffgstm"
+.br
+.ti -1c
+.RI "#define \fBfits_get_system_date\fP   ffgsdt"
+.br
+.ti -1c
+.RI "#define \fBfits_date2str\fP   ffdt2s"
+.br
+.ti -1c
+.RI "#define \fBfits_time2str\fP   fftm2s"
+.br
+.ti -1c
+.RI "#define \fBfits_str2date\fP   ffs2dt"
+.br
+.ti -1c
+.RI "#define \fBfits_str2time\fP   ffs2tm"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_longstr\fP   ffpkls"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_longwarn\fP   ffplsw"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_null\fP   ffpkyu"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_str\fP   ffpkys"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_log\fP   ffpkyl"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_lng\fP   ffpkyj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_fixflt\fP   ffpkyf"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_flt\fP   ffpkye"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_fixdbl\fP   ffpkyg"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_dbl\fP   ffpkyd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_fixcmp\fP   ffpkfc"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_cmp\fP   ffpkyc"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_fixdblcmp\fP   ffpkfm"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_dblcmp\fP   ffpkym"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_triple\fP   ffpkyt"
+.br
+.ti -1c
+.RI "#define \fBfits_write_tdim\fP   ffptdm"
+.br
+.ti -1c
+.RI "#define \fBfits_write_tdimll\fP   ffptdmll"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_str\fP   ffpkns"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_log\fP   ffpknl"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_lng\fP   ffpknj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_fixflt\fP   ffpknf"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_flt\fP   ffpkne"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_fixdbl\fP   ffpkng"
+.br
+.ti -1c
+.RI "#define \fBfits_write_keys_dbl\fP   ffpknd"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_key\fP   ffcpky"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imghdr\fP   ffphps"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imghdrll\fP   ffphpsll"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grphdr\fP   ffphpr"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grphdrll\fP   ffphprll"
+.br
+.ti -1c
+.RI "#define \fBfits_write_atblhdr\fP   ffphtb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_btblhdr\fP   ffphbn"
+.br
+.ti -1c
+.RI "#define \fBfits_write_exthdr\fP   ffphext"
+.br
+.ti -1c
+.RI "#define \fBfits_write_key_template\fP   ffpktp"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hdrspace\fP   ffghsp"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hdrpos\fP   ffghps"
+.br
+.ti -1c
+.RI "#define \fBfits_movabs_key\fP   ffmaky"
+.br
+.ti -1c
+.RI "#define \fBfits_movrel_key\fP   ffmrky"
+.br
+.ti -1c
+.RI "#define \fBfits_find_nextkey\fP   ffgnxk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_record\fP   ffgrec"
+.br
+.ti -1c
+.RI "#define \fBfits_read_card\fP   ffgcrd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_str\fP   ffgstr"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_unit\fP   ffgunt"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keyn\fP   ffgkyn"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key\fP   ffgky"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keyword\fP   ffgkey"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_str\fP   ffgkys"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_log\fP   ffgkyl"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_lng\fP   ffgkyj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_lnglng\fP   ffgkyjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_flt\fP   ffgkye"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_dbl\fP   ffgkyd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_cmp\fP   ffgkyc"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_dblcmp\fP   ffgkym"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_triple\fP   ffgkyt"
+.br
+.ti -1c
+.RI "#define \fBfits_read_key_longstr\fP   ffgkls"
+.br
+.ti -1c
+.RI "#define \fBfits_free_memory\fP   fffree"
+.br
+.ti -1c
+.RI "#define \fBfits_read_tdim\fP   ffgtdm"
+.br
+.ti -1c
+.RI "#define \fBfits_read_tdimll\fP   ffgtdmll"
+.br
+.ti -1c
+.RI "#define \fBfits_decode_tdim\fP   ffdtdm"
+.br
+.ti -1c
+.RI "#define \fBfits_decode_tdimll\fP   ffdtdmll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keys_str\fP   ffgkns"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keys_log\fP   ffgknl"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keys_lng\fP   ffgknj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keys_lnglng\fP   ffgknjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keys_flt\fP   ffgkne"
+.br
+.ti -1c
+.RI "#define \fBfits_read_keys_dbl\fP   ffgknd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imghdr\fP   ffghpr"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imghdrll\fP   ffghprll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_atblhdr\fP   ffghtb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_btblhdr\fP   ffghbn"
+.br
+.ti -1c
+.RI "#define \fBfits_read_atblhdrll\fP   ffghtbll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_btblhdrll\fP   ffghbnll"
+.br
+.ti -1c
+.RI "#define \fBfits_hdr2str\fP   ffhdr2str"
+.br
+.ti -1c
+.RI "#define \fBfits_convert_hdr2str\fP   ffcnvthdr2str"
+.br
+.ti -1c
+.RI "#define \fBfits_update_card\fP   ffucrd"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key\fP   ffuky"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_null\fP   ffukyu"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_str\fP   ffukys"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_longstr\fP   ffukls"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_log\fP   ffukyl"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_lng\fP   ffukyj"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_fixflt\fP   ffukyf"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_flt\fP   ffukye"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_fixdbl\fP   ffukyg"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_dbl\fP   ffukyd"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_fixcmp\fP   ffukfc"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_cmp\fP   ffukyc"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_fixdblcmp\fP   ffukfm"
+.br
+.ti -1c
+.RI "#define \fBfits_update_key_dblcmp\fP   ffukym"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_record\fP   ffmrec"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_card\fP   ffmcrd"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_name\fP   ffmnam"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_comment\fP   ffmcom"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_null\fP   ffmkyu"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_str\fP   ffmkys"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_longstr\fP   ffmkls"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_log\fP   ffmkyl"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_lng\fP   ffmkyj"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_fixflt\fP   ffmkyf"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_flt\fP   ffmkye"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_fixdbl\fP   ffmkyg"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_dbl\fP   ffmkyd"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_fixcmp\fP   ffmkfc"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_cmp\fP   ffmkyc"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_fixdblcmp\fP   ffmkfm"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_key_dblcmp\fP   ffmkym"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_record\fP   ffirec"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_card\fP   ffikey"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_null\fP   ffikyu"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_str\fP   ffikys"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_longstr\fP   ffikls"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_log\fP   ffikyl"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_lng\fP   ffikyj"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_fixflt\fP   ffikyf"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_flt\fP   ffikye"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_fixdbl\fP   ffikyg"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_dbl\fP   ffikyd"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_fixcmp\fP   ffikfc"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_cmp\fP   ffikyc"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_fixdblcmp\fP   ffikfm"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_key_dblcmp\fP   ffikym"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_key\fP   ffdkey"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_str\fP   ffdstr"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_record\fP   ffdrec"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hdu_num\fP   ffghdn"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hdu_type\fP   ffghdt"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hduaddr\fP   ffghad"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hduaddrll\fP   ffghadll"
+.br
+.ti -1c
+.RI "#define \fBfits_get_hduoff\fP   ffghof"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_param\fP   ffgipr"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_paramll\fP   ffgiprll"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_type\fP   ffgidt"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_equivtype\fP   ffgiet"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_dim\fP   ffgidm"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_size\fP   ffgisz"
+.br
+.ti -1c
+.RI "#define \fBfits_get_img_sizell\fP   ffgiszll"
+.br
+.ti -1c
+.RI "#define \fBfits_movabs_hdu\fP   ffmahd"
+.br
+.ti -1c
+.RI "#define \fBfits_movrel_hdu\fP   ffmrhd"
+.br
+.ti -1c
+.RI "#define \fBfits_movnam_hdu\fP   ffmnhd"
+.br
+.ti -1c
+.RI "#define \fBfits_get_num_hdus\fP   ffthdu"
+.br
+.ti -1c
+.RI "#define \fBfits_create_img\fP   ffcrim"
+.br
+.ti -1c
+.RI "#define \fBfits_create_imgll\fP   ffcrimll"
+.br
+.ti -1c
+.RI "#define \fBfits_create_tbl\fP   ffcrtb"
+.br
+.ti -1c
+.RI "#define \fBfits_create_hdu\fP   ffcrhd"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_img\fP   ffiimg"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_imgll\fP   ffiimgll"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_atbl\fP   ffitab"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_btbl\fP   ffibin"
+.br
+.ti -1c
+.RI "#define \fBfits_resize_img\fP   ffrsim"
+.br
+.ti -1c
+.RI "#define \fBfits_resize_imgll\fP   ffrsimll"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_hdu\fP   ffdhdu"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_hdu\fP   ffcopy"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_file\fP   ffcpfl"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_header\fP   ffcphd"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_data\fP   ffcpdt"
+.br
+.ti -1c
+.RI "#define \fBfits_write_hdu\fP   ffwrhdu"
+.br
+.ti -1c
+.RI "#define \fBfits_set_hdustruc\fP   ffrdef"
+.br
+.ti -1c
+.RI "#define \fBfits_set_hdrsize\fP   ffhdef"
+.br
+.ti -1c
+.RI "#define \fBfits_write_theap\fP   ffpthp"
+.br
+.ti -1c
+.RI "#define \fBfits_encode_chksum\fP   ffesum"
+.br
+.ti -1c
+.RI "#define \fBfits_decode_chksum\fP   ffdsum"
+.br
+.ti -1c
+.RI "#define \fBfits_write_chksum\fP   ffpcks"
+.br
+.ti -1c
+.RI "#define \fBfits_update_chksum\fP   ffupck"
+.br
+.ti -1c
+.RI "#define \fBfits_verify_chksum\fP   ffvcks"
+.br
+.ti -1c
+.RI "#define \fBfits_get_chksum\fP   ffgcks"
+.br
+.ti -1c
+.RI "#define \fBfits_set_bscale\fP   ffpscl"
+.br
+.ti -1c
+.RI "#define \fBfits_set_tscale\fP   fftscl"
+.br
+.ti -1c
+.RI "#define \fBfits_set_imgnull\fP   ffpnul"
+.br
+.ti -1c
+.RI "#define \fBfits_set_btblnull\fP   fftnul"
+.br
+.ti -1c
+.RI "#define \fBfits_set_atblnull\fP   ffsnul"
+.br
+.ti -1c
+.RI "#define \fBfits_get_colnum\fP   ffgcno"
+.br
+.ti -1c
+.RI "#define \fBfits_get_colname\fP   ffgcnn"
+.br
+.ti -1c
+.RI "#define \fBfits_get_coltype\fP   ffgtcl"
+.br
+.ti -1c
+.RI "#define \fBfits_get_coltypell\fP   ffgtclll"
+.br
+.ti -1c
+.RI "#define \fBfits_get_eqcoltype\fP   ffeqty"
+.br
+.ti -1c
+.RI "#define \fBfits_get_eqcoltypell\fP   ffeqtyll"
+.br
+.ti -1c
+.RI "#define \fBfits_get_num_rows\fP   ffgnrw"
+.br
+.ti -1c
+.RI "#define \fBfits_get_num_rowsll\fP   ffgnrwll"
+.br
+.ti -1c
+.RI "#define \fBfits_get_num_cols\fP   ffgncl"
+.br
+.ti -1c
+.RI "#define \fBfits_get_acolparms\fP   ffgacl"
+.br
+.ti -1c
+.RI "#define \fBfits_get_bcolparms\fP   ffgbcl"
+.br
+.ti -1c
+.RI "#define \fBfits_get_bcolparmsll\fP   ffgbclll"
+.br
+.ti -1c
+.RI "#define \fBfits_iterate_data\fP   ffiter"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_byt\fP   ffggpb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_sbyt\fP   ffggpsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_usht\fP   ffggpui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_ulng\fP   ffggpuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_sht\fP   ffggpi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_lng\fP   ffggpj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_lnglng\fP   ffggpjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_int\fP   ffggpk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_uint\fP   ffggpuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_flt\fP   ffggpe"
+.br
+.ti -1c
+.RI "#define \fBfits_read_grppar_dbl\fP   ffggpd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_pix\fP   ffgpxv"
+.br
+.ti -1c
+.RI "#define \fBfits_read_pixll\fP   ffgpxvll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_pixnull\fP   ffgpxf"
+.br
+.ti -1c
+.RI "#define \fBfits_read_pixnullll\fP   ffgpxfll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img\fP   ffgpv"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull\fP   ffgpf"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_byt\fP   ffgpvb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_sbyt\fP   ffgpvsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_usht\fP   ffgpvui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_ulng\fP   ffgpvuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_sht\fP   ffgpvi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_lng\fP   ffgpvj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_lnglng\fP   ffgpvjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_uint\fP   ffgpvuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_int\fP   ffgpvk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_flt\fP   ffgpve"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_dbl\fP   ffgpvd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_byt\fP   ffgpfb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_sbyt\fP   ffgpfsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_usht\fP   ffgpfui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_ulng\fP   ffgpfuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_sht\fP   ffgpfi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_lng\fP   ffgpfj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_lnglng\fP   ffgpfjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_uint\fP   ffgpfuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_int\fP   ffgpfk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_flt\fP   ffgpfe"
+.br
+.ti -1c
+.RI "#define \fBfits_read_imgnull_dbl\fP   ffgpfd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_byt\fP   ffg2db"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_sbyt\fP   ffg2dsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_usht\fP   ffg2dui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_ulng\fP   ffg2duj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_sht\fP   ffg2di"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_lng\fP   ffg2dj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_lnglng\fP   ffg2djj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_uint\fP   ffg2duk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_int\fP   ffg2dk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_flt\fP   ffg2de"
+.br
+.ti -1c
+.RI "#define \fBfits_read_2d_dbl\fP   ffg2dd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_byt\fP   ffg3db"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_sbyt\fP   ffg3dsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_usht\fP   ffg3dui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_ulng\fP   ffg3duj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_sht\fP   ffg3di"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_lng\fP   ffg3dj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_lnglng\fP   ffg3djj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_uint\fP   ffg3duk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_int\fP   ffg3dk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_flt\fP   ffg3de"
+.br
+.ti -1c
+.RI "#define \fBfits_read_3d_dbl\fP   ffg3dd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset\fP   ffgsv"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_byt\fP   ffgsvb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_sbyt\fP   ffgsvsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_usht\fP   ffgsvui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_ulng\fP   ffgsvuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_sht\fP   ffgsvi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_lng\fP   ffgsvj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_lnglng\fP   ffgsvjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_uint\fP   ffgsvuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_int\fP   ffgsvk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_flt\fP   ffgsve"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subset_dbl\fP   ffgsvd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_byt\fP   ffgsfb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_sbyt\fP   ffgsfsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_usht\fP   ffgsfui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_ulng\fP   ffgsfuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_sht\fP   ffgsfi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_lng\fP   ffgsfj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_lnglng\fP   ffgsfjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_uint\fP   ffgsfuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_int\fP   ffgsfk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_flt\fP   ffgsfe"
+.br
+.ti -1c
+.RI "#define \fBfits_read_subsetnull_dbl\fP   ffgsfd"
+.br
+.ti -1c
+.RI "#define \fBffcpimg\fP   fits_copy_image_section"
+.br
+.ti -1c
+.RI "#define \fBfits_compress_img\fP   fits_comp_img"
+.br
+.ti -1c
+.RI "#define \fBfits_decompress_img\fP   fits_decomp_img"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col\fP   ffgcv"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull\fP   ffgcf"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_str\fP   ffgcvs"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_log\fP   ffgcvl"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_byt\fP   ffgcvb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_sbyt\fP   ffgcvsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_usht\fP   ffgcvui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_ulng\fP   ffgcvuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_sht\fP   ffgcvi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_lng\fP   ffgcvj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_lnglng\fP   ffgcvjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_uint\fP   ffgcvuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_int\fP   ffgcvk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_flt\fP   ffgcve"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_dbl\fP   ffgcvd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_cmp\fP   ffgcvc"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_dblcmp\fP   ffgcvm"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_bit\fP   ffgcx"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_bit_usht\fP   ffgcxui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_col_bit_uint\fP   ffgcxuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_str\fP   ffgcfs"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_log\fP   ffgcfl"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_byt\fP   ffgcfb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_sbyt\fP   ffgcfsb"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_usht\fP   ffgcfui"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_ulng\fP   ffgcfuj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_sht\fP   ffgcfi"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_lng\fP   ffgcfj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_lnglng\fP   ffgcfjj"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_uint\fP   ffgcfuk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_int\fP   ffgcfk"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_flt\fP   ffgcfe"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_dbl\fP   ffgcfd"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_cmp\fP   ffgcfc"
+.br
+.ti -1c
+.RI "#define \fBfits_read_colnull_dblcmp\fP   ffgcfm"
+.br
+.ti -1c
+.RI "#define \fBfits_read_descript\fP   ffgdes"
+.br
+.ti -1c
+.RI "#define \fBfits_read_descriptll\fP   ffgdesll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_descripts\fP   ffgdess"
+.br
+.ti -1c
+.RI "#define \fBfits_read_descriptsll\fP   ffgdessll"
+.br
+.ti -1c
+.RI "#define \fBfits_read_tblbytes\fP   ffgtbb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_byt\fP   ffpgpb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_sbyt\fP   ffpgpsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_usht\fP   ffpgpui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_ulng\fP   ffpgpuj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_sht\fP   ffpgpi"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_lng\fP   ffpgpj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_lnglng\fP   ffpgpjj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_uint\fP   ffpgpuk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_int\fP   ffpgpk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_flt\fP   ffpgpe"
+.br
+.ti -1c
+.RI "#define \fBfits_write_grppar_dbl\fP   ffpgpd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_pix\fP   ffppx"
+.br
+.ti -1c
+.RI "#define \fBfits_write_pixll\fP   ffppxll"
+.br
+.ti -1c
+.RI "#define \fBfits_write_pixnull\fP   ffppxn"
+.br
+.ti -1c
+.RI "#define \fBfits_write_pixnullll\fP   ffppxnll"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img\fP   ffppr"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_byt\fP   ffpprb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_sbyt\fP   ffpprsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_usht\fP   ffpprui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_ulng\fP   ffppruj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_sht\fP   ffppri"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_lng\fP   ffpprj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_lnglng\fP   ffpprjj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_uint\fP   ffppruk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_int\fP   ffpprk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_flt\fP   ffppre"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_dbl\fP   ffpprd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull\fP   ffppn"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_byt\fP   ffppnb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_sbyt\fP   ffppnsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_usht\fP   ffppnui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_ulng\fP   ffppnuj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_sht\fP   ffppni"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_lng\fP   ffppnj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_lnglng\fP   ffppnjj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_uint\fP   ffppnuk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_int\fP   ffppnk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_flt\fP   ffppne"
+.br
+.ti -1c
+.RI "#define \fBfits_write_imgnull_dbl\fP   ffppnd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_img_null\fP   ffppru"
+.br
+.ti -1c
+.RI "#define \fBfits_write_null_img\fP   ffpprn"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_byt\fP   ffp2db"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_sbyt\fP   ffp2dsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_usht\fP   ffp2dui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_ulng\fP   ffp2duj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_sht\fP   ffp2di"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_lng\fP   ffp2dj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_lnglng\fP   ffp2djj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_uint\fP   ffp2duk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_int\fP   ffp2dk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_flt\fP   ffp2de"
+.br
+.ti -1c
+.RI "#define \fBfits_write_2d_dbl\fP   ffp2dd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_byt\fP   ffp3db"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_sbyt\fP   ffp3dsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_usht\fP   ffp3dui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_ulng\fP   ffp3duj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_sht\fP   ffp3di"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_lng\fP   ffp3dj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_lnglng\fP   ffp3djj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_uint\fP   ffp3duk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_int\fP   ffp3dk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_flt\fP   ffp3de"
+.br
+.ti -1c
+.RI "#define \fBfits_write_3d_dbl\fP   ffp3dd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset\fP   ffpss"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_byt\fP   ffpssb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_sbyt\fP   ffpsssb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_usht\fP   ffpssui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_ulng\fP   ffpssuj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_sht\fP   ffpssi"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_lng\fP   ffpssj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_lnglng\fP   ffpssjj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_uint\fP   ffpssuk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_int\fP   ffpssk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_flt\fP   ffpsse"
+.br
+.ti -1c
+.RI "#define \fBfits_write_subset_dbl\fP   ffpssd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col\fP   ffpcl"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_str\fP   ffpcls"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_log\fP   ffpcll"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_byt\fP   ffpclb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_sbyt\fP   ffpclsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_usht\fP   ffpclui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_ulng\fP   ffpcluj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_sht\fP   ffpcli"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_lng\fP   ffpclj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_lnglng\fP   ffpcljj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_uint\fP   ffpcluk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_int\fP   ffpclk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_flt\fP   ffpcle"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_dbl\fP   ffpcld"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_cmp\fP   ffpclc"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_dblcmp\fP   ffpclm"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_null\fP   ffpclu"
+.br
+.ti -1c
+.RI "#define \fBfits_write_col_bit\fP   ffpclx"
+.br
+.ti -1c
+.RI "#define \fBfits_write_nulrows\fP   ffprwu"
+.br
+.ti -1c
+.RI "#define \fBfits_write_nullrows\fP   ffprwu"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull\fP   ffpcn"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_str\fP   ffpcns"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_log\fP   ffpcnl"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_byt\fP   ffpcnb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_sbyt\fP   ffpcnsb"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_usht\fP   ffpcnui"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_ulng\fP   ffpcnuj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_sht\fP   ffpcni"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_lng\fP   ffpcnj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_lnglng\fP   ffpcnjj"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_uint\fP   ffpcnuk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_int\fP   ffpcnk"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_flt\fP   ffpcne"
+.br
+.ti -1c
+.RI "#define \fBfits_write_colnull_dbl\fP   ffpcnd"
+.br
+.ti -1c
+.RI "#define \fBfits_write_ext\fP   ffpextn"
+.br
+.ti -1c
+.RI "#define \fBfits_read_ext\fP   ffgextn"
+.br
+.ti -1c
+.RI "#define \fBfits_write_descript\fP   ffpdes"
+.br
+.ti -1c
+.RI "#define \fBfits_compress_heap\fP   ffcmph"
+.br
+.ti -1c
+.RI "#define \fBfits_test_heap\fP   fftheap"
+.br
+.ti -1c
+.RI "#define \fBfits_write_tblbytes\fP   ffptbb"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_rows\fP   ffirow"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_rows\fP   ffdrow"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_rowrange\fP   ffdrrg"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_rowlist\fP   ffdrws"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_rowlistll\fP   ffdrwsll"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_col\fP   fficol"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_cols\fP   fficls"
+.br
+.ti -1c
+.RI "#define \fBfits_delete_col\fP   ffdcol"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_col\fP   ffcpcl"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_rows\fP   ffcprw"
+.br
+.ti -1c
+.RI "#define \fBfits_modify_vector_len\fP   ffmvec"
+.br
+.ti -1c
+.RI "#define \fBfits_read_img_coord\fP   ffgics"
+.br
+.ti -1c
+.RI "#define \fBfits_read_tbl_coord\fP   ffgtcs"
+.br
+.ti -1c
+.RI "#define \fBfits_pix_to_world\fP   ffwldp"
+.br
+.ti -1c
+.RI "#define \fBfits_world_to_pix\fP   ffxypx"
+.br
+.ti -1c
+.RI "#define \fBfits_get_image_wcs_keys\fP   ffgiwcs"
+.br
+.ti -1c
+.RI "#define \fBfits_get_table_wcs_keys\fP   ffgtwcs"
+.br
+.ti -1c
+.RI "#define \fBfits_find_rows\fP   fffrow"
+.br
+.ti -1c
+.RI "#define \fBfits_find_first_row\fP   ffffrw"
+.br
+.ti -1c
+.RI "#define \fBfits_find_rows_cmp\fP   fffrwc"
+.br
+.ti -1c
+.RI "#define \fBfits_select_rows\fP   ffsrow"
+.br
+.ti -1c
+.RI "#define \fBfits_calc_rows\fP   ffcrow"
+.br
+.ti -1c
+.RI "#define \fBfits_calculator\fP   ffcalc"
+.br
+.ti -1c
+.RI "#define \fBfits_calculator_rng\fP   ffcalc_rng"
+.br
+.ti -1c
+.RI "#define \fBfits_test_expr\fP   fftexp"
+.br
+.ti -1c
+.RI "#define \fBfits_create_group\fP   ffgtcr"
+.br
+.ti -1c
+.RI "#define \fBfits_insert_group\fP   ffgtis"
+.br
+.ti -1c
+.RI "#define \fBfits_change_group\fP   ffgtch"
+.br
+.ti -1c
+.RI "#define \fBfits_remove_group\fP   ffgtrm"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_group\fP   ffgtcp"
+.br
+.ti -1c
+.RI "#define \fBfits_merge_groups\fP   ffgtmg"
+.br
+.ti -1c
+.RI "#define \fBfits_compact_group\fP   ffgtcm"
+.br
+.ti -1c
+.RI "#define \fBfits_verify_group\fP   ffgtvf"
+.br
+.ti -1c
+.RI "#define \fBfits_open_group\fP   ffgtop"
+.br
+.ti -1c
+.RI "#define \fBfits_add_group_member\fP   ffgtam"
+.br
+.ti -1c
+.RI "#define \fBfits_get_num_members\fP   ffgtnm"
+.br
+.ti -1c
+.RI "#define \fBfits_get_num_groups\fP   ffgmng"
+.br
+.ti -1c
+.RI "#define \fBfits_open_member\fP   ffgmop"
+.br
+.ti -1c
+.RI "#define \fBfits_copy_member\fP   ffgmcp"
+.br
+.ti -1c
+.RI "#define \fBfits_transfer_member\fP   ffgmtf"
+.br
+.ti -1c
+.RI "#define \fBfits_remove_member\fP   ffgmrm"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define ffcpimg   fits_copy_image_section"
+.PP
+.SS "#define fits_add_group_member   ffgtam"
+.PP
+.SS "#define fits_ascii_tform   ffasfm"
+.PP
+.SS "#define fits_binary_tform   ffbnfm"
+.PP
+.SS "#define fits_binary_tformll   ffbnfmll"
+.PP
+.SS "#define fits_calc_rows   ffcrow"
+.PP
+.SS "#define fits_calculator   ffcalc"
+.PP
+.SS "#define fits_calculator_rng   ffcalc_rng"
+.PP
+.SS "#define fits_change_group   ffgtch"
+.PP
+.SS "#define fits_clear_errmark   ffcmrk"
+.PP
+.SS "#define fits_clear_errmsg   ffcmsg"
+.PP
+.SS "#define fits_close_file   ffclos"
+.PP
+.SS "#define fits_compact_group   ffgtcm"
+.PP
+.SS "#define fits_compare_str   ffcmps"
+.PP
+.SS "#define fits_compress_heap   ffcmph"
+.PP
+.SS "#define fits_compress_img   fits_comp_img"
+.PP
+.SS "#define fits_convert_hdr2str   ffcnvthdr2str"
+.PP
+.SS "#define fits_copy_col   ffcpcl"
+.PP
+.SS "#define fits_copy_data   ffcpdt"
+.PP
+.SS "#define fits_copy_file   ffcpfl"
+.PP
+.SS "#define fits_copy_group   ffgtcp"
+.PP
+.SS "#define fits_copy_hdu   ffcopy"
+.PP
+.SS "#define fits_copy_header   ffcphd"
+.PP
+.SS "#define fits_copy_key   ffcpky"
+.PP
+.SS "#define fits_copy_member   ffgmcp"
+.PP
+.SS "#define fits_copy_rows   ffcprw"
+.PP
+.SS "#define fits_create_diskfile   ffdkinit"
+.PP
+.SS "#define fits_create_file   ffinit"
+.PP
+.SS "#define fits_create_group   ffgtcr"
+.PP
+.SS "#define fits_create_hdu   ffcrhd"
+.PP
+.SS "#define fits_create_img   ffcrim"
+.PP
+.SS "#define fits_create_imgll   ffcrimll"
+.PP
+.SS "#define fits_create_memfile   ffimem"
+.PP
+.SS "#define fits_create_tbl   ffcrtb"
+.PP
+.SS "#define fits_create_template   fftplt"
+.PP
+.SS "#define fits_date2str   ffdt2s"
+.PP
+.SS "#define fits_decode_chksum   ffdsum"
+.PP
+.SS "#define fits_decode_tdim   ffdtdm"
+.PP
+.SS "#define fits_decode_tdimll   ffdtdmll"
+.PP
+.SS "#define fits_decompress_img   fits_decomp_img"
+.PP
+.SS "#define fits_delete_col   ffdcol"
+.PP
+.SS "#define fits_delete_file   ffdelt"
+.PP
+.SS "#define fits_delete_hdu   ffdhdu"
+.PP
+.SS "#define fits_delete_key   ffdkey"
+.PP
+.SS "#define fits_delete_record   ffdrec"
+.PP
+.SS "#define fits_delete_rowlist   ffdrws"
+.PP
+.SS "#define fits_delete_rowlistll   ffdrwsll"
+.PP
+.SS "#define fits_delete_rowrange   ffdrrg"
+.PP
+.SS "#define fits_delete_rows   ffdrow"
+.PP
+.SS "#define fits_delete_str   ffdstr"
+.PP
+.SS "#define fits_encode_chksum   ffesum"
+.PP
+.SS "#define fits_file_exists   ffexist"
+.PP
+.SS "#define fits_file_mode   ffflmd"
+.PP
+.SS "#define fits_file_name   ffflnm"
+.PP
+.SS "#define fits_find_first_row   ffffrw"
+.PP
+.SS "#define fits_find_nextkey   ffgnxk"
+.PP
+.SS "#define fits_find_rows   fffrow"
+.PP
+.SS "#define fits_find_rows_cmp   fffrwc"
+.PP
+.SS "#define fits_flush_buffer   ffflsh"
+.PP
+.SS "#define fits_flush_file   ffflus"
+.PP
+.SS "#define fits_free_memory   fffree"
+.PP
+.SS "#define fits_get_acolparms   ffgacl"
+.PP
+.SS "#define fits_get_bcolparms   ffgbcl"
+.PP
+.SS "#define fits_get_bcolparmsll   ffgbclll"
+.PP
+.SS "#define fits_get_chksum   ffgcks"
+.PP
+.SS "#define fits_get_col_display_width   ffgcdw"
+.PP
+.SS "#define fits_get_colname   ffgcnn"
+.PP
+.SS "#define fits_get_colnum   ffgcno"
+.PP
+.SS "#define fits_get_coltype   ffgtcl"
+.PP
+.SS "#define fits_get_coltypell   ffgtclll"
+.PP
+.SS "#define fits_get_eqcoltype   ffeqty"
+.PP
+.SS "#define fits_get_eqcoltypell   ffeqtyll"
+.PP
+.SS "#define fits_get_errstatus   ffgerr"
+.PP
+.SS "#define fits_get_hdrpos   ffghps"
+.PP
+.SS "#define fits_get_hdrspace   ffghsp"
+.PP
+.SS "#define fits_get_hdu_num   ffghdn"
+.PP
+.SS "#define fits_get_hdu_type   ffghdt"
+.PP
+.SS "#define fits_get_hduaddr   ffghad"
+.PP
+.SS "#define fits_get_hduaddrll   ffghadll"
+.PP
+.SS "#define fits_get_hduoff   ffghof"
+.PP
+.SS "#define fits_get_image_wcs_keys   ffgiwcs"
+.PP
+.SS "#define fits_get_img_dim   ffgidm"
+.PP
+.SS "#define fits_get_img_equivtype   ffgiet"
+.PP
+.SS "#define fits_get_img_param   ffgipr"
+.PP
+.SS "#define fits_get_img_paramll   ffgiprll"
+.PP
+.SS "#define fits_get_img_size   ffgisz"
+.PP
+.SS "#define fits_get_img_sizell   ffgiszll"
+.PP
+.SS "#define fits_get_img_type   ffgidt"
+.PP
+.SS "#define fits_get_inttype   ffinttyp"
+.PP
+.SS "#define fits_get_keyclass   ffgkcl"
+.PP
+.SS "#define fits_get_keyname   ffgknm"
+.PP
+.SS "#define fits_get_keytype   ffdtyp"
+.PP
+.SS "#define fits_get_num_cols   ffgncl"
+.PP
+.SS "#define fits_get_num_groups   ffgmng"
+.PP
+.SS "#define fits_get_num_hdus   ffthdu"
+.PP
+.SS "#define fits_get_num_members   ffgtnm"
+.PP
+.SS "#define fits_get_num_rows   ffgnrw"
+.PP
+.SS "#define fits_get_num_rowsll   ffgnrwll"
+.PP
+.SS "#define fits_get_rowsize   ffgrsz"
+.PP
+.SS "#define fits_get_system_date   ffgsdt"
+.PP
+.SS "#define fits_get_system_time   ffgstm"
+.PP
+.SS "#define fits_get_table_wcs_keys   ffgtwcs"
+.PP
+.SS "#define fits_get_tbcol   ffgabc"
+.PP
+.SS "#define fits_get_version   ffvers"
+.PP
+.SS "#define fits_hdr2str   ffhdr2str"
+.PP
+.SS "#define fits_insert_atbl   ffitab"
+.PP
+.SS "#define fits_insert_btbl   ffibin"
+.PP
+.SS "#define fits_insert_card   ffikey"
+.PP
+.SS "#define fits_insert_col   fficol"
+.PP
+.SS "#define fits_insert_cols   fficls"
+.PP
+.SS "#define fits_insert_group   ffgtis"
+.PP
+.SS "#define fits_insert_img   ffiimg"
+.PP
+.SS "#define fits_insert_imgll   ffiimgll"
+.PP
+.SS "#define fits_insert_key_cmp   ffikyc"
+.PP
+.SS "#define fits_insert_key_dbl   ffikyd"
+.PP
+.SS "#define fits_insert_key_dblcmp   ffikym"
+.PP
+.SS "#define fits_insert_key_fixcmp   ffikfc"
+.PP
+.SS "#define fits_insert_key_fixdbl   ffikyg"
+.PP
+.SS "#define fits_insert_key_fixdblcmp   ffikfm"
+.PP
+.SS "#define fits_insert_key_fixflt   ffikyf"
+.PP
+.SS "#define fits_insert_key_flt   ffikye"
+.PP
+.SS "#define fits_insert_key_lng   ffikyj"
+.PP
+.SS "#define fits_insert_key_log   ffikyl"
+.PP
+.SS "#define fits_insert_key_longstr   ffikls"
+.PP
+.SS "#define fits_insert_key_null   ffikyu"
+.PP
+.SS "#define fits_insert_key_str   ffikys"
+.PP
+.SS "#define fits_insert_record   ffirec"
+.PP
+.SS "#define fits_insert_rows   ffirow"
+.PP
+.SS "#define fits_iterate_data   ffiter"
+.PP
+.SS "#define fits_make_keyn   ffkeyn"
+.PP
+.SS "#define fits_make_nkey   ffnkey"
+.PP
+.SS "#define fits_merge_groups   ffgtmg"
+.PP
+.SS "#define fits_modify_card   ffmcrd"
+.PP
+.SS "#define fits_modify_comment   ffmcom"
+.PP
+.SS "#define fits_modify_key_cmp   ffmkyc"
+.PP
+.SS "#define fits_modify_key_dbl   ffmkyd"
+.PP
+.SS "#define fits_modify_key_dblcmp   ffmkym"
+.PP
+.SS "#define fits_modify_key_fixcmp   ffmkfc"
+.PP
+.SS "#define fits_modify_key_fixdbl   ffmkyg"
+.PP
+.SS "#define fits_modify_key_fixdblcmp   ffmkfm"
+.PP
+.SS "#define fits_modify_key_fixflt   ffmkyf"
+.PP
+.SS "#define fits_modify_key_flt   ffmkye"
+.PP
+.SS "#define fits_modify_key_lng   ffmkyj"
+.PP
+.SS "#define fits_modify_key_log   ffmkyl"
+.PP
+.SS "#define fits_modify_key_longstr   ffmkls"
+.PP
+.SS "#define fits_modify_key_null   ffmkyu"
+.PP
+.SS "#define fits_modify_key_str   ffmkys"
+.PP
+.SS "#define fits_modify_name   ffmnam"
+.PP
+.SS "#define fits_modify_record   ffmrec"
+.PP
+.SS "#define fits_modify_vector_len   ffmvec"
+.PP
+.SS "#define fits_movabs_hdu   ffmahd"
+.PP
+.SS "#define fits_movabs_key   ffmaky"
+.PP
+.SS "#define fits_movnam_hdu   ffmnhd"
+.PP
+.SS "#define fits_movrel_hdu   ffmrhd"
+.PP
+.SS "#define fits_movrel_key   ffmrky"
+.PP
+.SS "#define fits_null_check   ffnchk"
+.PP
+.SS "#define fits_open_data   ffdopn"
+.PP
+.SS "#define fits_open_diskfile   ffdkopn"
+.PP
+.SS "#define fits_open_file(A, B, C, D)   ffopentest( CFITSIO_VERSION, A, B, C, D)"
+.PP
+.SS "#define fits_open_group   ffgtop"
+.PP
+.SS "#define fits_open_image   ffiopn"
+.PP
+.SS "#define fits_open_member   ffgmop"
+.PP
+.SS "#define fits_open_memfile   ffomem"
+.PP
+.SS "#define fits_open_table   fftopn"
+.PP
+.SS "#define fits_parse_binrange   ffbinr"
+.PP
+.SS "#define fits_parse_binspec   ffbins"
+.PP
+.SS "#define fits_parse_extnum   ffextn"
+.PP
+.SS "#define fits_parse_extspec   ffexts"
+.PP
+.SS "#define fits_parse_input_filename   ffifile"
+.PP
+.SS "#define fits_parse_input_url   ffiurl"
+.PP
+.SS "#define fits_parse_output_url   ffourl"
+.PP
+.SS "#define fits_parse_range   ffrwrg"
+.PP
+.SS "#define fits_parse_rangell   ffrwrgll"
+.PP
+.SS "#define fits_parse_rootname   ffrtnm"
+.PP
+.SS "#define fits_parse_template   ffgthd"
+.PP
+.SS "#define fits_parse_value   ffpsvc"
+.PP
+.SS "#define fits_pix_to_world   ffwldp"
+.PP
+.SS "#define fits_read_2d_byt   ffg2db"
+.PP
+.SS "#define fits_read_2d_dbl   ffg2dd"
+.PP
+.SS "#define fits_read_2d_flt   ffg2de"
+.PP
+.SS "#define fits_read_2d_int   ffg2dk"
+.PP
+.SS "#define fits_read_2d_lng   ffg2dj"
+.PP
+.SS "#define fits_read_2d_lnglng   ffg2djj"
+.PP
+.SS "#define fits_read_2d_sbyt   ffg2dsb"
+.PP
+.SS "#define fits_read_2d_sht   ffg2di"
+.PP
+.SS "#define fits_read_2d_uint   ffg2duk"
+.PP
+.SS "#define fits_read_2d_ulng   ffg2duj"
+.PP
+.SS "#define fits_read_2d_usht   ffg2dui"
+.PP
+.SS "#define fits_read_3d_byt   ffg3db"
+.PP
+.SS "#define fits_read_3d_dbl   ffg3dd"
+.PP
+.SS "#define fits_read_3d_flt   ffg3de"
+.PP
+.SS "#define fits_read_3d_int   ffg3dk"
+.PP
+.SS "#define fits_read_3d_lng   ffg3dj"
+.PP
+.SS "#define fits_read_3d_lnglng   ffg3djj"
+.PP
+.SS "#define fits_read_3d_sbyt   ffg3dsb"
+.PP
+.SS "#define fits_read_3d_sht   ffg3di"
+.PP
+.SS "#define fits_read_3d_uint   ffg3duk"
+.PP
+.SS "#define fits_read_3d_ulng   ffg3duj"
+.PP
+.SS "#define fits_read_3d_usht   ffg3dui"
+.PP
+.SS "#define fits_read_atblhdr   ffghtb"
+.PP
+.SS "#define fits_read_atblhdrll   ffghtbll"
+.PP
+.SS "#define fits_read_btblhdr   ffghbn"
+.PP
+.SS "#define fits_read_btblhdrll   ffghbnll"
+.PP
+.SS "#define fits_read_card   ffgcrd"
+.PP
+.SS "#define fits_read_col   ffgcv"
+.PP
+.SS "#define fits_read_col_bit   ffgcx"
+.PP
+.SS "#define fits_read_col_bit_uint   ffgcxuk"
+.PP
+.SS "#define fits_read_col_bit_usht   ffgcxui"
+.PP
+.SS "#define fits_read_col_byt   ffgcvb"
+.PP
+.SS "#define fits_read_col_cmp   ffgcvc"
+.PP
+.SS "#define fits_read_col_dbl   ffgcvd"
+.PP
+.SS "#define fits_read_col_dblcmp   ffgcvm"
+.PP
+.SS "#define fits_read_col_flt   ffgcve"
+.PP
+.SS "#define fits_read_col_int   ffgcvk"
+.PP
+.SS "#define fits_read_col_lng   ffgcvj"
+.PP
+.SS "#define fits_read_col_lnglng   ffgcvjj"
+.PP
+.SS "#define fits_read_col_log   ffgcvl"
+.PP
+.SS "#define fits_read_col_sbyt   ffgcvsb"
+.PP
+.SS "#define fits_read_col_sht   ffgcvi"
+.PP
+.SS "#define fits_read_col_str   ffgcvs"
+.PP
+.SS "#define fits_read_col_uint   ffgcvuk"
+.PP
+.SS "#define fits_read_col_ulng   ffgcvuj"
+.PP
+.SS "#define fits_read_col_usht   ffgcvui"
+.PP
+.SS "#define fits_read_colnull   ffgcf"
+.PP
+.SS "#define fits_read_colnull_byt   ffgcfb"
+.PP
+.SS "#define fits_read_colnull_cmp   ffgcfc"
+.PP
+.SS "#define fits_read_colnull_dbl   ffgcfd"
+.PP
+.SS "#define fits_read_colnull_dblcmp   ffgcfm"
+.PP
+.SS "#define fits_read_colnull_flt   ffgcfe"
+.PP
+.SS "#define fits_read_colnull_int   ffgcfk"
+.PP
+.SS "#define fits_read_colnull_lng   ffgcfj"
+.PP
+.SS "#define fits_read_colnull_lnglng   ffgcfjj"
+.PP
+.SS "#define fits_read_colnull_log   ffgcfl"
+.PP
+.SS "#define fits_read_colnull_sbyt   ffgcfsb"
+.PP
+.SS "#define fits_read_colnull_sht   ffgcfi"
+.PP
+.SS "#define fits_read_colnull_str   ffgcfs"
+.PP
+.SS "#define fits_read_colnull_uint   ffgcfuk"
+.PP
+.SS "#define fits_read_colnull_ulng   ffgcfuj"
+.PP
+.SS "#define fits_read_colnull_usht   ffgcfui"
+.PP
+.SS "#define fits_read_descript   ffgdes"
+.PP
+.SS "#define fits_read_descriptll   ffgdesll"
+.PP
+.SS "#define fits_read_descripts   ffgdess"
+.PP
+.SS "#define fits_read_descriptsll   ffgdessll"
+.PP
+.SS "#define fits_read_errmsg   ffgmsg"
+.PP
+.SS "#define fits_read_ext   ffgextn"
+.PP
+.SS "#define fits_read_grppar_byt   ffggpb"
+.PP
+.SS "#define fits_read_grppar_dbl   ffggpd"
+.PP
+.SS "#define fits_read_grppar_flt   ffggpe"
+.PP
+.SS "#define fits_read_grppar_int   ffggpk"
+.PP
+.SS "#define fits_read_grppar_lng   ffggpj"
+.PP
+.SS "#define fits_read_grppar_lnglng   ffggpjj"
+.PP
+.SS "#define fits_read_grppar_sbyt   ffggpsb"
+.PP
+.SS "#define fits_read_grppar_sht   ffggpi"
+.PP
+.SS "#define fits_read_grppar_uint   ffggpuk"
+.PP
+.SS "#define fits_read_grppar_ulng   ffggpuj"
+.PP
+.SS "#define fits_read_grppar_usht   ffggpui"
+.PP
+.SS "#define fits_read_img   ffgpv"
+.PP
+.SS "#define fits_read_img_byt   ffgpvb"
+.PP
+.SS "#define fits_read_img_coord   ffgics"
+.PP
+.SS "#define fits_read_img_dbl   ffgpvd"
+.PP
+.SS "#define fits_read_img_flt   ffgpve"
+.PP
+.SS "#define fits_read_img_int   ffgpvk"
+.PP
+.SS "#define fits_read_img_lng   ffgpvj"
+.PP
+.SS "#define fits_read_img_lnglng   ffgpvjj"
+.PP
+.SS "#define fits_read_img_sbyt   ffgpvsb"
+.PP
+.SS "#define fits_read_img_sht   ffgpvi"
+.PP
+.SS "#define fits_read_img_uint   ffgpvuk"
+.PP
+.SS "#define fits_read_img_ulng   ffgpvuj"
+.PP
+.SS "#define fits_read_img_usht   ffgpvui"
+.PP
+.SS "#define fits_read_imghdr   ffghpr"
+.PP
+.SS "#define fits_read_imghdrll   ffghprll"
+.PP
+.SS "#define fits_read_imgnull   ffgpf"
+.PP
+.SS "#define fits_read_imgnull_byt   ffgpfb"
+.PP
+.SS "#define fits_read_imgnull_dbl   ffgpfd"
+.PP
+.SS "#define fits_read_imgnull_flt   ffgpfe"
+.PP
+.SS "#define fits_read_imgnull_int   ffgpfk"
+.PP
+.SS "#define fits_read_imgnull_lng   ffgpfj"
+.PP
+.SS "#define fits_read_imgnull_lnglng   ffgpfjj"
+.PP
+.SS "#define fits_read_imgnull_sbyt   ffgpfsb"
+.PP
+.SS "#define fits_read_imgnull_sht   ffgpfi"
+.PP
+.SS "#define fits_read_imgnull_uint   ffgpfuk"
+.PP
+.SS "#define fits_read_imgnull_ulng   ffgpfuj"
+.PP
+.SS "#define fits_read_imgnull_usht   ffgpfui"
+.PP
+.SS "#define fits_read_key   ffgky"
+.PP
+.SS "#define fits_read_key_cmp   ffgkyc"
+.PP
+.SS "#define fits_read_key_dbl   ffgkyd"
+.PP
+.SS "#define fits_read_key_dblcmp   ffgkym"
+.PP
+.SS "#define fits_read_key_flt   ffgkye"
+.PP
+.SS "#define fits_read_key_lng   ffgkyj"
+.PP
+.SS "#define fits_read_key_lnglng   ffgkyjj"
+.PP
+.SS "#define fits_read_key_log   ffgkyl"
+.PP
+.SS "#define fits_read_key_longstr   ffgkls"
+.PP
+.SS "#define fits_read_key_str   ffgkys"
+.PP
+.SS "#define fits_read_key_triple   ffgkyt"
+.PP
+.SS "#define fits_read_key_unit   ffgunt"
+.PP
+.SS "#define fits_read_keyn   ffgkyn"
+.PP
+.SS "#define fits_read_keys_dbl   ffgknd"
+.PP
+.SS "#define fits_read_keys_flt   ffgkne"
+.PP
+.SS "#define fits_read_keys_lng   ffgknj"
+.PP
+.SS "#define fits_read_keys_lnglng   ffgknjj"
+.PP
+.SS "#define fits_read_keys_log   ffgknl"
+.PP
+.SS "#define fits_read_keys_str   ffgkns"
+.PP
+.SS "#define fits_read_keyword   ffgkey"
+.PP
+.SS "#define fits_read_pix   ffgpxv"
+.PP
+.SS "#define fits_read_pixll   ffgpxvll"
+.PP
+.SS "#define fits_read_pixnull   ffgpxf"
+.PP
+.SS "#define fits_read_pixnullll   ffgpxfll"
+.PP
+.SS "#define fits_read_record   ffgrec"
+.PP
+.SS "#define fits_read_str   ffgstr"
+.PP
+.SS "#define fits_read_subset   ffgsv"
+.PP
+.SS "#define fits_read_subset_byt   ffgsvb"
+.PP
+.SS "#define fits_read_subset_dbl   ffgsvd"
+.PP
+.SS "#define fits_read_subset_flt   ffgsve"
+.PP
+.SS "#define fits_read_subset_int   ffgsvk"
+.PP
+.SS "#define fits_read_subset_lng   ffgsvj"
+.PP
+.SS "#define fits_read_subset_lnglng   ffgsvjj"
+.PP
+.SS "#define fits_read_subset_sbyt   ffgsvsb"
+.PP
+.SS "#define fits_read_subset_sht   ffgsvi"
+.PP
+.SS "#define fits_read_subset_uint   ffgsvuk"
+.PP
+.SS "#define fits_read_subset_ulng   ffgsvuj"
+.PP
+.SS "#define fits_read_subset_usht   ffgsvui"
+.PP
+.SS "#define fits_read_subsetnull_byt   ffgsfb"
+.PP
+.SS "#define fits_read_subsetnull_dbl   ffgsfd"
+.PP
+.SS "#define fits_read_subsetnull_flt   ffgsfe"
+.PP
+.SS "#define fits_read_subsetnull_int   ffgsfk"
+.PP
+.SS "#define fits_read_subsetnull_lng   ffgsfj"
+.PP
+.SS "#define fits_read_subsetnull_lnglng   ffgsfjj"
+.PP
+.SS "#define fits_read_subsetnull_sbyt   ffgsfsb"
+.PP
+.SS "#define fits_read_subsetnull_sht   ffgsfi"
+.PP
+.SS "#define fits_read_subsetnull_uint   ffgsfuk"
+.PP
+.SS "#define fits_read_subsetnull_ulng   ffgsfuj"
+.PP
+.SS "#define fits_read_subsetnull_usht   ffgsfui"
+.PP
+.SS "#define fits_read_tbl_coord   ffgtcs"
+.PP
+.SS "#define fits_read_tblbytes   ffgtbb"
+.PP
+.SS "#define fits_read_tdim   ffgtdm"
+.PP
+.SS "#define fits_read_tdimll   ffgtdmll"
+.PP
+.SS "#define fits_remove_group   ffgtrm"
+.PP
+.SS "#define fits_remove_member   ffgmrm"
+.PP
+.SS "#define fits_reopen_file   ffreopen"
+.PP
+.SS "#define fits_report_error   ffrprt"
+.PP
+.SS "#define fits_resize_img   ffrsim"
+.PP
+.SS "#define fits_resize_imgll   ffrsimll"
+.PP
+.SS "#define fits_select_rows   ffsrow"
+.PP
+.SS "#define fits_set_atblnull   ffsnul"
+.PP
+.SS "#define fits_set_bscale   ffpscl"
+.PP
+.SS "#define fits_set_btblnull   fftnul"
+.PP
+.SS "#define fits_set_hdrsize   ffhdef"
+.PP
+.SS "#define fits_set_hdustruc   ffrdef"
+.PP
+.SS "#define fits_set_imgnull   ffpnul"
+.PP
+.SS "#define fits_set_tscale   fftscl"
+.PP
+.SS "#define fits_str2date   ffs2dt"
+.PP
+.SS "#define fits_str2time   ffs2tm"
+.PP
+.SS "#define fits_test_expr   fftexp"
+.PP
+.SS "#define fits_test_heap   fftheap"
+.PP
+.SS "#define fits_test_keyword   fftkey"
+.PP
+.SS "#define fits_test_record   fftrec"
+.PP
+.SS "#define fits_time2str   fftm2s"
+.PP
+.SS "#define fits_transfer_member   ffgmtf"
+.PP
+.SS "#define fits_update_card   ffucrd"
+.PP
+.SS "#define fits_update_chksum   ffupck"
+.PP
+.SS "#define fits_update_key   ffuky"
+.PP
+.SS "#define fits_update_key_cmp   ffukyc"
+.PP
+.SS "#define fits_update_key_dbl   ffukyd"
+.PP
+.SS "#define fits_update_key_dblcmp   ffukym"
+.PP
+.SS "#define fits_update_key_fixcmp   ffukfc"
+.PP
+.SS "#define fits_update_key_fixdbl   ffukyg"
+.PP
+.SS "#define fits_update_key_fixdblcmp   ffukfm"
+.PP
+.SS "#define fits_update_key_fixflt   ffukyf"
+.PP
+.SS "#define fits_update_key_flt   ffukye"
+.PP
+.SS "#define fits_update_key_lng   ffukyj"
+.PP
+.SS "#define fits_update_key_log   ffukyl"
+.PP
+.SS "#define fits_update_key_longstr   ffukls"
+.PP
+.SS "#define fits_update_key_null   ffukyu"
+.PP
+.SS "#define fits_update_key_str   ffukys"
+.PP
+.SS "#define fits_uppercase   ffupch"
+.PP
+.SS "#define fits_url_type   ffurlt"
+.PP
+.SS "#define fits_verify_chksum   ffvcks"
+.PP
+.SS "#define fits_verify_group   ffgtvf"
+.PP
+.SS "#define fits_world_to_pix   ffxypx"
+.PP
+.SS "#define fits_write_2d_byt   ffp2db"
+.PP
+.SS "#define fits_write_2d_dbl   ffp2dd"
+.PP
+.SS "#define fits_write_2d_flt   ffp2de"
+.PP
+.SS "#define fits_write_2d_int   ffp2dk"
+.PP
+.SS "#define fits_write_2d_lng   ffp2dj"
+.PP
+.SS "#define fits_write_2d_lnglng   ffp2djj"
+.PP
+.SS "#define fits_write_2d_sbyt   ffp2dsb"
+.PP
+.SS "#define fits_write_2d_sht   ffp2di"
+.PP
+.SS "#define fits_write_2d_uint   ffp2duk"
+.PP
+.SS "#define fits_write_2d_ulng   ffp2duj"
+.PP
+.SS "#define fits_write_2d_usht   ffp2dui"
+.PP
+.SS "#define fits_write_3d_byt   ffp3db"
+.PP
+.SS "#define fits_write_3d_dbl   ffp3dd"
+.PP
+.SS "#define fits_write_3d_flt   ffp3de"
+.PP
+.SS "#define fits_write_3d_int   ffp3dk"
+.PP
+.SS "#define fits_write_3d_lng   ffp3dj"
+.PP
+.SS "#define fits_write_3d_lnglng   ffp3djj"
+.PP
+.SS "#define fits_write_3d_sbyt   ffp3dsb"
+.PP
+.SS "#define fits_write_3d_sht   ffp3di"
+.PP
+.SS "#define fits_write_3d_uint   ffp3duk"
+.PP
+.SS "#define fits_write_3d_ulng   ffp3duj"
+.PP
+.SS "#define fits_write_3d_usht   ffp3dui"
+.PP
+.SS "#define fits_write_atblhdr   ffphtb"
+.PP
+.SS "#define fits_write_btblhdr   ffphbn"
+.PP
+.SS "#define fits_write_chksum   ffpcks"
+.PP
+.SS "#define fits_write_col   ffpcl"
+.PP
+.SS "#define fits_write_col_bit   ffpclx"
+.PP
+.SS "#define fits_write_col_byt   ffpclb"
+.PP
+.SS "#define fits_write_col_cmp   ffpclc"
+.PP
+.SS "#define fits_write_col_dbl   ffpcld"
+.PP
+.SS "#define fits_write_col_dblcmp   ffpclm"
+.PP
+.SS "#define fits_write_col_flt   ffpcle"
+.PP
+.SS "#define fits_write_col_int   ffpclk"
+.PP
+.SS "#define fits_write_col_lng   ffpclj"
+.PP
+.SS "#define fits_write_col_lnglng   ffpcljj"
+.PP
+.SS "#define fits_write_col_log   ffpcll"
+.PP
+.SS "#define fits_write_col_null   ffpclu"
+.PP
+.SS "#define fits_write_col_sbyt   ffpclsb"
+.PP
+.SS "#define fits_write_col_sht   ffpcli"
+.PP
+.SS "#define fits_write_col_str   ffpcls"
+.PP
+.SS "#define fits_write_col_uint   ffpcluk"
+.PP
+.SS "#define fits_write_col_ulng   ffpcluj"
+.PP
+.SS "#define fits_write_col_usht   ffpclui"
+.PP
+.SS "#define fits_write_colnull   ffpcn"
+.PP
+.SS "#define fits_write_colnull_byt   ffpcnb"
+.PP
+.SS "#define fits_write_colnull_dbl   ffpcnd"
+.PP
+.SS "#define fits_write_colnull_flt   ffpcne"
+.PP
+.SS "#define fits_write_colnull_int   ffpcnk"
+.PP
+.SS "#define fits_write_colnull_lng   ffpcnj"
+.PP
+.SS "#define fits_write_colnull_lnglng   ffpcnjj"
+.PP
+.SS "#define fits_write_colnull_log   ffpcnl"
+.PP
+.SS "#define fits_write_colnull_sbyt   ffpcnsb"
+.PP
+.SS "#define fits_write_colnull_sht   ffpcni"
+.PP
+.SS "#define fits_write_colnull_str   ffpcns"
+.PP
+.SS "#define fits_write_colnull_uint   ffpcnuk"
+.PP
+.SS "#define fits_write_colnull_ulng   ffpcnuj"
+.PP
+.SS "#define fits_write_colnull_usht   ffpcnui"
+.PP
+.SS "#define fits_write_comment   ffpcom"
+.PP
+.SS "#define fits_write_date   ffpdat"
+.PP
+.SS "#define fits_write_descript   ffpdes"
+.PP
+.SS "#define fits_write_errmark   ffpmrk"
+.PP
+.SS "#define fits_write_errmsg   ffpmsg"
+.PP
+.SS "#define fits_write_ext   ffpextn"
+.PP
+.SS "#define fits_write_exthdr   ffphext"
+.PP
+.SS "#define fits_write_grphdr   ffphpr"
+.PP
+.SS "#define fits_write_grphdrll   ffphprll"
+.PP
+.SS "#define fits_write_grppar_byt   ffpgpb"
+.PP
+.SS "#define fits_write_grppar_dbl   ffpgpd"
+.PP
+.SS "#define fits_write_grppar_flt   ffpgpe"
+.PP
+.SS "#define fits_write_grppar_int   ffpgpk"
+.PP
+.SS "#define fits_write_grppar_lng   ffpgpj"
+.PP
+.SS "#define fits_write_grppar_lnglng   ffpgpjj"
+.PP
+.SS "#define fits_write_grppar_sbyt   ffpgpsb"
+.PP
+.SS "#define fits_write_grppar_sht   ffpgpi"
+.PP
+.SS "#define fits_write_grppar_uint   ffpgpuk"
+.PP
+.SS "#define fits_write_grppar_ulng   ffpgpuj"
+.PP
+.SS "#define fits_write_grppar_usht   ffpgpui"
+.PP
+.SS "#define fits_write_hdu   ffwrhdu"
+.PP
+.SS "#define fits_write_history   ffphis"
+.PP
+.SS "#define fits_write_img   ffppr"
+.PP
+.SS "#define fits_write_img_byt   ffpprb"
+.PP
+.SS "#define fits_write_img_dbl   ffpprd"
+.PP
+.SS "#define fits_write_img_flt   ffppre"
+.PP
+.SS "#define fits_write_img_int   ffpprk"
+.PP
+.SS "#define fits_write_img_lng   ffpprj"
+.PP
+.SS "#define fits_write_img_lnglng   ffpprjj"
+.PP
+.SS "#define fits_write_img_null   ffppru"
+.PP
+.SS "#define fits_write_img_sbyt   ffpprsb"
+.PP
+.SS "#define fits_write_img_sht   ffppri"
+.PP
+.SS "#define fits_write_img_uint   ffppruk"
+.PP
+.SS "#define fits_write_img_ulng   ffppruj"
+.PP
+.SS "#define fits_write_img_usht   ffpprui"
+.PP
+.SS "#define fits_write_imghdr   ffphps"
+.PP
+.SS "#define fits_write_imghdrll   ffphpsll"
+.PP
+.SS "#define fits_write_imgnull   ffppn"
+.PP
+.SS "#define fits_write_imgnull_byt   ffppnb"
+.PP
+.SS "#define fits_write_imgnull_dbl   ffppnd"
+.PP
+.SS "#define fits_write_imgnull_flt   ffppne"
+.PP
+.SS "#define fits_write_imgnull_int   ffppnk"
+.PP
+.SS "#define fits_write_imgnull_lng   ffppnj"
+.PP
+.SS "#define fits_write_imgnull_lnglng   ffppnjj"
+.PP
+.SS "#define fits_write_imgnull_sbyt   ffppnsb"
+.PP
+.SS "#define fits_write_imgnull_sht   ffppni"
+.PP
+.SS "#define fits_write_imgnull_uint   ffppnuk"
+.PP
+.SS "#define fits_write_imgnull_ulng   ffppnuj"
+.PP
+.SS "#define fits_write_imgnull_usht   ffppnui"
+.PP
+.SS "#define fits_write_key   ffpky"
+.PP
+.SS "#define fits_write_key_cmp   ffpkyc"
+.PP
+.SS "#define fits_write_key_dbl   ffpkyd"
+.PP
+.SS "#define fits_write_key_dblcmp   ffpkym"
+.PP
+.SS "#define fits_write_key_fixcmp   ffpkfc"
+.PP
+.SS "#define fits_write_key_fixdbl   ffpkyg"
+.PP
+.SS "#define fits_write_key_fixdblcmp   ffpkfm"
+.PP
+.SS "#define fits_write_key_fixflt   ffpkyf"
+.PP
+.SS "#define fits_write_key_flt   ffpkye"
+.PP
+.SS "#define fits_write_key_lng   ffpkyj"
+.PP
+.SS "#define fits_write_key_log   ffpkyl"
+.PP
+.SS "#define fits_write_key_longstr   ffpkls"
+.PP
+.SS "#define fits_write_key_longwarn   ffplsw"
+.PP
+.SS "#define fits_write_key_null   ffpkyu"
+.PP
+.SS "#define fits_write_key_str   ffpkys"
+.PP
+.SS "#define fits_write_key_template   ffpktp"
+.PP
+.SS "#define fits_write_key_triple   ffpkyt"
+.PP
+.SS "#define fits_write_key_unit   ffpunt"
+.PP
+.SS "#define fits_write_keys_dbl   ffpknd"
+.PP
+.SS "#define fits_write_keys_fixdbl   ffpkng"
+.PP
+.SS "#define fits_write_keys_fixflt   ffpknf"
+.PP
+.SS "#define fits_write_keys_flt   ffpkne"
+.PP
+.SS "#define fits_write_keys_lng   ffpknj"
+.PP
+.SS "#define fits_write_keys_log   ffpknl"
+.PP
+.SS "#define fits_write_keys_str   ffpkns"
+.PP
+.SS "#define fits_write_null_img   ffpprn"
+.PP
+.SS "#define fits_write_nullrows   ffprwu"
+.PP
+.SS "#define fits_write_nulrows   ffprwu"
+.PP
+.SS "#define fits_write_pix   ffppx"
+.PP
+.SS "#define fits_write_pixll   ffppxll"
+.PP
+.SS "#define fits_write_pixnull   ffppxn"
+.PP
+.SS "#define fits_write_pixnullll   ffppxnll"
+.PP
+.SS "#define fits_write_record   ffprec"
+.PP
+.SS "#define fits_write_subset   ffpss"
+.PP
+.SS "#define fits_write_subset_byt   ffpssb"
+.PP
+.SS "#define fits_write_subset_dbl   ffpssd"
+.PP
+.SS "#define fits_write_subset_flt   ffpsse"
+.PP
+.SS "#define fits_write_subset_int   ffpssk"
+.PP
+.SS "#define fits_write_subset_lng   ffpssj"
+.PP
+.SS "#define fits_write_subset_lnglng   ffpssjj"
+.PP
+.SS "#define fits_write_subset_sbyt   ffpsssb"
+.PP
+.SS "#define fits_write_subset_sht   ffpssi"
+.PP
+.SS "#define fits_write_subset_uint   ffpssuk"
+.PP
+.SS "#define fits_write_subset_ulng   ffpssuj"
+.PP
+.SS "#define fits_write_subset_usht   ffpssui"
+.PP
+.SS "#define fits_write_tblbytes   ffptbb"
+.PP
+.SS "#define fits_write_tdim   ffptdm"
+.PP
+.SS "#define fits_write_tdimll   ffptdmll"
+.PP
+.SS "#define fits_write_theap   ffpthp"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

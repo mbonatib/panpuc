@@ -1,0 +1,11 @@
+Name= BUFMGR
+Description= Mmeory Buffers manager
+Type= resident
+Class = General
+Dynamic_Calls= 0
+Clib= yes
+Driver= none
+Standard= no
+keywords= memory, buffer, images, pointer
+VERSION= 0.8
+VERSION= 0.9

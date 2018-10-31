@@ -1,0 +1,67 @@
+.TH "panview_current/PAN/Modules/GUNSC/private/c/src/GU_queue.c" 3 "29 May 2012" "Version 10.2" "GUNSC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GUNSC/private/c/src/GU_queue.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/msg.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <sys/ipc.h>\fP
+.br
+\fC#include <sys/shm.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include 'GU_queue.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBGUQ_GetRef\fP (char *name)"
+.br
+.ti -1c
+.RI "int \fBGUQ_GetMsg\fP (int qid, char *msg, long *type, int wait)"
+.br
+.ti -1c
+.RI "void \fBGUQ_SendMsg\fP (int qid, char *msg, long type)"
+.br
+.ti -1c
+.RI "int \fBGUQ_WaitMessages\fP (int qid)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBqmsg_t\fP \fBmessage\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int GUQ_GetMsg (int qid, char * msg, long * type, int wait)"
+.PP
+.SS "int GUQ_GetRef (char * name)"
+.PP
+.SS "void GUQ_SendMsg (int qid, char * msg, long type)"
+.PP
+.SS "int GUQ_WaitMessages (int qid)"
+.PP
+.SH "Variable Documentation"
+.PP 
+.SS "\fBqmsg_t\fP \fBmessage\fP"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GUNSC from the source code.

@@ -1,0 +1,16 @@
+#! /bin/csh -f
+
+if ("$1" == "") then
+       	set currdir = `cd ../../Modules; pwd`
+	set MODSDIR = $currdir
+else
+	set MODSDIR = $1
+endif
+echo $MODSDIR
+set modslist = `ls $MODSDIR`
+foreach module ($modslist) 
+	if (-e $MODSDIR/$module/INFO.txt) then
+	 	echo "******************************************************"
+		cat $MODSDIR/$module/INFO.txt
+	endif
+end

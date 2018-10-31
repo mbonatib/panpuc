@@ -1,0 +1,1404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+                                                                        
+                        
+  
+  
+  <title>DHE_CommandList</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+
+<body>
+
+                  
+<h1>  Command List for the Detector Head Electronics (DHE)</h1>
+
+                The following list describes the command and parameters available
+ for   ANY&nbsp; detector controller module (DHE).<br>
+
+              All the listed commands MUST begin with the prefix <b>DHE or
+&lt;module_name&gt;.</b>  The  system   is case  INSENSITIVE.<br>
+
+      Note that commands on section 1 (Observer commands) are totally generic, 
+and are the same for any DHE module. Most of the commands on section 2 (engineering 
+commands) are generic too, but some of them are closelly related to the hardware, 
+which implies that they must be specific for an specific DHE.<br>
+
+   The ones described here are all the DHE commonly supported commands. Any
+DHE module may implement another commands, specific for that controller hardware.
+For those commands consult the specific controller module manual.<br>
+
+   <br>
+
+              <u><b> Command prefix: DHE</b></u><br>
+
+                    
+<h2>1.- Observer Commands</h2>
+
+            This is the list of commands that will be normally used during
+an observation.    This are useful commands for the normal user.<br>
+
+                    
+<h3>1.1- Initialization</h3>
+
+             <b>INIT <i>[&lt;dhe_confpath&gt;]</i><br>
+
+              </b><i><u>description</u></i><b><br>
+
+              &nbsp;&nbsp;&nbsp;</b> Initializes the controller. After the
+completion     of this command, the system will be ready for taking images.
+&nbsp;The  initialization  will perform basically the following steps:<br>
+
+            &nbsp;&nbsp;&nbsp; Initializes the geometry<br>
+
+            &nbsp;&nbsp;&nbsp; Initializes the controller hardware<br>
+
+    &nbsp; &nbsp; Initializes the GFITS and GUNSC modules<br>
+
+            &nbsp;&nbsp;&nbsp; executes any custom command(s) specified (can
+include    any command described on this document),<br>
+
+            &nbsp;&nbsp;&nbsp; returns the status.<br>
+
+            &nbsp;&nbsp;&nbsp; <br>
+
+             <i><u> parameters</u></i><br>
+
+              &nbsp;&nbsp;&nbsp; <b><i>&lt;dhe_confpath&gt;</i></b>: path
+to the  configuration   file. The configuration file describes how the array
+and electronics should   be initialized.&nbsp;<br>
+
+            <br>
+
+                    
+<h3><a name="1.2.-_Exposure_Setup_"></a>1.2.- Exposure Setup<br>
+
+             </h3>
+
+              <b>SET</b> <b><i>&lt;param1&gt;</i></b><i>[=]  <b>&lt;value1&gt;</b></i><b><i>
+         [, &lt;param2&gt;[=] &lt;value2&gt;,&nbsp; ... &lt;paramN&gt;[=]&lt;valueN&gt;]</i></b><br>
+
+            <u><i>description </i></u><br>
+
+             Sets the parameter to the specified value. <br>
+
+             <br>
+
+             <u><i>parameters &nbsp;<br>
+
+            </i></u>The sintax can be "param=value" (with or without blanks)
+or  just   "param val" (blank-separated). If there are multiples pairs, then
+they must   be separated by comma (,)<br>
+
+              <b><i>&nbsp; &nbsp; &nbsp;exposuretime </i></b>&lt;value&gt;
+['[s  |  ms]']  &nbsp;&nbsp; : sets  the exposure time value for the next
+exposure.   This value will be held untill  a new &lt;exposuretime&gt;  command
+is issued.&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+&nbsp;&nbsp; If no  time  unit is specified,  it will assume milliseconds.
+<br>
+
+             <i><b>&nbsp; &nbsp; &nbsp;write_to_disk</b></i> <i>&lt;yes |
+no&gt;&nbsp;&nbsp;<b>      &nbsp;</b></i> &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+: write the generated    image to disk or not <br>
+
+             <b><i>&nbsp; &nbsp; &nbsp;multipleextensions</i></b> <i>&lt;yes
+|  no&gt;</i>    &nbsp;&nbsp;&nbsp; : says  if the format of the output images
+ should be  multiple extension images or  plain (single) fits images<br>
+
+              <b><i>&nbsp; &nbsp; &nbsp;displayimage</i></b>&nbsp;&nbsp;&nbsp; 
+<i>   &lt;yes  | no&gt;</i>&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+  : says if  you want to automatically display  the image (after read or
+RTD)<i><br>
+
+             <b>&nbsp; &nbsp; &nbsp;imagetitle</b></i>  <i>&lt;title&gt;</i>
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  : sets the title for the image<br>
+
+             <b><i>&nbsp; &nbsp; &nbsp;imagecomment</i></b> <i>&lt;comment&gt;</i>
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;  : sets a comment to appear on the headers<br>
+
+            <b><i>&nbsp; &nbsp; &nbsp;imagenumber </i></b><i>&lt;number&gt;</i><b><i>
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; : </i></b>sets the 
+ starting  number for the sequence of images (see examples below)<b><i><br>
+
+           &nbsp; &nbsp; &nbsp;imagestoread</i></b>&nbsp; <i>&lt;number&gt;</i>
+ &nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : sets the amount 
+of images to be read  in the sequence<br>
+
+            <i><b>&nbsp; &nbsp; &nbsp;rootname</b></i> <i>&lt;path+basename&gt;</i>
+     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; : sets the "rootname" for the image. 
+This   names INCLUDES the path (see the examples below)<br>
+
+    &nbsp; &nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;">basename</span> &lt;basename&gt;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : sets the basename
+only<br>
+
+    &nbsp; &nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;">directory</span> &lt;path&gt;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : sets the directory only<br>
+
+   &nbsp; &nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;">coadds </span>&lt;ncoadds&gt;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; : sets the number of coadds. (IR only)<br>
+
+   &nbsp; &nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;">fowler</span> &lt;nfowler&gt;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; : sets the number of fowler samples (IR only)<br>
+
+   &nbsp; &nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;">sur</span> (nsur&gt;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;: sets the number os sumple up the ramp frames (IR only)<br>
+
+             <br>
+
+             <u><i>return value</i></u><br>
+
+             DONE on success, <br>
+
+             ERROR: &lt;error message&gt; [error code] on failure<br>
+
+             <br>
+
+             <u><i>examples</i></u><br>
+
+   <small style="font-weight: bold; font-style: italic;">           &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;    DHE  SET displayimage
+yes<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+  DHE  SET exposuretime = 3.2[s]&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*would be equivalent to "3200 [ms]", 
+   or just "3200" */<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+  DHE  SET exposuretime = 3200, write_to_disk&nbsp; yes, imagetitle = this
+ is a test image, displayimage =no<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+DHE SET rootname /home/wirc/images/dark, imagenumber 5, imagestoread&nbsp;
+3&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;/*this says:&nbsp; read 3 images,
+which will be located at &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+/home/wirc/images, and that will be named <br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; dark0005.fits 
+--&gt;   dark0008.fits<br>
+
+   </small>                   
+<h3>1.3.- Observation Commands</h3>
+
+              <b>EXPOSE</b><br>
+
+             <u><i>description</i></u><br>
+
+             Starts an exposition with the previously set parameters. An
+"exposition"     may consists on N images, each of which will have the same
+exposure time.     For the Infrared case, each image may have M coadds with
+K fowler samples     each, or S sumple up the ramp frames.<br>
+
+             <br>
+
+             <u><i>return value</i></u><br>
+
+              DONE on success, <br>
+
+              ERROR: &lt;error message&gt; [error code] on failure<br>
+
+             <br>
+
+             <br>
+
+             <b>ABORT</b><br>
+
+             <u><i>description</i></u><br>
+
+             Aborts all the ongoing activity, as well as all the remainig
+activity   on  the same exposure, returning the system to an "idle" state.
+This means   that  if it is in the middle of an exposure, it will abort the
+exposure,  the following  image read, and will skip all the remaining images
+if it was  in a sequence.  After the abort, the system will be idle.<br>
+
+             <br>
+
+             <u><i>return value</i></u><br>
+
+             DONE on success<br>
+
+              ERR: &lt;error message&gt; [error code] on failure<br>
+
+             <br>
+
+             <br>
+
+             <b>STOP</b><br>
+
+             <u><i>desciription</i></u><br>
+
+             Stops the current sequence, but waits untill the current image
+(the  one   in progress) finishes normally. This means that if it is exposing, 
+it will   wait untill the current &nbsp;exposure finishes, then it will read 
+ out and   write that image, and then will skip the rest of the images if 
+it was in  a sequence. After the stop, the system will be idle<br>
+
+             <br>
+
+             <u><i>return value</i></u><br>
+
+              DONE on success, <br>
+
+              ERR: &lt;error message&gt; [error code] on failure<br>
+
+             <br>
+
+             <br>
+
+             <b>DISCARD</b><br>
+
+             <u><i>description</i></u><br>
+
+             Discards current image, but continues with the next one. Thsi
+command   will  abort only the current image, and will continue with the
+next ones.   <br>
+
+             <u><i><br>
+
+             return value</i></u><br>
+
+              DONE on success, <br>
+
+               ERR: &lt;error message&gt; [error code] on failure<br>
+
+             <br>
+
+             <br>
+
+             <b>PAUSE</b><br>
+
+             <u><i>description</i></u><br>
+
+             Pauses the current exposure, by closing the shutter (Optical
+only)<br>
+
+             <br>
+
+             <u><i>return value</i></u><br>
+
+              DONE on success, <br>
+
+               ERR: &lt;error message&gt; [error code] on failure (if not
+exposing   it  will return an error)<br>
+
+             <br>
+
+             <br>
+
+             <b>RESUME</b><br>
+
+             <u><i>description</i></u><br>
+
+             Resumes a paused exposure, opening the shutter (Optical only)<br>
+
+             <u><i><br>
+
+             return value</i></u><br>
+
+             DONE on sucees<br>
+
+             ERR: &lt;error message&gt; [error code] on failure&nbsp;&nbsp;&nbsp;
+  (if   not paused it will return an error)<br>
+
+             <br>
+
+             <br>
+
+             <b>RESET</b> <b><i>&lt;controller | pci&gt;</i></b><br>
+
+             <u><i>description</i></u><br>
+
+             Resets the specified device<br>
+
+             <br>
+
+             <u><i>parameters</i></u><br>
+
+             <b><i>controller</i></b>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+: restes the hardware controller. After this,    a  new "INIT" command should
+be sent<br>
+
+             <i><b>astropci</b></i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;     : resets the PCI card on the computer (if any)<br>
+
+             <br>
+
+             <br>
+
+                     
+<h3>1.4.-&nbsp; Status Commands</h3>
+
+            <b>GET</b> <i><b>&lt;param&gt;</b></i><br>
+
+            <u><i>description</i></u><br>
+
+            It wil return the current value of the specified parameter<br>
+
+            <br>
+
+            <u><i>parameters</i></u><br>
+
+            All the parameters described under <b>"SET"</b> apply here. This
+means   that  any parameter that it is possble to set, it is possible to
+get.<br>
+
+         Beside the  already described parameters then, we have:<br>
+
+            <b><i>&nbsp; &nbsp; &nbsp; progress</i></b>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    : It will return a multiline string with status information
+about the exposure    progress. The sintax of the returned string is:<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; read = &lt;value&gt;\n &nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; /* percentage of readout*/<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; write = &lt;value&gt; \n &nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp; /* percentage of writting */<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; exposure = &lt;value&gt;\n &nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   /* amount of elapsed exposure time, in miliseconds */<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; image = &lt;imname&gt; \n &nbsp; 
+&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+/* current image   */<br>
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; state = &lt;reading | reseting | 
+exposing   | idle&gt;\n &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;/*  status of the system*/<br>
+
+         <br>
+
+         <i><b>&nbsp;&nbsp;&nbsp; &nbsp;geometry</b></i>&nbsp;&nbsp; &nbsp;
+&nbsp;   &nbsp; &nbsp; &nbsp; : returns the current geometry of the array
+(total X  and Y size per amplifier)<br>
+
+         &nbsp; &nbsp; &nbsp;<i><b>modifiers</b></i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; &nbsp;: return values of prescans, overscans, etc. This
+  will depend on te defined modifiers for the specified FPA<br>
+
+         &nbsp; &nbsp; &nbsp;<i><b>controllerconfig:</b></i>&nbsp;&nbsp;&nbsp; 
+returns  general information about the controller<br>
+
+         &nbsp; &nbsp; &nbsp;<i><b>timinginfo</b></i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;: retruns information about the Pixel time, detector readout time,
+ etc<br>
+
+            <br>
+
+            <u><i>return value<br>
+
+            </i></u>The value of the specified parameter, on success<br>
+
+             ERR: &lt;error message&gt; [error code] on failure<br>
+
+            <u><i><br>
+
+            examples</i></u><br>
+
+   <small style="font-weight: bold;"><span style="font-style: italic;">   
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp; DHE GET exposuretime [s]&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   /*if no unit specified, it will return [ms]</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp; &gt;&gt;
+32.20 [s]</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp; DHE GET
+displayimage</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp; &gt;&gt;
+yes</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp; DHE GET
+progress</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp; &gt;&gt;
+read = 0&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; /* no read has been perfromed   yet */</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; write = 0&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    </span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; exposure = 7100&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    /*&nbsp; msecs
+of elapsed exposure time */</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; image = /home/wirc/images/obj0120</span><br style="font-style: italic;">
+
+   <span style="font-style: italic;">         &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; state = exposing</span><br style="font-style: italic;">
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+   &nbsp;&nbsp;&nbsp; <br>
+
+   </small>        <br style="font-weight: bold;">
+
+           <br style="font-weight: bold;">
+
+                      
+<h2>2.- Setup commands</h2>
+
+   This are some commands useed to setup the system. These are usually used
+by engineers or during lab setup.<br>
+
+   <br>
+
+   <big style="font-weight: bold;">2.1 Parameter settings:<br>
+
+   </big><b>SET</b> <b><i>&lt;param1&gt;</i></b><i>[=]  <b>&lt;value1&gt;</b></i><b><i>
+         [, &lt;param2&gt;[=] &lt;value2&gt;,&nbsp; ... &lt;paramN&gt;[=] 
+&lt;valueN&gt;]</i></b><br>
+
+           <u><i>description </i></u><br>
+
+             Sets the parameter to the specified value. <br>
+
+            <br>
+
+           <u><i>parameters</i></u><br>
+
+           <b><i>&nbsp; &nbsp; &nbsp;geometry </i></b><i>&lt;modifier1=value1&gt;
+  [, modifier2=value2,&nbsp; ....]</i><i> </i><b><i>&nbsp; &nbsp; &nbsp;
+&nbsp;   &nbsp; &nbsp; &nbsp; &nbsp; </i></b>: sets  values such as oversca,
+prescans,   etc. This depends on th defined fields (FPA)<br>
+
+           <i><b>&nbsp; &nbsp; &nbsp;gainspeed </b>&lt;gain&gt; &lt;speed&gt;</i>
+    &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; : specifies
+  the gain and speed  of the video chain. <br>
+
+           <i><b>&nbsp; &nbsp; &nbsp;binning </b>&lt;xbining&gt; &lt;ybinning&gt;</i>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp; : specified the binning in 
+horizontal  and vertical directions (Optical only)<br>
+
+   &nbsp; &nbsp; &nbsp;roi &lt;xstart&gt; &lt;ystart&gt; &lt;xlen&gt; &lt;ylen&gt;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;: specifies the ROI section to use<br>
+
+           <i><b>&nbsp; &nbsp; &nbsp;idle&nbsp; </b>&lt;on | off&gt;<b>&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; </b></i>: sets
+the array to idle or non-idle  mode<br>
+
+           <i><b>&nbsp; &nbsp; &nbsp;writeframes </b>&lt;framelist&gt;</i>
+&nbsp;&nbsp;    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;    : This is valid only for IR system. The frame list
+says which frames the   user can write when performing a CDS. The&nbsp; valid
+names are: reset, exposed,   and substracted. For example, <span style="font-weight: bold; font-style: italic;">writeframes reset exposed</span>
+, will write both  the reset and exposed frames for each CDS<br>
+
+           <i><b>&nbsp; &nbsp; &nbsp;artifdata </b>&lt;yes | no&gt;<b>&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </b></i>: sets the artificial or normal
+   data mode.<br>
+
+           <b><i>&nbsp; &nbsp; &nbsp;autoshutter </i></b><i>&lt;yes | no&gt;</i>
+   &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;  : sets the shutter mode of operation. 
+If set, it will  open automatically when the exposure starts. If not, it will
+need&nbsp; an  specific "shutter open" command for opening.<br>
+
+ &nbsp; &nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;">shutter</span> <span style="font-style: italic;">&lt;open | close&gt;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span>
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; : opens or closes the shutter (if present)<br>
+
+      <br>
+
+      <u><i>return values</i></u><br>
+
+      &nbsp;&nbsp;&nbsp;         DONE on success, <br>
+
+      &nbsp; &nbsp; ERROR: &lt;error message&gt; [error code] on failure<br>
+
+       <br>
+
+      
+<h3><a name="DACs"></a>2.2 DAC commands</h3>
+
+   <span style="font-weight: bold;">If the controller supprts DACS</span>
+ commands, and DACS aredefined, then the commands should be:<br>
+
+         DAC &lt;SET | GET | -list&gt; &lt;dacname&gt; [-unit] [-raw] [-params] 
+<br>
+
+      <u><i>description </i></u><br>
+
+      Sets or gets the value of a defined DAC. The defined DACs are read
+at initialization time from the specific DACs config file<br>
+
+      <br>
+
+      <u><i>parameters</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; dacname :name of the dac. It must match some defined
+one<br>
+
+      &nbsp; &nbsp; -unit&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;: optiona switch
+which will cause the response to be returned with unit of the measurement
+(usually [volts])<br>
+
+      &nbsp; &nbsp; -raw&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;: optional parameter
+which will cause the value to be read or set in raw untis (DAC units).<br>
+
+      &nbsp;&nbsp;&nbsp; -params : optional parameter which will cause the
+system to return the params for that DAC (for example, memory location, board,
+gain, etc)<br>
+
+      &nbsp; &nbsp; -list&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; : optional parameter 
+that will return the list of defined DACS (just the names)<br>
+
+      <br>
+
+      <u><i>return values</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; GET will return the value according to the specified
+parameters, and ERROR: &lt;error message&gt; [error code] on error<br>
+
+      &nbsp; &nbsp; SET will return DONE o sucees, and&nbsp; ERROR: &lt;error
+message&gt; [error code] on error<br>
+
+   <br>
+
+   <span style="font-style: italic; text-decoration: underline;">examples:</span><br>
+
+   <small style="font-style: italic;"><span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; DHE DAC GET
+-list</span><br style="font-weight: bold;">
+
+   <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; -&gt; DSUB</span><br style="font-weight: bold;">
+
+   <span style="font-weight: bold;">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; -&gt; VRESET</span><br style="font-weight: bold;">
+
+   <br style="font-weight: bold;">
+
+   <span style="font-weight: bold;">&nbsp; DHE DAC GET DSUB -unit</span><br style="font-weight: bold;">
+
+   <span style="font-weight: bold;">&nbsp; &nbsp; -&gt; 1.6 [v]</span><br style="font-weight: bold;">
+
+   <br style="font-weight: bold;">
+
+   </small>         
+<h3><br>
+
+   </h3>
+
+   
+<h3><a name="TPs"></a>2.3 TP commands</h3>
+
+   <span style="font-weight: bold;">If the controller suppports TP </span>
+commands, and testpoints are defined, then the commands should be:<br>
+
+   <br style="font-weight: bold;">
+
+   <span style="font-weight: bold;">2.3.1 - TP access commands<br>
+
+   </span>This are commands requiered to get and set the values of the defined
+testpoints<span style="font-weight: bold;"><br>
+
+   </span><br>
+
+   <span style="font-weight: bold;">TP GET <span style="font-style: italic;">[tpname |&nbsp;-list&nbsp;] [-params [-all]
+[-full] [-tptype &lt;type&gt;]] </span></span><br>
+
+      <u><i>description </i></u><br>
+
+   Gets the value of a defined TP. The defined TPs are read at initialization 
+time from the specific TP config file. The GET commands brings the last value
+read from the hardware, but do not generate a read itself. See the READ command
+for "real" hardware reads.&nbsp;<br>
+
+      <br>
+
+      <u><i>parameters</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; tpname &nbsp;:name of the testpoint. It must match
+some defined one<br>
+
+      &nbsp; &nbsp; -list &nbsp;&nbsp; &nbsp; &nbsp;: lists all the defined
+testpoints (name only)<br>
+
+   &nbsp;&nbsp;&nbsp; -params : optional parameter which will cause the system 
+to return the definition/status parameters:<br>
+
+   &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -full: will list the full information
+on the testpoint<br>
+
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; -all: will list the information on all the testpoints<br>
+
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; -tptype &lt;type&gt;: will get the infor on the testpoints of the
+specified type only<br>
+
+      <br>
+
+      <u><i>return values</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; the value according to the specified parameters
+on succes,<br>
+
+   &nbsp; &nbsp; ERROR &lt;error message&gt; [error code] on failure<br>
+
+   <br style="font-style: italic; text-decoration: underline;">
+
+   <span style="font-style: italic; text-decoration: underline;">examples:</span><br>
+
+   <small style="font-weight: bold; font-style: italic;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;DHE
+TP GET -list<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; name = CCDTEMP<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; name = NECKTEMP<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; name = HV+<br>
+
+   <br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;DHE TP GET -params -tptype ps<br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp;-&gt; name = HV+<br>
+
+   <br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; DHE TP GET CCDTEMP&nbsp;<br>
+
+   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; -&gt; 162.62<br>
+
+   </small><br>
+
+   <br>
+
+   <span style="font-weight: bold;">TP READ <span style="font-style: italic;">&lt;tpname&gt;&nbsp;</span></span><br>
+
+   <u><i>description </i></u><br>
+
+   Reads the value of the parameter from the hardware, and stores it. This 
+stored value is the one that the command GET brings. This is the command
+that the TPNT module issues periodically when requested to poll, so the user
+(or external clients in general) can use <span style="font-weight: bold;">GET</span> safelly.<br>
+
+   <br>
+
+      <u><i>parameters</i></u><br>
+
+   &nbsp;&nbsp;&nbsp; tpname: name of the testpoint to be set<br>
+
+   <br>
+
+   <span style="font-style: italic; text-decoration: underline;">return values</span><br>
+
+   value of the point on success<br>
+
+   ERROR &lt;error message&gt; [error code] on failure<br>
+
+   <br>
+
+   <br>
+
+   <br>
+
+   <span style="font-weight: bold;">TP &lt;SET | WRITE&gt; <span style="font-style: italic;">&lt;tpname&gt; &lt;value&gt; ["[" unit "]"]</span></span><br>
+
+   <u><i>description </i></u><br>
+
+   Sets the value of the specified testpoint to the specified value. The testpoint
+must have "w" or "rw" permissions on the TP file definition<br>
+
+   <u><i><br>
+
+   parameters</i></u><br>
+
+   &nbsp;&nbsp;&nbsp; tpname: name of the testpoint to be set<br>
+
+   &nbsp; &nbsp; value: value to be set<br>
+
+   &nbsp; &nbsp; unit: the value is assumed to be in "user" units (defined 
+on the TP config file) unless the "unit" option is added. This alows to set
+in DAC units rather than volts, for example.<br>
+
+   <u><i><br>
+
+   return values</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; DONE on succes,<br>
+
+   &nbsp; &nbsp; ERROR &lt;error message&gt; [error code] on failure<br>
+
+   <br>
+
+   <span style="font-style: italic; text-decoration: underline;">examples:</span><br>
+
+   <small style="font-weight: bold; font-style: italic;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;DHE
+TP GET -list<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; name = CCDSETP<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; name = NECKTEMP<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; name = HV+<br>
+
+   <br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;DHE TP SET CCDSETP 160<br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp;-&gt; DONE<br>
+
+   </small><br>
+
+   <br style="font-weight: bold;">
+
+   <span style="font-weight: bold;">2.3.2 TP TPNT/setup commands</span><br>
+
+   These commands are requiered only if the module wants to implement periodical
+logs of some testpoints, alarms, etc. For this to work the module TPNT must
+be installed on the distribution<br>
+
+   <br>
+
+   <span style="font-weight: bold;">TP &lt;SUSCRIBE | UNSUSCRIBE&gt;</span><br>
+
+   <u><i>description </i></u><br>
+
+   "<span style="font-weight: bold; font-style: italic;">Suscribe</span>"
+the module to the TPNT module in order to get polling, alarms, logs, etc.
+When this command is issued, the value of the "params" keyword on the entry
+[DEVINFO] is sent to the TPNT module. If "<span style="font-weight: bold; font-style: italic;">unsuscribe</span>", it will
+be unsuscribed and all log/poling will stop<br>
+
+   <span style="font-style: italic; text-decoration: underline;">return value</span><br>
+
+   DONE on succes<br>
+
+   ERROR &lt;error message&gt; [error code] on failure<br>
+
+     <br>
+
+   <br>
+
+   <span style="font-weight: bold;">TP ADD <span style="font-style: italic;">&lt;tpname | -all | -tptype &lt;type&gt;&gt;</span></span><br>
+
+   <u><i>description </i></u><br>
+
+   Adds the specified point or points to the TPNT module to be polled/logged,
+acoording to the parameters specified on the TP configuration file (under
+the key <span style="font-weight: bold; font-style: italic;">params</span>
+ of each testpoint definition)<br>
+
+   <br>
+
+   <u><i>parameters</i></u><br>
+
+   &nbsp;&nbsp;&nbsp; tpname: name of an specific testpoint to be added<br>
+
+   &nbsp; &nbsp; -all: adds all the points defined on the configuration file<br>
+
+   &nbsp; &nbsp; -tptype &lt;type&gt; : adds only the points defined as type
+&lt;type&gt;<br>
+
+   <u><i><br>
+
+   return values</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; DONE on succes,<br>
+
+   &nbsp; &nbsp; ERROR &lt;error message&gt; [error code] on failure<br>
+
+   <br>
+
+   <span style="font-style: italic; text-decoration: underline;">examples:</span><br>
+
+   <small style="font-weight: bold; font-style: italic;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;DHE
+TP ADD -tptype ps<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; DONE<br>
+
+   <br>
+
+   </small><span style="font-weight: bold;"><br>
+
+   TP MODIFY <span style="font-style: italic;">&lt;device | tpname | -all&nbsp;|
+-tptype &lt;type&gt;&gt; &lt;param1=value1 [,param2=value2,...,paramN=valueN]</span></span><br>
+
+   <u><i>description </i></u><br>
+
+   Modifies the parameters on the TPNT module for the specified point or
+set of points specified.<br>
+
+   <u><i>parameters<br>
+
+   </i></u>&nbsp; &nbsp; device: if specified "device" the following parameters
+will apply for the device parameters<br>
+
+   &nbsp;&nbsp;&nbsp; tpname: name of an specific testpoint to be modified<br>
+
+   &nbsp; &nbsp; -all: modify all the points defined on the configuration
+file<br>
+
+   &nbsp; &nbsp; -tptype &lt;type&gt; : modify only the points defined as
+type &lt;type&gt;<br>
+
+   &nbsp; &nbsp; param1=value1... : params to be passed to the TPNT module,
+that will override the current values for the desired testpoints<br>
+
+   <u><i><br>
+
+   return values</i></u><br>
+
+      &nbsp;&nbsp;&nbsp; DONE on succes,<br>
+
+   &nbsp; &nbsp; ERROR &lt;error message&gt; [error code] on failure<br>
+
+   <br>
+
+   <span style="font-style: italic; text-decoration: underline;">examples:</span><br>
+
+   <small style="font-weight: bold; font-style: italic;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;DHE
+TP MODIFY device updaterate=60<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; DONE<br>
+
+   <br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+</small><small style="font-style: italic;">/*this will change the maximum
+rate at which all the testpoints of the device are being addressed*/<br>
+
+   </small><br>
+
+   <small style="font-weight: bold; font-style: italic;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;DHE
+TP MODIFY CCDTEMP monitor=off<br>
+
+   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; -&gt; DONE<br>
+
+   </small><small style="font-style: italic;"><br>
+
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+/*this will cause the spcified testpoint to stop being monitored*/<br>
+
+   </small><br>
+
+   <br>
+
+   <br>
+
+   
+<h3><a name="REGs"></a>2.4 REGister commands</h3>
+
+   <span style="font-weight: bold;">If the controller suppports REG </span>
+commands, and registers are defined, then the commands should be: 
+<h2>   </h2>
+
+     IN_PROGRESS<br>
+
+<br>
+
+<big><b><br>
+
+2.5&nbsp; MACRO</b></big><i><b> &lt;path&gt; [arg1 ... argN]<br>
+
+</b><u>description</u></i><br>
+
+         The macro command allows to call a simple macro to generate a set
+of pre-defined actions from a single command. THis allows to build other
+commands based on existing ones. The macro files are plain ascii files, where
+each line has a command, omitting the DHE prefix. The commands are then separated
+by \n. The macro file must have an "mc" extension. The macros can take simple
+arguments also. See the <i>parameters</i> section.<br>
+
+The macros are useful for generating new command to perform actions that
+may need need several steps to complere. See the examples below.<br>
+
+- Macros can be nested: a macro can call another macro inside.There is&nbsp;
+no limits on the amount of nestings.<br>
+
+- Any line starting with a # will be skipped, which means that comments are
+allowed after a # sign<br>
+
+- Macros accept arguments that can be used inside the macro. There is no
+limit to the amount of arguments.<br>
+
+<u><i>parameters</i></u><br>
+
+<i><b>&lt;path&gt;</b></i>: the path to the macro file. If the path is absolute,
+then it will use the complete path; if the path only gives a name it will
+assume that the file is on the default macro directory <a href="DHE_User_Manual.html#macros">defined on the configuration file.<br>
+
+</a><i><b>[arg1...argN]</b></i>: if arguments are specified, the system will
+replace them on the specified part on the macro. This allows to use parametric
+macros.<br>
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; The arguments on the macro must be
+specified as<br>
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i><b>_ARG_[N]</b></i>, where <i><b>
+N</b></i> is the argument number, starting from 1<br>
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  See the last example below (<i><b>
+setdac.mc</b></i>)<br>
+
+<u><i>return</i></u><br>
+
+DONE on succes.<br>
+
+"ERROR macro line number &lt;number&gt; [error message]" on error<br>
+
+<br>
+
+<u><i>examples:</i></u><br>
+
+<b>1) </b>The example below is a macro called from the init macro in order
+to set the right "operating point" for biases and offsets, in a system that
+controls a Hawaii2RG:<br>
+
+<br>
+
+<i><b>oper_point.mc</b></i><br>
+
+<i><small>#sets biases operating point</small></i><br>
+
+<small><b><i>dac set&nbsp; VBIASPOWER 3.3<br>
+
+dac set VDDA 3.3<br>
+
+dac set VBIASGATE 2.45<br>
+
+dac set VRESET 0.6<br>
+
+</i></b><i>#set all the offsets to the specified value</i><b><i><br>
+
+dac set OFF* 2.0</i></b><br>
+
+</small><br>
+
+In order to call this macro "manually" (from a command line), it would be
+simply<br>
+
+<i>DHE macro oper_point</i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+/*the .mc can be omitted*/<br>
+
+<br>
+
+<b>2)</b>&nbsp; In a Hawaii2RG it is necessary to write to some registers
+in order to change some operation modes&nbsp; (for example, from 1 to 32
+channels readmode). If the detector is being controller using a SDSU controller,
+it is also necesarry to tell the DSP the new operation mode (for example,
+that the readmode will be in 32 channels); finally, the host software itself
+may need to know about it (for example, Geometry and DHE modules themselves
+to know how to process the incoming data) . In order to support multiple
+modes of operation, there are two possible approaches:<br>
+
+<br>
+
+a) To support all the requiered modes on the DSP, and then just use "three
+letters" DSP command to change modes. The next example uses this apporach
+to change the detector reset mode to "line by line" reset:<br>
+
+<br>
+
+<i><b>line_reset.mc</b></i><br>
+
+<i><small>#sends the SRE DSP command wich causes the DSP code to read assuming
+line by line reset (looping change)</small></i><br>
+
+<i><small><b>memory manualcommand tim 0 none none none none SRE</b><br>
+
+</small><small>#tells the H2RG mux registers to reset the data in line by
+line mode.</small></i><br>
+
+<b><i><small>REG SET NormalModeReg {GLOBAL 0x0}<br>
+
+</small></i></b><br>
+
+From the command line, this would be invoked as:<br>
+
+<i>DHE macro line_rese</i>t<br>
+
+<br>
+
+b) To support each mode using a diferent DSP file (".lod"), and load programatically
+another one when a diferent mode is requested. The next example uses that
+aproach in order to support multiple readmodes<br>
+
+<br>
+
+<i><b>read_32ch.mc</b></i><br>
+
+<i><small>#loads the 32ch readmode dsp file<br>
+
+<b>memory load tim file /home/arcconfig/DETECTOR/tim_32ch.lod</b><br>
+
+#tells ArcVIEW that we will use 32 channels<br>
+
+<b>set readmode 32ch</b><br>
+
+#sets the external biases that set the 32ch readmode on the mux. This can
+be replaced by a REG command (set bits on an specific register)<br>
+
+<b>dac set modectrl1 3.3<br>
+
+dac set modectrl2 3.3</b><br>
+
+#set multiple extension images <br>
+
+<b>set image.extensions on</b><br>
+
+#sets idle mode<br>
+
+<b>set idle on</b><br>
+
+#sets line by line reset by calling a macro<br>
+
+<b>macro line_reset</b></small></i><br>
+
+<i><small>#sets biases operating point by calling a macro<br>
+
+<b>macro oper_point</b></small></i><b><br>
+
+</b><br>
+
+This would be invoked as<br>
+
+<i>DHE macro read_32ch</i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*a similar
+<i><b>read_1ch.mc</b></i> call will set 1ch readmode*/.<br>
+
+<br>
+
+This apporach allows to have much simpler DSP files (here we avoid the need
+of suporting multiple waveform tables)<br>
+
+<br>
+
+<br>
+
+<b>3) </b>When using a SDSU clock board as a bias generator, you may want
+to ensure that both HI and LO levels of a clock are changed for a particular
+"bias" to avoid a "switchig bias". In order to do this, you can generate
+a macro like this:<br>
+
+<br>
+
+<i><b>setdac.mc</b></i><br>
+
+<i><small>#sets both hig and low clock levels to the same value<br>
+
+<b>dac set _ARG_[1]_L&nbsp; _ARG_[2]<br>
+
+dac set _ARG_[1]_H &nbsp;_ARG_[2]</b><br>
+
+</small></i><br>
+
+If the biases are, for example, <i>DSUB_L</i> and <i>DSUB_H</i>, then you
+would do<br>
+
+<i>DHE macro setdac DSUB 2.0</i><br>
+
+<br>
+
+Then the&nbsp; arguments will be replaced, generating an effective output
+as<br>
+
+<i>DHE dac set DSUB_H 2.0<br>
+
+DHE dac set DSUB_L 2.0</i><br>
+
+<br>
+
+<br>
+
+As a final note: all this functionality and much more can be reached by using
+just simple scripst on any scripting language. As the simplest case, &nbsp;if
+using the <i><b>pan</b></i> wrapper provided in the <a href="../PanVIEW/PanVIEW_bin.html">PanVIEW/bin</a> directory, all
+the macros given here can be transformed into csh scripst by just adding
+"pan" as prefix. For example, <br>
+
+<br>
+
+<i><b>oper_point.csh</b></i><br>
+
+<small>#/bin/csh -f<br>
+
+<b><i>pan dac set VBIASPOWER 3.3<br>
+pan dac set VDDA 3.3<br>
+pan dac set VBIASGATE 2.45<br>
+pan dac set&nbsp; VRESET 0.6<br>
+pan dac set OFF* 2.0</i></b><br>
+
+</small><br>
+
+So doing macros can be avoided by using csh or bash (the simplest); the macro
+functionality is provided just as a simplification, and does not pretend
+to replace the power of a script.<br>
+
+<br>
+
+<br><h3>2.6- Memory Commands</h3>
+
+
+             <b>MEMORY</b> <b><i>&lt;action&gt; &nbsp;&lt;parameter1&gt;
+[...   &lt;parameterN&gt;</i><i>        ]</i></b><br>
+
+
+             <u><i>description</i></u><br>
+
+
+             This set of commands will perform the specified actions over 
+the&nbsp;   memories of the SDSU DSPs.   This commands does not perform any kind of verification 
+  about   the security   of the command being issued, so it must be used carefully
+   or you can run  the risk of overriding some vital part of the memory.<br>
+
+
+             <br>
+
+
+             <u><i>parameters</i></u><br>
+
+
+             <b><i>&nbsp; &nbsp; &nbsp;&lt;action&gt;</i></b>: actions are
+ the   actual    operation to apply. The parameters will change according
+to it.   The possible    values are:<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <i><b>write </b>&lt;board&gt; &lt;memtype&gt; &lt;address&gt; &lt;value&gt;</i><i>
+             : </i><br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<i>&lt;board&gt;</i> is 
+the    name  of the target board (<i>&lt;timing | utility | pci&gt;</i>
+          )<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<i>&lt;memtype&gt;</i> is
+  the    memory type&nbsp;<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <i>&lt;address&gt;</i>
+              : the memory address or range of address to write<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;value&gt;</i>
+             : the value to write on the specified place<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <b><i>read </i></b><i>&lt;board&gt; &lt;memtype&gt; &lt;address&gt;</i>
+         :  <br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;board&gt;</i>
+              is the name of the target board<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;memtype&gt;</i>
+              is the memory type <br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;address&gt;</i>
+              : the memory address to read<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <i>l<b>oad </b>&lt;board&gt; &lt;type&gt; &lt;location&gt;</i>:&nbsp;&nbsp;&nbsp; 
+      &nbsp;<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;board&gt;</i>
+           is the name of  the target board <br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;type&gt;</i>
+              : the type of loading you want to perform (<i>&lt;file 
+  |  app&gt;</i>      )<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <i>&lt;location&gt;</i>
+              : where to find the source for&nbsp; loading (If  <i>   &lt;file&gt;</i>      whas specified, then it is the file path.
+ If <i> &lt;app&gt;</i>    was specified,   then it is the application number)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; get &lt;board&gt; : gets the configured boards<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <small style="font-style: italic; font-weight: bold;"><br>
+</small>
+
+             
+
+             <u><i>return values</i></u><br>
+
+
+             manualcommand will return a value according to the command specified.<br>
+
+
+             write and load will return DONE on success, and    ERR: &lt;error
+   message&gt;    [error code] on failure<br>
+
+
+             read will return the memory value on success, and    ERR: &lt;error
+    message&gt;   [error code] on failure<br>
+
+
+             <br>
+<u><i>examples</i></u><br>
+<small style="font-style: italic; font-weight: bold;">
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    write   timing X 0 132&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : wites 
+the  value  132   (decimal) to the location 0 of memory X, on timing board<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    write   utility Y 0xA 0x132: writes the value 0x132 (hexa) to the 
+location    10 of  memory Y, on utility board<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    load sequencer file&nbsp;tim.lod<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    load   timing&nbsp; app 1&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*loads the timing board with
+the    applicatio  program located on EPROM number 1 */<br></small><small>&nbsp;&nbsp;&nbsp; &nbsp;</small><small style="font-weight: bold;"><br>
+</small><br>
+
+<br>
+
+                      
+</body></html>

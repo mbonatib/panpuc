@@ -1,0 +1,54 @@
+#!/bin/csh -f
+
+
+if ($#argv < 1) then
+	echo "ERROR set_environ variable [value]"
+	exit 1
+endif
+
+set arcfile = ".labviewrc"
+set arcenv = "$HOME/$arcfile"
+set var = $1
+set newval = $2
+
+if ("$newval" == "") then
+	echo $currval 
+	exit 0
+endif
+
+set tmpfile = "tmpcsh"
+if (-e $tmpfile) then
+	rm -f $tmpfile
+endif
+
+set changed = 0
+set found = 0
+set nlines = `cat $arcenv | wc | awk '{print $1}'`
+set lineN = 1
+while ($lineN <= $nlines)
+	set line = `head -$lineN $arcenv | tail -1`
+	if ("$line" != "") then
+		if ("$line[1]" == "$var") then
+			set found = 1
+			if ("$line[2]" != "$newval") then
+				echo "$var $newval" >> $tmpfile
+				set changed = 1
+				@ lineN = $lineN + 1
+				continue
+			endif
+		endif
+	endif
+	echo $line >> $tmpfile
+	@ lineN = $lineN + 1
+end
+if ($found == 0) then
+	echo "$var $newval" >> $tmpfile
+	set changed = 1
+endif
+
+if ($changed == 1) then
+	set date = `date +%Y-%M-%dT%H-%m-%S` 
+	cp $arcenv $arcenv$date
+endif
+cp $tmpfile $arcenv
+rm -f $tmpfile

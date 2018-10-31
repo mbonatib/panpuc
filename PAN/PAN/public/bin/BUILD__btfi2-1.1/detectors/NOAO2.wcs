@@ -1,0 +1,8 @@
+[MEF]
+#multiple amplifier extensions
+TRIMSEC=(bin) amp {phys (xroistart:xroiend, yroistart:yroiend)} /Roi section from amp _ampID_
+
+
+[SEF]
+#single
+TSEC{AID}{DID}=(bin) fpa {phys (xroistart:xroiend, yroistart:yroiend)} /Roi section from amp _ampID_

@@ -1,0 +1,40 @@
+#!/bin/csh -f
+
+if ($#argv < 3) then
+	echo "usage: get_port <file> <key> <cmdset>"
+	exit 1
+endif
+
+set mcfg = $1
+set tkey = $2
+set tcmdset = $3
+
+if (! -e "$1") then
+        echo "ERROR file $1 does not exists"
+        exit 1
+endif
+	set found = 0
+	set lineN = 1
+	while ($found == 0)
+		set cmdset = `./get_modkey $mcfg cmdset -getline -iniline $lineN`
+		if ("$cmdset[1]" == "$tcmdset") then
+			set found = 1
+		endif
+		if ("$cmdset[1]" == "ERROR") then
+			echo "ERROR cmdset not found"
+			exit 1
+		endif
+		set lineN = $cmdset[2]
+		@ lineN = $lineN + 1
+	end
+	set cmdport = `./get_modkey $mcfg $tkey -iniline $lineN`
+	set fc = `expr substr $cmdport 1 1`
+	if ("$fc" != "-") then
+		set cmdport = `echo "$cmdport" | bc -l`
+		if ("$cmdport[1]" == "ERROR") then
+			echo "ERROR cmdport not found in cmdset"
+			exit 1
+		endif
+	endif
+	echo $cmdport
+	exit 0

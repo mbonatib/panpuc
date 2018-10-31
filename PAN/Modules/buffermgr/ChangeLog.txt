@@ -1,0 +1,77 @@
+2012-06-12T19:04:59 UTC <Marco Bonati> buffermgr version 2.3
+	* replaced doublt_t with pan_double_t
+
+2012-06-12T19:04:59 UTC <Marco Bonati> buffermgr version 2.2
+	* adedd "doublelocked" buffers that ensure they will not be released
+	by just anyone who requests it
+
+2011-04-25T19:04:59 UTC <Marco Bonati> buffermgr version 2.1
+	* compiled C code in 64 bits platform(to test)
+
+2011-03-25T19:04:59 UTC <Marco Bonati> buffermgr version 2.0
+	* all pointers are handled in U64 (preparation to labview 64bits
+	* the C routines handle in 64 bits all the in/out pointer too
+	(even in 32 bits OS)
+
+2010-08-09T19:04:59 UTC <Marco Bonati> buffermgr version 1.2
+	* improved the help on command line. Some cleaning
+
+2010-04-09T19:04:59 UTC <Marco Bonati> buffermgr version 1.1
+	* improved the memory handling. Added sevarl commands to 
+	  release buffers on demand (release all, equal,smaller, bigger or
+	  different than), allowing a more dynamic (if desired)
+	  handling
+
+2008-11-05T19:04:59 UTC <Marco Bonati> buffermgr version 0.91
+	* added the OSU svn tags
+
+2008-06-22T19:04:59 UTC <Marco Bonati> buffermgr version 0.9
+	* added a command to release, on demand, any specified buffer
+
+2006-06-22T19:04:59 UTC <Marco Bonati> buffermgr version 0.8
+  * OOps, that caused a problem. Added a new command "force_writeprogress",
+    it can be done (what stated in the previous entry) IF REQUIERED only
+
+2006-06-21T19:04:59 UTC <Marco Bonati> buffermgr version 0.7
+  * Now frameMagr accepts pointer which were not requested 
+    throught the buffermgr. This allows tasks that requieres
+    their own internal buffers to also be handled throug the
+    frame manager. (like an internal fast buffer ring for guiding
+
+2005-05-19T19:04:59 UTC <Marco Bonati> buffermgr version 0.6
+  * removed old dependencies with old Common vis
+
+2005-02-19T19:04:59 UTC <Marco Bonati> buffermgr version 0.5
+  * removed dependencies with ArcVIEW/Common
+  * taken out the debug by default on many sub-vis
+
+2004-11-02T19:04:59 UTC <Marco Bonati> buffermngr module version 0.4
+  * Replaced ConfigVals for CMN_ConfigVals
+  * added timeout=0 (no long commands)
+
+
+2004-07-02T19:04:59 UTC <Marco Bonati> buffermngr version 0.3
+  * added symbolic links on the config dir in order to avoid the
+    mismatch module name / dir name
+
+
+2004-02-05T19:04:59 UTC <Marco Bonati> buffermngr version 0.2
+  * added the LOG capabilitie
+  * semi-conformed to standar for the config file reading
+  * replace "tologQ" from server to genetal CMN_ToLogQ from Common Module
+  * Moved out of the very old Cmd_Proc
+
+2004-09-23T06:32:09 UTC <Marco Bonati> buffermngr version 0.1
+   * added the config file for "defsize" and "maximum" (free buffers)
+
+2003-04-23T06:32:09 UTC <Marco Bonati> buffermngr version 0.0
+
+  Created.
+
+    * ./private/:
+    * ./public/:
+    * ./doc:
+    * ./config:
+    * ./test:
+    Created.
+

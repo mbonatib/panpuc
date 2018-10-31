@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+                                                                        
+                                                                        
+  <title>DHE_CommandList</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+<body>
+    <big style="font-weight: bold;"><big>DHE Modules - SDSU<br>
+    <br><small style="text-decoration: underline;">Introduction</small><br></big></big><big><big><small><small>The
+panview SDSU module allows a complete handling of SDSU-Gen III
+controller. This includes on the fly handling of the bias voltages anc
+clock level, memory (register and status) manipulation,etc. It supports
+NIR and optical (visible) detectors. The module itself suppoorts
+binning and ROI, but of course the specific DSP code running on the
+controller must support it, too.<br><br>Regarding the link media, the current version supprts the PCI (PCIX) version only (PCIe not yet added) and simulation mode.<br><br style="font-weight: bold; text-decoration: underline;"><span style="font-weight: bold; text-decoration: underline;">Basic Architecture</span><br>The atchitecture of the SDSU module under panview can be seen in <span style="font-style: italic; font-weight: bold;">Figure 1. </span><span style="font-weight: bold;"></span>The generic DHE module calls the specific labview interface, which in turn have mapped the API C functions from library <span style="font-weight: bold; font-style: italic;">libarDHE.so</span>. This is a shared object linked to <span style="font-weight: bold; font-style: italic;">libsdsd.a</span>, that has the actual calls for the specific hardware. In this case the only real link supprted is <span style="font-weight: bold; font-style: italic;">pcix</span>, and the only controller from SDSU supported is <span style="font-weight: bold; font-style: italic;">genIII</span>, so the only dynamic library taking to real hardware is <span style="font-weight: bold; font-style: italic;">libsdsugenIII_pcix.so</span>. If simulation mode is desired, then it call instead <span style="font-weight: bold; font-style: italic;">libsdsusim.so</span>,
+which generate identical responses to those of the controller (it can
+also take images with artifitial data). When running in simulation
+nobody from the upper layers knows it, meaning that the full software
+can be tested in sim mode.<br><br><br><img style="width: 847px; height: 577px;" alt="sdsu module architecture" src="sdsu_architecture.png"><br><br><small><span style="font-style: italic; font-weight: bold;">Figure 1: panview SDSU module architecture</span></small></small></small></big></big><big style="font-weight: bold;"><big><small style="text-decoration: underline;"><small></small></small><br><br>
+<small><small>- Driver installation required. Please follow <a href="SDSU_driver_installation.html">this instructions</a> in order to have
+the SDSU unix driver installed.<br><br></small></small></big></big><big style="font-weight: bold;"><big><small style="text-decoration: underline;"><small><br>Configuration files<br></small></small></big></big><big><big><small><small>when
+the system starts, the DHE generic module is asked to intialize. It
+looks into its own config file (MOD_DHE.cfg), and starts up the
+indicated submodule. IN the case of the SDSU hatdware, the entry in
+MOD_DHE.cfg should say<br><small><span style="font-weight: bold; font-style: italic;">[INIT]</span><br style="font-weight: bold; font-style: italic;"><span style="font-weight: bold; font-style: italic;">module=SDSU</span><br style="font-weight: bold; font-style: italic;"><span style="font-weight: bold; font-style: italic;">file=DETECTOR/dhe.conf</span></small><br><br>So
+now the file dhe.conf (in the example). This file is specific for each
+hardware submodule. In the case of the SDSU &nbsp;controller, this file
+is explained in the link below<br></small></small></big></big><big style="font-weight: bold;"><big><small style="text-decoration: underline;"><small><br></small></small></big></big> - <a href="DHE_SDSU_INIT_file.html">Initialization file (INIT)</a><br><br><br>Regarding
+the definitoon for testpoints -points that will be read periodically in
+order to be logged, generate alarms, etc-, the entry in the main
+MOD_DHE.cfg file should look like this:<br><small style="font-weight: bold; font-style: italic;">[TP]<br>tpfile=DHE_TP.cfg<br>algorfile=ALGORS.list<br></small><br>For the SDSU controller, the structure of this file is explained in the lnk below:&nbsp;<br>
+    - <a href="DGE_SDSU_TP_file.html.html">Testpoint Definitions file (TP)</a><br><br><br>Regarding
+the definition for the DACs, so the user can modify the values by name,
+and in volts rather than ADU (or both), the entry in MOD_DHE.cg should
+look like this:<br><small style="font-weight: bold; font-style: italic;">[DACS]<br>file=DHE_DACS.cfg</small><br><br>For the SDSU controller, the structure of this file is as follow:<br>
+    - <a href="DHE_SDSU_DACS_file.html">DACS definition file (DAC)</a><br><br><br>Regarding information to be shared (written) to the fits headers, the entry in the MOD_DHE.cfg file should look like this:<br><small style="font-weight: bold; font-style: italic;">[HDRINFO]<br>file=DHE_INFO.tpl</small><br><br>The structure fot this file for the SDSU controller is as follow:<br>
+  <a href="DHE_SDSU_HDRINFO_file.html">  - Header Template information file
+(HDRINFO)</a><br><br><br>Regarding
+the definitions for register operation (mostly used for more complex
+detectors, like H1RG and H2RG), the entry in MOD_DHE.cfg should be like:<br><small style="font-weight: bold; font-style: italic;">[REGS]<br>file=DHE_REG.cfg</small><br><br>The structure for this file &nbsp;for the SDSU controller is explained in the link below<br>
+
+    - REGISTERS definition file (REGS)<br><br>There
+is also another optional file used to transtale netween high level commands and
+DSP three letter commands, and/or memory locations for certain
+operations. This file should be specified in the <a href="DHE_SDSU_INIT_file.html">main INIT file</a> under the MISC entry, <span style="font-weight: bold;">transfile</span> entry.<br><br>The structure of this file is as follows:<br>- <a href="SDSU_translations.html">SDSU translations file</a><br>
+ <br><br><big style="font-weight: bold; text-decoration: underline;">Command Set</big><br>
+ - Supported commands:<br>
+ &nbsp; &nbsp; * supports the standard <a href="../DHE_CommandList.html">
+DHE command list.</a><br>
+ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; - support DACs: <a href="../DHE_CommandList.html#DACs">yes</a><br>
+ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; - support TP: <a href="../DHE_CommandList.html#TPs">yes</a><br>
+ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; - support REGS: <a href="../DHE_CommandList.html#REGs">yes</a><br>
+ &nbsp; &nbsp;&nbsp;<a href="../DHE_CommandList.html"></a><br>
+   &nbsp; &nbsp; * see the specific <a href="DHE_SDSU_Commands.html">SDSU
+comand list</a><br>
+   <big><br style="font-weight: bold;">
+   <span style="font-weight: bold;"></span></big><br>
+    <br>
+    <big style="font-weight: bold;"><big><br>
+    </big></big>                                 
+</body></html>

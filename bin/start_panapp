@@ -1,0 +1,117 @@
+#!/bin/csh -f
+
+if ($#argv < 1) then
+	echo "usage: start_panapp <name> [-gui] [cmdargs ...]"
+	exit -1
+endif
+
+alias BOLD_ON  "tput bold"
+alias BOLD_OFF "tput sgr0"
+alias BOLD   "(BOLD_ON;echo \!*;BOLD_OFF)"
+ 
+set DIR = $1
+shift
+
+set cmdargs = ""
+set GUI = 0
+set NAME = ""
+set CMDSET = "NATIVE"
+set BLOCK = 0
+set LOCAL = 0
+
+while ("$1" != "")
+	switch ("$1")
+		case -gui:
+			set GUI = 1
+			breaksw
+		case -local:
+			set LOCAL = 1
+			breaksw
+		case -block:
+			set BLOCK = 1
+			breaksw
+		case -app:
+			set NAME = $2
+			set cmdargs = "$cmdargs $1"
+			breaksw
+                case -cmdset:
+                        set CMDSET = $2
+                        set cmdargs = "$cmdargs $1"
+                        breaksw
+		default:
+			set cmdargs = "$cmdargs $1"
+	endsw
+	shift
+end
+
+set ISSET = `setenv | egrep PAN_ROOT_FPAS`
+if ("$ISSET" == "") then
+        setenv PAN_ROOT_FPAS $PAN_ROOT/fpas
+	echo "Enviromental variable PAN_ROOT_FPAS set to $PAN_ROOT_FPAS"
+endif
+
+set APP = $PAN_ROOT_FPAS/$DIR
+if ("$NAME" == "") then
+	set NAME = $DIR
+endif
+
+
+cd $PAN_ROOT/PAN/public/bin/
+set cmdport = `./get_port $APP/config/PAN.cfg cmdport $CMDSET`
+cd -
+
+#be sure labview errors are not interactive ...
+set BINDIR = $PAN_ROOT/bin/
+$BINDIR/set_rc labview.EnableAutomaticErrorHandling: False
+$BINDIR/set_rc labview.defaultErrorHandlingForNewVIs: False
+
+cd $PAN_ROOT/PAN/public/bin/
+echo -n "starting fpa at "
+BOLD -n $APP
+echo " ..."
+./start_pan -configfile $APP/config/PAN.cfg -block $cmdargs
+cd -
+
+set host = `uname -n`
+if ($LOCAL == 1) then
+	set hn = `expr substr $host 1 4`
+	set domain = `echo $host | awk -F . '{print $2}'`
+	if ("$domain" == "ctio" || "$domain" == "localdomain" || "$hn" == "ctio") then
+        	set host = "localhost"
+	endif
+	set host = "localhost"
+endif
+
+################create app comm. script#############################
+cd $PV_HOME/bin/
+set script = $PV_HOME/bin/pan$NAME
+if (-e "$script") then
+	rm -f $script
+endif
+echo "#! /bin/csh -f" >> $script
+echo "#This script is automatically generated" >> $script
+echo "#Any edition to this file will be lost!" >> $script
+echo "" >> $script
+echo "setenv panport $cmdport" >> $script
+echo "setenv panhost $host" >> $script
+echo "cd $PAN_ROOT/PAN/public/bin" >> $script
+echo "./sendsockcmd -h "\$"panhost -p " \$"panport "\"\$"argv"\"" -t 40000" >> $script
+echo "cd -" >> $script
+chmod 744 $script
+echo -n "created script for talking to $NAME application "
+BOLD "($script)"
+#############################################################
+
+#now create a link to the last invoked pan
+rm -f ./pan
+ln -s $script pan
+
+if ($BLOCK == 1) then
+        wait_dhe $NAME
+endif
+
+if ($GUI == 1) then
+	sleep 5
+	./start_pangui $NAME $cmdargs
+endif
+cd -

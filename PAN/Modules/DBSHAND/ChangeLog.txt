@@ -1,0 +1,44 @@
+2012-04-29T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.92
+	* added extended precision,  12 digits of precision by default
+	* added the precision control. 
+	Defaults: extended:12, double:6, single(float): 2
+
+2011-08-29T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.91
+	* added avi to query if a variable is a queue or not (and how many 
+	elements it has) ("DBSHAND_is_queue")
+
+2011-03-18T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.9
+	* added U64 datatype
+
+2009-11-21T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.8
+	* added the capability of dumping the database to disk and 
+	  reading it back (DumpDisk and Read)
+	* added the GetIndex, GetByIndex and SetByIndex that allow
+	  a faster access (get first the index, and then the user can
+	  access the variable using the index
+
+2009-10-21T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.7
+	* added support for 3DARR datatype
+
+2008-11-05T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.6
+	* Removed OSU tags
+	* Improved the queue handling, adding the option for preview
+	  the queue element without removing it
+
+2008-11-05T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.5
+	* added the OSU svn tags
+
+2008-08-06T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.4
+	* Fixed the "enqueue" variable option
+	* fixed a potencial problem for opening multiple references when
+	   the DBS name was empty (modified the Core.vi)
+
+2004-02-06T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.3
+	* Fixed the problem of overriding when called in parallel. Now the
+	 core itself is modified on a element bases instead in on a database
+basis
+
+2004-02-06T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.2
+	* fixed the function SET for unsigned 8 (U8). The "group" was unwired
+
+2004-02-05T22:49:08 UTC <Marco Bonati> DBSHAND module version 1.1

@@ -1,0 +1,10 @@
+Name= Comm_mult_tcp
+Description= tcp/ip Communications module, to be used with any cmdset
+Type= resident
+Class = General
+Dynamic_Calls= 0
+Clib= yes
+Driver= none
+Standard= yes
+keywords= tcp/ip, communications, mnsn
+VERSION= 5.1

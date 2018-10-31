@@ -1,0 +1,74 @@
+\section{test/dispatcher\_\-shm/shmclient\-Lib.h File Reference}
+\label{dispatcher__shm_2shmclientLib_8h}\index{test/dispatcher_shm/shmclientLib.h@{test/dispatcher\_\-shm/shmclientLib.h}}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{pangfits\_\-msgbuf}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{MAXLEN}~50
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{pangfits\_\-msgbuf} \bf{qmsg\_\-t}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{CLI\_\-shm\-Get\-Key} (char $\ast$name)
+\item 
+void $\ast$ \bf{CLI\_\-shm\-Get\-Add} (char $\ast$name, int $\ast$size, int $\ast$id, int $\ast$qid)
+\item 
+void \bf{CLI\_\-shm\-Dettach} (void $\ast$add)
+\item 
+int \bf{CLI\_\-shm\-Get\-Msg} (int qid, char $\ast$msg, long $\ast$type, int wait)
+\item 
+void \bf{CLI\_\-shm\-Send\-Msg} (int qid, char $\ast$msg, long type)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!MAXLEN@{MAXLEN}}
+\index{MAXLEN@{MAXLEN}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAXLEN~50}\label{dispatcher__shm_2shmclientLib_8h_e6648cd71a8bd49d58ae8ed33ba910d1}
+
+
+
+
+\subsection{Typedef Documentation}
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!qmsg_t@{qmsg\_\-t}}
+\index{qmsg_t@{qmsg\_\-t}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{pangfits\_\-msgbuf}  \bf{qmsg\_\-t}}\label{dispatcher__shm_2shmclientLib_8h_6658236f1c5f7deef7c45cc6b55a27c1}
+
+
+
+
+\subsection{Function Documentation}
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!CLI_shmDettach@{CLI\_\-shmDettach}}
+\index{CLI_shmDettach@{CLI\_\-shmDettach}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void CLI\_\-shm\-Dettach (void $\ast$ {\em add})}\label{dispatcher__shm_2shmclientLib_8h_6eb3ac0ec0b8f5a3d724d68ffbb1d9c0}
+
+
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!CLI_shmGetAdd@{CLI\_\-shmGetAdd}}
+\index{CLI_shmGetAdd@{CLI\_\-shmGetAdd}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ CLI\_\-shm\-Get\-Add (char $\ast$ {\em name}, int $\ast$ {\em size}, int $\ast$ {\em id}, int $\ast$ {\em qid})}\label{dispatcher__shm_2shmclientLib_8h_fd41e64f384cd2aeae8ac6c79b4b57ed}
+
+
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!CLI_shmGetKey@{CLI\_\-shmGetKey}}
+\index{CLI_shmGetKey@{CLI\_\-shmGetKey}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int CLI\_\-shm\-Get\-Key (char $\ast$ {\em name})}\label{dispatcher__shm_2shmclientLib_8h_855c34dc8f8830583d0186d655072ccb}
+
+
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!CLI_shmGetMsg@{CLI\_\-shmGetMsg}}
+\index{CLI_shmGetMsg@{CLI\_\-shmGetMsg}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int CLI\_\-shm\-Get\-Msg (int {\em qid}, char $\ast$ {\em msg}, long $\ast$ {\em type}, int {\em wait})}\label{dispatcher__shm_2shmclientLib_8h_e9331b80bd3e7646c60c0c48bc8d8afc}
+
+
+\index{dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}!CLI_shmSendMsg@{CLI\_\-shmSendMsg}}
+\index{CLI_shmSendMsg@{CLI\_\-shmSendMsg}!dispatcher_shm/shmclientLib.h@{dispatcher\_\-shm/shmclient\-Lib.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void CLI\_\-shm\-Send\-Msg (int {\em qid}, char $\ast$ {\em msg}, long {\em type})}\label{dispatcher__shm_2shmclientLib_8h_0fa4478c5f985f1ede141a2e053b5fa7}
+
+

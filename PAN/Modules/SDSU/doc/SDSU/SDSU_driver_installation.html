@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+      
+  <title>SDSU_driver_installation</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+
+<body>
+ <b><big>SDSU driver installation</big></b><br>
+ <br>
+ The San Diego State university controller uses normally a PCI card in order 
+to get the data. The PCI card needs to be installed on the system. The system 
+comes with e driver module to be installed on the Linux/Solaris machine that 
+will run the controller.<br>
+ <br>
+ The PanVIEW module has in the source the driver, but it also can be downloaded 
+from the Astronomical Research Cameras web page (<a href="www.astro-cam.com">www.astro-cam.com</a>)<br>
+Currently PanVIEW runs only under kernel 2.6.X only (not 3.X). In the
+eventuality of an upgrade, the command set and config would be the same.<br>
+ <br>
+ For installation of the kernel, the instruction comes with the tarball provided 
+in the astro-cam site, and also provided on the SDSU ArcVIEW module, under<br>
+ <i><b><br>
+ SDSU/private/c/SDSU-III/driver_int/src</b></i><br>
+ <br>
+ The quick steps in order to have it installed are:<br>
+ <br>
+a) su (become root)<br>
+b) make clean<br>
+c) make config<br>
+d) make<br>
+e) make install<br>
+ <br>
+ <br>
+ make clean; make config will clean any previous binary, and prepare the
+files for compilation.<br>
+ <br>
+ "make" will actually compile the driver.<br>
+ The kernel source needs to be installed in order the compilation to succed.<br>
+ The Makefile usually include the kernel header files using the statement 
+-I /usr/src/linux/include or /usr/src/linux-2.4/include. Verify that such 
+path exists on your machine. "linux" and/or "linux-2.4" is usually a symbolic 
+link to the actual kernel sources (of the form "linux-2.4.21smp", for example).<br>
+ <br>
+ Once you have the driver compiled, without errors or warnings. You are ready 
+to load it into the kernel.<br>
+ For a quick test, just type "astropci_load". This script should load the 
+module up to the kernel, and also create the apropiate entries on /dev (usually 
+/dev/astropci0).<br>
+<br>
+Now, type "make install" and the driver will get installed on the modules
+tree (usually /lib/modules/&lt;linux_version&gt;/kernel/driver/misc/* or
+/lib/modules/&lt;linux_version&gt;/kernel/driver/astropci/*)<br>
+ <br>
+ Now you may want to make it load at boot time automatically. The simplest
+thing, to avoid making all the "standard" initialization for driver modules,
+is just to add an entry on /etc/rc.local calling the script for loading the
+driver. In the SDSU ArcVIEW module distribution there is also a script called
+"astropci_load_system", which loads the driver from the "system" directory
+(/lib/modules/&lt;linux_version&gt;/kernel/driver/misc/*) rather than from
+the "current" directory as the astropci_load. You can call this script from
+the rc.local, or you can copy this script also to some system place, like
+/usr/local/bin, and then just add something like:<br>
+<br>
+<i>#loads SDSU PCI driver module<br>
+/usr/local/bin/astropci_load_system<br>
+</i><br>
+on the rc.local file.<br>
+<br>
+In this way, every time the computer starts the driver will be automatically
+loaded.<br>
+<br>
+Now, <b>VERY IMPORTANT</b>.<br>
+The current version of the driver needs high memory reserved in order to
+make the DMA image transfers. This means that some high memory needs to be
+reserved for that. <br>
+This can be done in both grub or lilo, just adding the statement "mem=XXXM"
+to the loader config file (/etc/lilo.conf or /boot/grub/grub.conf), where
+XXX is the maximum amount of memory visible for the O,S. The remaining (diference
+between XXX and the real, physical memory) will be used for the DMA transfers.
+Follow the instruction on the READ_ME file on the driver directory itself.<br>
+If you don't do this, the most likely thing to happen is that the computer
+will hang when trying to read an image...<br>
+<br>
+<br>
+<br>
+ 
+</body></html>

@@ -1,0 +1,9 @@
+#! /bin/csh -f
+#This script is automatically generated
+#Any edition to this file will be lost!
+
+setenv panport ERROR file /uyw1/simager/panview_current/fpas/blue/config/PAN.cfg does not exists
+setenv panhost ctioy8.ctio.noao.edu
+cd /uyw1/simager/panview_current/PAN/public/bin
+./sendsockcmd -h $panhost -p  $panport "$argv" -t 40000
+cd -

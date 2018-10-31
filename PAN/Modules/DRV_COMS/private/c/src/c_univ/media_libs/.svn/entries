@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2650"
+   name=""
+   committed-date="2008-10-11T01:17:17.545855Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private/c/src/c_univ/media_libs"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name=".COS_SerialLib.c.swp"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="080a6a9173b724f2526f9db22a6a7c5c"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="dev_funcs.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="493881fe9885cc978e66c96c486b1614"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="DEV_SerialLib.c"
+   text-time="2008-09-30T15:56:33.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="2e6169d6381837e823691a5de296634e"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="DEV_TcpLib.c"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="146753f8531bd3c2517fc918dd9b5c63"
+   last-author="bonati"
+   kind="file"/>
+</wc-entries>

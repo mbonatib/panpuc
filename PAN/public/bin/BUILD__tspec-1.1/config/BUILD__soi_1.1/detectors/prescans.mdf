@@ -1,0 +1,6 @@
+[PRESCANS]
+header="PRESCAS"
+binned=no
+where=predata
+add_in=columns
+comment="prescan pixels"

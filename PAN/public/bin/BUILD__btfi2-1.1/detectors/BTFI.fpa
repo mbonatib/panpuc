@@ -1,0 +1,17 @@
+[INFO]
+DATE=08/08/2002
+Mount="some mount"
+Controller="San Diego State University, Gen III"
+Software="ArcVIEW"
+
+[DET_1]
+ID="EMCCD_1"
+POSITION=(1,1)
+
+[MODIFIERS]
+order="prescans overscan"
+
+[FPAREADMODES]
+lowerleft="interleaved: lowerleft"
+lowerright="interleaved: lowerright"
+lowerboth="interleaved: lowerboth"

@@ -1,0 +1,461 @@
+#! /bin/csh -f
+
+if ($#argv < 1) then
+	goto usage
+endif
+
+if ("$1" == "help" || "$1" == "-h" || "$1" == "-help") then
+	goto usage
+endif
+
+set fpa = $1
+
+set hilite=1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+alias BOLD   "(BOLD_ON;echo \!*;BOLD_OFF)"
+
+shift
+set env_arcroot = `setenv | egrep PAN_ROOT`
+if ("$env_arcroot" == "") then
+   set currdir = `cd ../../../; pwd`
+   setenv PAN_ROOT $currdir
+endif
+set env_arcroot_fpas = `setenv | egrep PAN_ROOT_FPAS`
+if ("$env_arcroot_fpas" == "") then
+   set ROOT_FPAS = $PAN_ROOT/fpas
+else
+   set ROOT_FPAS = $PAN_ROOT_FPAS
+endif
+set version = "next"
+set target = "verify"
+set always_last = 0
+
+while ("$1" != "")
+	switch ("$1")
+	     case -version:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-version <version | next>' switch"
+                        exit 1
+                endif
+                set version = "$1"
+                breaksw
+             case -target:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-target <archive | root_target_dir | archivedets | verify>' switch"
+                        exit 1
+                endif
+                set target = "$1"
+                breaksw
+             case -confd:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-confd <config_dir>' switch"
+                        exit 1
+                endif
+                set ROOT_FPAS = "$1"
+                breaksw
+             case -appd:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-appd <pan_root>' switch"
+                        exit 1
+                endif
+                setenv PAN_ROOT  $1
+                breaksw
+             case -always_last:
+                set always_last = 1
+                breaksw
+        default:
+                ERR  "unknown argument '$1'"
+                goto usage
+        endsw
+       if ("$2" == "") then
+                break
+        else
+                shift
+        endif
+end
+
+set bindir = "$PAN_ROOT/PAN/public/bin"
+if (target != "archive") then
+        set version = `$bindir/PM_extract_version $ROOT_FPAS $fpa`
+endif
+
+if ("$version" == "next") then
+	set version = `$bindir/PM_extract_version $ROOT_FPAS $fpa`
+	if ("$version[1]" == "ERROR") then
+		set version = "1.1"
+	else
+		set version = `echo "$version + 0.1" | bc`
+	endif
+endif
+
+BOLD "Getting $fpa version $version"
+echo ""		
+set distribution = BUILD_$fpa"-"$version
+
+if ("$target" == "verify") then
+	set verify_only = 1
+	set target = `pwd`
+else
+	set verify_only = 0
+endif
+if ("$target" == "archive") then
+	set tmpdir = `pwd`
+	set target_dir = $tmpdir/$distribution
+	set archive = 1
+	set archivedets = 0
+else
+	if ("$target" == "archivedets") then
+		set tmpdir = `pwd`
+		set target_dir = $tmpdir/$distribution
+		set archive = 1
+		set archivedets = 1
+	else
+		set target_dir = $target/$distribution
+		set archive = 0
+		set archivedets = 0
+	endif
+endif
+rm -Rf $target_dir
+
+echo "target dir $target_dir"
+
+
+cd $ROOT_FPAS/$fpa/config
+#delete fifos, just in case
+rm -Rf RTD
+set curdir = `pwd`
+set contdir = `$bindir/get_filekey $curdir/MOD_DHE.cfg INIT file` 
+set fpa_name = `$bindir/get_filekey $curdir/$contdir FPA name` 
+set geom_mod = `$bindir/get_modkey $curdir/GEOM_INFO.tpl WCS` 
+if ("$geom_mod[2]" == "CUSTOM") then
+	set geom_mod = $geom_mod[3]
+else
+	set geom_mod = $geom_mod[2]
+endif
+
+if ("$fpa_name[1]" == "ERROR") then
+	set fpa_name = `$bindir/get_filekey $curdir/MOD_DHE.cfg FPA name`
+endif
+set det_database = `$bindir/get_filekey $curdir/MOD_GEOM.cfg DATABASE path`
+echo $det_database
+set fpa_file = $det_database/FPA/$fpa_name.fpa
+if (! -e $fpa_file) then
+	echo "FPA $fpa_name not found on $det_database/FPA"
+	echo -n "Please indicate where the DET_DATABASE directory is located? "
+	set ans = "$<"
+	if ("$ans" == "") then
+		ERR "don't know where it is. Aborting"
+		exit 1
+	else
+		set det_database = $ans
+		set fpa_file = $det_database/FPA/$fpa_name.fpa
+		echo "searching in $fpa_file"
+		if (! -e $fpa_file) then
+			ERR "could not fin it in there either. Aborting"
+			exit 1
+		endif
+	endif
+endif
+
+set target_detdir = $target_dir/detectors
+mkdir -p $target_detdir
+
+set type_dir = $det_database/TYPES
+set det_dir = $det_database/DETECTORS
+set modif_dir = $det_database/MODIFIERS
+set read_dir = $det_database/READMODES
+set head_dir = $det_database/HEADERS
+#OK, we've got tyhe main FPA file. Now we will gather the detectors
+set end_dets = 0
+set ndet = 0
+echo ""
+BOLD "Getting FPA $fpa_name"
+echo ""
+cp $fpa_file $target_detdir/.
+echo ""
+if (-e $head_dir/$geom_mod.wcs) then
+	BOLD "Getting wcs headers $geom_mod"
+	cp $head_dir/$geom_mod.wcs $target_detdir/.         
+	echo ""
+endif
+BOLD "Getting detectors ..."
+echo ""
+while ($end_dets == 0)
+	@ ndet = $ndet + 1
+	set detsec = "DET_$ndet"
+	set det = `$bindir/get_filekey $fpa_file $detsec ID`
+	if ("$det[1]" == "ERROR") then
+		set end_dets = 1
+		@ ndet = $ndet - 1
+		break
+	endif
+	set det = `$bindir/strip_name $det`
+	if (! -e $det_dir/$det.det) then
+		ERR "detector file $det_dir/$det.det not found. Aborting"
+		exit 1
+	endif
+	cp $det_dir/$det.det  $target_detdir/.
+	echo "$det"
+	set dettype = `$bindir/get_filekey $det_dir/$det.det INFO Type` 
+	set dettype = `$bindir/strip_name $dettype`
+	if (! -e $type_dir/$dettype.typ) then
+		ERR "detector type $type_dir/$dettype.typ not found. Aborting"
+		exit 1
+	endif
+	cp $type_dir/$dettype.typ  $target_detdir/.
+	echo "-> $dettype"
+	set readmodes = `$bindir/get_filesec $type_dir/$dettype.typ READMODES`
+	while ("$readmodes" != "")
+		set readm = $readmodes[1]
+		set readm = `$bindir/get_filekey $type_dir/$dettype.typ READMODES $readm`
+		set readm = `$bindir/strip_name $readm`
+		if (! -e $read_dir/$readm) then
+			ERR "readmode $read_dir/$readm (from $dettype) was not found. Aborting"
+			exit 1
+		endif
+		cp $read_dir/$readm $target_detdir/.
+		echo "   ->$readm"
+		shift readmodes
+	end
+end
+echo "Detectors found: $ndet"
+echo ""
+BOLD "Getting modifiers ..."
+set modifiers = `$bindir/get_filekey $fpa_file MODIFIERS order`
+while ("$modifiers" != "")
+	set mod = `$bindir/strip_name $modifiers[1]`
+	if (! -e $modif_dir/$mod.mdf) then
+		ERR "modifier $mod not found. Aborting"
+		exit 1
+	endif
+	cp $modif_dir/$mod.mdf $target_detdir/.
+	echo $mod
+	shift modifiers
+end
+
+echo ""
+BOLD "Copying modules list ..."
+set modlist = $target_dir/ModList
+rm -f $modlist
+echo "$fpa-$version" > $modlist
+echo "-------------" >> $modlist
+BOLD "standard modules:"
+set modules = (DHE GEOM buffermgr DBSHAND Common)
+if ($always_last == 1) then
+	set modver = "LAST"
+else
+	set modver = `$bindir/PM_extract_version $PAN_ROOT PAN`
+endif
+echo "PAN core version -->  $modver"
+echo "PAN-$modver" >> $modlist
+while ("$modules" != "") 
+	if ($always_last == 1) then
+		set modver = "LAST"
+	else
+		set modver = `$bindir/PM_extract_version $PAN_ROOT/PAN/Modules $modules[1]`
+	endif
+	echo "$modules[1] --> $modver"
+	echo "$modules[1]-$modver" >> $modlist
+	shift modules
+end
+echo ""
+BOLD "communication modules:"
+set commods = `$bindir/get_filekey $curdir/PAN.cfg NetComms module`
+while ("$commods" != "")
+        set com = `$bindir/strip_name $commods[1]`
+	set cmdset = `$bindir/get_filekey $curdir/PAN.cfg $com cmdset`
+	if ("$cmdset[1]" != "ERROR") then
+		if ($always_last == 1) then
+			set comver = "LAST"
+		else
+        		set comver = `$bindir/PM_extract_version $PAN_ROOT/PAN/Modules Comm_$com`
+		endif
+		if ("$comver[1]" == "ERROR") then
+			echo "*** WARNING Comm_$com specified in config but not found among installed modules ***"
+		else
+			echo "Comm_$com-->$comver"
+			echo "Comm_$com-$comver" >> $modlist
+		endif
+		if ("$cmdset" == "NATIVE" || "$cmdset" == "native") then
+			echo "   --> Native cmdset (nothing to install)"
+		else
+			if ($always_last == 1) then
+				set comsetver = "LAST"
+			else
+        			set cmdsetver = `$bindir/PM_extract_version $PAN_ROOT/PAN/Modules CmdSet$cmdset`
+			endif
+			if ("$cmdsetver[1]" == "ERROR") then
+				echo "*** WARNING CmdSet$cmdset specified in $com but not found among installed  modules ***"
+			else
+				echo "   --> CmdSet$cmdset-->$cmdsetver"
+				echo "CmdSet$cmdset-$cmdsetver" >> $modlist
+			endif
+		endif
+	endif
+        shift commods
+end
+echo ""
+BOLD "DHE sub-module (hardware-specific module):"
+set dhesub = `$bindir/get_filekey $curdir/MOD_DHE.cfg INIT module`
+set dhesub = `$bindir/strip_name $dhesub`
+set modver = `$bindir/PM_extract_version $PAN_ROOT/PAN/Modules $dhesub`
+if ("$modver[1]" == "ERROR") then
+	ERR "dhe submodule $dhesub not found on $PAN_ROOT/PAN/Modules. Aborting"
+	exit 1
+endif
+echo "$dhesub --> $modver"
+echo "$dhesub-$modver" >> $modlist
+echo ""
+BOLD "custom modules:"
+set modules = `$bindir/get_filesec $curdir/PAN.cfg MODS`
+while ("$modules" != "")
+	if ($always_last == 1) then
+		set modver = "LAST"
+	else
+        	set modver = `$bindir/PM_extract_version $PAN_ROOT/PAN/Modules $modules[1]`
+	endif
+        echo "$modules[1] --> $modver"
+        echo "$modules[1]-$modver" >> $modlist
+        shift modules
+end
+echo ""
+BOLD "auxiliary (dep) modules:"
+set modules = `cat $modlist`
+shift modules
+shift modules
+shift modules
+while ("$modules" != "")
+	set mod = `echo $modules[1] | awk -F - '{print $1}'`
+	set req_deps = `$bindir/PM_get_deps $PAN_ROOT/PAN/Modules $mod $PAN_ROOT/PAN/Modules`
+	if ("$req_deps[1]" != "no") then
+		while ("$req_deps" != "")
+			set dep = `echo $req_deps[1] | awk -F - '{print $1}'`
+			set min_ver = `echo $req_deps[1] | awk -F - '{print $2}'`
+			set inst_ver = `egrep $dep $modlist`
+			set inst_ver = `echo $inst_ver | awk -F - '{print $2}'`
+			if ("$inst_ver" == "" || "$inst_ver" == " ") then
+				set inst_ver = "0.1"
+			endif
+			set inst_ver = `$bindir/PM_get_version $dep $inst_ver`
+			set compar = `$bindir/PM_compare_versions $min_ver $inst_ver`
+			if ("$compar" == "1") then
+				echo "$dep --> LAST (from $mod)" 
+				echo "$dep-LAST" >> $modlist
+			endif
+			shift req_deps
+		end	
+	endif
+        shift modules
+end
+
+
+echo ""
+BOLD "modules that may be necessary ..."
+cd $PAN_ROOT/PAN/Modules
+set drivers = `ls -d DRV_*`
+set modules = `cat $modlist`
+while ("$drivers" != "")
+	set inst = `egrep $drivers[1] $modlist`
+	set inst = `echo $inst | awk -F - '{print $1}'`
+	if ("$inst" != "") then
+		shift drivers
+		continue
+	endif
+	set modver = `$bindir/PM_extract_version $PAN_ROOT/PAN/Modules $drivers[1]`
+	set modinfo = `$bindir/PM_get_modinfo $drivers[1] Description $PAN_ROOT/PAN/Modules`
+	echo "$drivers[1] $modver ($modinfo)"
+	if ($verify_only == 0) then
+		echo -n "    Do you want to add it (if not sure,recommended yes) (y)? "
+		set ans = "$<"
+		if ("$ans" == "") then
+			set ans = "y"
+		endif
+		if ("$ans" == "y" || "$ans" == "yes") then
+			if ($always_last == 1) then
+				set modver = "LAST"
+			endif
+			echo $drivers[1]-$modver >> $modlist
+		endif
+	endif
+	shift drivers
+end
+
+echo ""
+cd $ROOT_FPAS/$fpa
+if ($verify_only == 0) then
+	echo "Copying config files ..."
+	cp -r config $target_dir/.
+endif
+
+if ($verify_only == 0) then
+	if ($archive == 1) then
+		if (-e ./tmpclog) then
+			rm -f ./tmpclog
+		endif
+		set dt = `date --utc +%Y-%m-%dT%H:%M:%S`
+		echo "$dt UTC <`whoami`> BUILD_$fpa version $version" > ./tmpclog
+		echo "* write your comments here" >> ./tmpclog
+		echo "" >> ./tmpclog
+		if (-e "./ChangeLog.txt") then
+			cat ./ChangeLog.txt >> ./tmpclog
+			rm -Rf ./ChangeLog.txt
+		endif
+		mv ./tmpclog ./ChangeLog.txt
+		vi ./ChangeLog.txt
+	endif
+	if (-e ./ChangeLog.txt) then
+		cp ./ChangeLog.txt $target_dir/.
+	else
+		echo "no ChangeLog foud on $fpa"
+	endif
+endif
+
+if ($archive == 1) then
+	echo ""
+	echo "Archiving $distribution ..."
+	$bindir/PM_Archive $distribution $tmpdir
+endif
+if ($archivedets == 1) then
+	cd $tmpdir
+	$bindir/PM_Copy .  DET_DATABASE LAST
+	if (-e $target_detdir) then
+		cp $fpa_file ./DET_DATABASE/FPA/.
+		cp $target_detdir/*.det ./DET_DATABASE/DETECTORS/.
+		cp $target_detdir/*.typ ./DET_DATABASE/TYPES/.
+		cp $target_detdir/*.rdm ./DET_DATABASE/READMODES/.
+		cp $target_detdir/*.mdf ./DET_DATABASE/MODIFIERS/.
+		set ver = `$bindir/PM_extract_version . DET_DATABASE`
+		set ver = `echo "$ver + 0.1" | bc`
+		rm -f ./tmpclog
+		echo "$dt UTC <`whoami`> DET_DATABASE version $ver" > ./tmpclog
+		echo "	* added or modified $fpa_name and detectors (autolog -> PM_distill_fpa)" >> ./tmpclog
+		echo "" >> ./tmpclog
+		cat ./DET_DATABASE/ChangeLog.txt >> ./tmpclog
+		rm -f ./DET_DATABASE/ChangeLog.txt
+		mv ./tmpclog ./DET_DATABASE/ChangeLog.txt
+		$bindir/PM_Archive DET_DATABASE .
+		rm -Rf ./DET_DATABASE
+	  endif
+endif
+if ($verify_only == 1) then
+	rm -Rf $target_dir
+endif
+echo ""
+echo "DONE"
+
+exit 0
+
+usage:
+    echo "Usage:   PM_distill_fpa <fpa> [-version <version | next>] [-target <archive | archivedets | root_target_dir | verify] [-confd <configs_directory>] [-appd <pan source root>]"
+
+exit 0

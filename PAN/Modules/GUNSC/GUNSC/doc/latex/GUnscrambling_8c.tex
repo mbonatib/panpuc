@@ -1,0 +1,386 @@
+\section{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GUnscrambling.c File Reference}
+\label{GUnscrambling_8c}\index{panview_current/PAN/Modules/GUNSC/private/c/src/GUnscrambling.c@{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GUnscrambling.c}}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$dlfcn.h$>$}\par
+{\tt \#include \char`\"{}../../../public/c/include/GUnscrambling.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{pdebug}(fmt, args...)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+i32 \bf{GU\_\-check\-Error} (i32 iferr)
+\item 
+i32 \bf{GU\_\-open} (char $\ast$filepath)
+\item 
+i32 \bf{GU\_\-close} (void)
+\item 
+i32 \bf{GU\_\-Get\-Max\-Amps} (void)
+\item 
+i32 \bf{GU\_\-compute} (i32 datatype)
+\item 
+i32 \bf{GU\_\-enable} (i16 flag)
+\item 
+i32 \bf{GU\_\-is\_\-enabled} (void)
+\item 
+i32 \bf{GU\_\-call\_\-pix\_\-swap} (i32 flag)
+\item 
+i32 \bf{GU\_\-call\_\-clear\_\-amps} (void)
+\item 
+i32 \bf{GU\_\-call\_\-det\_\-ext} (i32 flag)
+\item 
+i32 \bf{GU\_\-call\_\-set\_\-order\_\-left} (char $\ast$left1, char $\ast$left2, char $\ast$left3)
+\item 
+i32 \bf{GU\_\-call\_\-set\_\-order\_\-right} (char $\ast$right1, char $\ast$right2, char $\ast$right3)
+\item 
+i32 \bf{GU\_\-call\_\-set\_\-order\_\-lower} (char $\ast$low1, char $\ast$low2, char $\ast$low3)
+\item 
+i32 \bf{GU\_\-call\_\-set\_\-order\_\-upper} (char $\ast$upp1, char $\ast$upp2, char $\ast$upp3)
+\item 
+i32 \bf{GU\_\-call\_\-add\_\-det} (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 nxamps, i32 nyamps, i32 discard, i32 detno)
+\item 
+i32 \bf{GU\_\-call\_\-add\_\-amp} (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 xdetstart, i32 ydetstart, i16 type, i32 rotate, i16 flip, i32 extension, i32 detno, i32 ampno, i32 discard)
+\item 
+ptr\_\-t \bf{GU\_\-call\_\-get\_\-amps\_\-ptr} (void)
+\item 
+i32 \bf{GU\_\-call\_\-Set\-Phys\-Map} (ptr\_\-t array, i32 num\_\-elements)
+\item 
+i32 \bf{GU\_\-call\_\-show\_\-amps} (void)
+\item 
+i32 \bf{GU\_\-call\_\-unscrambling} (ptr\_\-t rptr, ptr\_\-t imageptr, i32 nelems, i32 $\ast$err)
+\item 
+i32 \bf{GU\_\-call\_\-copy\_\-image} (i32 buff, i32 amplifiers, i32 totcols)
+\item 
+ptr\_\-t \bf{GU\_\-call\_\-get\_\-raw\_\-ptr} (i32 $\ast$namplif)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+void $\ast$ \bf{Function\-Lib}
+\item 
+i32($\ast$) \bf{GUnsc} ()
+\item 
+i32($\ast$) \bf{GUadd} ()
+\item 
+i32($\ast$) \bf{GUadddet} ()
+\item 
+i32($\ast$) \bf{GUdetext} ()
+\item 
+i32($\ast$) \bf{GUorder\_\-left} ()
+\item 
+i32($\ast$) \bf{GUorder\_\-right} ()
+\item 
+i32($\ast$) \bf{GUorder\_\-lower} ()
+\item 
+i32($\ast$) \bf{GUorder\_\-upper} ()
+\item 
+i32($\ast$) \bf{GUclear} ()
+\item 
+i32($\ast$) \bf{GUcopy} ()
+\item 
+ptr\_\-t($\ast$) \bf{GUget\-Ptr} ()
+\item 
+ptr\_\-t($\ast$) \bf{GUgetptr} ()
+\item 
+i32($\ast$) \bf{GUsetmap} ()
+\item 
+i32($\ast$) \bf{GUpixswap} ()
+\item 
+i32($\ast$) \bf{GUsetbytespp} ()
+\item 
+const char $\ast$ \bf{dl\-Error}
+\item 
+i32 \bf{dtype} = 16
+\item 
+i32 \bf{enabled} = 1
+\item 
+char \bf{algorpath} [1024]
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{GUnscrambling.c@{GUnscrambling.c}!pdebug@{pdebug}}
+\index{pdebug@{pdebug}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define pdebug(fmt, args...)}\label{GUnscrambling_8c_8c966da20fb8302f3c1dd18e5db6a22f}
+
+
+
+
+\subsection{Function Documentation}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_add_amp@{GU\_\-call\_\-add\_\-amp}}
+\index{GU_call_add_amp@{GU\_\-call\_\-add\_\-amp}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-add\_\-amp (i32 {\em xstart}, i32 {\em precols}, i32 {\em datacols}, i32 {\em postcols}, i32 {\em ystart}, i32 {\em prerows}, i32 {\em datarows}, i32 {\em postrows}, i32 {\em xdetstart}, i32 {\em ydetstart}, i16 {\em type}, i32 {\em rotate}, i16 {\em flip}, i32 {\em extension}, i32 {\em detno}, i32 {\em ampno}, i32 {\em discard})}\label{GUnscrambling_8c_3c27d07cae0f9255479e5e6e647e52fe}
+
+
+Adds a new amplifier to amplifiers structure all coordinates in detector-based coordinates \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em xstart}]lower right x position \item[\mbox{$\leftarrow$} {\em precols}]number of predata pixels in x direction (prescans) \item[\mbox{$\leftarrow$} {\em datacols}]number of col data pixels (x direction) \item[\mbox{$\leftarrow$} {\em postcols}]number of postdata pixels in x direction (oversscans) \item[\mbox{$\leftarrow$} {\em ystart}]lower right y position \item[\mbox{$\leftarrow$} {\em prerows}]number of predata lines in y direction (yprescans) \item[\mbox{$\leftarrow$} {\em datarows}]number of row data lines (y direction) \item[\mbox{$\leftarrow$} {\em postrows}]number of postdata lines in y direction (yoversscans) \item[\mbox{$\leftarrow$} {\em xdetstart}]lower right position of detctor in FPA \item[\mbox{$\leftarrow$} {\em ydetstart}]lower right position of detector in FPA \item[\mbox{$\leftarrow$} {\em type}]amplifier type (lowerleft (LL), Lowerright (LR), Upper\-Left (UL) or Upper\-Right (UR \item[\mbox{$\leftarrow$} {\em rotate}]rotation angle for the amplifier (0,90,180 or 270 allowed only) \item[\mbox{$\leftarrow$} {\em flip}]indicates if the amplifier is flipped \item[\mbox{$\leftarrow$} {\em extension}]indicates the extension number where this should be mapped \item[\mbox{$\leftarrow$} {\em detno}]indicates the detector number to which this amplifier belongs \item[\mbox{$\leftarrow$} {\em ampno}]indicates the amplifier number \item[\mbox{$\leftarrow$} {\em discard}]indicates if this amplifier should be discarded \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_add_det@{GU\_\-call\_\-add\_\-det}}
+\index{GU_call_add_det@{GU\_\-call\_\-add\_\-det}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-add\_\-det (i32 {\em xstart}, i32 {\em precols}, i32 {\em datacols}, i32 {\em postcols}, i32 {\em ystart}, i32 {\em prerows}, i32 {\em datarows}, i32 {\em postrows}, i32 {\em nxamps}, i32 {\em nyamps}, i32 {\em discard}, i32 {\em detno})}\label{GUnscrambling_8c_0089d3db9d237b24c151aab75d12f821}
+
+
+Adds a new detector to detectors structure. All coordinates in global FPA coordinates \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em xstart}]lower right x position \item[\mbox{$\leftarrow$} {\em precols}]number of predata pixels in x direction (prescans) \item[\mbox{$\leftarrow$} {\em datacols}]number of col data pixels (x direction) \item[\mbox{$\leftarrow$} {\em postcols}]number of postdata pixels in x direction (oversscans) \item[\mbox{$\leftarrow$} {\em ystart}]lower right y position \item[\mbox{$\leftarrow$} {\em prerows}]number of predata lines in y direction (yprescans) \item[\mbox{$\leftarrow$} {\em datarows}]number of row data lines (y direction) \item[\mbox{$\leftarrow$} {\em postrows}]number of postdata lines in y direction (yoversscans) \item[\mbox{$\leftarrow$} {\em nxamps}]number of amplifiers in x direction (per line of detector) \item[\mbox{$\leftarrow$} {\em nyamps}]number of amplifiers in y direction (per column of detector) \item[\mbox{$\leftarrow$} {\em discard}]if set, indicates to discard this amplifer \item[\mbox{$\leftarrow$} {\em detno}]detector number (ID) in the FPA \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_clear_amps@{GU\_\-call\_\-clear\_\-amps}}
+\index{GU_call_clear_amps@{GU\_\-call\_\-clear\_\-amps}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-clear\_\-amps (void)}\label{GUnscrambling_8c_adcfe59fca104984bb00bb11c4308fec}
+
+
+Clears the amplifiers structure \index{GUnscrambling.c@{GUnscrambling.c}!GU_call_copy_image@{GU\_\-call\_\-copy\_\-image}}
+\index{GU_call_copy_image@{GU\_\-call\_\-copy\_\-image}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-copy\_\-image (i32 {\em buff}, i32 {\em amplifiers}, i32 {\em totcols})}\label{GUnscrambling_8c_81d8da3e94bbb86d28384d46dbf1dd4a}
+
+
+Copy image from amplifiers structure to output buffer \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em buff}]buffer where image is to be copied \item[\mbox{$\leftarrow$} {\em amplifiers}]pointer to amplifier structure \item[\mbox{$\leftarrow$} {\em totcols}]number of columns in image \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_det_ext@{GU\_\-call\_\-det\_\-ext}}
+\index{GU_call_det_ext@{GU\_\-call\_\-det\_\-ext}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-det\_\-ext (i32 {\em flag})}\label{GUnscrambling_8c_184fa75ec2a3201c1b740f8bb44c915c}
+
+
+Enables/Disables the per-detector extensions \index{GUnscrambling.c@{GUnscrambling.c}!GU_call_get_amps_ptr@{GU\_\-call\_\-get\_\-amps\_\-ptr}}
+\index{GU_call_get_amps_ptr@{GU\_\-call\_\-get\_\-amps\_\-ptr}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-call\_\-get\_\-amps\_\-ptr (void)}\label{GUnscrambling_8c_b077eaa7ea8828ccf0c1ecf221a35bcd}
+
+
+Gets amplifiers structure pointer \index{GUnscrambling.c@{GUnscrambling.c}!GU_call_get_raw_ptr@{GU\_\-call\_\-get\_\-raw\_\-ptr}}
+\index{GU_call_get_raw_ptr@{GU\_\-call\_\-get\_\-raw\_\-ptr}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-call\_\-get\_\-raw\_\-ptr (i32 $\ast$ {\em namplif})}\label{GUnscrambling_8c_323dfebce6d23892b0075678d1f13d10}
+
+
+Get pointer to the databuffer inside the amplifiers structure \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\rightarrow$} {\em namplif}]number of amplifiers \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_pix_swap@{GU\_\-call\_\-pix\_\-swap}}
+\index{GU_call_pix_swap@{GU\_\-call\_\-pix\_\-swap}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-pix\_\-swap (i32 {\em flag})}\label{GUnscrambling_8c_424ccecb831fc02a2ba965fe4a153b08}
+
+
+pixel swap requiered in some cases (upper/lower half) \index{GUnscrambling.c@{GUnscrambling.c}!GU_call_set_order_left@{GU\_\-call\_\-set\_\-order\_\-left}}
+\index{GU_call_set_order_left@{GU\_\-call\_\-set\_\-order\_\-left}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-set\_\-order\_\-left (char $\ast$ {\em left1}, char $\ast$ {\em left2}, char $\ast$ {\em left3})}\label{GUnscrambling_8c_3ad45e427dc3363d59c85c03ee931166}
+
+
+Directs the order in which predata, data and postdata should be orderd for \char`\"{}left\char`\"{} amplifiers sections can be \char`\"{}pre\char`\"{}, \char`\"{}dat\char`\"{}, or \char`\"{}pos\char`\"{}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em left1}]first section \item[\mbox{$\leftarrow$} {\em left2}]second section \item[\mbox{$\leftarrow$} {\em left3}]third section \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_set_order_lower@{GU\_\-call\_\-set\_\-order\_\-lower}}
+\index{GU_call_set_order_lower@{GU\_\-call\_\-set\_\-order\_\-lower}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-set\_\-order\_\-lower (char $\ast$ {\em low1}, char $\ast$ {\em low2}, char $\ast$ {\em low3})}\label{GUnscrambling_8c_24e2940b4822ace49104700d354b54ef}
+
+
+Directs the order in which predata, data and postdata should be orderd for \char`\"{}lower\char`\"{} amplifiers sections can be \char`\"{}pre\char`\"{}, \char`\"{}dat\char`\"{}, or \char`\"{}pos\char`\"{} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em low1}]first section \item[\mbox{$\leftarrow$} {\em low2}]second section \item[\mbox{$\leftarrow$} {\em low3}]third section \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_set_order_right@{GU\_\-call\_\-set\_\-order\_\-right}}
+\index{GU_call_set_order_right@{GU\_\-call\_\-set\_\-order\_\-right}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-set\_\-order\_\-right (char $\ast$ {\em right1}, char $\ast$ {\em right2}, char $\ast$ {\em right3})}\label{GUnscrambling_8c_4762a12f4523998929df0a92a91d33cd}
+
+
+Directs the order in which predata, data and postdata should be orderd for \char`\"{}right\char`\"{} amplifiers sections can be \char`\"{}pre\char`\"{}, \char`\"{}dat\char`\"{}, or \char`\"{}pos\char`\"{} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em right1}]first section \item[\mbox{$\leftarrow$} {\em right2}]second section \item[\mbox{$\leftarrow$} {\em right3}]third section \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_set_order_upper@{GU\_\-call\_\-set\_\-order\_\-upper}}
+\index{GU_call_set_order_upper@{GU\_\-call\_\-set\_\-order\_\-upper}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-set\_\-order\_\-upper (char $\ast$ {\em upp1}, char $\ast$ {\em upp2}, char $\ast$ {\em upp3})}\label{GUnscrambling_8c_c4144c816789d426d520d4a562d0ae5b}
+
+
+Directs the order in which predata, data and postdata should be orderd for \char`\"{}upper\char`\"{} amplifiers section names can be \char`\"{}pre\char`\"{}, \char`\"{}dat\char`\"{}, or \char`\"{}pos\char`\"{} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em upp1}]first section \item[\mbox{$\leftarrow$} {\em upp}]second section \item[\mbox{$\leftarrow$} {\em upp3}]third section \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_SetPhysMap@{GU\_\-call\_\-SetPhysMap}}
+\index{GU_call_SetPhysMap@{GU\_\-call\_\-SetPhysMap}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-Set\-Phys\-Map (ptr\_\-t {\em array}, i32 {\em num\_\-elements})}\label{GUnscrambling_8c_afda3dbd5eaa7aa5b9aeaddca9950774}
+
+
+Maps the amplifier read order to the position in the buffer \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em array}]array containing the structure \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_call_show_amps@{GU\_\-call\_\-show\_\-amps}}
+\index{GU_call_show_amps@{GU\_\-call\_\-show\_\-amps}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-show\_\-amps (void)}\label{GUnscrambling_8c_06be2ba721f6345920813dbe2110c7e1}
+
+
+Shows (print out) the amplifiers structure) \index{GUnscrambling.c@{GUnscrambling.c}!GU_call_unscrambling@{GU\_\-call\_\-unscrambling}}
+\index{GU_call_unscrambling@{GU\_\-call\_\-unscrambling}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-call\_\-unscrambling (ptr\_\-t {\em rptr}, ptr\_\-t {\em imageptr}, i32 {\em nelems}, i32 $\ast$ {\em err})}\label{GUnscrambling_8c_358b0d0f097df90eff8490aacb353541}
+
+
+Unscrambles the data. This routine will call the function selected with \doxyref{GU\_\-compute()}{p.}{GUnscrambling_8c_a96a9975e7b59f71ef64840f1facb51c} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em rptr}]pointer to the raw data buffer (as read from the controller) \item[\mbox{$\leftarrow$} {\em imageptr}]pointer to the output data buffer (where to store the unscrambled data) \item[\mbox{$\leftarrow$} {\em nelems}]number of pixels \item[\mbox{$\rightarrow$} {\em $\ast$err}]status out \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_checkError@{GU\_\-checkError}}
+\index{GU_checkError@{GU\_\-checkError}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-check\-Error (i32 {\em iferr})}\label{GUnscrambling_8c_14defb80519c37997bf4cc0550ff84d0}
+
+
+Checks dynamic library error \index{GUnscrambling.c@{GUnscrambling.c}!GU_close@{GU\_\-close}}
+\index{GU_close@{GU\_\-close}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-close (void)}\label{GUnscrambling_8c_0143f80bfddd3bcd4479afd836085335}
+
+
+Closes the opened library \index{GUnscrambling.c@{GUnscrambling.c}!GU_compute@{GU\_\-compute}}
+\index{GU_compute@{GU\_\-compute}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-compute (i32 {\em datatype})}\label{GUnscrambling_8c_a96a9975e7b59f71ef64840f1facb51c}
+
+
+Selects the unscrambling routine to be used based on the datatype \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em datatype}]type of pixel to be unscrambled (short, long, float) \end{description}
+\end{Desc}
+\index{GUnscrambling.c@{GUnscrambling.c}!GU_enable@{GU\_\-enable}}
+\index{GU_enable@{GU\_\-enable}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-enable (i16 {\em flag})}\label{GUnscrambling_8c_4b3537d16a57d28e92edb61fbc9c2890}
+
+
+Enables or disables unscrambling \index{GUnscrambling.c@{GUnscrambling.c}!GU_GetMaxAmps@{GU\_\-GetMaxAmps}}
+\index{GU_GetMaxAmps@{GU\_\-GetMaxAmps}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-Get\-Max\-Amps (void)}\label{GUnscrambling_8c_d487dbfa35b955c39f04e6975d8dddf6}
+
+
+Get maximum number of amps \index{GUnscrambling.c@{GUnscrambling.c}!GU_is_enabled@{GU\_\-is\_\-enabled}}
+\index{GU_is_enabled@{GU\_\-is\_\-enabled}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-is\_\-enabled (void)}\label{GUnscrambling_8c_7d09eabc86ec566e47ccfe95ea4eb344}
+
+
+Is unscrambling enabled \index{GUnscrambling.c@{GUnscrambling.c}!GU_open@{GU\_\-open}}
+\index{GU_open@{GU\_\-open}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-open (char $\ast$ {\em filepath})}\label{GUnscrambling_8c_737417c144ee5a0c584fa11bd3050636}
+
+
+Opens the specified dynamic library \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em $\ast$filepath}]full library path to open \end{description}
+\end{Desc}
+
+
+\subsection{Variable Documentation}
+\index{GUnscrambling.c@{GUnscrambling.c}!algorpath@{algorpath}}
+\index{algorpath@{algorpath}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{algorpath}[1024]}\label{GUnscrambling_8c_ce9a869e3f6ba9e263f6b1de32e620ee}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!dlError@{dlError}}
+\index{dlError@{dlError}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{dl\-Error}}\label{GUnscrambling_8c_4039259493bd52b272ceb26ff644b177}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!dtype@{dtype}}
+\index{dtype@{dtype}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{dtype} = 16}\label{GUnscrambling_8c_e52d9cf33d79dc836ffd2cb26f4e4a84}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!enabled@{enabled}}
+\index{enabled@{enabled}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{enabled} = 1}\label{GUnscrambling_8c_7b961f32cbc1c885bebad6fe8e4d1ce9}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!FunctionLib@{FunctionLib}}
+\index{FunctionLib@{FunctionLib}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Function\-Lib}}\label{GUnscrambling_8c_cec6828e1bada4dfc1d6227060382100}
+
+
+Handle to shared lib file \index{GUnscrambling.c@{GUnscrambling.c}!GUadd@{GUadd}}
+\index{GUadd@{GUadd}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUadd}()}\label{GUnscrambling_8c_c73f56ea5da87f6f1c8b18da689716e6}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUadddet@{GUadddet}}
+\index{GUadddet@{GUadddet}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUadddet}()}\label{GUnscrambling_8c_e9a2c8e2b46896f0ac47baf51e381a28}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUclear@{GUclear}}
+\index{GUclear@{GUclear}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUclear}()}\label{GUnscrambling_8c_bbe52c5d09e60e7ca784a9fa07c17a7a}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!GUcopy@{GUcopy}}
+\index{GUcopy@{GUcopy}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUcopy}()}\label{GUnscrambling_8c_fa0cf13d6cc3ba1e8e78af1162780be9}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!GUdetext@{GUdetext}}
+\index{GUdetext@{GUdetext}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUdetext}()}\label{GUnscrambling_8c_0eff766d73ea059b291eb5867c7a25ae}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUgetptr@{GUgetptr}}
+\index{GUgetptr@{GUgetptr}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t($\ast$) \bf{GUgetptr}()}\label{GUnscrambling_8c_5cb942005cb8ae1ea5fcfe04830b345b}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!GUgetPtr@{GUgetPtr}}
+\index{GUgetPtr@{GUgetPtr}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t($\ast$) \bf{GUget\-Ptr}()}\label{GUnscrambling_8c_77d6b5cd03a6c2ededb7d4ba945084cb}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!GUnsc@{GUnsc}}
+\index{GUnsc@{GUnsc}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUnsc}()}\label{GUnscrambling_8c_0e42a1ece0c31aa1768e6946b75be1de}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUorder_left@{GUorder\_\-left}}
+\index{GUorder_left@{GUorder\_\-left}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUorder\_\-left}()}\label{GUnscrambling_8c_f9e30427368db72f22efdb001a6d3c94}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUorder_lower@{GUorder\_\-lower}}
+\index{GUorder_lower@{GUorder\_\-lower}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUorder\_\-lower}()}\label{GUnscrambling_8c_33a697edc537f3262a8db130609796e6}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUorder_right@{GUorder\_\-right}}
+\index{GUorder_right@{GUorder\_\-right}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUorder\_\-right}()}\label{GUnscrambling_8c_97a1dcd29675aff3238d902204469bb7}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUorder_upper@{GUorder\_\-upper}}
+\index{GUorder_upper@{GUorder\_\-upper}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUorder\_\-upper}()}\label{GUnscrambling_8c_841df48bc2637112dc4492aabb081062}
+
+
+Pointer to loaded routine \index{GUnscrambling.c@{GUnscrambling.c}!GUpixswap@{GUpixswap}}
+\index{GUpixswap@{GUpixswap}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUpixswap}()}\label{GUnscrambling_8c_aa5c84200cce04e9a159ffa2309d468b}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!GUsetbytespp@{GUsetbytespp}}
+\index{GUsetbytespp@{GUsetbytespp}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUsetbytespp}()}\label{GUnscrambling_8c_aaff31c562a14ec39dbe3804687e321e}
+
+
+\index{GUnscrambling.c@{GUnscrambling.c}!GUsetmap@{GUsetmap}}
+\index{GUsetmap@{GUsetmap}!GUnscrambling.c@{GUnscrambling.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUsetmap}()}\label{GUnscrambling_8c_1e3bb77d851fa9b2cc9d9fb2b4ff9151}
+
+

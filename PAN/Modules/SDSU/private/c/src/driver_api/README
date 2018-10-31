@@ -1,0 +1,7 @@
+CONTENTS
+--------
+sdsuLib.c	: specific SDSU controller driver calls (functions)
+sdsu_defs.h	: general header declarations/definitions to be used
+Makfile		: makefile for generating a shared object and/or a static library
+		  to be used by an external applications
+

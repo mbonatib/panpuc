@@ -1,0 +1,15 @@
+[DEV_CCCP]
+type=tcp
+params="host localhost, port 8888"
+libdir=_MODPATH_/CCCP/private/c/src/driver_api/media_libs
+bpp=16
+FPA=BTFI
+modifiers="prescans 8 overscan 8"
+PixelTime=25.28
+SkipPixel=25.28
+ShiftRow=2200
+SkipRow=600
+ShiftedPix=0
+known_overhead=0
+ReadoutMode=lowerboth
+Commands=./dhe_init.mc

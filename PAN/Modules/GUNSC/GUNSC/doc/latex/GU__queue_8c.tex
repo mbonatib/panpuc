@@ -1,0 +1,58 @@
+\section{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-queue.c File Reference}
+\label{GU__queue_8c}\index{panview_current/PAN/Modules/GUNSC/private/c/src/GU_queue.c@{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-queue.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include \char`\"{}GU\_\-queue.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{GUQ\_\-Get\-Ref} (char $\ast$name)
+\item 
+int \bf{GUQ\_\-Get\-Msg} (int qid, char $\ast$msg, long $\ast$type, int wait)
+\item 
+void \bf{GUQ\_\-Send\-Msg} (int qid, char $\ast$msg, long type)
+\item 
+int \bf{GUQ\_\-Wait\-Messages} (int qid)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\bf{qmsg\_\-t} \bf{message}
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{GU_queue.c@{GU\_\-queue.c}!GUQ_GetMsg@{GUQ\_\-GetMsg}}
+\index{GUQ_GetMsg@{GUQ\_\-GetMsg}!GU_queue.c@{GU\_\-queue.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GUQ\_\-Get\-Msg (int {\em qid}, char $\ast$ {\em msg}, long $\ast$ {\em type}, int {\em wait})}\label{GU__queue_8c_cf4df06095d6e1f73bcd7dbdfbe8d4bb}
+
+
+\index{GU_queue.c@{GU\_\-queue.c}!GUQ_GetRef@{GUQ\_\-GetRef}}
+\index{GUQ_GetRef@{GUQ\_\-GetRef}!GU_queue.c@{GU\_\-queue.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GUQ\_\-Get\-Ref (char $\ast$ {\em name})}\label{GU__queue_8c_872a749d1673cc5669ff8fda3fd2457e}
+
+
+\index{GU_queue.c@{GU\_\-queue.c}!GUQ_SendMsg@{GUQ\_\-SendMsg}}
+\index{GUQ_SendMsg@{GUQ\_\-SendMsg}!GU_queue.c@{GU\_\-queue.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GUQ\_\-Send\-Msg (int {\em qid}, char $\ast$ {\em msg}, long {\em type})}\label{GU__queue_8c_d4a285b0769e66c37b928369c35e2da5}
+
+
+\index{GU_queue.c@{GU\_\-queue.c}!GUQ_WaitMessages@{GUQ\_\-WaitMessages}}
+\index{GUQ_WaitMessages@{GUQ\_\-WaitMessages}!GU_queue.c@{GU\_\-queue.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GUQ\_\-Wait\-Messages (int {\em qid})}\label{GU__queue_8c_3b110f4baba9268d0bd08ef382ebf054}
+
+
+
+
+\subsection{Variable Documentation}
+\index{GU_queue.c@{GU\_\-queue.c}!message@{message}}
+\index{message@{message}!GU_queue.c@{GU\_\-queue.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{qmsg\_\-t} \bf{message}}\label{GU__queue_8c_f84da652e38afc80516ebb40c60642c1}
+
+

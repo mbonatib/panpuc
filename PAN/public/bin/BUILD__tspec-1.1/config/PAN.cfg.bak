@@ -1,0 +1,46 @@
+[NetComms]
+module=mult_tcp, mult_tcp2
+[mult_tcp]
+multport=5315
+cmdport=5326
+asyncport=5336
+asynchost=auto
+cmdset=NATIVE
+[mult_tcp2]
+multport=5315
+cmdport=5326
+asyncport=5336
+asynchost=auto
+cmdset=CALTECH
+[GBLPATHS]
+_PANLOGPATH_=../log
+_CONFPATH_=./
+[PAN]
+id=_soi
+configs=./
+logs=_PANLOGPATH_
+commands=""
+macrodir=DETECTOR/
+autoexec=INIT
+[Mode]
+blocking=yes
+opengui=yes
+[LOG]
+log=yes
+file=_PANLOGPATH_/PAN.log
+[CMDSET]
+dhe=OMAN
+[MODS]
+LOG=public/vis/LOG_API.vi
+GRTD=public/vis/GRTD_API.vi
+GUNSC=public/vis/GUNSC_API.vi
+GFITS=public/vis/GFITS_API.vi
+Logical=public/vis/Logical_API.vi
+TPNT=public/vis/TPNT_API.vi
+[TRANSLATIONS]
+TEMP=DHE TP
+DISPLAY=GRTD
+MACRO=PAN MACRO
+SHUTDOWN=PAN SHUTDOWN
+OFFLINE=PAN OFFLINE
+NAME=PAN NAME

@@ -1,0 +1,1431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  
+  
+  <title>DHE_QuickCommandReference</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+<body>
+
+<u><b><big><big>Quick Command Reference to DHE under ArcVIEW</big></big><br>
+
+<br>
+
+</b></u> The following list describes briefly the command and parameters
+available for   the detector controller electronics. For a more detailed
+description on the parameters, please see the <a href="DHE_CommandList_SDSU.html">complete DHE command list</a><br>
+
+All the listed commands MUST begin with the prefix <b>DHE.</b> The
+system is case  INSENSITIVE.<br>
+
+Most of the commands are generic,&nbsp; but some of them are dependent
+on the hardware and/or detector. In particular the DAC, MEMORY and
+REGISTER (section 4) will apply or not depending on the configuration
+(for example, MEMORY will apply to a SDSU, but not to a Palomar
+controller)<br>
+
+The meaning of the simbology is:<br>
+
+&lt; &gt; : holds a parameter which is necesarry (mandatory)<br>
+
+[ ] : holds a parameter which is optional <br>
+
+|&nbsp;&nbsp;&nbsp; : separates possible values for an enumerated
+type.<br>
+
+<b>&nbsp;<br>
+
+</b><big style="font-weight: bold;"><br>
+
+</big><big style="font-weight: bold;"><big>1.- Initialization</big></big><br>
+
+<big style="font-weight: bold;"> <br>
+
+</big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">command</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">START | INIT [path]</td>
+
+      <td style="vertical-align: top;">starts the DHE software and
+hardware (this may include drivers, uploading files, to the hardware,
+etc). If a init file is specified, uses that one, if not, uses the
+default one specified on the config. file</td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">SHUTDOWN, CLOSE<br>
+
+      </td>
+
+      <td style="vertical-align: top;">closes the DHE softwatre and
+hardware</td>
+
+    </tr>
+
+  
+  </tbody>
+</table>
+
+<big style="font-weight: bold;"><small><br>
+
+</small></big><big style="font-weight: bold; text-decoration: underline;"><small>Configuration
+file</small></big><big style="font-weight: bold;"><small><br>
+
+</small></big><big><small><br>
+
+The "main" initialization file for the module is usually called
+"MOD_DHE.cfg" or MOD_XXX.cfg, where XXX is the name of the actual
+detector controller (like MOD_SDSU.cfg for a San Diego State University
+controller, for example)<br>
+
+The file described here is really a "master" config file as it mainly
+points at more specific config files. The entries may also vary
+depending on what the actual hardware supports.<br>
+
+<br>
+
+[INIT]<br>
+
+file=&lt;path&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*initialization
+file for the specific hardware. The format of this file will be
+dependent on the specific hardware*/<br>
+
+[TP]<br>
+
+tpfile=&lt;path&gt; &nbsp; &nbsp; &nbsp; /*file specifying TestPoints
+to be normally loged and/or used in headers, like power supplies,
+temperatures, etc*/<br>
+
+[DAC]<br>
+
+file=&lt;path&gt; &nbsp; &nbsp; &nbsp; &nbsp; /*configuration file for
+the definitions of dacs for biases, offsets, etc*/<br>
+
+[REGS]<br>
+
+file=&lt;path&gt; &nbsp; &nbsp; &nbsp; &nbsp; /*configuration file for
+the REGISTERS definitions*/<br>
+
+[HDRINFO]<br>
+
+file=&lt;path&gt; &nbsp; &nbsp; &nbsp; &nbsp;/*template file for the
+header information*/<br>
+
+[LOG]<br>
+
+log=&lt;true | false&gt;<br>
+
+file=&lt;path&gt; &nbsp; &nbsp; &nbsp; &nbsp;/*path for the log file*/<br>
+
+[LASTIMG] &nbsp; &nbsp; /*READ ONLY: heare the module stores the last
+patameters when it is closed, so it starts with them the next time*/<br>
+
+directory=&lt;path&gt;<br>
+
+basename=&lt;string&gt;<br>
+
+imnumber=&lt;unit&gt;<br>
+
+...<br>
+
+</small></big><big style="font-weight: bold;"><small><br>
+
+</small></big><big style="font-weight: bold;"><big>2.- Observation setup</big></big><br>
+
+<big style="font-weight: bold;"><small> SET / GET (dhe set / dhe get)</small></big><br>
+
+All the following parametrs can be set or read, unless specifically
+stated.<br>
+
+<br>
+
+<big style="text-decoration: underline;"><big>obs parameters</big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big><span style="font-weight: bold;">complete command</span></big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big><span style="font-weight: bold;">alternates "short"</span></big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">example</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.exptime &lt;<span style="font-style: italic;">uint | float</span>&gt; [[s]]</td>
+
+      <td style="vertical-align: top;">exposuretime</td>
+
+      <td style="vertical-align: top;">exposure time in msecs, or secs
+if specified ([s])<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set obs.exptime 22.0 [s]<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.display &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">displayimage, display_image<br>
+
+      </td>
+
+      <td style="vertical-align: top;">real time display on or off<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set displayimage off<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.numreads &lt;u<span style="font-style: italic;">int</span>&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">imagestoread<br>
+
+      </td>
+
+      <td style="vertical-align: top;">number of images to read in the
+next sequence</td>
+
+      <td style="vertical-align: top;">dhe set obs.numreads 2<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.autowrit &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">write_to_disk, autowrite<br>
+
+      </td>
+
+      <td style="vertical-align: top;">writes the images to disk or not<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set autowrite off<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.observer &lt;<span style="font-style: italic;">string</span>&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-</td>
+
+      <td style="vertical-align: top;">observer field (for image
+headers)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set obs.observer Burrus<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.obstype <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">type</td>
+
+      <td style="vertical-align: top;">obstype field (for image
+headers). Only "dark" has real meaning (no shutter)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set obs.obstype dark<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.roi
+&lt;xstart&gt;&lt;ystart&gt;&lt;xlen&gt;&lt;ylen&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">Region Of Interest (subwindow).
+Coords.&nbsp; in unbinned units, from lower left corner<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set roi 513 513 1024 1024<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.writeframes &lt;[expo]
+[reset]&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">frames to be written (IR ONLY).
+Normally just &lt;exposed-reset&gt;.<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set writeframes reset<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.dispframes &lt;[expo]
+[reset]&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">frames to be displayed (IR
+ONLY). Normally just &lt;exposd-reset&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set dispframes expo<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.fowler <span style="font-style: italic;">&lt;uint&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">number of fowler samples to
+perform (IR ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set obs.fowler 16<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.coadds <span style="font-style: italic;">&lt;uint&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">number of images to coadd (IR
+ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set coadds 10<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">obs.sur <span style="font-style: italic;">&lt;uint&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">number of sumple up the ramp
+images (IR ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set sur 20<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">normalize &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">normalize or not the fowler
+and/or coadded data (sum(frames)/numframes)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set normalize on<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">progress<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">returns the progress of the
+image/exposure. (READ ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe get progress<br>
+
+      </td>
+
+    </tr><tr><td>obs.autoobsid</td><td>autoobsid</td><td>sets auto observation ID on/off</td><td>dhe autoobsid off</td></tr><tr><td>obs.obsidbase</td><td></td><td>sets the basename for the obs. ID</td><td>dhe set obs.obsid myObs</td></tr><tr><td>obs.obsidcounter</td><td></td><td>sets the initial value for the obsID counter</td><td>dhe set obs.obsidcounter 10</td></tr>
+
+  
+  </tbody>
+</table>
+
+<br>
+
+<big><big style="text-decoration: underline;">image parameters<br>
+
+</big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">complete
+command</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">alternates
+"short"</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">example</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.title <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">imagetitle<br>
+
+      </td>
+
+      <td style="vertical-align: top;">image title, to be the "object"
+field on the headers<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set title M51</td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.comment <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">imagecomment<br>
+
+      </td>
+
+      <td style="vertical-align: top;">image comment, to appear on the
+headers<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set imagecomment this is a
+test<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.directory &lt;abs path&gt;</td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">directory where image will be
+stored<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set image.directory
+/home/images/<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.basename <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">basename for image name<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set image.basename junk<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.rootname
+&lt;directory/basename&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">rootname<br>
+
+      </td>
+
+      <td style="vertical-align: top;">complete rootname, which is
+directrory + basename<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set rootname
+/home/images/junk<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.prefix <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">imprefix<br>
+
+      </td>
+
+      <td style="vertical-align: top;">prefix for basename<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set imprefix red_<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.sufix <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">imsufix<br>
+
+      </td>
+
+      <td style="vertical-align: top;">sufix for basename<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set imsufix _red<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.number <span style="font-style: italic;">&lt;uint&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">imagenumber, number<br>
+
+      </td>
+
+      <td style="vertical-align: top;">number for next image, or
+initial image if a sequence<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set imagenumber 22<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">image.mext &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">multipleextensions, extensions<br>
+
+      </td>
+
+      <td style="vertical-align: top;">image will be single or MEF fits
+file<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set extensions off<br>
+
+      </td>
+
+    </tr>
+
+    <tr><td>image.detext &lt;on | off&gt;</td><td>detext</td><td>image will have multiple extensions, but one extension per detector rather than one extension per amplifier</td><td>dhe set image.detext on</td></tr><tr>
+
+      <td style="vertical-align: top;">image.modifiers &lt;key1 val1
+... keyN valN&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-</td>
+
+      <td style="vertical-align: top;">data sections of image, like
+prescan, overscan, etc<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set modifiers prescans 22
+overscan 50<br>
+
+      </td>
+
+    </tr><tr><td>image.autoexpid &lt;on | off&gt;</td><td>autoexpid</td><td>sets auto exposure ID</td><td>dhe set autoexpid on</td></tr><tr><td>image.expidbase</td><td></td><td>sets the base of the expID (auto if undef)</td><td>dhe set image.expidbase myexpID</td></tr><tr><td>image.expidcounter</td><td></td><td>sets initial counter for the expID. </td><td>dhe set image.expidcounter 1</td></tr>
+
+  
+  </tbody>
+</table>
+
+<br>
+
+<br>
+
+<big style="text-decoration: underline;"><big>dhe parameters</big></big><br>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">complete
+command</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">alternate
+"short"</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">example</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.binning
+&lt;xbin&gt;&lt;ybin&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">binning in x and y (OPTICAL ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set binning 2 3<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.artifdata &lt;on | off | name&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">artificial (synthetic) or real
+data<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set dhe.artifdata on<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.autoshutter &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">opens shutter automatically when
+exposure starts or not (ex, "off" for darks)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set autoshutter on<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.autoclear &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">fast clearing of the array
+before the exposure starts or not (ex, "off" for focus)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set autoclear off<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.idle &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">idlemode<br>
+
+      </td>
+
+      <td style="vertical-align: top;">idle waveforms (clocking) or not</td>
+
+      <td style="vertical-align: top;">dhe set idle off<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.shutter &lt;open | close&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">opens &nbsp;or close the shutter
+manually<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set shutter open<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.power &lt;on | off&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">turn on or off the power to the
+controller. </td>
+
+      <td style="vertical-align: top;">dhe set power off<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.gainspeed
+&lt;gain&gt;&lt;speed&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">gain and speed of the video chain<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set gainspeed 2 4<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe. readmode <span style="font-style: italic;">&lt;string&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">readmode. The readmode must be
+supported by the hardware<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set readmode lower_left<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.sampling <span style="font-style: italic;">&lt;string&gt;</span></td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">sampling type. It can be single,
+cds, cds inverse (reset-expo), sur (sample up the ramp) (IR ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe set sampling cds<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.timing<br>
+
+      </td>
+
+      <td style="vertical-align: top;">timinginfo<br>
+
+      </td>
+
+      <td style="vertical-align: top;">information on frame and pixel
+time (READ ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe get timinginfo<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.geometry<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">information on geometry
+-topology- (x and y size, etc) (READ ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe get geometry<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">dhe.config<br>
+
+      </td>
+
+      <td style="vertical-align: top;">controllerconfig<br>
+
+      </td>
+
+      <td style="vertical-align: top;">information on controller
+configuration (READ ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe get dhe.config</td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">status<br>
+
+      </td>
+
+      <td style="vertical-align: top;">-<br>
+
+      </td>
+
+      <td style="vertical-align: top;">information &nbsp;on current
+status of the controller (READ ONLY)<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe get status<br>
+
+      </td>
+
+    </tr>
+
+  
+  </tbody>
+</table>
+
+<br>
+
+<small><small><br>
+
+<br>
+
+<big style="font-weight: bold;"><big><big><big>3</big>.-</big> </big></big></small></small><big><big><span style="font-weight: bold;">Observation control</span><br>
+
+<br>
+
+</big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">command</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big><span style="font-weight: bold;">description</span></big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">EXPOSE<br>
+
+      </td>
+
+      <td style="vertical-align: top;">starts the exposure sequence</td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">ABORT<br>
+
+      </td>
+
+      <td style="vertical-align: top;">aborts all activity (current
+exposure/readout/sequence). Current image get lost<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">STOP<br>
+
+      </td>
+
+      <td style="vertical-align: top;">stops sequence, but waits for
+current exposure/readout to finish<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">PAUSE<br>
+
+      </td>
+
+      <td style="vertical-align: top;">pauses exposure, closing the
+shutter and stoping the exposure count. (OPTICAL ONLY)<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">RESUME<br>
+
+      </td>
+
+      <td style="vertical-align: top;">resumes a paused exposure
+(OPTICAL ONLY)<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">RESET &lt;controller | pci&gt;<br>
+
+      </td>
+
+      <td style="vertical-align: top;">resets controller or PCI card<br>
+
+      </td>
+
+    </tr>
+
+  
+  </tbody>
+</table>
+
+<br>
+
+<br>
+
+<big><b><big>4.- Engineering commands</big><br>
+
+<br style="font-weight: bold;">
+
+</b><span style="text-decoration: underline;"> DAC</span></big><span style="font-weight: bold;"><br>
+
+</span>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">command</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">example</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">&nbsp;SET <span style="font-style: italic;">&lt;dacname&gt;&lt;float&gt; [-raw]</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">sets the specified dac to the
+specified value, in volts or dac units (if "-raw")<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe dac set BIASPOWER 2.2<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">GET <span style="font-style: italic;">[&lt;dacname&gt; [-params]] [-list] [-all]</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">if dac specified, get value or
+params (if "-params"); if not, get all values ("-all") or just names
+("-list")</td>
+
+      <td style="vertical-align: top;">dhe dac get -list<br>
+
+      </td>
+
+    </tr>
+
+  
+  </tbody>
+</table>
+
+<span style="font-weight: bold;"></span><br>
+
+<big style="text-decoration: underline;">MEMORY</big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">command</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">example</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">WRITE <span style="font-style: italic;">&lt;board&gt;&lt;memtype&gt;&lt;address&gt;&lt;value&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">writes the memory address on the
+specified board and memory type<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe memory write tim X 0x0 0x21</td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">READ <span style="font-style: italic;">&lt;board&gt;&lt;memtype&gt;&lt;address&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">reads the memory address
+&nbsp;on the specified board and memory type<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe memory read tim X 0x0<br>
+
+      </td>
+
+    </tr>
+
+    <tr><td>LOAD &lt;boards&gt; &lt;app&gt; &lt;number | name&gt;</td><td>loads the specified application onto the specified board</td><td>dhe memory load seq app 0</td></tr><tr>
+
+      <td style="vertical-align: top;">LOAD <span style="font-style: italic;">&lt;board&gt;&lt;file&gt;&lt;path&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">loads the specified file onto
+the specified board<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe memory load tim file
+/home/test<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">MANUALCOMMAND <span style="font-style: italic;">&lt;board&gt;&lt;s1&gt;&lt;s2&gt;&lt;s3&gt;&lt;s4&gt;&lt;s5&gt;&lt;command&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">sends the specified command with
+the specified arguments. "none" for empty args<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe memory manualcommand tim 1
+none none none none SRE<br>
+
+      </td>
+
+    </tr>
+
+  
+  </tbody>
+</table>
+
+<big style="text-decoration: underline;"><br>
+
+REGISTER</big><br>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td style="vertical-align: top; font-weight: bold;"><big>command</big></td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">description</big><br>
+
+      </td>
+
+      <td style="vertical-align: top;"><big style="font-weight: bold;">example</big><br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">SET <span style="font-style: italic;">&lt;regname&gt; &lt;value | {field1
+value1}..{filedN valueN}</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">sets the specified register with
+the specified value, or each field in that register with the specified
+value<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe reg set &nbsp;OutBufReg
+{SFENA 0x1}{SFENB 0x0}<br>
+
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="vertical-align: top;">GET <span style="font-style: italic;">&lt;regname [-params][-full] | &nbsp;-list
+| -all&gt;</span><br>
+
+      </td>
+
+      <td style="vertical-align: top;">if register specified, get the
+total value, or field by field (if "-params") or all the specification,
+value and description (if "-full"). If not register specified, get the
+names list (if "-list") or the list and value for all (if "-all")<br>
+
+      </td>
+
+      <td style="vertical-align: top;">dhe reg get -list<br>
+
+      </td>
+
+    </tr>
+
+  
+  </tbody>
+</table>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <br>
+
+<br>
+
+</body></html>

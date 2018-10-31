@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2650"
+   name=""
+   committed-date="2008-10-11T01:17:17.545855Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private/c/src/c_serial1"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="extcode.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="4336c3daabb8dbbc6d41b13d582fe2d5"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="platdefines.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="cc27867f5fc2a10f1f617e6b8ff8af4e"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="LVserial_server.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="d6a811d904a3e9a9143998c7fc87f52e"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="libserial_lv.so"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="477961607b3c150e528e15277aecb9f1"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="soar_lv.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="859fcfef07e08abac4654b3e6443b7af"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="README"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="5f919f44742113616b83ebfb6643acd4"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="LVserial.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="7436fde6cfc3c5d7b331ac6e1de129d0"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="cvilvsb.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="633947f40361f6a53698e07ab6ec3bd9"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="commLib.c"
+   text-time="2008-09-30T15:58:34.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="f74ae04d68affeda0c05ad82324132e9"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="hosttype.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="5636ecdf1c1f047ad2fdbf38cc0f6e63"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="libserial_1.so"
+   text-time="2008-10-02T20:45:05.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="4ab732f66dab143ba7a186c89af2a717"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="tsserial.c"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="e80f6dd126d78bb9195f6ae19bf797e4"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="fundtypes.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="5005b59e96b4f92d0a6eb8072b52dabe"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="commLib.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="af4bb638b73c383a3ede6cf20175e7c3"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="tss"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="6d0fc2d35ef72aa7545a02c2e65ce2c9"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="Makefile"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="c9a8bb01c7bbda748c3d78145b6a7865"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+</wc-entries>

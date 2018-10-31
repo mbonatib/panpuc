@@ -1,0 +1,185 @@
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <errno.h>
+#include <unistd.h>
+#include "../src/readLib.h"
+#include <stdlib.h>
+
+int main(void)
+{
+
+char timfile[90];
+int fd, ret;
+unsigned short *buf;
+unsigned int exp_time=20000;
+unsigned int ncols=2048, nrows=2048;
+int nbytes;
+
+	sprintf (timfile, "/home/arcview/ARCVIRGO/config/DETECTOR/tim.lod");
+	nbytes = ncols*nrows*2;
+	buf = malloc (nbytes);
+	if (buf == NULL) {
+		printf ("malloc failed\n");
+		goto cls;
+	}
+//	memset (buf, 0, ncols*nrows*2);
+
+	if ((fd = open_driver (0)) < 0){
+		perror ("error opening the driver");
+		goto cls;
+	}
+#if 0
+	ret = manual_command (fd, "0", "0x12", "a12", "", "", "SBV", 2);
+#endif
+#if 1
+	if ((ret = reset_controller (fd)) < 0){
+		printf ("error resetting %d\n", ret);
+		goto cls;
+	}
+	printf ("controller reseted\n");
+#endif
+#if 0
+
+	ret = test_data_link (fd, 1, 22);
+	printf ("PCI TDL returned: %d\n", ret);
+#endif
+#if 0
+        if ((ret = load_application (fd, 0, 3))){
+                printf ("error loading application %d\n", ret);
+                goto cls;
+        } else
+                printf ("application  loaded\n");
+
+	if ((ret = load_application (fd, 3, 2))){
+		printf ("error loading application %d\n", ret);
+		goto cls;
+	} else 
+		printf ("application  loaded\n");
+#endif
+#if 0
+	if ((ret = move_shutter (fd, 1))){
+		printf ("error opening shutter %d\n", ret);
+		goto cls;
+	} else
+		printf ("shutter opened\n");
+
+        if ((ret = move_shutter (fd, 0))){
+                printf ("error clossing shutter %d\n", ret);
+                goto cls;
+        } else
+        	printf ("shutter closed\n");
+#endif
+#if 1
+/*
+	if ((ret = load_file (fd, utilfile, 3))){
+		printf ("error loading util file %d\n", ret);
+		goto cls;
+	} else
+		printf ("util loaded\n");
+*/
+        if ((ret = load_file (fd, timfile, 2))){
+                printf ("error loading tim file %d\n", ret);
+                goto cls;
+        } else
+                printf ("%s loaded\n", timfile);
+#endif
+#if 0
+        if ((ret = set_destination (fd, 2, 3))){
+                printf ("error setting dest %d\n", ret);
+                goto cls;
+        }
+
+
+        ret = read_memory (fd, "Y", 0x8);
+        printf ("read memory value %#x\n", ret);
+
+	ret=get_hctr(fd);
+	printf ("hctr: %#x\n", ret);
+
+	ret=get_hstr(fd);
+	printf("hstr: %#x\n", ret);
+
+#endif
+#if 1
+
+        if ((ret = power (fd, 1)))
+                printf ("error while doing power on %d\n", ret);
+#endif
+#if 1
+	if ((ret = dimensions (fd, ncols, nrows))){
+		printf ("error while setting dims %d\n", ret);
+		goto cls;
+	} else
+		printf ("dimensions set\n");
+
+	if ((ret = set_exp_time (fd, exp_time))) {
+		printf ("error while setting exp. time %d\n", ret);
+		goto cls;
+	} else
+		printf ("exp. time. set\n");
+
+
+	set_ptr_val ((unsigned long) buf);
+	if ((ret = expose (fd, 0, 1, nbytes, exp_time, 0, 1, 0))) {
+		printf ("error while exposing %d\n", ret);
+		goto cls;
+	} else
+		printf ("expose done\n");
+#endif
+	free (buf); 
+
+
+#if 0
+        if ((ret = move_shutter (fd, 0))){
+                printf ("error clossing shutter %d\n", ret);
+        } else
+                printf ("shutter closed\n");
+
+	if ((ret = get_info (fd, info))){
+		printf ("error while getting info %d\n", ret);
+		goto cls;
+	} else
+		printf ("Info: %#x %#x  %#x  %#x  %#x  %#x %#x\n", *(info), *(info+1), *(info+2), *(info+3), *(info+4), *(info+5), *(info+6));
+
+#endif
+#if 0
+	if ((ret = power (fd, 1))){
+		printf ("error while doing power on %d\n", ret);
+	} else
+		printf ("power on!!\n");
+
+	if ((ret = set_destination (fd, 2, 3))){
+                printf ("error setting dest %d\n", ret);
+                goto cls;
+        }
+
+        ret = read_memory (fd, "Y", 0x25);
+        printf ("read memory value %#x\n", ret);
+
+#endif
+#if 0
+
+       if ((ret = set_gain_and_speed (fd, 1,1))){
+                printf ("error while setting gain and speed %d\n", ret);
+        } else
+                printf ("power on!!\n");
+
+ if ((ret = dimensions (fd, 100, 100))){
+                printf ("error while setting dims %d\n", ret);
+                goto cls;
+        } else
+                printf ("dimensions set\n");
+
+#endif
+
+cls:	
+	if (close_driver (fd) < 0){
+		perror ("error closing driver ");
+		return (-1);
+	}
+
+	return (0);
+}
+

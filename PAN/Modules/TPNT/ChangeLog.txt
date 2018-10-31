@@ -1,0 +1,198 @@
+2015-06-04T29:45:28 UTC <Marco Bonati> TPNT version 7.0
+ * added "server host"
+
+2011-09-03T29:45:28 UTC <Marco Bonati> TPNT version 6.99
+ * previouis version was badly written to the repository.
+
+2011-09-03T29:45:28 UTC <Marco Bonati> TPNT version 6.98
+ * the exec action that calls a system command (or script) now passes
+	the nodeID, device and alarms message as arguments
+
+2011-09-03T29:45:28 UTC <Marco Bonati> TPNT version 6.97
+ * added the optional alarmID (if defined is sent in the telem info)
+ * added the "level" which is a % of value in the defined range
+ * the logpath can include directives to build the dir
+ (exaple: /<root>/<y><m><d> would do /root/20110903)
+
+2011-04-15T29:45:28 UTC <Marco Bonati> TPNT version 6.96
+ * added support for a DDS server to stream the telemetry out
+   (parallel to the raw tcp/ip server, same format)
+ * updated documentation
+
+2011-04-15T29:45:28 UTC <Marco Bonati> TPNT version 6.95
+ * added the config variable "ut" under LOG, that states if
+   UTC (true) or localtime (false, default) is desired for 
+   the timestamps
+
+2011-04-15T29:45:28 UTC <Marco Bonati> TPNT version 6.94
+ * added "umail" ("unix mail")
+ * added "testalarm" that allows to test an alarm like
+	"testalarm mailto juan@perez.org"
+
+2010-11-09T29:45:28 UTC <Marco Bonati> TPNT version 6.93
+ * in the async. server message, it includes now the testpoint "type"at the
+  end
+ * aded the "samples.precision" argument to control de number of significative
+   digits to be used at the output (default is 2)
+
+2010-09-21T29:45:28 UTC <Marco Bonati> TPNT version 6.92
+ * changed the resolution from msecs to secs to avoif a wraparound of the
+   original "get msecs" timer (after 49 days running, it wrpas arpund causing
+   troubles in the log. The resoltuon nos is uop to the second
+
+2010-05-22T29:45:28 UTC <Marco Bonati> TPNT version 6.91
+ * fixed "version" command
+
+2010-05-22T29:45:28 UTC <Marco Bonati> TPNT version 6.9
+ * by default astnc. server does NOT start
+
+2010-05-14T29:45:28 UTC <Marco Bonati> TPNT version 6.8
+ * fixed the "enable" command in the external tcp server (added more
+ information, not an operational problem)
+
+2010-04-20T29:45:28 UTC <Marco Bonati> TPNT version 6.7
+ * added "logsep" as a device parameter. This allows to change the
+   log separator on the log files. Default is "blank", other options are
+   "comma", "tab", "semicolon", or any other "visible" character.
+ * the default separator can aalso be specified in an entry in the TPNT config
+   file (default is "separator=blank", under the LOG section
+ * The logger searches and replaces the \n on the data value by "//", allowing
+  a register-like data to be logged as [0] val1 // [1] val2 ...
+
+2010-02-22T29:45:28 UTC <Marco Bonati> TPNT version 6.6
+ * fixed a small problem with the headers when single (flat) fits files
+
+2009-11-19T29:45:28 UTC <Marco Bonati> TPNT version 6.5
+ * The external server can now be started/shutdown on the fly (to change the 
+   service port, etc)
+
+2009-10-29T29:45:28 UTC <Marco Bonati> TPNT version 6.4
+ * fixed a problem when gunsc is not present (num_amplifiers=0
+
+2009-10-29T29:45:28 UTC <Marco Bonati> TPNT version 6.3
+ * fixed a timestamp format problem
+
+2009-10-28T29:45:28 UTC <Marco Bonati> TPNT version 6.2
+ * fixed some format when more than 1 device was suscribed
+
+2009-10-27T29:45:28 UTC <Marco Bonati> TPNT version 6.1
+ * added some commands to get testpoints by type, etc.
+
+2009-10-21T29:45:28 UTC <Marco Bonati> TPNT version 6.0
+ * Added an external server for requesting data points. It can serve async.
+   or respond to polling.
+ * Added the capability to generae a 3DARR to the database for header purposes
+   (3D so it can add different TP on different extensions
+
+2009-04-07T29:45:28 UTC <Marco Bonati> TPNT version 5.5
+ * aded the command "SAMPLE", that enforces a complet sampling cycle
+
+2009-01-12T29:45:28 UTC <Marco Bonati> TPNT version 5.4
+ * Deleted the unused vis with a "?" in its name
+
+2008-12-23T29:45:28 UTC <Marco Bonati> TPNT version 5.3
+ * The warning masync message has a blank between the message and the name to
+    facilitate parsing
+ * Async. messages are sent when the point gets in range again
+
+2008-12-18T29:45:28 UTC <Marco Bonati> TPNT version 5.2
+ * The renaming of the log file (when too bug) is done now
+    replacing the "-" and ":" of the timestamp by "_"
+       (to avoid problems in windows)
+
+2008-12-18T29:45:28 UTC <Marco Bonati> TPNT version 5.1
+ * Fixed the the signature of the email sending  (using nodeID 
+   instead of the old variable APP_name)
+
+2008-11-05T29:45:28 UTC <Marco Bonati> TPNT version 5.0
+ * 4.0 was broken due to an incompatibility of the report generation. Fixed
+  here
+
+2008-11-05T29:45:28 UTC <Marco Bonati> TPNT version 4.0
+ * labview 8.6
+ * added the OSU svn tags
+ * In use for Panview
+
+2005-06-10T29:45:28 UTC <Marco Bonati> TPNT version 3.1
+  * Fixed a problem when the defined log file did not exist
+  * Now the log files specified can be specified in termas of _LOGPATH_ also
+
+2005-05-08T18:45:28 UTC <Marco Bonati> TPNT version 3.0
+  * Labview 7.0
+  * Uses CMN_Write to file instead of the standard "dialog" labview version
+	(Common 1.0 ->)
+
+2005-02-19T18:45:28 UTC <Marco Bonati> TPNT version 2.2
+  * Taken out the debug by default on many subvis
+  * removed dependnecies with ArcVIEW/Common
+
+2004-11-12T18:45:28 UTC <Marco Bonati> TPNT version 2.1
+  * Replaced ConfigVals for CMN_ConfigVals
+
+2004-11-12T18:45:28 UTC <Marco Bonati> TPNT version 2.0
+  * Writes 0 to the timeout cmd header for all commands (on TPNT.vi),
+    saying that no command here is a "long command"
+
+2004-09-12T18:45:28 UTC <Marco Bonati> TPNT version 1.92
+  * forced closing the reference on the response queue when calling to a
+   module throug a queue (get TP)
+
+
+2004-09-02T18:45:28 UTC <Marco Bonati> TPNT version 1.91
+   * added the "version" command option
+   * added the "FORCE" option when suscribing (which will delete and suscribe
+	again)
+   * modified the "timing" option for the alarms (aded the _max_ key, etc)
+	many changes here
+
+
+2004-02-02T18:45:28 UTC <Marco Bonati> TPNT version 1.9
+   * fixed queue name problem when used a queue instead of dinamic load as
+     client. Changed GetTPfromdevice
+
+2004-02-02T18:45:28 UTC <Marco Bonati> TPNT version 1.8
+   * added more help
+
+2004-01-02T05:45:08 UTC <Marco Bonati> TPNT version 1.7
+   * Changed GetTPfromDevice for: the device info entry now should have the
+	Module [prefix] instead of just Module and forcing the TP prefix. 
+	For example: in the "interfce key, when suscribing, it must say now
+	"non-resident SDSU TP", instead of "SDSU"
+   * added the Limits.latch element to the structure, so even if the
+     Limits.check is off, it can be automatically activated when
+     inside range for the first time. Modified the parser for accepting the
+     new "limits.alarmlatch [=] <on|off>" command
+
+2003-11-26T22:40:58 UTC <Marco Bonati> TPNT version 1.6
+   * added the median, lower and maximum filters (besides the "moving 
+	average" that existed. Now it can be selected any of those throug the
+	"filter" ot "samples.filter" keyword. Default is still average
+
+2003-10-27T17:59:55 UTC <Marco Bonati> TPNT version 1.5
+   * added the capability for sending emails and "beeping" on alarms
+
+2003-10-09T20:15:48 UTC <Marco Bonati> TPNT version 1.4
+   * fixed the problem when log.updaterate and updaterate mismatched.
+   * added the "delay" command to the device, so it can start monitoring
+     after a specified delay
+
+2003-10-08T19:43:19 UTC <Marco Bonati> TPNT version 1.3
+   * added the maxfilesize on the config file (it will rename the file when
+     biger that the maximum allowed size
+
+2003-10-07T00:09:19 UTC <Marco Bonati> TPNT version 1.2
+   * added the cap. of generating html logs
+   * added the HELP command (description of the options)
+   * changed the TP structure (a substructure for the LOG stuff : Tp_Log.ctl)
+   * added the capabilitie of loging by rate (default) -periodic log, alarm (only when the alarm is turned on), or both.
+
+2003-09-30T16:43:04 UTC <Marco Bonati> TPNT version 1.1
+
+  Created.
+
+    * ./private/:
+    * ./public/:
+    * ./config:
+    * ./test:
+    Created.
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3326"
+   name=""
+   committed-date="2011-11-18T12:44:44.184227Z"
+   url="https://139.229.115.227/svn/tags/DRV_TCSSOAR-2.2/private/c/src"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="tsTCSLib.c.bak"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="8d488c346e6eb5975953796228b457e7"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="3326"
+   name="tcsSoarLib.c"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="38a1cd66285da40805a8a7960b41dab7"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="3326"
+   name="clitest"
+   text-time="2010-11-18T00:58:21.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="7b28f5b4cde9f18429e0cc23c535d729"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"/>
+<entry
+   committed-rev="3326"
+   name="clitest.c"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="9a59cd02a78fc180d5dddc05fd918277"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="3326"
+   name="Makefile"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="b8cb42df059a2bfc73cd68cc922625d5"
+   last-author="bonati"
+   kind="file"/>
+</wc-entries>

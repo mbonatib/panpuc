@@ -1,0 +1,29 @@
+#! /bin/csh -f
+
+if ($#argv != 3) then
+    echo "Usage:   MM_Copy DEST MODULE VERSION [MODSDIR]"
+    exit
+endif
+setenv ARCROOT $PAN_ROOT
+set ISSET = `setenv | egrep ARCROOT`
+if ("$ISSET" == "") then
+        set currdir = `cd ../../../; pwd`
+        setenv ARCROOT $currdir
+endif
+
+set dest = $1
+set module = $2
+set VER = `$ARCROOT/PAN/public/bin/PM_get_version $module $3`
+echo "bringing $module-$VER"
+$ARCROOT/PAN/public/bin/PM_get_file $module-$VER.tar.gz
+
+gunzip ./$module-$VER.tar.gz
+tar xfv ./$module-$VER.tar
+rm -Rf ./$module-$VER.tar
+chmod -R u+w $module-$VER
+rm -Rf $dest/$module
+if ("$dest" == "." | "$dest" == "./") then
+	mv $module-$VER $module
+else
+	mv $module-$VER $dest/$module
+endif

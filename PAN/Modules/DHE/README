@@ -1,0 +1,11 @@
+Module Tree:
+
+- public: public resources (posible to call from another modules)
+		c: lib: compiled shared lybrary
+		vis: labview files
+- private: internal resources
+		c: 
+			src: C library (driver API)
+			driver_int: driver source/doc
+		vis: labview files
+			

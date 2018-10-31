@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2445"
+   name=""
+   committed-date="2008-05-05T15:16:10.888549Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/public/vis"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2649"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Write.vi"
+   text-time="2008-09-30T15:06:51.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="7e0f45df708402a066b8056e1964773d"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read.vi"
+   text-time="2008-09-30T15:06:51.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="ea35018f13a22f366a42f16cff6adb95"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Tree.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="7b9af9fedf4341a060e8d77ae5d4d54b"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Open.vi"
+   text-time="2008-09-30T15:06:51.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="71502b0d3b2fd806324078eb7084d3b6"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_CloseAsync.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="8e4d79d99d31fb8ebda9a8baddeb7ad3"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Close.vi"
+   text-time="2008-09-30T15:06:51.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="75ed90a6510238881e27bd936b6ed852"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+</wc-entries>

@@ -1,0 +1,39 @@
+#!/bin/csh -f
+
+if ($#argv < 4) then
+	echo "usage <dir> <det> <key> <val> [section]"
+	exit -1
+endif
+
+set dir = "$1"
+set det = "$2"
+set key = "$3"
+set val = "$4"
+
+if ("$5" != "") then
+	set section = "$5"
+else
+	set section = "INFO"
+endif
+
+if (! -e "$dir") then
+	echo "error directory $dir cannot be reached"
+	exit -1
+endif
+
+cd $dir
+set dets = `ls $det`
+cd -
+if ("$dets" == "") then
+	echo "error detector $det not found"
+	exit -1
+endif
+
+while ("$dets" != "") 
+	set det = "$dets[1]"
+	echo "setting $det ..."
+	./GEOM_set_detkey $dir/$det $section $key $val
+	echo $det $section $key $val
+	shift dets
+end
+

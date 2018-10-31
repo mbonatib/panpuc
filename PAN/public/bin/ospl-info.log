@@ -1,0 +1,112 @@
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:14 2011
+Description : DomainParticipantFactory::create_participant creation of kernel entity failed
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/DCPS API/gapi_domainParticipant.c/470/3/136648734
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : DomainParticipantFactory::create_participant creation of kernel entity failed
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/DCPS API/gapi_domainParticipant.c/470/3/138198484
+========================================================================================
+Report      : WARNING
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_get_default_topic_qos/gapi_domainParticipant.c/2610/0/138556056
+========================================================================================
+Report      : WARNING
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_set_default_topic_qos/gapi_domainParticipant.c/2576/0/138598294
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_create_topic/gapi_domainParticipant.c/1347/0/138632030
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : for topic <ddspan_sifs_blk_SUB> lookup typeSupport failed 
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_create_topic/gapi_domainParticipant.c/1361/0/138667466
+========================================================================================
+Report      : WARNING
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_get_default_topic_qos/gapi_domainParticipant.c/2610/0/138719100
+========================================================================================
+Report      : WARNING
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_set_default_topic_qos/gapi_domainParticipant.c/2576/0/138752502
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_create_topic/gapi_domainParticipant.c/1347/0/138784339
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : for topic <ddspan_sifs_SUB> lookup typeSupport failed 
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_create_topic/gapi_domainParticipant.c/1361/0/138818112
+========================================================================================
+Report      : WARNING
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_get_default_topic_qos/gapi_domainParticipant.c/2610/0/138877727
+========================================================================================
+Report      : WARNING
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_set_default_topic_qos/gapi_domainParticipant.c/2576/0/139096576
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : Given DomainParticipant is invalid: result = RETCODE_BAD_PARAMETER
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_create_topic/gapi_domainParticipant.c/1347/0/139134152
+========================================================================================
+Report      : API_INFO
+Date        : Fri Sep 16 09:24:15 2011
+Description : for topic <ddspan_sifs_async_SUB> lookup typeSupport failed 
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/gapi_domainParticipant_create_topic/gapi_domainParticipant.c/1361/0/139169975

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2650"
+   name=""
+   committed-date="2008-10-11T01:17:17.545855Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private/c/src/c_univ"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="univ_gendefs.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="71d113b3ebf092fea3239be44ad40da9"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="univLib.c.bak"
+   text-time="2008-09-30T15:39:21.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="918ae3fd09a00878dafa5c6f5f62e8c8"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="getLib.c"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="57817522bc40d82caacea89d301dc38e"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   name="media_libs"
+   kind="dir"/>
+<entry
+   committed-rev="2650"
+   name="univ_server.c"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="e525fe8da61c08ae8d77f26f5ebbb257"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   name="bin"
+   kind="dir"/>
+<entry
+   committed-rev="2650"
+   name="sockhelp.c"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="79f36b8453f20b492badfa011c6878fe"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="univLib.c"
+   text-time="2008-09-30T15:47:04.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="0e86a27d6b2aed1f5fd867da30e5d62b"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="getLib.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="046825fe2d3508c4e606a41aac63278e"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="Makefile"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="54149dd71153c8be27393529df4d834b"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   committed-rev="2650"
+   name="sockhelp.h"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="5dce2906a4613aca7ad011a92c84c4d1"
+   last-author="bonati"
+   kind="file"/>
+</wc-entries>

@@ -1,0 +1,74 @@
+#! /bin/csh -f
+
+
+if ($#argv < 2) then
+	echo "ERROR usage: PM_uncompress <module_dir> <module_name>"
+	exit 1
+endif
+
+if (! -e $1) then
+	echo "ERROR directory $1 nor found"
+	exit 1
+endif
+
+set module = "$2"
+set currdir = `pwd`
+
+cd $1
+
+set mod_tarball=0
+set mod_compressed=0
+
+if (-e $module) then
+	goto finish
+endif
+
+echo "uncompresing module $1/$module"
+set filename = `ls -d $module-*.t*`
+if ("$filename" == "") then
+	echo "ERROR module not found"
+	exit 1
+endif
+
+set filetype = `echo $filename | egrep tgz`
+if ("$filetype" != "") then
+	set filetype = "tgz"
+else
+	set filetype = `echo $filename | egrep gz`
+	if ("$filetype" != "") then
+		set filetype = "tar.gz"
+	else
+		set filetype = `echo $filename | egrep tar`
+		set filetype = "tar"
+	endif
+endif
+if ("$filetype" == "tar") then
+        set mod_tarball=1
+endif
+if ("$filetype" == "tar.gz") then
+        set mod_tarball=1
+        set mod_compressed=1
+endif
+if ("$filetype" == "tgz") then
+        set mod_tarball=1
+        set mod_compressed=1
+endif
+
+if ("$mod_compressed" == "1") then
+	echo "uncompressing $filename"
+	gunzip $filename
+endif
+if ("$mod_tarball" == "1") then
+	set filename = `ls -d $module-*.t*`
+	echo "inflating $filename"
+	tar xfv $filename
+	rm -Rf $filename
+endif
+set filename = `ls -d $module-*`
+mv $filename $module
+
+finish:
+chmod -R u+w $module
+cd $currdir
+
+exit 0

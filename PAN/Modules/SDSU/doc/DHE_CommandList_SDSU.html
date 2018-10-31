@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>DHE_CommandList</title>
+                                                                        
+                                      
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+  <body>
+                           
+<h1>  Command List for the Detector Head Electronics (DHE)</h1>
+               
+<h1>SDSU</h1>
+                The following list describes the command and parameters available 
+    for   the detector controller electronics.<br>
+                All the listed commands MUST begin with the prefix <b>DHE 
+or  SDSU.</b>     The  system   is case  INSENSITIVE.<br>
+        Note that commands on section 1 (Observer commands) are totally generic,
+    and are the same for any DHE module. Most of the commands on section
+2  (engineering   commands) are generic too, but some of them are closelly
+related  to the hardware,  which implies that they must be specific for an
+specific  DHE.<br>
+        The ones described here are all the SDSU supported commands<br>
+             The meaning of the simbology is:<br>
+             &lt; &gt; : holds a parameter which is necesarry (mandatory)<br>
+             [ ] : holds a parameter which is optional <br>
+             |&nbsp;&nbsp;&nbsp; : separates possible values for an enumerated
+   type.<br>
+             <br>
+                <u><b> Command prefix: DHE</b></u><br>
+                             
+<h2>1.- Observer Commands</h2>
+              This is the list of commands that will be normally used during
+  an  observation.    This are useful commands for the normal user.<br>
+                             
+<h3>1.1- Initialization</h3>
+               <b>INIT <i>[&lt;dhe_confpath&gt;]</i><br>
+                </b><i><u>description</u></i><b><br>
+                &nbsp;&nbsp;&nbsp;</b> Initializes the controller. After
+the   completion      of this command, the system will be ready for taking
+images.   &nbsp;The   initialization  will perform basically the following
+steps:<br>
+              &nbsp;&nbsp;&nbsp; opens the PCI driver,<br>
+              &nbsp;&nbsp;&nbsp; resets the DHE,<br>
+              &nbsp;&nbsp;&nbsp; loads the DSP working files (here are included 
+   the   waveforms  for handling the detector),<br>
+              &nbsp;&nbsp;&nbsp; sets the geometry of the system,<br>
+              &nbsp;&nbsp;&nbsp; sets the working temperature,<br>
+              &nbsp;&nbsp;&nbsp; executes any custom command(s) specified 
+(can   include     any command described on this document),<br>
+              &nbsp;&nbsp;&nbsp; returns the status.<br>
+              &nbsp;&nbsp;&nbsp; <br>
+               <i><u> parameters</u></i><br>
+                &nbsp;&nbsp;&nbsp; <b><i>&lt;dhe_confpath&gt;</i></b>: path 
+ to  the   configuration   file. The configuration file describes how the 
+array  and  electronics should   be initialized. A detailed description on 
+the configuration   file can be found  on the <a
+ href="DHE_Initialization_file_SDSU.html">Initialization  File</a> section.
+    If no config file is specified, it will use the one specified  in the
+<a href="#MasterConfig">Master Configuration</a>  File<br>
+              <br>
+                             
+<h3><a name="1.2.-_Exposure_Setup_"></a>1.2.- Exposure Setup<br>
+               </h3>
+                <b>SET</b> <b><i>&lt;param1&gt;</i></b><i>[=]  <b>&lt;value1&gt;</b></i><b><i>
+                [, &lt;param2&gt;[=] &lt;value2&gt;,&nbsp; ... &lt;paramN&gt;[=]&lt;valueN&gt;]</i></b><br>
+              <u><i>description </i></u><br>
+               Sets the parameter to the specified value. <br>
+               <br>
+               <u><i>parameters &nbsp;<br>
+              </i></u>The sintax can be "param=value" (with or without blanks)
+   or  just   "param val" (blank-separated). If there are multiples pairs,
+ then  they must   be separated by comma (,)<br>
+                <b><i>&nbsp; &nbsp; &nbsp;exposuretime </i></b>&lt;value&gt;
+  ['[s   |  ms]']  &nbsp;&nbsp; : sets  the exposure time value for the next
+  exposure.    This value will be held untill  a new &lt;exposuretime&gt;
+ command is issued.&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+ &nbsp; &nbsp; &nbsp;&nbsp; If no  time  unit is specified,  it will assume
+ milliseconds. <br>
+               <i><b>&nbsp; &nbsp; &nbsp;write_to_disk</b></i> <i>&lt;yes 
+|  no&gt;&nbsp;&nbsp;<b>          &nbsp;</b></i> &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; 
+ : write the  generated    image to disk or not <br>
+               <i><b>&nbsp; &nbsp; &nbsp;fowler</b></i> <i>&lt;nsamples&gt;&nbsp;&nbsp;</i>
+             &nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp; : sets the amount  of fowler samples to perform (IR only)<br>
+                <i><b>&nbsp; &nbsp; &nbsp;coadd</b></i> &nbsp;<i>&lt;ncoadds&gt;</i>
+           &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  : sets the amount of coadds to
+  perform<br>
+                <b><i>&nbsp; &nbsp; &nbsp;multipleextensions</i></b> <i>&lt;yes 
+   |  no&gt;</i>    &nbsp;&nbsp;&nbsp; : says  if the format of the output 
+ images   should be  multiple extension images or  plain (single) fits images<br>
+                <b><i>&nbsp; &nbsp; &nbsp;displayimage</i></b>&nbsp;&nbsp;&nbsp;
+    <i>   &lt;yes  | no&gt;</i>&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+     : says if  you want to automatically display  the image (after read or
+  RTD)<i><br>
+               <b>&nbsp; &nbsp; &nbsp;imagetitle</b></i>  <i>&lt;title&gt;</i>
+     &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+  &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;  : sets the title for the image<br>
+               <b><i>&nbsp; &nbsp; &nbsp;imagecomment</i></b> <i>&lt;comment&gt;</i>
+           &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;  : sets a comment to appear on
+ the   headers<br>
+              <b><i>&nbsp; &nbsp; &nbsp;imagenumber </i></b><i>&lt;number&gt;</i><b><i>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; : </i></b>
+ sets   the   starting  number for the sequence of images (see examples below)<b><i><br>
+             &nbsp; &nbsp; &nbsp;imagestoread</i></b>&nbsp; <i>&lt;number&gt;</i>
+        &nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : sets 
+the   amount  of images to be read  in the sequence<br>
+              <i><b>&nbsp; &nbsp; &nbsp;rootname</b></i> <i>&lt;path+basename&gt;</i>
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; : sets the "rootname" for the 
+image.    This   names INCLUDES the path (see the examples below)<br>
+               <br>
+               <u><i>examples</i></u><br>
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;       DHE  SET displayimage yes<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+     DHE  SET exposuretime = 3.2[s]&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*would be equivalent to "3200
+ [ms]",     or just "3200" */<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+     DHE  SET exposuretime = 3200, write_to_disk&nbsp; yes, imagetitle = this
+    is a test image, displayimage =no<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+     DHE  SET rootname /home/wirc/images/dark, imagenumber 5, imagestoread&nbsp; 
+     3&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;/*this says:&nbsp; read 3 images, 
+     which will be located at &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /home/wirc/images, 
+     and that will be  named <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; dark0005.fits
+    --&gt;   dark0008.fits<br>
+               <u><i>return value</i></u><br>
+               DONE on success, <br>
+               ERROR: &lt;error message&gt; [error code] on failure<br>
+               <br>
+               <br>
+                               
+<h3>1.3.- Observation Commands</h3>
+                <b>EXPOSE</b><br>
+               <u><i>description</i></u><br>
+               Starts an exposition with the previously set parameters. An
+ "exposition"       may consists on N images, each of which will have the
+same exposure time.      For the Infrared case, each image may have M coadds
+with K fowler samples      each.<br>
+               <br>
+               <u><i>return value</i></u><br>
+                DONE on success, <br>
+                ERROR: &lt;error message&gt; [error code] on failure<br>
+               <br>
+               <br>
+               <b>ABORT</b><br>
+               <u><i>description</i></u><br>
+               Aborts all the ongoing activity, as well as all the remainig 
+ activity     on  the same exposure, returning the system to an "idle" state. 
+ This means     that  if it is in the middle of an exposure, it will abort 
+ the exposure,    the following  image read, and will skip all the remaining 
+ images if it  was  in a sequence.  After the abort, the system will be idle.<br>
+               <br>
+               <u><i>return value</i></u><br>
+               DONE on success<br>
+                ERR: &lt;error message&gt; [error code] on failure<br>
+               <br>
+               <br>
+               <b>STOP</b><br>
+               <u><i>desciription</i></u><br>
+               Stops the current sequence, but waits untill the current image 
+  (the   one   in progress) finishes normally. This means that if it is exposing,
+    it will   wait untill the current &nbsp;exposure finishes, then it will
+  read   out and   write that image, and then will skip the rest of the images
+  if  it was in  a sequence. After the stop, the system will be idle<br>
+               <br>
+               <u><i>return value</i></u><br>
+                DONE on success, <br>
+                ERR: &lt;error message&gt; [error code] on failure<br>
+               <br>
+               <br>
+               <b>DISCARD</b><br>
+               <u><i>description</i></u><br>
+               Discards current image, but continues with the next one. Thsi
+  command     will  abort only the current image, and will continue with
+the   next ones.     <br>
+               <u><i><br>
+               return value</i></u><br>
+                DONE on success, <br>
+                 ERR: &lt;error message&gt; [error code] on failure<br>
+               <br>
+               <br>
+               <b>PAUSE</b><br>
+               <u><i>description</i></u><br>
+               Pauses the current exposure, by closing the shutter. <br>
+               <br>
+               <u><i>return value</i></u><br>
+                DONE on success, <br>
+                 ERR: &lt;error message&gt; [error code] on failure (if not 
+ exposing     it  will return an error)<br>
+               <br>
+               <br>
+               <b>RESUME</b><br>
+               <u><i>description</i></u><br>
+               Resumes a paused exposure, opening the shutter<br>
+               <u><i><br>
+               return value</i></u><br>
+               DONE on sucees<br>
+               ERR: &lt;error message&gt; [error code] on failure&nbsp;&nbsp;&nbsp; 
+     (if   not paused it will return an error)<br>
+               <br>
+               <br>
+               <b>RESET</b> <b><i>&lt;controller | pci&gt;</i></b><br>
+               <u><i>description</i></u><br>
+               Resets the specified device<br>
+               <br>
+               <u><i>parameters</i></u><br>
+               <b><i>controller</i></b> : restes the hardware controller. 
+After    this,    a  new "INIT" command should be sent<br>
+               <i><b>astropci</b></i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;       : resets the PCI card on the computer. <br>
+               <br>
+               <br>
+                              
+<h3>1.4.-&nbsp; Status Commands</h3>
+              <b>GET</b> <i><b>&lt;param&gt;</b></i><br>
+              <u><i>description</i></u><br>
+              It wil return the current value of the specified parameter<br>
+              <br>
+              <u><i>parameters</i></u><br>
+              All the parameters described under <b>"SET"</b> apply here. 
+This   means    that  any parameter that it is possble to set, it is possible
+ to   get.<br>
+           Beside the  already described parameters then, we have:<br>
+              <b><i>&nbsp; &nbsp; &nbsp; progress</i></b>&nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;      : It will return a multiline string with status information
+ about the  exposure    progress. The sintax of the returned string is:<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; read = &lt;value&gt;\n &nbsp;
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; /* percentage of readout*/<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; write = &lt;value&gt; \n &nbsp;
+   &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;    &nbsp;&nbsp; /* percentage of writting */<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; exposure = &lt;value&gt;\n &nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       /* amount of elapsed exposure time, in miliseconds */<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; image = &lt;imname&gt; \n &nbsp;
+    &nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    /* current image   */<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; state = &lt;reading | reseting
+  |  exposing   | idle&gt;\n &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;/*  status of the system*/<br>
+           <br>
+           <i><b>&nbsp;&nbsp;&nbsp; &nbsp;geometry</b></i>&nbsp;&nbsp; &nbsp; 
+  &nbsp;    &nbsp; &nbsp; &nbsp; : returns the current geometry of the array 
+  (total  X  and Y size per amplifier)<br>
+           &nbsp; &nbsp; &nbsp;<i><b>modifiers</b></i>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;: return values of prescans,
+overscans, etc.  This    will depend on te defined modifiers for the specified
+FPA<br>
+           &nbsp; &nbsp; &nbsp;<i><b>controllerconfig:</b></i>&nbsp;&nbsp;&nbsp;
+    returns  general information about the controller<br>
+           &nbsp; &nbsp; &nbsp;<i><b>timinginfo</b></i>&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;      &nbsp;: retruns information about the Pixel time, 
+detector readout time,     etc<br>
+              <br>
+              <u><i>return value<br>
+              </i></u>The value of the specified parameter, on success<br>
+               ERR: &lt;error message&gt; [error code] on failure<br>
+              <u><i><br>
+              examples</i></u><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp; DHE GET exposuretime [s]&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     /*if no unit specified, it will return [ms]<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp; &gt;&gt; 32.20 [s]<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp; DHE GET displayimage<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp; &gt;&gt; yes<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp; DHE GET progress<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp; &gt;&gt; read = 0&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; /* no read has
+been     perfromed   yet */<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; write = 0&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; exposure
+=  7100&nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;      /*&nbsp; msecs of elapsed exposure time */<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; image = /home/wirc/images/obj0120<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; state = exposing<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp; <br>
+             <br>
+             <br>
+                               
+<h2><a name="EngComms"></a>2.- Engineering and Setup commands</h2>
+              This is a set of engineering commands, used for testing the 
+system    and   configuring it. This commands are normally not requiered to
+be changed    byt   the observer (and not recommended to)<br>
+             <br>
+                         
+<h3>2.1.-&nbsp; Utility Commands</h3>
+              <b>&lt;DO | PERFORM&gt; </b><b><i>[command]</i></b> <i><b>&lt;action&gt; 
+      &lt;value&gt;</b></i><br>
+             <u><i>description</i></u><br>
+             Performs actions that must be done inmediatelly, rather than 
+seting    for   posterior using.<br>
+             <br>
+             <u><i>parameters</i></u><br>
+             [command] : this optional parameter can contain any command
+header    described    on this document, like SET, or MEMORY.<br>
+             <i><b>&lt;action&gt;</b></i> : if the alternate command is there,
+   this   value  can be anyone&nbsp; that is valid for that command (see
+the    examples   below).  If the command option is not, then this parameters
+can   have the  followig values:<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; <i><b>power</b></i> <i>&lt;on | off&gt;</i>&nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 
+   &nbsp;   : brings the power to the detector (biases, clocks, etc)<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; <i><b>shutter</b></i> <i>&lt;open | close&gt;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </i>: opens or closes the shutter<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; <i><b>tdl</b></i> <i>&lt;board&gt; &lt;value to write&gt;</i>
+            : "test data link". This command places a value on the specified
+  board,    and then reads it back to see if the target is alive and responding
+  or not.   &lt;board&gt; is the target board name. For example, under an
+SDSU  DHE system,   it can be : timing, utility, or pci. The value can be
+any number   (less than   24 bits)<br>
+             <br>
+             <u><i>examples</i></u><br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+DO  power    on&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; /* brings the power to the detector
+    */<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+DO  tdl   timing   144&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     /*sends the value 144 to the timing board*/<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+DO  SET   exposuretime=3.2&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;   /* same that DHE SET exposuretime
+    3.2 */<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+             <u><i>return value</i></u><br>
+             if [command] is specified, it will rspond according to the specification 
+      of that command<br>
+             tdl will return the value sent on succes, and a diferent value,
+  or  ERR   &lt;error  message&gt; on failure<br>
+             power and shutter will return DONE on success, and   ERR: &lt;error
+    message&gt;   [error code] on failure<br>
+             <br>
+                         
+<h3>2.2.- Memory Commands</h3>
+             <b>MEMORY</b> <b><i>&lt;action&gt; &nbsp;&lt;parameter1&gt;
+[...   &lt;parameterN&gt;</i><i>        ]</i></b><br>
+             <u><i>description</i></u><br>
+             This set of commands will perform the specified actions over 
+the   DHE   memories.   This commands does not perform any kind of verification 
+  about   the security   of the command being issued, so it must be used carefully
+   or yoy can run  the risk of overriding some vital part of the memory.<br>
+             <br>
+             <u><i>parameters</i></u><br>
+             <b><i>&nbsp; &nbsp; &nbsp;&lt;action&gt;</i></b>: actions are
+ the   actual    operation to apply. The parameters will change according
+to it.   The possible    values are:<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <i><b>write </b>&lt;board&gt; &lt;memtype&gt; &lt;address&gt; &lt;value&gt;</i><i>
+             : </i><br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<i>&lt;board&gt;</i> is 
+the    name  of the target board (in SDSU: <i>&lt;timing | utility | pci&gt;</i>
+          )<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<i>&lt;memtype&gt;</i> is
+  the    memory type (in SDSU: <i>&lt;X | Y | P | D&gt;</i>)<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <i>&lt;address&gt;</i>
+              : the memory address to write<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;value&gt;</i>
+             : the value to write on the specified place<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <b><i>read </i></b><i>&lt;board&gt; &lt;memtype&gt; &lt;address&gt;</i>
+         :  <br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;board&gt;</i>
+              is the name of the target board<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;memtype&gt;</i>
+              is the memory type <br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;address&gt;</i>
+              : the memory address to read<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <i>l<b>oad </b>&lt;board&gt; &lt;type&gt; &lt;location&gt;</i>:&nbsp;&nbsp;&nbsp; 
+      &nbsp;<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;board&gt;</i>
+           is the name of  the target board <br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;type&gt;</i>
+              : the type of loading you want to perform (in SDSU: <i>&lt;file 
+  |  app&gt;</i>      )<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <i>&lt;location&gt;</i>
+              : where to find the source for&nbsp; loading (in SDSU:&nbsp;
+ If  <i>   &lt;file&gt;</i>      whas specified, then it is the file path.
+ If <i> &lt;app&gt;</i>    was specified,   then it is the application number)<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <b><i>manualcommand </i></b><i>&lt;board&gt; &lt;arg1&gt; &lt;arg2&gt; 
+   &lt;arg3&gt;   &lt;arg4&gt; &lt;arg5&gt; &lt;command&gt;</i>:<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp; specifies  a low level command to be sent to the controller.
+In   an   SDSU system, this  command is used for sending values to the DACs,
+adjusting     the type of gain,  switching the multiplexors, etc. (see the
+examples below).    The arguments depends on the &lt;command&gt; field, and
+the &lt;command&gt;     field depends on the specific commands than the DHE
+supports, and on the    program it is running (examples for SDSU are: 'SBN'
+(sets bias number),  'SMX'  (set multiplexer),  etc)<br>
+             <br>
+             <u><i>examples</i></u><br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    write   timing X 0 132&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : wites 
+the  value  132   (decimal) to the location 0 of memory X, on timing board<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    write   utility Y 0xA 0x132: writes the value 0x132 (hexa) to the 
+location    10 of  memory Y, on utility board<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    load   timing file /home/ArcVIEW/Modules/SDSU/config/DSPfiles/HAWAII-II/tim.lod<br>
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    load   timing&nbsp; app 1&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*loads the timing board with
+the    applicatio  program located on EPROM number 1 */<br>
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE
+MEMORY    manualcommand   tim 1 2 VID 3072 0 0 SBN &nbsp;&nbsp; /*sets to
+3072 adus    the DAC number  2, on video board number 1<br>
+             <br>
+             <u><i>return values</i></u><br>
+             manualcommand will return a value according to the command specified.<br>
+             write and load will return DONE on success, and    ERR: &lt;error
+   message&gt;    [error code] on failure<br>
+             read will return the memory value on success, and    ERR: &lt;error
+    message&gt;   [error code] on failure<br>
+             <br>
+                         
+<h3>2.3 Setup Commands</h3>
+             <b>SET</b> <b><i>&lt;param1&gt;</i></b><i>[=]  <b>&lt;value1&gt;</b></i><b><i>
+                [, &lt;param2&gt;[=] &lt;value2&gt;,&nbsp; ... &lt;paramN&gt;[=]
+    &lt;valueN&gt;]</i></b><br>
+             <u><i>description </i></u><br>
+               Sets the parameter to the specified value. <br>
+              <br>
+             <u><i>parameters</i></u><br>
+             <b><i>&nbsp; &nbsp; &nbsp;geometry </i></b><i>&lt;modifier1=value1&gt; 
+     [, modifier2=value2,&nbsp; ....]</i><i> </i><b><i>&nbsp; &nbsp; &nbsp; 
+  &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp; </i></b>: sets  values such as oversca, 
+  prescans,   etc. This depends on th defined fields (FPA)<br>
+             <i><b>&nbsp; &nbsp; &nbsp;gainspeed </b>&lt;gain&gt; &lt;speed&gt;</i>
+           &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp; : specifies     the gain and speed  of the video chain<br>
+             <i><b>&nbsp; &nbsp; &nbsp;binning </b>&lt;xbining&gt; &lt;ybinning&gt;</i>
+             &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp; : specified the binning
+ in   horizontal  and vertical directions<br>
+             <i><b>&nbsp; &nbsp; &nbsp;idle&nbsp; </b>&lt;on | off&gt;<b>
+&nbsp;&nbsp;&nbsp;       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;    &nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+</b></i> :  sets  the array to idle or non-idle  mode<br>
+             <i><b>&nbsp; &nbsp; &nbsp;writeframes </b>&lt;framelist&gt;</i>
+   &nbsp;&nbsp;      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;  &nbsp;    : This is valid only for IR system. The frame list 
+ says which frames  the   user can write when performing a CDS. The&nbsp; 
+valid names are: reset,   exposed,   and substracted. For example, writeframes 
+reset exposed, will  write both  the reset and exposed frames for each CDS<br>
+             <i><b>&nbsp; &nbsp; &nbsp;artifdata </b>&lt;yes | no&gt;<b>&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; </b></i>: sets the artificial or normal
+      data mode.<br>
+             <b><i>&nbsp; &nbsp; &nbsp;autoshutter </i></b><i>&lt;yes | no&gt;</i>
+          &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;  : sets the shutter mode of operation.
+    If set, it will  open automatically when the exposure starts. If not,
+it   will need&nbsp; an  specific "shutter open" command for opening.<br>
+        <br>
+        <u><i>return values</i></u><br>
+        &nbsp;&nbsp;&nbsp;         DONE on success, <br>
+        &nbsp; &nbsp; ERROR: &lt;error message&gt; [error code] on failure<br>
+         <br>
+               
+<h3>2.4 DAC commands</h3>
+           DAC &lt;SET | GET | -list&gt; &lt;dacname&gt; [-unit] [-raw] [-params]
+    <br>
+        <u><i>description </i></u><br>
+        Sets or gets the value of a defined DAC. The defined DACs are read
+ at  initialization  time from the DACs config file<br>
+        <br>
+        <u><i>parameters</i></u><br>
+        &nbsp;&nbsp;&nbsp; dacname :name of the dac. It must match some defined 
+   one<br>
+        &nbsp; &nbsp; -unit&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;: optional switch 
+ which   will cause the response to be returned with unit of the measurement 
+ (usually   [volts])<br>
+        &nbsp; &nbsp; -raw&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;: optional parameter
+   which  will cause the value to be read or set in raw untis (DAC units),
+ from  0 to  4095<br>
+        &nbsp;&nbsp;&nbsp; -params : optional parameter which will cause
+the   system   to return the params for that DAC (memory location, board,
+gain,   etc)<br>
+        &nbsp; &nbsp; -list&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; : optional parameter
+    that will return the list of defined DACS (just the names)<br>
+<br>
+<u><i>examples</i></u><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE DAC GET -list&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; /*returns the list of defined DACs, by name*/<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE DAC SET VRESET 2.4&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;/*sets the value of the DAC names VRESET to be 2.4
+volts. See DAC config file description*/<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE DAC SET VRESET 3121 [adu] &nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;/*sets the value of the DAC names VRESET to be 3121
+adu. See DAC config file description*/<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE DAC GET VRESET -raw&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*brings the value
+of VRESET in dac units (defaults to volts)*/<br>
+<br>
+        <br>
+        <u><i>return values</i></u><br>
+        &nbsp;&nbsp;&nbsp; GET will return the value according to the specified 
+   parameters, and ERROR: &lt;error message&gt; [error code] on error<br>
+        &nbsp; &nbsp; SET will return DONE o sucees, and&nbsp; ERROR: &lt;error 
+   message&gt; [error code] on error<br>
+           <br>
+             <br>
+        <br>
+                     
+<h2><a name="MasterConfig"></a>3- Master Configuration File</h2>
+          <br>
+          This file only have links to the various configuration files. The 
+ sintax    is:<br>
+          <br>
+          [SECTION]<br>
+          key=value<br>
+          .....<br>
+          <br>
+          In the SDSU case, this sections are:<br>
+          <br>
+          <a href="DHE_Initialization_file_SDSU.html">[INIT]<br>
+          file=&lt;default initialization     file path&gt;</a><br>
+          <br>
+          [LOG]<br>
+ log=&lt;ye &nbsp;| no&gt;<br>
+          file=&lt;log file path&gt;<br>
+          <br>
+          [HDRINFO]<br>
+          file=&lt;header information template file path&gt;<br>
+          <br>
+          [TP]<br>
+          tpfile=&lt;testpoints definitions file path&gt; <br>
+          algorfile=&lt;algorithm definitions file path&gt;<br>
+        <br>
+     <a href="DHE_DACS_file_SDSU.html">   [DACS]<br>
+          file=&lt;dac path&gt;<br>
+   </a>       <br>
+          <br>
+           <br>
+                               
+</body>
+</html>

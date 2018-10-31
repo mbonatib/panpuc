@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+  
+  <title>DGE_SDSU_TP_file.html</title></head>
+
+<body>
+
+<big style="font-weight: bold;"><big>SDSU Testpoints definitions file<br>
+
+</big></big><br>
+
+The "testpoints" on a SDSU controller are defined as memory locations
+that may be read or written to get some information or set some value.<br>
+
+This is usually the case for reading the value of power supplies, temperatures values or setpoints, etc.<br>
+
+<br>
+
+The values can be easily read by just using a MEMORY command, but this
+file provide an easy way to get/set the values on a more friendly way,
+as well as to be later able to write these values on the image headers
+(see the SDSU Header template definition for this).<br>
+
+Besides that, it allows to ask the TPNT module to poll over the desired
+points. The TPNT module can then generate log files of the polled
+values, as well as async. alarms and actions when a limit is reached.<br>
+
+<br>
+
+<span style="font-weight: bold;">[DEVINFO]</span><br>
+
+<span style="font-weight: bold;">params</span>="<span style="font-style: italic; font-weight: bold;">param1=value1; ...; paramN=valueN</span>"<br>
+
+<br>
+
+/*this are commands to be passed to the TPNT module when this module
+(DHE) "suscribes" to being polled. See the manual of the TPNT module
+for the available commands, or look at the example at the end*/<br>
+
+<br>
+
+<span style="font-weight: bold;">[NAME1]</span><br>
+
+<span style="font-weight: bold;">type=<span style="font-style: italic;">&lt;tptype&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">units=<span style="font-style: italic;">&lt;unit name&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">board=<span style="font-style: italic;">&lt;util | tim&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">memory=<span style="font-style: italic;">&lt;X | Y&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">address=<span style="font-style: italic;">&lt;memory_address&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">algor=<span style="font-style: italic;">&lt;conversion algorithm name&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">range=<span style="font-style: italic;">&lt;minimum nominal maximum&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">params="<span style="font-style: italic;">param1=value1, ..., paramN=valueN</span>"</span><br>
+
+<br>
+
+<span style="font-weight: bold;">...</span><br>
+
+<span style="font-weight: bold;">[NAME_N}</span><br>
+
+<span style="font-weight: bold;">...</span><br>
+
+<br>
+
+<span style="font-weight: bold; font-style: italic;">type</span>:
+&nbsp;type of test point. THis can be any arbitrary classification,
+like "temp" (temp), or "ps" (power supply), etc. Through the commands
+is possible later to operate over all the testpoint of a certain type*/<br>
+
+<span style="font-weight: bold; font-style: italic;">units</span>: units in which the value will be returned, for example "volts", or "kelvin"<br>
+
+<span style="font-weight: bold; font-style: italic;">board</span>: board where to read the point. It can be "util" (utility board) or "tim" (timing board)<br>
+
+<span style="font-weight: bold; font-style: italic;">memory</span>: in which memory the point is to be found. Available memory types are X and Y<br>
+
+<span style="font-weight: bold; font-style: italic;">address</span>: memory address to be read/set<br>
+
+<span style="font-weight: bold; font-style: italic;">algor</span>: what algorithm to use to convert the value from memory to "user" units. The algorithm must be defined on the Algors file.<br>
+
+<span style="font-weight: bold; font-style: italic;">range</span>:
+allowed range of operation, stated as "minimum nominal maximum" values.
+The range must be on "user" units. If the testpoint is out of range, it
+is possible to generate multiple events, depending on the setting given
+to the TPNT module<br>
+
+<span style="font-weight: bold; font-style: italic;">params</span>:
+commands given to the TPNT module when the testpoint is suscribed. Here
+can be specified the polling time, if alarms are enabled or not, what
+to do as alarm, if loggin, where, how often, etc.<br>
+
+<br>
+
+<br>
+
+<br>
+
+<big><span style="font-weight: bold; font-style: italic; text-decoration: underline;">Example</span>:</big> testpoints definition file of the P60 imager.<br>
+
+<br>
+
+<small><span style="font-style: italic; font-weight: bold;">[DEVINFO]</span><br style="font-style: italic; font-weight: bold;">
+
+<span style="font-style: italic; font-weight: bold;">params="monitor=on, updaterate=5"</span><br>
+
+<br>
+
+/*that means: TPNT module -&gt; monitor the points every 5 seconds*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+<span style="font-weight: bold; font-style: italic;">[+HV]</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">type=ps</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">unit=volts</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">board=util</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">memory=X</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">address=8</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">algor="CONV+HV V(ADU)"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">range="34 36 38"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">params="monitor=on, alarms=on, limit.alarmtype=async error,&nbsp; log.file=/home/arclogs/pserr.log, log=on, log.mode=alarm"</span><br>
+
+<br>
+
+/*Definition for the hight voltage (+36) power supply monitoring. It
+will read utility board, at memory X:8, and will pass the value through
+the algor specified to convert from the value found in memory (ADUs) to
+volts.*/<br>
+
+/*The defined range is 34 -&gt; 38 volts*/<br>
+
+/*the <span style="font-weight: bold; font-style: italic;">params</span>
+are telling to the TPNT module to monitor this point, and to generate
+alarms if it is out of range. The type of alarm will be an asynchronous
+error to the client. It will be logged on the specified file (log is
+"on") only if it is under alarm ("log.mode=alarm") rather than every
+polling time. Since no updaterate is specified, it will be polled every
+5 seconds (defined under DEVINFO)*/<br>
+
+/*the same is done for every power supply*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+<span style="font-weight: bold; font-style: italic;">[+LV]</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">type=ps</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">unit=volts</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">board=util</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">memory=X</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">address=9</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">algor="CONV+LV V(ADU)"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">range="13 15 17"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">params="monitor=on, alarms=on, limit.alarmtype=async error,&nbsp; log.file=/home/arclogs/pserr.log, log=on, log.mode=alarm"</span><br style="font-weight: bold; font-style: italic;">
+
+<br>
+
+<span style="font-weight: bold;">...</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+<span style="font-weight: bold; font-style: italic;">[UTILTEMP]</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">type=temp</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">unit=C</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">board=util</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">memory=X</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">address=0x7</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">algor="ADU2VOLTSx3 V(ADU) -&gt; CARDTEMP T(V)"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">range="15 30 38"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">params="monitor=on,
+alarms=on, log.file=/home/arclogs/cardtempsErr.log, log=on,
+updaterate=100, limit.alarmtype=async error, log.mode=alarm"</span><br style="font-weight: bold; font-style: italic;">
+
+<br>
+
+/*this is the temperature of the utility board. The parameters are as the ones explained for the power supplies*/<br>
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+
+<span style="font-weight: bold; font-style: italic;">[CCD]</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">type=temp</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">unit=C</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">board=util</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">memory=X</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">address=0xC</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">algor="ADU2VOLTSx1.5 V(ADU) -&gt; 1N914 T(V)"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">range="-130 -110 -90"</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">params="monitor=on,
+alarms=on, log.file=/home/arclogs/temps.log, log=on, updaterate=300,
+limit.alarmtype=async error, log.mode=polling"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+/*this is the temperature of the CCD. &nbsp;Here the <span style="font-weight: bold; font-style: italic;">params </span><span style="font-weight: bold;"></span>are
+specifing to monitor every 300 secs (instead of 5 secs of the "main"
+polling), and to generate an async. error to the client if out of
+range. Since the log mode is "polling" it will log the value of the
+temperature to the specified log file every 300 secs.&nbsp;Note that it
+is possible also to define a diferent log rate than polling rate (so it
+polls under X secs, but logs only under Y secs), by speciyng
+&nbsp;"log.rate=X")*/<br>
+/*Also note than here are two algors in a raw being called to generate
+the output in Celcius degrees. First&nbsp; it is passing the value read
+in memory&nbsp; from ADUs to Voltage using "V(ADU) under the algors
+entry ADU2VOLTSx1.5", and then it is passing the Voltage to Celcius
+using T(V) under the entry "1N914". As an example, below are these algorsa, as they appear in the ALGORS file*/<br>
+
+<br>
+
+<span style="font-style: italic;">[ADU_VOLTSx1.5]</span><br style="font-style: italic;"><span style="font-style: italic;">V(ADU)=((ADU-2048)/2048)*1.5</span><br style="font-style: italic;"><span style="font-style: italic;">ADU(V)=(V/1.5)*2048+2048</span><br style="font-style: italic;"><br style="font-style: italic;"><span style="font-style: italic;">[1N914]</span><br style="font-style: italic;"><span style="font-style: italic;">T(V)=-172.93*V^3+345.46*V^2-584.51*V+481.36-273</span><br style="font-style: italic;"><span style="font-style: italic;">V(T)=6*(10^-9)*T^3+(10^-6)*T^2-0.0027*T+0.4519</span><br><br><br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+</small>
+</body></html>

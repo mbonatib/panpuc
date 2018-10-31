@@ -1,0 +1,12 @@
+Module Tree:
+
+- public: public resources (posible to call from another modules)
+		c: lib: compiled shared lybrary
+		vis: labview files
+- private: internal resources
+		c: SDSUIII: Generation III resources
+			src: C library (driver API)
+			driver_int: driver source/doc
+			DSPfiles: general examples on DSP code
+		vis: labview files
+			

@@ -1,0 +1,36 @@
+This directory contains a serial port driver that can be utilized
+from LabVIEW. The driver is included in the shared library
+libserial_lv.so, and the functions are called using the Call Library
+convention. An example of use is found in LVserial.vi.
+
+There are four functions in the driver, with the following
+calling conventions:
+
+int LVcomm_open_port(int *fd, LStrHandle port_name, int baudrate)
+
+	This function performs the open to the port. It returns an
+	"fd" that needs to be passed to the other functions. The 
+	port_name is a string like "/dev/ttyS0". Finally, the legal
+	baudrate numbers are: 2400, 4800, 9600, 19200, 38400,
+	57600, 115200. The port is set at the selected baudrate,
+	8 bits, no parity, 1 stop bit. 
+	When successful it returns a zero (0). Any other number is
+	an indication of error.
+	
+int LVcomm_close_port(int fd)
+
+	This function closes the port connection.
+	
+int LVcomm_send_msg(int fd, LStrHandle message)
+
+	This function performs the actual sending of the message. 
+	No interpretation of the content is done, and all bytes in
+	the message are sent.
+	
+int LVcomm_get_msg(int fd, LStrHandle message)
+
+	This function receives the actual message. When successful it
+	returns a zero (0), indicating the presence of a message. The
+	function recognizes the end of a message by the presence of either
+	a carriage return or a line feed character. In both cases, the
+	resulting string is terminated by a line feed character.

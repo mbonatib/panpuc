@@ -1,0 +1,36 @@
+2010-10-09 15:15:07 UTC <bonati> DRV_COMS module version 4.3
+	* added sml_tcs, to talk to sml-based telescopes (SOAR)
+
+2010-05-12 15:15:07 UTC <bonati> DRV_COMS module version 4.2
+      * added an c test on c_univ
+      * fixed a small bug in UNIV_Write (c_univ type)
+
+2010-05-12 15:15:07 UTC <bonati> DRV_COMS module version 4.1
+      * added gwdev protocol, that allows to talk to the GWC router throuhg
+      * the gwc sml device. It rerquieres SML things (not for
+	direct panview usage)
+
+2010-05-02 15:15:07 UTC <bonati> DRV_COMS module version 4.0
+      * Standarized all the protocols ti use "FormatResponse" for
+      	the error generation.
+      * Vrrified the right referene pasage for all protocols
+
+2009-12-11 15:15:07 UTC <bonati> DRV_COMS module version 3.2
+      * fixed rpc_tcs to be reentrant. tested at the 60'' ctio telescope
+
+2009-09-21 15:15:07 UTC <bonati> DRV_COMS module version 3.1
+	* added the rpc_tcs protocol. Not yet tested
+
+2009-09-21 15:15:07 UTC <bonati> DRV_COMS module version 3.0
+	* fixed the reconnection of TCP media
+	* added the "close ref" vi after each call, to avoid multiple
+	references open
+
+2008-10-05 15:15:07 UTC <bonati> DRV_COMS module version 2.0
+	* labview 8.6
+	* added c_univ and c_serial. c_univ succesfully tested on the 1m
+	 telescope (TCSPCTCS)
+
+2008-05-05 15:15:07 UTC <bonati> DRV_COMS module version 1.1
+    * Created.
+

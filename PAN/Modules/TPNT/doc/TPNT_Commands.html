@@ -1,0 +1,1262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+  
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+
+  
+  
+  <title>TPNT_Commands</title></head>
+<body>
+
+
+<big style="font-weight: bold;"><big><big>TPNT available points commands/structure</big><br>
+
+
+<br>
+
+
+</big></big>The present document describes the available settings for every device/point that suscribes to the TPNT module. <br>
+
+
+Each module that suscribes is a "device". The "device" commands apply to all the testpoints defined on that particular device.<br>
+
+
+<br>
+
+
+<big style="font-weight: bold; text-decoration: underline;"><big>1.- Device commands</big></big><br>
+
+
+<br>
+
+
+<big style="font-weight: bold;"><big>monitor <small style="font-style: italic;">&lt;yes | no | on | off | true | false&gt;</small></big></big><br>
+
+
+Specifies if the device will be "scaned" or not. If "off", then all the suscribed points for the device will be skipped.<br>
+
+
+<big style="font-weight: bold;"><big><br>
+
+
+updaterate <small style="font-style: italic;">&lt;rate&gt;</small></big></big><br>
+
+
+Specified the rate at which the device will be scanned. Basically it means that every <span style="font-weight: bold; font-style: italic;">&lt;rate&gt;</span>
+seconds every testpoint for this device will be reviewed. The
+updaterate can be specified on a per-point basis, but unless this is
+done all the points on the device will have this updaterate. See the <a href="#tpupdaterate">updaterate</a> parameter on the <a href="#testpointcmds">testpoints commands</a><br>
+
+
+<br>
+
+
+<big style="font-weight: bold;"><big>alarms&nbsp;</big></big><big style="font-weight: bold;"><big><small style="font-style: italic;">&lt;yes | no | on | off | true | false&gt;</small></big></big><br>
+
+
+Specifies if the alarms are active or not. If "off" the alarm check
+will be turned off for all the points in the device. When "on" the
+alarm will be back for every point that specifies so.<br>
+
+
+<br>
+
+
+<big style="font-weight: bold;"><big>delay</big></big><span style="font-style: italic;"><span style="font-weight: bold;"> <big>&lt;secs&gt;</big></span></span><br>
+
+
+Specifies a delay, in secs, between the time the device is sucribed and the first "scan" of the device testpoints<br>
+
+
+<br>
+
+
+<br>
+
+
+<br>
+
+
+<big style="font-weight: bold; text-decoration: underline;"><big><a name="testpointcmds"></a>2.- Testpoints comands</big></big><br>
+
+
+<br>
+
+
+The following commands are available for every point that is suscribed independently.<br>
+
+
+<br>
+
+
+If the parent has fields, the standard way of addresing the fields is<br>
+
+
+<br>
+
+
+&lt;parent&gt;.&lt;fileld&gt; = &lt;value&gt;<br>
+
+
+<br>
+
+
+For example<br>
+
+
+<span style="font-weight: bold; font-style: italic;">samples.filter =&nbsp;average</span><br style="font-weight: bold; font-style: italic;">
+
+
+<br>
+
+
+It is also allowed to use the "short names" directly.<br>
+
+
+In the example<br>
+
+
+<span style="font-weight: bold; font-style: italic;">samples = average</span><br>
+
+
+<br>
+
+<br>
+
+
+<big style="font-weight: bold;"><big>monitor <small style="font-style: italic;">&lt;yes | no | on | off, | true | false&gt;</small></big></big><br>
+
+
+Specifies if the point will be monitored or not. If "off", the point will be skipped and none of the following applies<br>
+
+
+<big style="font-weight: bold; font-style: italic; text-decoration: underline;">fileds</big><br>
+
+
+none<br>
+
+
+<br>
+
+
+<big style="font-weight: bold;"><big><a name="tpupdaterate"></a>updaterate <small style="font-style: italic;">&lt;value&gt;</small></big></big><br>
+
+
+Specifies the rate, in seconds, at which the point will be monitored.
+By default it will use the device updaterate parameter (so, every time
+the device is scanned it will scan this point.<br>
+
+
+<big style="font-weight: bold; font-style: italic; text-decoration: underline;">fields</big><span style="text-decoration: underline;"><span style="font-style: italic;"><span style="font-weight: bold;"></span></span></span><big style="font-weight: bold; font-style: italic; text-decoration: underline;"></big><br>
+
+
+none<br>
+
+
+<br>
+
+
+<br>
+
+
+<big><big style="font-weight: bold;">samples</big></big><br>
+
+
+Describes what to do with the samples taken. By default it uses the raw value (no filter)<br>
+
+
+<br>
+
+
+<big><span style="font-style: italic; text-decoration: underline; font-weight: bold;">fields</span><span style="font-weight: bold; font-style: italic;"><br>
+
+
+</span></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">field</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">description</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">values</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">default</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">short name</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">sub-table</span></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>samples</td>
+
+
+      <td>how many samples to take before applying the specified filter</td>
+
+
+      <td>U16</td>
+
+
+      <td>1</td>
+
+
+      <td>samples</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>filter&nbsp;</td>
+
+
+      <td>filter to apply to the samples</td>
+
+
+      <td>average, median, lower, upper, none</td>
+
+
+      <td>none</td>
+
+
+      <td>filter</td>
+
+
+      <td>(1)</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>algor</td>
+
+
+      <td>algorithm to use to convert samples</td>
+
+
+      <td>any defined <a href="../Common/CMN_Algors_file.html">ALGOR</a></td>
+
+
+      <td>none</td>
+
+
+      <td>algor</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody>
+</table>
+
+
+<span style="font-weight: bold; font-style: italic;"></span><span style="font-style: italic;"><span style="text-decoration: underline;"></span></span><span style="font-weight: bold; font-style: italic;"><br>
+
+
+</span>(1) filter<span style="font-weight: bold; font-style: italic;"><br>
+
+
+</span>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td><small><span style="font-weight: bold; font-style: italic;">value</span></small></td>
+
+
+      <td><small><span style="font-weight: bold; font-style: italic;">description</span></small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>median, average</small></td>
+
+
+      <td><small>calculates the "moving" median/average using the specified amount of samples (samples.samples)</small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>lower, upper</small></td>
+
+
+      <td><small>picks the lower/upper value of the samples</small></td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody>
+</table>
+
+
+<span style="font-weight: bold; font-style: italic;"><br>
+
+
+<span style="text-decoration: underline;">examples</span></span><br>
+
+
+<span style="font-weight: bold; font-style: italic;">samples.filter = average, samples.samples=10&nbsp;</span>&nbsp; <br style="font-style: italic;">
+
+
+<span style="font-style: italic;">&nbsp;/*in every update calculates the average of the last 10 points*/</span><br>
+
+
+<br>
+
+
+<br>
+
+
+<big style="font-weight: bold;"><big>log<br>
+
+
+</big></big><big><big><small><small>Describes the how to log the point<br>
+
+
+<big style="font-weight: bold; font-style: italic; text-decoration: underline;">fields</big><br>
+
+
+</small></small></big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">field</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">description</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">values</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">default</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">short name</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">sub-table</span></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>log</td>
+
+
+      <td>start or stops the logging for the point</td>
+
+
+      <td>yes, no, on, off, true, false</td>
+
+
+      <td>no</td>
+
+
+      <td>log</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>rate</td>
+
+
+      <td>specifies the log rate, in seconds</td>
+
+
+      <td>U16</td>
+
+
+      <td>device updaterate</td>
+
+
+      <td>lograte</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>file</td>
+
+
+      <td>specified the file to log the point. The path must be absolute</td>
+
+
+      <td>string</td>
+
+
+      <td>none</td>
+
+
+      <td>logfile</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>format</td>
+
+
+      <td>specifies the format for the logging</td>
+
+
+      <td>name, value, samples, status, filter</td>
+
+
+      <td>"name value"</td>
+
+
+      <td>logformat</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>mode</td>
+
+
+      <td>specifies the log mode</td>
+
+
+      <td>rate, alarm</td>
+
+
+      <td>rate</td>
+
+
+      <td>logmode</td>
+
+
+      <td>(1)</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>type</td>
+
+
+      <td>specifies the log type</td>
+
+
+      <td>txt, html</td>
+
+
+      <td>text</td>
+
+
+      <td>logtype</td>
+
+
+      <td>(2)</td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody>
+</table>
+
+
+<big><big><small><small><br>
+
+
+(1) mode<br>
+
+
+</small></small></big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td style="font-weight: bold; font-style: italic;"><small>value</small></td>
+
+
+      <td style="font-weight: bold; font-style: italic;"><small>description</small></td>
+
+
+      <td><small>alternates names</small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>rate</small></td>
+
+
+      <td><small>logs at the rate defined by the log.rate parameter</small></td>
+
+
+      <td><small></small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>alarm</small></td>
+
+
+      <td><small>logs only if the points in under an alarm conditions. See the <span style="font-style: italic;">limits</span> parameter.</small></td>
+
+
+      <td><small></small></td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody>
+</table>
+
+
+<big><big><small><small><br>
+
+
+(2) type<br>
+
+
+</small></small></big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td><small><span style="font-weight: bold; font-style: italic;">value</span></small></td>
+
+
+      <td><small><span style="font-weight: bold; font-style: italic;">description</span></small></td>
+
+
+      <td><small><span style="font-weight: bold; font-style: italic;">alternate names</span></small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>txt</small></td>
+
+
+      <td><small>file will be logges as a plain ascii text file</small></td>
+
+
+      <td><small>text, ascii, plain</small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>html</small></td>
+
+
+      <td><small>file will be logged as html</small></td>
+
+
+      <td><small>-</small></td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody>
+</table>
+
+
+<big><big><small><small><br>
+
+
+<span style="font-weight: bold; font-style: italic; text-decoration: underline;">examples</span><br>
+
+
+<span style="font-style: italic; font-weight: bold;">log.log=yes, log.file=/home/logs/dhevars.log, log.mode=rate, log.rate=10, log.type=txt</span><br style="font-style: italic;">
+
+
+<span style="font-style: italic;">/*log the point onto specified file
+every 10 seconds, as text. If more than 1 point specifies the same
+file, the logger will append them all in the same line if they were
+logged at the same time, separated */</span><br style="font-style: italic;">
+
+
+<span style="font-style: italic;">/* by ",". for example: */</span><br style="font-style: italic;">
+
+
+<span style="font-style: italic;">/*2006-01-12T10:22:33 CCDTEMP =160,, NECTTEMP = 230 ...*/&nbsp; </span><br style="font-style: italic;">
+
+
+<br>
+
+
+<big style="font-weight: bold;"><big><br>
+
+
+limits</big></big><br>
+
+
+Defines the limits for alarms. If the limits are used or not depends on the alarm settings<br>
+
+
+<br>
+
+
+<big style="font-weight: bold; font-style: italic; text-decoration: underline;">fields</big><br>
+
+
+</small></small></big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">field</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">description</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">values</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">default</span></td>
+
+
+      <td><span style="font-weight: bold; font-style: italic;">short name</span></td>
+
+
+      <td><span style="font-style: italic; font-weight: bold;">sub-table</span></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>limits</td>
+
+
+      <td>describes the limits range as "lower nominal high"</td>
+
+
+      <td>"float float float"</td>
+
+
+      <td>none</td>
+
+
+      <td>range</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>lower</td>
+
+
+      <td>describes the lower allowed value</td>
+
+
+      <td>float</td>
+
+
+      <td>none</td>
+
+
+      <td>lowerlimit</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>nominal</td>
+
+
+      <td>describes the "nominal" value</td>
+
+
+      <td>float</td>
+
+
+      <td>none</td>
+
+
+      <td>nominal</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>upper</td>
+
+
+      <td>describes the upper allowed limit</td>
+
+
+      <td>float</td>
+
+
+      <td>none</td>
+
+
+      <td>upperlimit</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>alarm</td>
+
+
+      <td>sets the alarms on or off</td>
+
+
+      <td>yes, no, on, off, true, false</td>
+
+
+      <td>off</td>
+
+
+      <td>alarms</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>alarmlatch</td>
+
+
+      <td>sets the latch on the alarms (*)</td>
+
+
+      <td>yes, no, off, tue, false</td>
+
+
+      <td>off</td>
+
+
+      <td>alarmlatch</td>
+
+
+      <td>-</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td>alarmtype</td>
+
+
+      <td>sets the type of alarm</td>
+
+
+      <td>none, async &lt;err, warn, info&gt;, mailto &lt;...&gt;, beep, exec &lt;command&gt;</td>
+
+
+      <td>none</td>
+
+
+      <td>alarmtype</td>
+
+
+      <td>(1)</td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody>
+</table>
+
+
+<big><big><small><small>(*) The alarm latch allows to start under an
+outside range condition without checking alarms, untill the point it
+enters into the rails. After that, the alarm actions will be generated.
+This is used, for example, when cooling down a detector. The system
+starts warm, being obviously outside range. If alarms are "on" and
+latch is "on", no alarm will be generated untill the temperature goes
+into range for the first time. Then the alarms will be checked and the
+aalarm actions performed normally.<br>
+
+<br>
+
+
+(1) alarmtype: <br>
+
+&nbsp; &nbsp;there can be specified N alarm actions (types), using "//"
+to separate between actions. There is also an associated, optional
+sintax to specify more complex alarms.<br>
+
+The general sintax is:<br>
+
+<br>
+
+&lt;alarm action&gt; &nbsp;[_after_ &lt;afvalue&gt; &lt;seconds |
+times&gt;] [_every_ &lt;evvalue&gt; &lt;seconds | times&gt;] [_max_
+&lt;maxvalue&gt;]<br>
+
+<br>
+
+&lt;seconds&gt;: indicated seconds after the event was first measured to be outside limits<br>
+
+&lt;times&gt; : indicate how many times checked under repeated outside limits conditions<br>
+
+_after_ : indicates that the specified alarm action will start taking
+place after &lt;value&gt; spcified&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+
+_every_" indicated that the specified action will take place every &lt;value&gt; specified<br>
+
+_max_: indicate that the alarm action will be executed a maximum of &lt;maxval&gt; times<br>
+
+<br>
+
+If &lt;times&gt; is specified rather than secs, then the actual
+frequency, in secs, will depend on the updaterate value for the point.<br>
+
+If &lt;secods&gt; is specified, the actual frequencey will be the
+closest upper multiple of the updaterate specified for the point.<br>
+
+<br>
+
+Note that if many actios are specified, only 1 can have the above
+expresions (basically, there is only 1 set of counters for _after_,
+_every_ and _max_ per set of actions)<br>
+
+<br>
+
+
+</small></small></big></big>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td style="font-weight: bold; font-style: italic;"><small>alarm actions</small></td>
+
+
+      <td style="font-weight: bold; font-style: italic;"><small>description</small></td>
+
+
+      <td style="font-weight: bold; font-style: italic;"><small>alternative names</small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>async &lt;err, war, inf&gt;</small></td>
+
+
+      <td><small>sends an asynchronous message&nbsp;of the specified type (error, warning or info) through the systems ' async channel</small></td>
+
+
+      <td><small>asynchronous &lt;...&gt;</small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>beep</small></td>
+
+
+      <td><small>executes a beep</small></td>
+
+
+      <td><small></small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>exec &lt;command&gt;</small></td>
+
+
+      <td><small>executes the specified command on the specified
+device (module). The command should specify the module name also as
+"module &lt;command&gt;"</small></td>
+
+
+      <td><small></small></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td><small>mailto &lt;address&gt;[-f file] </small></td>
+
+
+      <td><small>sends an e-mail notification to the specified
+address. If "-f" is specified it will use that file as a template. See
+below documentation on email templates</small></td>
+
+
+      <td><small></small></td>
+
+
+    </tr>
+
+
+    
+  
+  
+  </tbody>
+</table>
+
+
+<big><big><small><small><span style="font-weight: bold;">On email templates.</span><br>
+
+The template file specified is a plain ascii test file that will be
+sent to the specified address. The file can have some special keywords
+that the system will replace in order to make the message more clear
+about the actual condition that gerated the alarm.<br>
+
+<br style="font-style: italic;">
+
+<span style="font-style: italic;">"&lt;device&gt;"</span>: the system will replace this keyword by the name of the device that generated the alarm<br>
+
+<span style="font-style: italic;">"&lt;message&gt;"</span>: the system will replace here the alarm message generated<br>
+
+<span style="font-style: italic;">"&lt;next&gt;</span>": the system will replace here when the next message will be sent if the alarm condition persists.<br>
+
+<br>
+
+<span style="font-weight: bold; font-style: italic;">Example of template:</span><br>
+
+"example_temple.txt " file<br>
+
+<small><span style="font-weight: bold; font-style: italic;">The &lt;device&gt; generated the following alarm message: </span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">&lt;message&gt;</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">Next reminder will be sent in &lt;next&gt; seconds if the problem persist</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">Truly yours</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">ArcVIEW@P60</span><br style="font-weight: bold; font-style: italic;">
+
+</small>
+<br>
+
+<br>
+
+
+<span style="font-weight: bold; font-style: italic; text-decoration: underline;">examples:<br>
+
+
+</span><span style="font-weight: bold; font-style: italic;">limits.lower=140, limits.upper=190, limits.nominal=160<br>
+
+
+</span><span style="font-style: italic;">/*this is the same as specifying:*/</span><span style="font-weight: bold; font-style: italic;"><br>
+
+
+limits.limits ="140 160 190"<br>
+
+
+<br>
+
+limits.alarm=on, limits.alarmtype=async error<br>
+
+</span><span style="font-style: italic;">/*in this case an asyncronous error message will be sent to the connected client every time the alarm condition is verified*/.<br>
+
+</span><span style="font-weight: bold; font-style: italic;"><br>
+
+
+limts.alarm=on, limits.alarmtype=beep // async error _after_ 5 times&nbsp;</span><br>
+
+<span style="font-style: italic;">/*in this case the asynchromous
+message will be generated after 5 times of continuos error condition,
+but a beep will be generated every time. In other words, there will be
+5 beeps before an async. message is actually sent up*/</span><br>
+
+
+<br>
+
+</small></small></big></big><big><big><small><small><span style="font-weight: bold; font-style: italic;">limts.alarm=on, limits.alarmtype=async error // exec DHE set power off _after_ 10 times</span><br>
+
+<span style="font-style: italic;">/*in
+this case the asynchormous message will be sent every time, and after
+10 times the condition is repeated continuously, the action "DHE set power off " will
+be issued.*/<br>
+
+<br>
+
+</span></small></small></big></big><big><big><small><small><span style="font-weight: bold; font-style: italic;">limits.alarm=on,
+limits.alarmtype=async error // mailto elosupp@mynet.com -f
+example_template.txt _after_ 300 seconds _every_ 600 seconds _max_ 10 </span><br>
+
+<span style="font-style: italic;">/*in this case an async. error will
+be sent every time, and after&nbsp; 300 seconds of continuos error
+condition, an email will be generated. Then, every 600 seconds the same
+email will be generated, up to a maximum of 10 times (10 emails, in
+this case)*/<br>
+
+</span></small></small></big></big><big><big><small><small><span style="font-style: italic;">/*If the
+alarm is due to the CCD temperature outside limits (201 K), measured through the DHE module, and&nbsp;the testpoint
+name is CCDTEMP, the async. error generated each time will be:*/<br>
+
+</span></small></small></big></big><big><big><small><small><span style="font-style: italic;"><small><span style="font-weight: bold;">WARNING: CCDTEMP _above_ allowed range (201) (DHE_ASYNC)</span></small></span></small></small></big></big><br>
+
+<br>
+
+<big><big><small><small><span style="font-style: italic;">/*and if the template is the one used on the above example, then the email generated every 600 seconds will be:*/<br>
+
+<br>
+
+<small><span style="font-weight: bold;">The DHE generated the following alarm message:</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">WARNING: CCDTEMP _above_ allowed range (201)</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">Next reminder will be sent in 600 seconds if the problem persists</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">Truly yours</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">ArcVIEW@P60</span></small><br>
+
+<br>
+
+<big style="font-weight: bold; text-decoration: underline;">Real example<br>
+
+</big></span><big><small>The next definition was taken from a TestPoint definition file of the <a href="../DHE/SDSU/DGE_SDSU_TP_file.html.html">SDSU</a> DHE module on the robotic P60 telescope at Palomar. It describes the +36 volts SDSU power supply<br>
+
+<br>
+
+</small></big></small></small></big></big><small><span style="font-style: italic; font-weight: bold;">[DEVINFO]</span><br style="font-style: italic; font-weight: bold;">
+
+
+
+<span style="font-style: italic; font-weight: bold;">params="monitor=on, updaterate=60, delay=10"</span><br>
+
+&nbsp;...<br>
+
+/*when the device SDSU suscribes to the TPNT module, it sends the above
+specified device commands, in this case, monitor the device every 60
+seconds, and start monitoring after 10 seconds the module is suscribed*/<br>
+
+...<br>
+
+</small><small><span style="font-weight: bold; font-style: italic;">[+HV]</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">type=ps</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">unit=volts</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">board=util</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">memory=X</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">address=8</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">algor="CONV+HV V(ADU)"</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">range="34 36 38"</span><br style="font-weight: bold; font-style: italic;">
+
+
+
+<span style="font-weight: bold; font-style: italic;">params="monitor=on, limit.alarm=on, limit.alarmtype=async error,&nbsp; log.file=/home/arclogs/pserr.log, log=on, log.mode=alarm"</span></small><br>
+
+<big><big><small><small><span style="font-style: italic;"></span>
+<br>
+
+The "params" &nbsp;definitions are sent to the TPNT module for this
+testpoint when the testpoint is suscribed by the module. In this case:<br>
+
+monitor the point every 60 seconds (same as the device, since no
+"updaterate" was specified here), check for alarm conditions, and
+generate an asynchronous&nbsp; mesage every time the&nbsp; testpoint is
+measured to be out of range. Log the point on the specified file only
+if it is under an alarm condition (log.mode=alarm)<br><br><br><big style="font-weight: bold; text-decoration: underline;"><big>3.- External/Generic commands</big></big><br><br>These commands are meant to be asked by external clients. They give information on the available/suscribed testpoints<br><br><big style="font-weight: bold;">GETALL [types] [tpnt_type]</big><br>Retrieves information on the specified parameter<br><span style="font-style: italic; font-weight: bold;">types</span>: get a list of all the diferent types of testpoints available (temps, ps, setp, etc)<br><span style="font-weight: bold; font-style: italic;">tpnt_type</span>: get the complete list of all the testpoints of that type<br>if no argument is given, the int returns the full list of suscribed testpoints (regardless the device to which they may belong)<br><big style="font-weight: bold;"><br>SERVER &lt;param&gt;</big><br>Commands to set/request the dedicated tcp/ip server <br><big><span style="font-weight: bold; font-style: italic;">params</span></big>:<br><br><span style="font-weight: bold;">enable</span>: informs if server is available<br><span style="font-weight: bold;">start</span>: starts the external server, using the rate, mode and port defined<br><span style="font-weight: bold;">shutdown</span>: shutsdown the server<br><span style="font-weight: bold;">port [value]</span>: informs the service port; if a value is given, changes the service port to the specified one, but this<br>will take effect only after restarting the server (shutdown/start)<br><span style="font-weight: bold;">async [on | off]</span>:
+if argument is ommited, informs the server mode. If argument is given
+changes mode acording to it ("on" will select async mode, and "off"
+will select polling mode) (<span style="font-style: italic; font-weight: bold;">default: on</span>)<br>rate [value]: if argument is ommited, informs the current rate. If argument is given sets it according to that. The<br>possible value for rate are: <br>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &gt;0: if server is in async
+mode, it sets the rate (in msecs) at which the data stream will be sent<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;0: disables the async mode (equivalent to "async off")<br>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; =0: if server is in async mode,
+it will send the async stream everytime new samples are available (so
+the rate will depend on the sample rate on the suscribed points) (<span style="font-weight: bold;">default</span>)<br></small></small></big></big><big><big><small><small><big style="font-weight: bold;"><br>DDS &lt;param&gt;<br><br></big></small></small></big></big><big><big><small><small><span style="font-weight: bold;">enable</span>: informs if the DDS server is available<br><span style="font-weight: bold;">start</span>: starts the external DDS server, using the rate and mode specified in the SERVER command<br><span style="font-weight: bold;">shutdown</span>: shutsdown the DDS server<span style="font-weight: bold;"></span><br><span style="font-weight: bold;">stream</span>: returns the name of the DDS stream to use to connect to the telemetry <br></small></small></big></big><big><big><small><small><big style="font-weight: bold;"><br></big></small></small></big></big><br><big><big><small><small>
+
+<br>
+
+
+<span style="font-weight: bold; font-style: italic;"></span><span style="font-weight: bold; font-style: italic; text-decoration: underline;"></span></small></small></big></big>
+</body></html>

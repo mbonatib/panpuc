@@ -1,0 +1,29 @@
+#! /bin/csh -f
+
+if ($#argv != 1) then
+    echo "Usage:   MM_Check PLUGIN   :from parent directory of PLUGIN"
+    exit
+endif
+
+echo checking module $1
+
+echo extracting current version number
+set VER=`grep -m1 -o "$1 .*version [0-9|\.]*" $1/ChangeLog.txt | awk '{print $NF}'`
+
+echo $VER
+
+echo "\n----------------Added:"
+diff -r --brief $1 ~/GUIS/$1-$VER|grep "^Only in $1"|awk '{print $3$4}'|awk 'sub("[^/]*/","")'|awk 'sub(":","/")'
+
+echo "\n----------------Deleted:"
+set curdir=$PWD
+cd ~/GUIS
+diff -r --brief $1-$VER $curdir/$1 | grep "^Only in $1-$VER"|awk '{print $3$4}'|awk 'sub("[^/]*/","")'|awk 'sub(":","/")'
+cd $curdir
+
+echo "\n----------------Modified:"
+diff -r --brief $1 ~/GUIS/$1-$VER | grep "^Files " | awk '{print $2}' | awk 'sub("[^/]*/","")'
+diff -r --brief $1 ~/GUIS/$1-$VER | grep "^Binary files " | awk '{print $2}' | awk 'sub("[^/]*/","")'
+
+echo "\n"
+

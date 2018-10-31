@@ -1,0 +1,20 @@
+CC= gcc -shared -I /usr/src/linux/include
+WFLAGS = -Wall 
+OFLAGS = -O
+VERFLAG = -D_V14NEW_
+M_SRCS = astroIIILib.c
+D_SRCS = driver_api/sdsuLib.c
+#D_SRCS =  astroLiboldtimver.c
+
+LIB = libastro.so.20
+
+all: clean drivlibIII install
+
+drivlibIII: 
+	$(CC) $(WFLAGS) $(OFLAGS) $(D_SRCS) $(M_SRCS) $(VERFLAG) -o $(LIB)
+
+install:
+	cp $(LIB) ../../../../public/c/lib/.
+
+clean: 
+	-rm -f *.so* *.o *.out *.so* ../../../../public/c/lib/*.so*

@@ -1,0 +1,8 @@
+#!/bin/csh
+
+set command = ""
+while ($#argv > 0)
+	set command = "$command $argv[1]"
+	shift argv	
+end
+./sendsockcmd -h $panhost -p $panport "$command" -t 40000

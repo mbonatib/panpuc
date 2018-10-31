@@ -1,0 +1,7 @@
+[INFO]
+Type="Hawaii-IIRG"
+SerialNumber=1 
+Grade=Engineering
+Read_Noise="13.4 e-"
+Dark_Current="0.26 e-/s (77 K)"
+Comments=""

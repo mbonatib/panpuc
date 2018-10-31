@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+  
+  <title>DHE_SDSU_HDRINFO_file</title></head>
+
+<body>n<big style="font-weight: bold;"><big>SDSU Headers Template Information<br>
+
+</big></big><big><big><br>
+
+</big><big><small><small>The&nbsp; file for the header information is a
+template that have any information that wants to be written to the
+image headers. In order to make this information available on the
+headers it is not enought just to define it; it needs to have an entry
+on the main template file (see the <a href="../../GFITS/GFITS_User_Manual.html">GFITS</a> module manual). <br>
+
+<br>
+
+The format of the template is:<br>
+
+<br>
+
+KEYWORD1 = '&lt;expression1&gt;' / [comment]<br>
+
+...<br>
+
+KEYWORDN='&lt;expressionN&gt;' /[comment]<br>
+
+<br>
+
+Where "KEYWORD" is the keyword name that will be shown on the
+headers,&nbsp;expression is the value for that keyword, and "comment"
+is the keyword comment on the headers<br>
+
+&lt;expression&gt; can be:<br>
+
+<br>
+
+- A "testpoint" value. A "testpoint"&nbsp; maybe&nbsp; any "point" defined on the <a href="DGE_SDSU_TP_file.html.html">Testpoints definition file</a>, or any defined <a href="DHE_SDSU_DACS_file.html">DAC</a>. In this case the sintax is<br>
+&nbsp; "<span style="font-weight: bold; font-style: italic;">tp &lt;name&gt;</span>", where "<span style="font-weight: bold; font-style: italic;">name</span>" is the name of the testpoint, as defined on the testpoints or dacs files<br>
+
+- A "fixed" expression, like &nbsp;a string or comment, etc. If the
+fixed value is a number it is possible to make it appear as any defined
+datatype (see the <a href="../../GFITS/GFITS_Keys.html">GFITS</a> on the supported datatypes). In this case the sintax is:<br>
+&nbsp; "<span style="font-weight: bold; font-style: italic;">[(datatype)] &lt;value&gt;</span>", where "<span style="font-weight: bold; font-style: italic;">datatype</span>" is any supported <span style="font-weight: bold;">GFITS</span> datatype, and "<span style="font-weight: bold; font-style: italic;">value</span>" is the actual &nbsp;value. If "datatype" is omitted, STR (string) is assumed<br>
+
+<br>
+
+<br>
+
+This template will be added to the internal PanVIEW database as a
+"2DARR" variable called "DHEINFO", and it will be appended to the image
+headers if specified so.<br>
+
+<br>
+
+<br>
+
+<span style="font-style: italic; text-decoration: underline;">Example:</span></small></small></big></big><big style="font-weight: bold;"><big><br>
+
+<br>
+
+</big></big><big><big><small><small><small><span style="font-weight: bold; font-style: italic;">DHEINF ='SDSU, Gen-III&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /controller info</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">SNVIDEO =' (INT)
+54
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+' /bias board serial numbe</span>r<br>
+
+<br>
+
+/*these are just fixed values*/<br>
+
+<br>
+
+<br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">VOFFSET ='(FLOAT) tp OFF1_A_0&nbsp;&nbsp; ' /video ch. offsets</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">VBIASGAT ='(FLOAT) tp VBIASGATE ' /bias gate</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">VBIASPOW ='(FLOAT) tp VBIASPOWER' /bias power</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">VRESET ='(FLOAT) tp VRESET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /v reset</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">DSUB&nbsp;&nbsp; ='(FLOAT) tp DSUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /d sub</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">VDDA&nbsp;&nbsp; ='(FLOAT) tp VDDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /analog power</span><br>
+
+<br>
+
+/* these are all DACS definitions. The (FLOAT) expression will make
+them appear as float type on the headers. If no type is given, it will
+be assumed STR (string)*/<br>
+
+/*what will appear on the headers are the values of those "testpoints"
+(DACS in this case) when the header information is requested. */<br>
+
+/*the name of the testpoint must be defined on the DAC file*/<br>
+
+/*the "tp" word is telling it should look for the value among defined points*/<br>
+
+<br>
+
+<span style="font-weight: bold; font-style: italic;">MOUNTT = '(FLOAT) tp MOUNTTEMP ' /detector mount temperature</span><br>
+
+<br>
+
+/*now it will add the value of the defined MOUNTTEMP testpoint &nbsp;(defined on the testpoints definitions file)*/<br>
+
+<br>
+
+<br>
+
+<big>Once this file is defined, and called from the <a href="../DHE_User_Manual.html">main configuration</a> file of the DHE module, an entry on the main header template file needs to be added. The entry should look like this:<br>
+
+<br>
+
+DHEINFO = 'dbs 2DARR DHEINFO' / template on DHE_HDRINFO.tpl<br>
+
+<br>
+
+The name of the keyword (DHEINFO) has no meaning in this case; is the
+"2DARR DHEINFO" what is telling to the GFITS module to append here the
+data on the internal 2D array variable called DHEINFO, that has already
+all the information originated from the template. The comment of that
+line is only&nbsp; useful to the reader of the template, because it
+will not appear on the headers.<br>
+
+<br>
+
+The image header of the image will look like:<br>
+
+<br>
+
+...<br>
+
+</big></small></small></small></big></big><big><big><small><small><small><span style="font-weight: bold; font-style: italic;">DHEINF =' &nbsp; &nbsp;SDSU, Gen-III&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /controller info</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">SNVIDEO
+=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; 54 &nbsp; /bias board serial numbe</span>r<br>
+
+</small></small></small></big></big><big><big><small><small><small><span style="font-weight: bold; font-style: italic;">VOFFSET
+=&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp;2.121 &nbsp; /video ch. offsets</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;">VBIASGAT = &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;2.858&nbsp; /bias gate</span><br style="font-weight: bold; font-style: italic;">
+
+<span style="font-weight: bold; font-style: italic;"></span></small></small></small></big></big>...<br>
+
+<big><big><small><small><small><br>
+
+</small></small></small></big></big><big><big><small><small><small><br>
+
+</small></small></small></big></big><big style="font-weight: bold;"><big></big></big>
+</body></html>

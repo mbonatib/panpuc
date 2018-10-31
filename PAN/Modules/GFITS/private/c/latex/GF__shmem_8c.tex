@@ -1,0 +1,44 @@
+\section{src/GF\_\-shmem.c File Reference}
+\label{GF__shmem_8c}\index{src/GF_shmem.c@{src/GF\_\-shmem.c}}
+{\tt \#include \char`\"{}GF\_\-shmem.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+key\_\-t \bf{GF\_\-shm\-Init} (char $\ast$fname)
+\item 
+size\_\-t \bf{GF\_\-shm\-Chk\-Size} (size\_\-t insize, size\_\-t base)
+\item 
+int \bf{GF\_\-shm\-Destroy} (char $\ast$name, void $\ast$buffer, int id, int qid)
+\item 
+void $\ast$ \bf{GF\_\-shm\-Attach} (size\_\-t $\ast$psize, char $\ast$name, void $\ast$buffer, int $\ast$\bf{shmid}, int $\ast$qid)
+\item 
+void \bf{GF\_\-shm\-Send\-Msg} (int qid, char $\ast$msg, long type)
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{GF_shmem.c@{GF\_\-shmem.c}!GF_shmAttach@{GF\_\-shmAttach}}
+\index{GF_shmAttach@{GF\_\-shmAttach}!GF_shmem.c@{GF\_\-shmem.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ GF\_\-shm\-Attach (size\_\-t $\ast$ {\em psize}, char $\ast$ {\em name}, void $\ast$ {\em buffer}, int $\ast$ {\em shmid}, int $\ast$ {\em qid})}\label{GF__shmem_8c_a37edee6aebb1f0e00ea391a47b51456}
+
+
+\index{GF_shmem.c@{GF\_\-shmem.c}!GF_shmChkSize@{GF\_\-shmChkSize}}
+\index{GF_shmChkSize@{GF\_\-shmChkSize}!GF_shmem.c@{GF\_\-shmem.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t GF\_\-shm\-Chk\-Size (size\_\-t {\em insize}, size\_\-t {\em base})}\label{GF__shmem_8c_4fc8969a8a240fc732028b2fd86cf2c1}
+
+
+\index{GF_shmem.c@{GF\_\-shmem.c}!GF_shmDestroy@{GF\_\-shmDestroy}}
+\index{GF_shmDestroy@{GF\_\-shmDestroy}!GF_shmem.c@{GF\_\-shmem.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-shm\-Destroy (char $\ast$ {\em name}, void $\ast$ {\em buffer}, int {\em id}, int {\em qid})}\label{GF__shmem_8c_99a029265843ab9cc21d886341c015d4}
+
+
+\index{GF_shmem.c@{GF\_\-shmem.c}!GF_shmInit@{GF\_\-shmInit}}
+\index{GF_shmInit@{GF\_\-shmInit}!GF_shmem.c@{GF\_\-shmem.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}key\_\-t GF\_\-shm\-Init (char $\ast$ {\em fname})}\label{GF__shmem_8c_b82c63cee120c27737f8940255fd0cb9}
+
+
+\index{GF_shmem.c@{GF\_\-shmem.c}!GF_shmSendMsg@{GF\_\-shmSendMsg}}
+\index{GF_shmSendMsg@{GF\_\-shmSendMsg}!GF_shmem.c@{GF\_\-shmem.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-shm\-Send\-Msg (int {\em qid}, char $\ast$ {\em msg}, long {\em type})}\label{GF__shmem_8c_170f5e06b7f3793fedbbcd129548dc89}
+
+

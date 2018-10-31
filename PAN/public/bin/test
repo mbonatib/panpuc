@@ -1,0 +1,4 @@
+#!/bin/csh -f
+
+set c = `./strip_name \[hola\]`
+echo $c

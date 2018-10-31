@@ -1,0 +1,21 @@
+#! /bin/csh -f
+setenv ARCROOT $PAN_ROOT
+set ISSET = `setenv | egrep ARCROOT`
+if ("$ISSET" == "") then
+        set currdir = `cd ../../../; pwd`
+        setenv ARCROOT $currdir
+endif
+
+if ($#argv < 2) then
+	echo "usage: pi_get_version <module> <version>"
+	exit 1
+endif
+set module = $1
+set version = $2
+
+if ("$version" == "last" || "$version" == "LAST" || "$version" == "latest" || "$version" == "LATEST") then
+	$ARCROOT/PAN/public/bin/PM_get_file $module-LAST -q
+	set version = `tail -1 $module-LAST`
+	rm -f $module-LAST
+endif
+echo $version

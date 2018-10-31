@@ -1,0 +1,78 @@
+\section{test/roimasker/tcpserver.c File Reference}
+\label{roimasker_2tcpserver_8c}\index{test/roimasker/tcpserver.c@{test/roimasker/tcpserver.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{OK}~\char`\"{}0\char`\"{}
+\item 
+\#define \bf{UNKNOWN}~\char`\"{}-1\char`\"{}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{sig\_\-pipe} (int \bf{n})
+\item 
+int \bf{tcp\_\-server} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{new\_\-socket}
+\item 
+int \bf{shmqid}
+\item 
+int \bf{running}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!OK@{OK}}
+\index{OK@{OK}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~\char`\"{}0\char`\"{}}\label{roimasker_2tcpserver_8c_ba51915c87d64af47fb1cc59348961c9}
+
+
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!UNKNOWN@{UNKNOWN}}
+\index{UNKNOWN@{UNKNOWN}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UNKNOWN~\char`\"{}-1\char`\"{}}\label{roimasker_2tcpserver_8c_c1ae4add974b9cfc6b5aaf8a578f01ab}
+
+
+
+
+\subsection{Function Documentation}
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!sig_pipe@{sig\_\-pipe}}
+\index{sig_pipe@{sig\_\-pipe}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void sig\_\-pipe (int {\em n})}\label{roimasker_2tcpserver_8c_7c27a55737f20ca2806691d805da4f9d}
+
+
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!tcp_server@{tcp\_\-server}}
+\index{tcp_server@{tcp\_\-server}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int tcp\_\-server (void)}\label{roimasker_2tcpserver_8c_670df12c784cbf1b260ab50397194b66}
+
+
+
+
+\subsection{Variable Documentation}
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!new_socket@{new\_\-socket}}
+\index{new_socket@{new\_\-socket}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{new\_\-socket}}\label{roimasker_2tcpserver_8c_4848332eecf4c58ee3b11a4f8513c3db}
+
+
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!running@{running}}
+\index{running@{running}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{running}}\label{roimasker_2tcpserver_8c_2f45113638a0b749a8a205d2cd7fb42b}
+
+
+\index{roimasker/tcpserver.c@{roimasker/tcpserver.c}!shmqid@{shmqid}}
+\index{shmqid@{shmqid}!roimasker/tcpserver.c@{roimasker/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{shmqid}}\label{roimasker_2tcpserver_8c_532df43ed27970f11fa599a96a867fe1}
+
+

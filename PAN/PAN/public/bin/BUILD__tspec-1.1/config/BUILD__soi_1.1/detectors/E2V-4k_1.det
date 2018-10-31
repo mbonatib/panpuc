@@ -1,0 +1,7 @@
+[INFO]
+Type="E2V-4k"
+SerialNumber=1
+Grade=Science
+Read_Noise="2.6 e-"
+Dark_Current="0.026 e-/s (150 K)"
+Comments=""

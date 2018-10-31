@@ -1,0 +1,96 @@
+Astropci Driver Version 1.7 - Fedora Core 4
+
+This driver has been tested under Redhat Fedora Core 4 (kernel 2.6.11-1.1369).
+Although it has not been tested, the driver has been written so that it
+should compile and run on Fedora Core 2 (kernel 2.4.x).
+
+Changes made to upgrade from Core 2 (kernel 2.4.x) to Core 4 (kernel 2.6.11):
+1. Now uses "remap_pfn_range" instead of obsolete "remap_page_range".
+2. The "readl", "readw", "writel", and "writew" functions are now defined to
+   pass pointer addresses instead of integer addresses.
+3. "pci_dev->slot_name" has been replaced with "pci_name(pci_dev)".
+
+IMPORTANT:
+---------
+The computer must be rebooted after running astropci_unload. This is a
+known bug that will cause readout to fail if you do not reboot before
+running astropci_load again.
+
+Before compiling, you must make sure the following directory exists. If
+it does not, then you must become root and create it. This directory is
+where the astropci.ko file will be installed.
+
+/lib/modules/`uname -r`/extra
+
+In order for this driver to function, the following line must be set in
+LILO (/etc/lilo.conf) or grub (/etc/grub.conf).
+
+GRUB:
+----
+Edit the file /etc/grub.conf and append "mem=xxxM memap=yyyM$xxxM"
+to the end of the line "kernel /vmlinuz ro root=/dev/hda2", where
+xxx is the amount of RAM you DO NOT want to use for an image buffer
+and yyy is the size of the image buffer you want. So, if your computer
+has 512Mb of RAM and you want to have a 12Mb image buffer, you must
+append the following: "mem=500M memmap=12M$500M". If this doesn't work,
+try using a '#' instead of '$':  "mem=500M memmap=12M#500M".
+
+See the following for more info:
+http://www.club.cc.cmu.edu/pub/linux/kernel/v2.6/snapshots/old/patch-2.6.10-rc3-bk10.log
+
+Here's an excerpt from the above link:
+ I recently learnt that limiting RAM with by using only "mem=xxxM" is no
+  good on machines equipped with PCI.  In my case (vanilla 2.6.9) the cardbus
+  bridge on my laptop got mapped to the unused RAM area which resulted in
+  wierd errors due to the collision.
+  
+  The right solution is to use "mem=" together with "memmap=" to mark the
+  unused RAM area reserved.
+  
+  Henceforth I force the kernel to use 2016MiB by passing "mem=2016M
+  memmap=32M#2016M" instead of just "mem=2016M".
+
+
+Example:
+-------
+1) Become superuser/root.
+
+2) Edit /etc/grub.conf to append the "mem=xxxM memmap=yyyM" line:
+
+default=0
+timeout=10
+splashimage=(hd1,0)/grub/splash.xpm.gz
+title Fedora Core (2.6.5-1.358)
+        root (hd1,0)
+        kernel /vmlinuz-2.6.5-1.358 ro root=LABEL=/ rhgb quiet mem=500M memmap=12M#500M
+        initrd /initrd-2.6.5-1.358.img
+title Other
+        rootnoverify (hd0,0)
+        chainloader +1
+
+3) Reboot the computer.
+
+To Load The Driver:
+------------------
+1) Become superuser/root.
+
+2) Run ./astropci_load
+
+
+The current directory contains the following files:
+astropci_main.c:	Main source file. 
+astriopci_defs.h: 	General variables and structures definitions
+astropci_io.h: 		Entry points for accesing the driver using user-code
+			(basically ioctl command definitions)
+Makefile: 		Makefile ...
+astro_load: 		Simple script for loading the driver to the kernel.
+			It will create all the necessary entries for using
+	    		the driver. Read the little explanation on the script
+	    		itself.
+astro_unload: 		Script for unloading the driver from the kernel
+
+When you compile the source, you are going to get the module: astropci.ko.
+
+
+
+

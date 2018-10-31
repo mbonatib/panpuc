@@ -1,0 +1,356 @@
+2018-06-07T22:25:23 UTC <Marco Bonati> Common module version 7.0
+* support for 64 bits (Clib/src)
+
+2016-06-07T22:25:23 UTC <Marco Bonati> Common module version 6.96
+	* buldimagefrom name corrected for when it is the first time
+(subtracts 2). Tested on 0.9m(biw)
+
+2016-04-07T22:25:23 UTC <Marco Bonati> Common module version 6.95
+	* buildimagename always sends the "imname" to GFITS (so custom
+	basename/number can be used even if autoimnumbering is disabled
+	* added "GetNUmberfromfile", that uses the last image written
+	(dbs "lastimg") to extract the last image number
+
+2015-05-12T22:25:23 UTC <Marco Bonati> Common module version 6.94
+	* buildimagename checks for "autoimnumber" database variable
+
+2013-06-12T22:25:23 UTC <Marco Bonati> Common module version 6.93
+	* GetCmdLineArgs now checks if the argument (minus "-") may be
+	an enviromental variable. This allows to efefctively override
+	enviromental variables throuhg command line. For example:
+	<start_pabapp myapp -MULTPORT 8025>
+
+2013-04-12T22:25:23 UTC <Marco Bonati> Common module version 6.92
+	* PathParams2Path fixed, so "//" does not get translated as "../"
+
+2012-12-20T22:25:23 UTC <Marco Bonati> Common module version 6.91
+	* fixed GetEnv to use the last line only, avoiding errors in the
+	labview system exce vi
+
+2012-05-30T22:25:23 UTC <Marco Bonati> Common module version 6.9
+	* also replaced doublt_t calls in memLib for pan_double_t
+
+2012-05-30T22:25:23 UTC <Marco Bonati> Common module version 6.8
+	* replaced double_t type for pan_double_t to avoid conflict with
+	newwer distributions definition of mathdef.h
+
+2011-10-28T22:25:23 UTC <Marco Bonati> Common module version 6.7
+	* updated Str2Arr
+
+2011-10-28T22:25:23 UTC <Marco Bonati> Common module version 6.6
+	* added GetLineNumber
+
+2011-07-20T22:25:23 UTC <Marco Bonati> Common module version 6.5
+	* ReplaceName also searches for <nodeID> (besides _nodeID_)
+
+2011-07-20T22:25:23 UTC <Marco Bonati> Common module version 6.4
+	* autoclear is on by default now (CMN_GetContStatus)
+
+2011-06-01T22:25:23 UTC <Marco Bonati> Common module version 6.3
+	* Modifieed ReplaceName to include GetFromDBS, so any name
+	can include eny database variable by having "dbs(var)" in the
+	name
+
+2011-06-01T22:25:23 UTC <Marco Bonati> Common module version 6.2
+	* Modified CMN_Var2Globals to make all faster. Big change
+
+2010-10-11T22:25:23 UTC <Marco Bonati> Common module version 6.1
+	* added GUnsc_proto.h in public/c/include
+
+2010-10-11T22:25:23 UTC <Marco Bonati> Common module version 6.0
+	* changed all the pointers to use 64 bits wide
+	* cleaned up the C library
+
+2010-10-11T22:25:23 UTC <Marco Bonati> Common module version 5.2
+	* fixed BuldImage to use I32 instead of U16
+
+2010-10-08T22:25:23 UTC <Marco Bonati> Common module version 5.1
+	* added GetFromDBS that parses expressions like (...dbs(val)...)
+
+2010-06-18T22:25:23 UTC <Marco Bonati> Common module version 5.0
+	* fixed a memory leak for RunVI and MessagePass
+	* the BuilImageName now uses the dbs variable imnumformat
+
+2010-04-16T22:25:23 UTC <Marco Bonati> Common module version 4.995
+	* added _MACROPATH_ as a standard global (CMN_replacevars)
+
+2010-04-09T22:25:23 UTC <Marco Bonati> Common module version 4.994
+	* changed Str2Dec to use double instead of single at the output
+	* added GetCommFile, that allows to bring a file from a 
+	  globally defined common directory
+	* modified testpath so it will seacrh in the common directory
+	  if default not found
+
+2010-03-08T22:25:23 UTC <Marco Bonati> Common module version 4.993
+	* added "GetUTtime" that gets a precise to the msec UT time
+	 (uses the C funtion gmtime)
+
+2010-03-01T22:25:23 UTC <Marco Bonati> Common module version 4.992
+	* modified Str2Arr so it can pass separators in '' and ignore them
+
+2010-01-12T22:25:23 UTC <Marco Bonati> Common module version 4.991
+	* fixed CMN_Str2Dec (did not recognize 0X as hexa due to the
+	 capital "X" (reported by Juan Albendea,  at ciemat)
+
+2010-01-12T22:25:23 UTC <Marco Bonati> Common module version 4.99
+	* added CMN_Lbview2C.vi (not complete yet
+
+2010-01-04T22:25:23 UTC <Marco Bonati> Common module version 4.98
+	* changed GlobalVars (to take env) and replacename
+
+2009-11-19T22:25:23 UTC <Marco Bonati> Common module version 4.97
+	* fixed GetArgsFromCmdLine to get a default if switch not found
+	(as $ARG{<switch> [default]}
+
+2009-11-18T22:25:23 UTC <Marco Bonati> Common module version 4.96
+	* limited to three elements maximum all the "CMN_toXXX" to
+	avoid memory usage due to accumulation of messages when the
+	target module is not running
+
+2009-10-26T22:25:23 UTC <Marco Bonati> Common module version 4.95
+	* fixed CMN_Read_lines and CMN_Analyzetpl
+
+2009-10-26T22:25:23 UTC <Marco Bonati> Common module version 4.94
+	* Added files for read fits templates (as 3DARR output)
+	  main vi added: CMN_FileTPL2ARR.vi
+
+2009-06-29T22:25:23 UTC <Marco Bonati> Common module version 4.93
+	* fixed GetPhyPath. It entered in an infinite loop when the first
+	  line listed was a link to the directory where the link was.
+	  (a loop itself). Inga/whirlwind (University of Illinois)
+
+2009-03-06T22:25:23 UTC <Marco Bonati> Common module version 4.92
+	* added the switch -no_hdwinit
+
+2009-03-02T22:25:23 UTC <Marco Bonati> Common module version 4.91
+	* added CMN_Address_Rannge
+
+2009-02-27T22:25:23 UTC <Marco Bonati> Common module version 4.9
+	* changed a bit CMN_ConfigVals to eliminate a potential risk
+	  for leavibng the config file open 
+
+2009-02-25T22:25:23 UTC <Marco Bonati> Common module version 4.8
+	* fixed Str2Decimal, to allow floating numbers also
+
+2009-01-25T22:25:23 UTC <Marco Bonati> Common module version 4.7
+	* GetEnv and GetCmdLine now chek for all the appereances of
+	 ${} and $ARG{} (respectively), so it is possible to have 
+	 multiple symbols in a single string/config
+
+2009-01-21T22:25:23 UTC <Marco Bonati> Common module version 4.6
+	* CMN_ConfVals allows now numerical expressions on the configfile
+	  (as "${PORT}+1", or simply "4+5", etc)
+
+2009-01-19T22:25:23 UTC <Marco Bonati> Common module version 4.5
+	* Added CMN_GetFromCmdLine, that allows to assign to any var a value
+	  passed trhough command line, as, for example  $ARG{-config}
+	* The GetFromCmdLine was also added to ConfigVals, so it can be used
+	  in the configurations files
+
+2008-12-03T22:25:23 UTC <Marco Bonati> Common module version 4.4
+	* changed the notation of the env. variables from __GETENV() to a more
+	 clear ${}
+
+2008-11-03T22:25:23 UTC <Marco Bonati> Common module version 4.3
+	* OSU tags deleted (not used). 
+	* Added CMN_GetFromEnv.vi, that uses __GETENV() as a directive for ANY variable. If this appears the value is replaced from the environment. This VI is called from
+	 CMN_Configvals, so it is ready for usage in any module
+
+2008-11-03T22:25:23 UTC <Marco Bonati> Common module version 4.2
+	* added the OSU svn tags
+
+2008-10-23T22:25:23 UTC <Marco Bonati> Common module version 4.1
+	* fixed CMN_SendAsync_dhe, so it will add then nodeID
+
+2008-09-29T22:25:23 UTC <Marco Bonati> Common module version 4.0
+	* labview 8.6
+	* Added Numb2Hex (converst number to hex string)
+	* Changed ReadLines, ReadChars and WriteLines from file, so it never
+	  prompt in a dialog
+	* Fixed GetSpecifcArgs so it won;t turn the value to lowercase
+
+2008-07-29T22:25:23 UTC <Marco Bonati> Common module version 3.1
+	* Added ReplaceName, that allows replace an input string 
+	  based on the PAN application name (_nodeID_)
+	* Added ReplaceName onto ConfigVals, so now any string or path
+	  can be defined using the global _nodeID_
+
+2007-10-29T22:25:23 UTC <Marco Bonati> Common module version 3.0
+	* Labview 8.5
+	* PathParams2Path now takes the database value, if not defined the 
+	  environment, and if none defined, pass the values untouched
+
+2006-09-29T22:25:23 UTC <Marco Bonati> Common module version 2.1
+	* fixed "CMN_GteMaxElePerBuffer"
+
+2006-09-29T21:25:23 UTC <Marco Bonati> Common module version 2.0
+	* Cleaned all unused vis. Added the FVAR (fast variables) shared
+	  vis
+
+2006-08-29T21:25:23 UTC <Marco Bonati> Common module version 1.6
+	* added the vis CMN_toGUIDE.vi, to be used with the SGUIDE or
+	  any other guider module
+
+2006-07-19T21:25:23 UTC <Marco Bonati> Common module version 1.5
+	* added the vi CMN_GetPhyPath that gets examines a path to see
+	  if there are symbolic links and if so, replace them for the real
+	  directories (recursively). Usefull to compare directories
+
+2006-07-19T21:25:23 UTC <Marco Bonati> Common module version 1.4
+	* added the captions on the definition of CMN_TimingInfo control
+
+2006-05-19T21:25:23 UTC <Marco Bonati> Common module version 1.3
+	* Changed the old "inspecterros" to "CMN_inspecterros" on public
+    	  and eliminated the dependency with "database"
+
+2006-05-19T21:25:23 UTC <Marco Bonati> Common module version 1.2
+	* addd the vi CMN_SendAsync to avoid dependencie with core
+
+2006-05-08T21:25:23 UTC <Marco Bonati> Common module version 1.1 (not  in
+rep)
+
+	* Taken out the dependencies with database (changed DescribeError to
+	 use DBSHAND instead of the global from database)
+	* changed the definition for the buffers, adding there the transfer buf
+	 size, as well as the default (131072)
+
+
+2005-05-08T21:25:23 UTC <Marco Bonati> Common module version 1.0
+	* added CMN_write_characters_to_file, thet is a non-dialog version
+	  of the standard labview vi
+
+2005-04-07T21:25:23 UTC <Marco Bonati> Common module version 0.3
+	* Labview 7.0
+	* added CMN_CalcDetReadTime
+
+2005-01-05T21:25:23 UTC <Marco Bonati> Common module version 0.26
+	* Added the vis from the old changed lib (changed TF, etc ...)
+	* many vis to be reentrant
+
+2005-01-05T21:25:23 UTC <Marco Bonati> Common module version 0.25
+	* CMN_addstatusmessage uses the CMN_testmessage, and now adds
+	  the ERROR word in front of the error message if it is an error and
+	  it is not there
+
+2004-12-12T21:25:23 UTC <Marco Bonati> Common module version 0.24
+	* Added CMN_addstatusmessage.vi, for adding a DONE in front of a
+          message that does not have an error (mainly used for callback
+	 replies
+
+
+2004-11-02T21:25:23 UTC <Marco Bonati> Common module version 0.23
+	* Added CMN_PathVars2Path, for changing a parametrized path
+	(..._CONFIGPATH_ ..) to a real path
+	* Modified CMN_ConfigVals to use the above vi also
+	* Modified CMN_testpath and CMN_Non-standardtestpath to use thr above
+	  mentioned vi. In this way all the modules can have the _CONFIGPATH_
+	  variable embeded on its XXX_ConfigPath file (under config subdir),
+	  and only changin the _CONFIGPATH_ definition on the application 
+	  config can point all the modules to a diferent place
+	 (instead of changing thr XXX_ConfigPath module per module
+
+2004-11-02T21:20:23 UTC <Marco Bonati> Common module version 0.22
+	* Added CMN_GetBufs and CMN_SetBufs
+
+2004-09-02T21:20:23 UTC <Marco Bonati> Common module version 0.21
+	* Changed the toDBS vi for consistency checking (see Database 0.92)
+	* Change modinfo for getting just the version number if no switch,
+	  and all the first line of ChangeLog.txt and INFO.txt if "-full"
+	  switch is used
+
+2004-09-02T21:20:23 UTC <Marco Bonati> Common module version 0.20
+	* fixed CMN_Efficiency.vi
+
+2004-08-26T21:20:23 UTC <Marco Bonati> Common version 0.19
+	* added CMN_Efficiency.vi
+	* fixed the error output on the CMN_Algors.vi
+
+2004-08-10T21:20:23 UTC <Marco Bonati> Common version 0.18
+	* increased the precision of CMN_Algors to 6 decimals
+	* added CMN_ToComsTPC
+	* added CMN_modinfo
+
+2004-04-26T21:20:23 UTC <Marco Bonati> Common version 0.17
+	* added GETContStatus
+
+2004-04-26T21:20:23 UTC <Marco Bonati> Common version 0.16
+	* added vis for handling the data extraction/set for the DBSHANDLER
+	 module
+
+2004-04-26T21:03:45 UTC <Marco Bonati> Common version 0.15
+	* Modified CMN_testmessage
+	* added the Pending Action definition
+
+2004-04-14T21:01:21 UTC <Marco Bonati> Common version 0.14
+	* Changed CMN_testpath.vi. Now it can be used on both windows or
+	linux transparently
+	* added CMN_ConfigVals and the associated CMN_Rea... and CMN_Write ...
+	* added the CMN_LabMathParser which uses Labview instead of C for the
+	* parsing. The advantange is that it can be used on both C or Windows
+
+2004-02-05T20:05:56 UTC <Marco Bonati> Common version 0.13
+	* fixed the StripName vi again. Now it accepts letters as separators
+	* also
+
+2004-02-05T20:05:56 UTC <Marco Bonati> Common version 0.12
+	* added CMN_Non-standard_testpath, used for the non-yet-standard
+	  modules to conform to the config and log files standards
+	* Modifyed CMN_ToLogQueue, so now it will not send a message if the 
+	  file path is empty
+
+2004-02-04T20:15:35 UTC <Marco Bonati> Common version 0.11
+	* added CMN_SeparateField.vi
+
+2004-01-30T05:59:48 UTC <Marco Bonati> Common version 0.10
+	* added CMN_Rel2AbsPath.vi, which builds an adsolute path
+	  from a relative one
+
+2004-01-21T00:29:59 UTC <Marco Bonati> Common version 0.9
+	* fixed the CMN_testpath.vi (changed the trimstringtowhitespace
+	* added the "CMN_toLogQueue"
+
+2004-01-12T18:00:53 UTC <Marco Bonati> Common version 0.8
+	* fixed the CheckDisk.vi. Added the "num_images" parameters
+	* re-fixed the StripImageName.vi
+       
+2004-01-08T18:00:53 UTC <Marco Bonati> Common version 0.7
+	* fixed the StripImageName.vi
+	* fixed the toDBS.vi (closing the reference queue reference that
+	  was being left opened)
+
+2003-10-27T18:43:33 UTC <Marco Bonati> Common version 0.6
+	* adeed the "Seconds2StrTimestamp" vi
+
+2003-10-20T16:56:00 UTC <Marco Bonati> Common version 0.5
+	* added the "-list" switch
+	* added the "SendMail" vi (for sending e-mails"
+	* added the "str2decimal", for converting any decimal or hexadecimal
+	  string (identified by the "0x" prefix) to a decimal number
+	* added the "number2binarystring", which converts a number to a 
+	  binary (of the type 001101, for example)
+	* added the "separator" terminal to the "keyvals2array" vi
+
+2003-10-08T16:08:01 UTC <Marco Bonati> Common version 0.4
+	* added "delete" on CMN_Algors.vi
+	* added "pdebug" to MathParserLib.c (private/mathparser)
+
+2003-09-30T16:56:13 UTC <Marco Bonati> Common version 0.3
+
+	* added CMN_Algors, including the c library "mathparser"
+	  Needed by TPNT and SDSU-1.1.5
+
+
+2003-04-23T06:32:09 UTC <Marco Bonati> Common version 0.2
+
+	*added CMN_Str2Arr.vi
+
+
+  Created.
+
+    * ./private/:
+    * ./public/:
+    * ./doc:
+    * ./config:
+    * ./test:
+    Created.
+

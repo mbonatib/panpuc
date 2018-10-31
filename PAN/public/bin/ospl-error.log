@@ -1,0 +1,64 @@
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:14 2011
+Description : os_sharedMemoryAttach failed
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_domainOpen/u_domain.c/718/0/136429202
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:14 2011
+Description : c_open failed
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_domainOpen/u_domain.c/732/0/136521986
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:14 2011
+Description : Failed to open: file:///usr/local/DDS/x86.linux2.6/etc/config/ospl.xml
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_userKernelOpen/u_user.c/510/0/136559003
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:14 2011
+Description : Failure to open the domain, URI="file:///usr/local/DDS/x86.linux2.6/etc/config/ospl.xml"
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_participantNew/u_participant.c/160/0/136593898
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:15 2011
+Description : os_sharedMemoryAttach failed
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_domainOpen/u_domain.c/718/0/138030379
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:15 2011
+Description : c_open failed
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_domainOpen/u_domain.c/732/0/138095816
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:15 2011
+Description : Failed to open: file:///usr/local/DDS/x86.linux2.6/etc/config/ospl.xml
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_userKernelOpen/u_user.c/510/0/138130982
+========================================================================================
+Report      : ERROR
+Date        : Fri Sep 16 09:24:15 2011
+Description : Failure to open the domain, URI="file:///usr/local/DDS/x86.linux2.6/etc/config/ospl.xml"
+Node        : ctioyq
+Process     : labview <16570>
+Thread      : main thread 8031b90
+Internals   : V5.4.1OSS/u_participantNew/u_participant.c/160/0/138163978

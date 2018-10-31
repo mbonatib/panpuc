@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2854"
+   name=""
+   committed-date="2009-12-11T13:52:27.581135Z"
+   url="https://139.229.115.227/svn/tags/DRV_TCSSOAR-2.2/private/vis"
+   last-author="bonati"
+   kind="dir"
+   uuid="e6f60f9c-5abb-4710-8859-6e645079aa37"
+   repos="https://139.229.115.227/svn"
+   revision="3325"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ComposeCmd.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="7814b4c9f6a5af9641199dd0f43eec07"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ParseResponse.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="e95b2f90dbb9640c95ce116ffc8eecd9"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="2793"
+   name="DRV_TCSPCTCS_ParseTelemetrybak.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="174b72065d50b35984028014ffab49e0"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ParseInfoG.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="3a01fc76126595bee27fa20644ac07b3"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="2854"
+   name="DRV_TCSPCTCS_ParseInfo.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-12-11T13:52:27.581135Z"
+   checksum="69f5cd16567114b4e81f0f4ef466f534"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   committed-rev="2793"
+   name="DRV_TCSPCTCS_ComposeCmd.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="63ccf6fe7f41f9935fc214cbe368504b"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   name="DRV_CT60_ParsePoiting.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_Raw_Info.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="2793"
+   name="DRV_TCSPCTCS_ComposeCmd_c.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="2e15e6e27bf8ee12b74ff833854184d4"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_Raw_Info.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="8d9719155fa64614bd7546e9b9533703"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ParsePoiting.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="21b3f4aeb235ef815f522734389a09db"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="2793"
+   name="DRV_TCSPCTCS_ParseTelemetry_100ch.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="1174fb6022d49c1a0c381446dec83bc2"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   committed-rev="2793"
+   name="DRV_TCSPCTCS_ParseTelemetry.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="6eacd6279a6eb2c60e596967f318d9df"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ParseInfoX.vi"
+   text-time="2011-10-14T13:56:01.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="16c4bcd8aed0befffa595b2d98bff65a"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_ParseRaw.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ParseRaw.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="97315264f3c31b75841063e40b11db62"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_ParseInfo.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="2793"
+   name="DRV_TCSPCTCS_ParseTelemetry_149ch.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2009-05-31T01:56:13.261530Z"
+   checksum="7fd80c58cc88e25265a6abc68ee63781"
+   last-author="bonati"
+   kind="file"
+   prop-time="2010-10-20T16:03:07.000000Z"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ParseInfo.vi"
+   text-time="2011-10-14T13:55:13.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="f8decf19386850a21fdf9504c1ea1781"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_ComposeCmd.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_ParseResponse.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+</wc-entries>

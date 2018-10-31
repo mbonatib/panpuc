@@ -1,0 +1,378 @@
+/* tcsCmd.c      03/25/1999      NOAO    */
+
+/*
+ *  Developed 1998 by the National Optical Astronomy Observatories(*)
+ *
+ * (*) Operated by the Association of Universities for Research in
+ * Astronomy, Inc. (AURA) under cooperative agreement with the
+ * National Science Foundation.
+ */
+
+/*
+ * modification history
+ * --------------------
+ * 01a ????????, gsh - written
+ */
+
+#include <stdio.h>
+#include <rpc/rpc.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/timeb.h>
+#include <unistd.h>
+#include <errno.h>
+#include "tcsCmd.h"
+					/* GLOBAL FUNCTIONS */
+int sendTCS (int ref, char *line, int tmout);
+int tcpError ();
+tcp_msg *send_tcp_msg_1 (tcp_msg * argp, CLIENT * clnt);
+
+					/* STATIC VARIABLES */
+//static CLIENT *tcpClient = NULL;
+static char *tcpServer = NULL;
+static struct timeval defTimeout =
+{10, 0};
+					/* GLOBAL VARIABLES */
+tcp_msg *tcpLastReply = NULL;
+
+					/* LOCAL FUNCTIONS */
+static int timeout (struct timeb *tb, int limit);
+static int diff_time (struct timeb *tb);
+static void tcp_dump_message (const char *string);
+static int gbl_tmout=DEFTMOUT;
+static int gbl_msg_prog=TCP_MSG_PROG;
+static int gbl_msg_ver=TCP_MSG_VERS;
+static char gbl_key_name[20] = "tcp";
+
+int setTimeout (int tm)
+{
+	if ((tm <= 0) || (tm > 10000))
+		gbl_tmout = DEFTMOUT;
+	else
+		gbl_tmout = tm;
+	return (OK);
+}
+
+/*----------------------------------------------------------------------
+ * sendTCS -
+ *
+ * Send a command to the TCS and get the answer. The answer replaces
+ * the command in the "line" argument. Returns 0 if OK. Otherwise
+ * returns 1.
+ *--------------------------------------------------------------------*/
+int sendTCS (int ref, char *line, int tmout)
+{
+  int result;
+  struct timeb b, *tb;
+  
+  result = tcpCmd (ref, line, HOW);
+  tb = &b;
+  ftime (tb);
+  printf ("%d %d sent: %s, tmout %d, result %d\n", (int) tb->time, ref, line, tmout, result); 
+
+  if (result == OK) {
+    if (tmout != 0){
+    setTimeout (tmout); 
+     while (!timeout (tb, gbl_tmout)) {
+      if (strlen (tcpReply ()) != 0) {
+	strcpy (line, tcpReply ());
+	xdr_free ((xdrproc_t) xdr_tcp_msg_cln, (char *) tcpLastReply);
+	tcpLastReply = NULL;
+	printf ("reply %s\n", line);
+	return (OK);
+      }
+     }
+     strcpy (line, "error: TIMEOUT\n");
+     printf ("error: TIMEOUT\n");
+     return (-ETIME);
+    } else {
+	return (OK);
+    }
+  }
+  else {
+    strcpy (line, "error: NO RESPONSE FROM TCS\n");
+    printf ("error: NO RESPONSE FROM TCS\n");
+    return (-ETIME);
+  }
+}
+
+int setKeys (char *name, int msg_prog, int msg_ver)
+{
+	if (name == NULL)
+		return (-EINVAL);
+
+	strcpy (gbl_key_name, name);
+	gbl_msg_prog = msg_prog;
+	gbl_msg_ver = msg_ver;
+	return (OK);
+}
+
+/*----------------------------------------------------------------------
+ * tcsOpen - open a tcp command channel to a named tcp system
+ *
+ * After a successful open, the user should test the tcp channel with
+ * some simple command.  The channel may be opened even if the TCP
+ * system is not responsive. Argument "name" is the name of system
+ * to contact.
+ *
+ * RETURNS
+ * Returns ERROR if no system name is given and no default name
+ * exists in the environment.  ERROR is also returned if the named
+ * system cannot be contacted.
+ *--------------------------------------------------------------------*/
+int tcsOpen (char *name, int *err)
+{
+  char host[128];
+  int uid, gid, ret;
+  CLIENT *tcpClient;
+
+  tcpClient = clnt_create (name, TCP_MSG_PROG, TCP_MSG_VERS,
+			   "tcp");
+  if (tcpClient == NULL) {
+    clnt_pcreateerror (name);
+    *err = ERROR;
+    return (0);
+  }
+  uid = getuid ();
+  gid = getgid ();
+  gethostname (host, sizeof (host));
+  tcpClient->cl_auth = authunix_create (host, uid, gid, 0, 0);
+  tcpServer = name;
+  /*strcpy (host, "info");*/
+//  if ((ret=sendTCS ((int) tcpClient, host, -1)) < 0){
+//	*err = ret;
+//	return (0);
+//  }
+  return ((int) tcpClient);
+}
+
+/*----------------------------------------------------------------------
+ * tcsClose - close a tcp command channel
+ *
+ * Close the channel to a TCP system.
+ * This command always returns OK.
+ *--------------------------------------------------------------------*/
+int tcsClose (int ref)
+{
+CLIENT *tcpClient;
+
+  tcpClient= (CLIENT *) ref;
+  if (tcpLastReply != NULL)
+    xdr_free ((xdrproc_t) xdr_tcp_msg_cln, (char *) tcpLastReply);
+  tcpLastReply = NULL;
+  printf ("tcs closed\n");
+  return OK;
+}
+
+
+/*----------------------------------------------------------------------
+ * tcpCmd - send a command over the communications channel
+ *
+ * The return code is the success/failure of the communications
+ * path, not the success/failure of the command contents.  Use
+ * tcpLocalError() to get the specific message reply code for the
+ * most recent message.
+ *
+ * The ASCII reply to the command message is obtained with the
+ * tcpReply() command.  You should check the reply message code
+ * first using the tcpError() command.
+ *
+ * A return code of ERROR indicates the communications channel
+ * has failed and has been closed.  A new 'tcsOpen' command
+ * must be given before communications can be resumed, if at all.
+ *
+ * The 'how' code is a historic hangover.  Always use how = 1
+ * for proper operation.
+ *
+ * Argument "msg" is the ASCII message string to send.
+ *--------------------------------------------------------------------*/
+int tcpCmd (int ref, char *msg, int how)
+{
+  tcp_msg command;
+  CLIENT *tcpClient;
+
+  tcpClient = (CLIENT *) ref;
+  if (tcpClient == NULL)
+    return (ERROR);
+  if (tcpLastReply != NULL)
+    xdr_free ((xdrproc_t) xdr_tcp_msg_cln, (char *) tcpLastReply);
+  tcpLastReply = NULL;
+  command.message = msg;
+  command.how = how;
+
+  tcpLastReply = send_tcp_msg_1 (&command, tcpClient);
+  if (tcpLastReply == NULL) {
+    /* fatal RPC communications error */
+    clnt_perror (tcpClient, tcpServer);
+    /*tcsClose(); */
+    return (ERROR);
+  }
+
+  return (OK);
+}
+
+/*----------------------------------------------------------------------
+ * tcpError - success/error status from last tcp command message
+ *
+ * The tcp message success/error code from the most recent command
+ * message is returned.
+ *
+ * These codes are:
+ *    0  Complete success
+ *    1  Queued success, some parts of command were queued
+ *    2  (Historic hangover, not used)
+ *    3  Current system mode prevents completion
+ *    4  Command argument or parameter is invalid
+ *    5  Parsing syntax error
+ *    6  Other error (see reply text for explanation)
+ *
+ * Codes 0 and 1, should both be regarded as 'success'.  All other
+ * codes should be regarded as 'failure'.  The 'queued' success code
+ * indicates that some part of the command would take a long time to
+ * complete and that it was begun, but has not had a chance to finish.
+ *
+ * All 'failure' codes will contain some explanation in the ASCII reply text.
+ * Explanation lines are always begin with the string "ERROR:" followed
+ * by the name of the object reporting the error and a description of the
+ * error itself.
+ *
+ * Code 3, system mode error, indicates that the current operational mode
+ * of the system precludes the specified command.  The command would 
+ * normally be valid, but only in a different situation.
+ *
+ * Code 4, argument error, indicates that an argument value or parameter
+ * value is inappropriate for the receiving object.
+ *
+ * Code 5, syntax error, indicates that the parsing system could not
+ * successfully parse the entire message.  It is most commonly returned
+ * when some unknown token or object idnetifier is specified.
+ *
+ * Code 6, other error, is returned in situations not covered by the other
+ * error codes.  You should always examine the error reply text in this
+ * situation.
+ *--------------------------------------------------------------------*/
+int tcpError ()
+{
+  if (tcpLastReply != NULL)
+    return (tcpLastReply->how);
+  return (ERROR);		/* no message reply available */
+}
+
+/*----------------------------------------------------------------------
+ * tcpLocalReply - response message from last tcp message
+ *
+ * A NULL pointer is returned if the channel is not open.
+ *
+ * In tcp command error situations, you should examine the response
+ * for one or more lines beginning with "ERROR".  These lines are
+ * the error explanation.  At least one ERROR line is always guaranteed
+ * in cases of message error.
+ *--------------------------------------------------------------------*/
+char *tcpReply ()
+{
+  if (tcpLastReply != NULL) {
+    /*tcp_dump_message (tcpLastReply->message);*/
+    return (tcpLastReply->message);
+  }
+  return (NULL);
+}
+
+int tcpGetReply (int ref, char *reply)
+{
+	if (reply == NULL)
+		return (-EINVAL);
+
+	if (tcpReply() == NULL)
+		return (-1);
+
+	strcpy (reply, tcpReply ());
+	return (OK);
+}
+
+
+/*----------------------------------------------------------------------
+ * send_tcp_msg_1 - the actual RPC call.
+ *
+ * This routine invokes  the RPC mechanism to contact the server. 
+ * The server's version invokes
+ * tcpObjTptrExec1Msg to actually perform parsing and execution.
+ * This version is the one defined in the client side code.
+ *--------------------------------------------------------------------*/
+tcp_msg *send_tcp_msg_1 (tcp_msg * argp, CLIENT * clnt)
+{
+  static tcp_msg res;
+
+  bzero ((char *) &res, sizeof (res));
+  if (clnt_call (clnt, SEND_TCP_MSG, (xdrproc_t) xdr_tcp_msg_cln,
+		 (caddr_t) argp, (xdrproc_t) xdr_tcp_msg_cln,
+		 (caddr_t) & res, defTimeout) != RPC_SUCCESS)
+    return (NULL);
+  return (&res);
+}
+
+/*----------------------------------------------------------------------
+ * xdr_tcp_msg - transport a tcp message
+ *
+ * This is the network transport routine for handling a tcp_msg
+ * over the RPC protocol.  It exists in two different versions.
+ * One for the client (UNIX) side and one for the server (VxWorks)
+ * side.
+ *--------------------------------------------------------------------*/
+bool_t xdr_tcp_msg_cln (XDR * xdrs, tcp_msg * objp)
+{
+  if (!xdr_int (xdrs, &objp->how))
+    return (FALSE);
+  if (!xdr_string (xdrs, &objp->message, 2048))
+    return (FALSE);
+  return (TRUE);
+}
+
+/*----------------------------------------------------------------------
+ * Calculates timeout condition. The times are in milliseconds.
+ *
+ * returns : 0 ---> no timeout
+ * : 1 ---> timeout
+ *--------------------------------------------------------------------*/
+static int timeout (struct timeb *tb, int limit)
+{
+  if (diff_time (tb) <= limit)
+    return (0);
+  return (1);
+}
+
+/*----------------------------------------------------------------------
+ * Calculates the time difference in milliseconds.
+ *--------------------------------------------------------------------*/
+static int diff_time (struct timeb *tb)
+{
+  int sec, dif;
+  struct timeb e, *te;
+
+  te = &e;
+  ftime (te);
+  sec = te->time - tb->time;
+  sec *= 1000;
+  if (te->millitm < tb->millitm) {
+    dif = 1000 - tb->millitm + te->millitm;
+    sec -= 1000;
+  }
+  else
+    dif = te->millitm - tb->millitm;
+  sec += dif;
+  return (sec);
+}
+
+/*----------------------------------------------------------------------
+ *--------------------------------------------------------------------*/
+static void tcp_dump_message (const char *string)
+{
+  int i, nread;
+
+  nread = strlen (string);
+  fprintf (stderr, "length:%d\n", nread);
+  for (i = 0; i < nread; i++) {
+    fprintf (stderr, "  0x%x\n", string[i]);
+  }
+}

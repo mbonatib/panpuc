@@ -1,0 +1,71 @@
+#!/bin/csh -f
+
+if ($#argv < 2) then
+	echo "usage: get_modkey <file> <key> [-getline] [-iniline <lineno>] "
+	exit 1
+endif
+
+set mcfg = $1
+set tkey = $2
+set PLINE = 0
+set INILINE = 1
+
+if (! -e "$1") then
+        echo "ERROR file $1 does not exists"
+        exit 1
+endif
+
+while ("$1" != "")
+       switch ("$1")
+         case -getline:
+                set PLINE = 1
+                breaksw
+         case -iniline:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-iniline <line_number>' switch"
+                        exit 1
+                endif
+                set INILINE = $1
+                breaksw
+        endsw
+        if ("$2" == "") then
+                break
+        else
+                shift
+        endif
+end
+
+
+set nlines=`cat $mcfg | wc | awk '{print $1}'`
+set lineN = $INILINE
+while ($lineN <= $nlines)
+	set line = `head -$lineN $mcfg | tail -1`
+	set key = `echo "$line" | awk -F = '{print $1}'`
+	if ("$key" == "$tkey") then
+		set keyval  = `echo "$line" | awk -F = '{print $2}'`
+#is this an enviromental variable?. If it is, get the actual value. If it is a command line arg, return the arg
+		set fc = `expr substr $keyval 1 1`
+		if ($fc == '$') then	
+		  set fc2 = `expr substr $keyval 2 3`
+		  if ($fc2 != 'ARG') then
+			set kk = "echo `echo $keyval`"
+			set keyval = `$kk`
+		  else
+			set len = `expr length "$keyval"`
+			set keyval = `expr substr $keyval 5 $len`
+		    endif
+		endif
+		if ($PLINE == 0) then
+			echo $keyval
+		else
+			echo $keyval $lineN
+		endif
+		exit 0
+	endif
+	@ lineN = $lineN + 1
+end
+
+echo "ERROR key not found"
+exit 1

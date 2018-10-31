@@ -1,0 +1,30 @@
+#!/bin/csh -f
+
+set stat = `pan memory read tim X 0 bitfield`
+set reset = "$stat[8]"
+if ("$reset" == "0") then
+	echo "no reset"
+	exit 0
+endif
+set cds = "$stat[14]"
+if ("$cds" == "0") then
+	echo "no reset (single sampling)"
+	exit 0
+endif
+
+set mode = `pan memory read tim Y 0x15`
+switch ($mode)
+	case 1:
+		 set rmode = "detglobal"
+		breaksw
+	case 2:
+		 set rmode = "manglobal"
+		breaksw
+	case 3:
+		 set rmode = "linebyline"
+		breaksw
+	default:
+		 set rmode = "unknown ($mode)"
+		breaksw
+endsw
+echo $rmode

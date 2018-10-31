@@ -1,0 +1,6 @@
+[OVERSCAN]
+header="BIASSEC"
+binned=no
+where=postdata
+add_in=columns
+comment="overscan pixels"

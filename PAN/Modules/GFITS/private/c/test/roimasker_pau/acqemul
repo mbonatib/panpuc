@@ -1,0 +1,55 @@
+#!/bin/csh -f
+
+set dir = "$1"
+
+set hilite = 1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+
+set dir = "$1"
+set DELAY = 0.5
+set display = ""
+set loop = 0
+
+while ("$1" != "")
+       switch ("$1")
+         case -delay:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-delay <delay>' switch"
+                        exit 1
+                endif
+                set DELAY = $1
+                breaksw
+	case -display:
+		set display = "-s"
+		breaksw
+	case -loop:
+		set loop = 1
+		breaksw
+        endsw
+        if ("$2" == "") then
+                break
+        else
+                shift
+        endif
+end
+
+again:
+rm -f $dir/*roi.fits
+rm -f $dir/*roi.DONE
+set fits = `ls $dir/*.fits`
+
+while ("$fits" != "")
+	set image = "$fits[1]"
+	./maskroi $image $display
+	sleep $DELAY
+	shift fits
+end
+if ($loop == 1) then
+	goto again
+endif
+
+echo "DONE"

@@ -1,0 +1,362 @@
+2014-06-28T11:01:40 UTC <Marco Bonati> GEOM version 10.4
+	* wcsoverr can be also replicated rather than overriden, using "<"
+	instead of "@"
+
+2014-06-27T11:01:40 UTC <Marco Bonati> GEOM version 10.3
+	* added the capability of changing the keyname using "@" in the wcskey
+	override command and file ("MYKEY@BIASSEC ...."
+	* Now it can also change/override single keys, like AMPID, etc.
+
+2014-03-18T11:01:40 UTC <Marco Bonati> GEOM version 10.2
+	* fixed command "wcskey" to support multiextensions
+
+2013-10-18T11:01:40 UTC <Marco Bonati> GEOM version 10.1
+	* numbering problem.
+
+2011-12-18T11:01:40 UTC <Marco Bonati> GEOM version 10.0
+	* added a command to re-read the geometry information when the
+	template is changed (different file template)
+
+2011-12-18T11:01:40 UTC <Marco Bonati> GEOM version 9.99
+	* It is possible now to discard certain amplifiers from a detector
+	intead of discarding the complete deetctor. See documentation
+	(syntax: <readmode>_discard:num//<expression> or
+	<readmode>_discard:amp//<ampid1>&<ampid2>...)
+
+2011-12-18T11:01:40 UTC <Marco Bonati> GEOM version 9.98
+	* Modified CalculateDETINFO so now it can pass information
+	* per-amplifier, by simply adding __<ampid> at the end of the
+	keyword
+
+2011-07-20T11:01:40 UTC <Marco Bonati> GEOM version 9.97
+	* fixed a race condition where it could lost the directory
+	for the headers modules upon startup
+
+2011-07-20T11:01:40 UTC <Marco Bonati> GEOM version 9.96
+	* deals with 90-degrees and 0 degrees rotated detector in the
+	same fpa. Headers part no 100% in this case
+
+2011-07-20T11:01:40 UTC <Marco Bonati> GEOM version 9.95
+	* adds the list of ids into the database
+	* added the readmodes names array list into the 
+	detector structure
+
+2011-07-13T11:01:40 UTC <Marco Bonati> GEOM version 9.94
+	* fixed a bug in AddRois when requesting a full with maximum
+	values instead of the full argument
+
+2011-04-16T11:01:40 UTC <Marco Bonati> GEOM version 9.93
+	* fixed a provblem with NOAO_DES in the TRIMSEC on
+	  detector extensions
+	* added the experimental FPA graphical  editor
+
+2011-04-16T11:01:40 UTC <Marco Bonati> GEOM version 9.92
+	* DETINFO/FPAINFO where not being obeying the type casting 
+	(FLOAT), etc. Fixed it (Modified CalcHeaders.vi)
+
+2011-03-10T11:01:40 UTC <Marco Bonati> GEOM version 9.91
+	* added xroistart/yroistart/xroisize/yroisize variables to the
+	 database
+
+2011-03-08T11:01:40 UTC <Marco Bonati> GEOM version 9.9
+	* added "set optimize on/off" to make slower but safer the 
+	 convertion netween binning/roi/geometry in any combination order
+	* added "addroifpa" fo the custom headers, to desribe fpa-based rois
+	* fixed "xroisec" and "yroisec" in the custom headers so they
+	  can descrive physical pixels also
+
+2010-11-08T11:01:40 UTC <Marco Bonati> GEOM version 9.8
+	* fixed the generic header generator to use the amplifier structure
+	 instead of the modifiers structure. The problem was that the headers
+	  did not appear binned for prescans/overscans even for binned
+          modifiers. Fixed during CHIRON (CT60'') somissioning
+
+2010-11-08T11:01:40 UTC <Marco Bonati> GEOM version 9.7
+	* improved the interface to extensionsmapping
+
+2010-11-08T11:01:40 UTC <Marco Bonati> GEOM version 9.6
+	* fixed another small thing in the readout of the custom wcs file
+	("readoorder" only instead of "readorder" or "redout")
+	* added "_concat_" as another option for the detinfo file
+	 (_concat_ _+info(PosID), for example, would create "_5N")
+
+2010-10-23T11:01:40 UTC <Marco Bonati> GEOM version 9.5
+	* small fix in mext version of wcs override file
+
+2010-09-23T11:01:40 UTC <Marco Bonati> GEOM version 9.4
+	* fixed a small detail with the "dbs" evaluation in .wcs
+	files
+
+2010-09-23T11:01:40 UTC <Marco Bonati> GEOM version 9.3
+	* fixed the headers description when Y over/pre was moved
+	* added the capability of using CONSTANTS in the .fpa file
+	that allow to use as reference and modify posiitons
+
+2010-09-23T11:01:40 UTC <Marco Bonati> GEOM version 9.2
+	* fixed the small issue of creation of 0-sized wcs images 
+
+2010-09-16T11:01:40 UTC <Marco Bonati> GEOM version 9.1
+	* added the forgotten support for discarded ccds on the
+	  custom WCS
+
+2010-09-10T11:01:40 UTC <Marco Bonati> GEOM version 9.0
+	* Incorporates the "custom" WCS files, and the "on the fly"
+	* rearranging of the values depending on the unscrambling order
+	
+
+2010-08-13T11:01:40 UTC <Marco Bonati> GEOM version 8.2
+	* added the ability to evaluate expressions on the INFO sections
+	* on th FPA file, it adds to detinfo any key other than "id" and
+	 "position"
+	* updated doc
+
+2010-08-13T11:01:40 UTC <Marco Bonati> GEOM version 8.1
+	* corrected the correction for multiple detectors. This only corrects 
+	 in case of using simple (no mext) format headers and data
+	* a lot of changes in the CorrectXcoords.vi (domino-like effect to
+	 calculate efefct of right detectors on its neighbors)
+
+2010-08-08T11:01:40 UTC <Marco Bonati> GEOM version 8.0
+	* fixed a bug in NOAO  header module if some detectors are discarded
+	* added some small GEOM_ script utilities for filling up detector
+	 files (public/bin
+
+2010-06-08T19:01:40 UTC <Marco Bonati> GEOM version 7.2
+	* fixed a problem: the headers are recalculated before they are
+	 sent for the "get headers command"  now -before they could
+	  be potentialy delayed by 1
+
+2010-06-04T19:01:40 UTC <Marco Bonati> GEOM version 7.1
+	* some changes to the API so it won;t be calculating the headers for
+	 every command -only when needed. Thsi speeds many geometry comnmands
+	and startups
+
+2010-04-04T19:01:40 UTC <Marco Bonati> GEOM version 7.0
+	* added the "discard" directive to allow readout a detector
+	  but noit writing it to disk. Modified the header modules
+	  to discard the header information of the discarded amplifiers
+	* The amplifier structure ha s a new memner ("discard")
+	* fixed a serious problem with detext. if modifiers or binning
+	  binning changed the positions of the detectors structure were
+	  not being updated, causing misalignemnts and possible crashs
+
+2010-03-18T19:01:40 UTC <Marco Bonati> GEOM version 6.4
+	* added the capability of v\overriding the WCS by issuing dinamyc
+	commands or by using a WCS template (echelle ctio 60'', asymmetric
+	prescans)
+	* updated documentation
+
+2010-03-16T19:01:40 UTC <Marco Bonati> GEOM version 6.3
+	* added the capability of offseting the x and y origin coordinates
+	  so the WCS of the image will show teh fpa at an offset
+	  (useful when buiding multi-fpas. Implemented for decam
+	  in WCS_NOAO and WCS_NOAO_DES
+
+2010-02-04T19:01:40 UTC <Marco Bonati> GEOM version 6.2
+	* fixed yet another problem with the NOAO single fits images, related
+	to CSEC/DSEC for right amplifiers
+
+2010-01-03T19:01:40 UTC <Marco Bonati> GEOM version 6.1
+	* fixed the WCS NOAO to better match the arcon single image
+	(no MEF). Done during the 60'' echelle run
+
+2009-12-29T19:01:40 UTC <Marco Bonati> GEOM version 6.0
+	* fixed a problem intorduced in 5.7 -setting binning would take it
+	back to full roi
+
+2009-12-03T19:01:40 UTC <Marco Bonati> GEOM version 5.91
+	* changed NOAO headers module for the adding the number
+	only if Detnumber > 1
+	* now it returns the last detformat, that the caller can use
+	to avoid coming to the defaults every time
+
+2009-09-28T19:01:40 UTC <Marco Bonati> GEOM version 5.9
+	* NOAO_DES and NOAO add the dbs variable "fpasize"
+	  containing the total size in the "[x1:xe,ys:ye]" format
+
+2009-09-22T19:01:40 UTC <Marco Bonati> GEOM version 5.8
+	* chenged so "detformat" can now be specified as 
+	 "numberxrows", or "colsxnumber" (so it modifies only
+	  one dimension as use the default for the other
+
+2009-09-22T19:01:40 UTC <Marco Bonati> GEOM version 5.7
+	* fixed a bad dependency with DHE
+
+2009-09-21T19:01:40 UTC <Marco Bonati> GEOM version 5.6
+	* some minor changes to save some time when the value
+	  of the parameter is the current one (binning, geom, roi)
+
+2009-08-24T19:01:40 UTC <Marco Bonati> GEOM version 5.5
+	* Fixed the detinfo headers for "detector extensions"
+	* Added NOAO_DES WCS headers 
+
+2009-05-24T19:01:40 UTC <Marco Bonati> GEOM version 5.4
+	* redone the previous fix that was wrong. Fixed a problem
+	  in Y and X Corr. vis. It may still present problems
+	  
+2009-05-24T19:01:40 UTC <Marco Bonati> GEOM version 5.3
+	* fixed another problem with coordinates for single fits rois
+
+2009-05-17T19:01:40 UTC <Marco Bonati> GEOM version 5.2
+	* fixed a coordinates problem for single fits rois
+
+2009-02-26T19:01:40 UTC <Marco Bonati> GEOM version 5.1
+	* Change on what gets passed to the maximum ROI size. Before it was
+	  toty and tox sizes, now it is maxy and mayysize/ Changed after
+	  header problem seeing under decam45 (data was ok, headers wrong
+
+2009-02-26T19:01:40 UTC <Marco Bonati> GEOM version 5.0
+	* added the structures for keeoing a per-detector record. This allows
+	to pass apropriate information to GUNSC to build a per-detector
+	structure (for per-detector multiple extensions image)
+
+2009-01-26T19:01:40 UTC <Marco Bonati> GEOM version 4.94
+	* The .fpa and .det files can now be defined outside the det_database
+	  (if so, the .det are looked first on the path to the .fpa file, and 
+	   secondly on the standard det_database/detectors
+
+2009-01-07T19:01:40 UTC <Marco Bonati> GEOM version 4.93
+	* fixed the predata in rows, that was being badly added into the
+	 columns
+	* changed the NOAO WCS description, to reflect in TRIMSEC the predata
+	  in rows -not taken into account before
+
+2008-11-17T19:01:40 UTC <Marco Bonati> GEOM version 4.92
+	* Changed the way the WCS header module calls the NOAO submodule. It 
+	  passes an absolute path instead of a relative one. This allows the
+	  module to run in a binary distribution without the need of explicit 
+	  inclusion in the sources
+
+2008-11-17T19:01:40 UTC <Marco Bonati> GEOM version 4.91
+	* added the tcp/ip server t the GEOM_GUI
+
+2008-11-10T19:01:40 UTC <Marco Bonati> GEOM version 4.9
+	* added the OSU svn yags
+	* the GEOM_GUI under test directory can now be used as a "stand-alone
+	  application, to which arguments are passed. Added the start_GUI
+          script on public/bin. 
+
+2008-10-24T19:01:40 UTC <Marco Bonati> GEOM version 4.8
+	* added the keyword DETSIZE on the NOAO headers module, so that
+	  ds9 is able to "file/open_other/iraf mosaic" directly displaying
+	  the mosaic. This also allow direct display using XPA access
+	  functions
+
+2008-10-23T19:01:40 UTC <Marco Bonati> GEOM version 4.7
+	* added "GetStrAmps", that gets information of all or any amp
+
+2008-07-21T19:01:40 UTC <Marco Bonati> GEOM version 4.6
+	* added support for parametric description of the positions
+	  in the FPA, rather than only fixed numbers 
+	  ex "POS=(2*cols+1,rows+1), instead of (4097,4097)". This is
+	  similar to the description of the amps ikn the readmodes
+	* added the capability of multiple refs of the parameter
+	  as "1+rows+rows/2" and also crossed refs (cols in rows and
+	  rows in cols,  as "(1+cols, cols+rows/2)"
+	 
+2008-06-21T19:01:40 UTC <Marco Bonati> GEOM version 4.5
+	* added support for multiple -simetrical- ROIs
+	* fixed the problem when the FPA is not a square. It should now be
+	* able to handle any shape
+
+2007-10-21T19:01:40 UTC <Marco Bonati> GEOM version 4.0
+	* Labview 8.5, only compatible with SOAR-style arcview
+	* Now it is possible to set only 1 modifier in time, instead of the
+	 need of sending all of them
+	* Added a useful GUI on the test directory to visualize the FPA
+	 geometry
+
+2007-02-09T19:01:40 UTC <Marco Bonati> GEOM version 3.9
+	* corrected DETINFO for multiple detectors (single and multiple
+	 extensions)
+
+2007-01-29T19:01:40 UTC <Marco Bonati> GEOM version 3.8
+	* corrected headers for single extensions, multiple detectors
+
+2007-01-29T19:01:40 UTC <Marco Bonati> GEOM version 3.7 
+	* added the parameter "binCorrection" to tell how to handle
+	  fractions of pixels when binning does not give an integer value
+	  Previously it was adding the remaining to the prescans, but now
+	  the parameter can tell add to prescans (defaul) by using
+	  "add2pre", add to postdata by using "add2pos", or do nothing which
+	  is discard the pixels, by using "none". The parameter was 
+	  added to the config file (entry [BINNING], key "correction")
+
+
+2006-05-29T19:01:40 UTC <Marco Bonati> GEOM version 3.6 
+	* fixed a bug in the calculation of TSEC for single fits headers
+	 (under NOAO header submodule)
+	* added the updated documentation under /doc
+
+2006-05-23T19:01:40 UTC <Marco Bonati> GEOM version 3.5 
+	* added the GET READMODES command, that gets all the names of the
+	 readmodes. For this added two new vis (GET_ReadModes and
+	 GET_AvailableReadmodes, one for the API and one for the internals
+
+
+2006-01-23T19:01:40 UTC <Marco Bonati> GEOM version 3.4 (NOT on repository!)
+   	* added the capability of overriding the detector format that is
+	  on the config files by sending INIT <FPA_name> -detforma colsXrows
+	  This will change the format to all the detector specified on the
+	  FPA. Usefull for on-the-fly changes 
+
+2005-11-02T19:01:40 UTC <Marco Bonati> GEOM version 3.3
+	* cleaned up a lot of unused code
+	* added the datatype for the headers
+	* added the header info into fits header, if desired
+	* Changed Calculate WCS, DETINFO, FPAINFO, readfits2headers
+
+2005-17-27T19:01:40 UTC <Marco Bonati> GEOM version 3.2
+	* added the "nampsxy" to the database
+	* added the "ROI_abs" calculation, and the final value to the
+	  database (for absolute position of the ROI on the FPA, including
+	   pre and post data (not just data pixels)
+
+2005-03-27T19:01:40 UTC <Marco Bonati> GEOM version 3.1
+	* added "numXamps" and "numYamps" to GEOM_CallGeom
+
+2005-03-27T19:01:40 UTC <Marco Bonati> GEOM version 3.0
+	* Labview 7.0
+
+2005-03-26T19:01:40 UTC <Marco Bonati> GEOM version 2.2
+	* added commands "GET ORIGIAMPLIFIERS" and "GET ROI" as well as some
+	   globals
+
+2005-02-26T19:01:40 UTC <Marco Bonati> GEOM version 2.1
+	* removed dependencies on ArcVIEW/Common
+
+2004-08-26T19:01:40 UTC <Marco Bonati> GEOM version 2.0
+	* added the "VERSION" command
+
+2004-08-26T19:01:40 UTC <Marco Bonati> GEOM version 1.10
+	* corrected problem on the headers (ROI for multiple extensions)
+
+2004-08-16T19:01:40 UTC <Marco Bonati> GEOM version 1.9
+	* A lot of changes related ROI and Binning support. Headers corrected
+
+2004-07-30T19:01:40 UTC <Marco Bonati> GEOM version 1.8
+	* fixed headers when binning is applied. Changed the NOAO module
+	 (under Header modules)
+
+
+2004-07-02T19:01:40 UTC <Marco Bonati> GEOM version 1.7
+	* Changed GEOM.vi to search for the Database if the specified path
+	  is wrong or not given at all
+
+2003-10-07T19:01:40 UTC <Marco Bonati> GEOM version 1.6
+	* re-fixed the lost reading of template for the headers
+
+2003-08-21T21:43:58 UTC M.B.	GEOM version 1.5
+
+	*Change on the way the rotation is handled. Now it does not swap
+	cols and rows, but keep the phisical relation defined independent on the rotation angle. Every C routine (GUNSC, GFITS, GRTD) must to take care of making this swap if needed.
+	GUNSC: v 1.5 -->
+	GFITS: v 1.5 -->
+	GRTD: v 1.3 -->
+
+	*Added the "SET EXTENSIONS" command which change the order of the
+headers. Used when an specific map extension <-> amplifier is requiested to
+the GFITS modules, which in turn sends this command to the Geometry
+		-Created GEOM_MoveHeaders2.vi (under private/vis/Header/Modules)
+		-Create GEOM_Extensions Global
+	*Fixed problems on handling the ROIs

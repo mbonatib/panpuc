@@ -1,0 +1,123 @@
+\section{panview\_\-current/PAN/Modules/GFITS/private/c/src/GF\_\-shmem.h File Reference}
+\label{GF__shmem_8h}\index{panview_current/PAN/Modules/GFITS/private/c/src/GF_shmem.h@{panview\_\-current/PAN/Modules/GFITS/private/c/src/GF\_\-shmem.h}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$linux/version.h$>$}\par
+{\tt \#include $<$asm/page.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{pangfits\_\-msgbuf}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{DIVIDES}(a, n)~(!((n) \% (a)))
+\item 
+\#define \bf{SHMSZ}~27
+\item 
+\#define \bf{OK}~0
+\item 
+\#define \bf{MAXLEN}~30
+\item 
+\#define \bf{SHM\_\-NAME}~\char`\"{}pangfits\char`\"{}
+\item 
+\#define \bf{MSGNEWFITS}~2
+\item 
+\#define \bf{MSGSHM}~1
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{pangfits\_\-msgbuf} \bf{qmsg\_\-t}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{GF\_\-shm\-Destroy} (char $\ast$name, void $\ast$buffer, int id, int qid)
+\item 
+void $\ast$ \bf{GF\_\-shm\-Attach} (size\_\-t $\ast$psize, char $\ast$name, void $\ast$buffer, int $\ast$\bf{shmid}, int $\ast$qid)
+\item 
+void \bf{GF\_\-shm\-Send\-Msg} (int qid, char $\ast$msg, long type)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{GF_shmem.h@{GF\_\-shmem.h}!DIVIDES@{DIVIDES}}
+\index{DIVIDES@{DIVIDES}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DIVIDES(a, n)~(!((n) \% (a)))}\label{GF__shmem_8h_6c9de7e7b7ad3939e52f63063a601820}
+
+
+\index{GF_shmem.h@{GF\_\-shmem.h}!MAXLEN@{MAXLEN}}
+\index{MAXLEN@{MAXLEN}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAXLEN~30}\label{GF__shmem_8h_e6648cd71a8bd49d58ae8ed33ba910d1}
+
+
+\index{GF_shmem.h@{GF\_\-shmem.h}!MSGNEWFITS@{MSGNEWFITS}}
+\index{MSGNEWFITS@{MSGNEWFITS}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MSGNEWFITS~2}\label{GF__shmem_8h_08348d01b3494d1ddc88e5a3b80c19da}
+
+
+\index{GF_shmem.h@{GF\_\-shmem.h}!MSGSHM@{MSGSHM}}
+\index{MSGSHM@{MSGSHM}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MSGSHM~1}\label{GF__shmem_8h_daf6ed606a67f73d0696e9bbfc2467f2}
+
+
+\index{GF_shmem.h@{GF\_\-shmem.h}!OK@{OK}}
+\index{OK@{OK}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~0}\label{GF__shmem_8h_ba51915c87d64af47fb1cc59348961c9}
+
+
+\index{GF_shmem.h@{GF\_\-shmem.h}!SHM_NAME@{SHM\_\-NAME}}
+\index{SHM_NAME@{SHM\_\-NAME}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SHM\_\-NAME~\char`\"{}pangfits\char`\"{}}\label{GF__shmem_8h_86393b21e6f74e9870d92149e7fe7f20}
+
+
+\index{GF_shmem.h@{GF\_\-shmem.h}!SHMSZ@{SHMSZ}}
+\index{SHMSZ@{SHMSZ}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SHMSZ~27}\label{GF__shmem_8h_f328b6ce3cae231d90cfbf2f340d03c2}
+
+
+
+
+\subsection{Typedef Documentation}
+\index{GF_shmem.h@{GF\_\-shmem.h}!qmsg_t@{qmsg\_\-t}}
+\index{qmsg_t@{qmsg\_\-t}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{pangfits\_\-msgbuf}  \bf{qmsg\_\-t}}\label{GF__shmem_8h_6658236f1c5f7deef7c45cc6b55a27c1}
+
+
+
+
+\subsection{Function Documentation}
+\index{GF_shmem.h@{GF\_\-shmem.h}!GF_shmAttach@{GF\_\-shmAttach}}
+\index{GF_shmAttach@{GF\_\-shmAttach}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ GF\_\-shm\-Attach (size\_\-t $\ast$ {\em psize}, char $\ast$ {\em name}, void $\ast$ {\em buffer}, int $\ast$ {\em shmid}, int $\ast$ {\em qid})}\label{GF__shmem_8h_a37edee6aebb1f0e00ea391a47b51456}
+
+
+Attach shared memory buffer and return ID of the segment \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\rightarrow$} {\em $\ast$psize}]as input, the desired size, as output the ctual attached size \item[\mbox{$\leftarrow$} {\em attached}]shared memory buffer \item[\mbox{$\rightarrow$} {\em $\ast$shmid}]shared memory ID out \item[\mbox{$\rightarrow$} {\em $\ast$qid}]shared meory queue ID out \end{description}
+\end{Desc}
+\index{GF_shmem.h@{GF\_\-shmem.h}!GF_shmDestroy@{GF\_\-shmDestroy}}
+\index{GF_shmDestroy@{GF\_\-shmDestroy}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-shm\-Destroy (char $\ast$ {\em name}, void $\ast$ {\em buffer}, int {\em id}, int {\em qid})}\label{GF__shmem_8h_99a029265843ab9cc21d886341c015d4}
+
+
+Destroys shared memory segment \index{GF_shmem.h@{GF\_\-shmem.h}!GF_shmSendMsg@{GF\_\-shmSendMsg}}
+\index{GF_shmSendMsg@{GF\_\-shmSendMsg}!GF_shmem.h@{GF\_\-shmem.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-shm\-Send\-Msg (int {\em qid}, char $\ast$ {\em msg}, long {\em type})}\label{GF__shmem_8h_170f5e06b7f3793fedbbcd129548dc89}
+
+
+Sends a message trhough shared memory queue \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em qid}]shared memory queue ID  $\ast$msg string message to send \item[\mbox{$\leftarrow$} {\em type}]message type to send \end{description}
+\end{Desc}

@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+  
+                                                                        
+                                      
+  
+  
+  
+  
+  <title>DHE_CommandList</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+
+<body>
+
+
+                           
+<h1>  Command List for the SDSU Detector Head Electronics (DHE)</h1>
+
+
+               
+
+                The following list describes the commands and parameters specifics to the SDSU controller. <br>
+The module suppors all the <a href="../DHE_CommandList.html">standard DHE commands</a> (including DACS, REGS and TPS), and besides, the commands in this document.<br>
+<br>
+
+
+                All the listed commands MUST begin with the prefix <b>DHE.</b>     The  system   is case  INSENSITIVE.<br>
+
+
+             <br>
+
+
+                <u><b> Command prefix: DHE</b></u><br>
+<br>
+
+
+                               
+<h2>Engineering and Setup commands</h2>
+
+
+              This is a set of engineering commands, used for testing the 
+system    and   configuring it. This commands are normally not requiered to
+be changed    byt   the observer (and not recommended to)<br>
+
+
+             <br>
+
+
+                         
+<h3>1.-&nbsp; Utility Commands</h3>
+
+
+              <b>&lt;DO | PERFORM&gt; </b><i><b>&lt;command [args ...]&gt;</b></i><br>
+
+
+             <u><i>description</i></u><br>
+
+
+             Performs actions that must be done inmediatelly, rather than 
+seting    for   posterior using.<br>
+
+
+             <br>
+
+
+             <u><i>parameters</i></u><br>
+<i><b>&lt;command&gt;</b></i> : can be:<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; <i><b>power</b></i> <i>&lt;on | off&gt;</i>&nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; 
+   &nbsp;   : brings the power to the detector (biases, clocks, etc)<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; <i><b>shutter</b></i> <i>&lt;open | close&gt;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </i>: opens or closes the shutter (the same as SET shutter &lt;open | close&gt;)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">clear_array</span>:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; : generates a clearing on the controller<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; <i><b>tdl</b></i> <i>&lt;tim | utility | pci&gt; &lt;value to write&gt;</i>
+            : "test data link". This command places a value on the specified
+  board,    and then reads it back to see if the target is alive and responding
+  or not.   The value can be
+any number &lt;= 24 bits long<br>
+
+
+             <br>
+
+
+             <u><i>examples</i></u><br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+DO  power    on&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; /* brings the power to the detector
+    */<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+DO  tdl   timing   144&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;     /*sends the value 144 to the timing board*/<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+
+
+             <u><i>return value</i></u><br>
+tdl will return the value sent on succes, and a diferent value,
+  or  ERROR   &lt;error  message&gt; on failure<br>
+
+
+             power and shutter will return DONE on success, and   ERROR &lt;error
+    message&gt;   [error code] on failure<br>
+
+
+             <br>
+
+
+                         
+<h3>2.- Memory Commands</h3>
+
+
+             <b>MEMORY</b> <b><i>&lt;action&gt; &nbsp;&lt;parameter1&gt;
+[...   &lt;parameterN&gt;</i><i>        ]</i></b><br>
+
+
+             <u><i>description</i></u><br>
+
+
+             This set of commands will perform the specified actions over 
+the&nbsp;   memories of the SDSU DSPs.   This commands does not perform any kind of verification 
+  about   the security   of the command being issued, so it must be used carefully
+   or you can run  the risk of overriding some vital part of the memory.<br>
+
+
+             <br>
+
+
+             <u><i>parameters</i></u><br>
+
+
+             <b><i>&nbsp; &nbsp; &nbsp;&lt;action&gt;</i></b>: actions are
+ the   actual    operation to apply. The parameters will change according
+to it.   The possible    values are:<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <i><b>write </b>&lt;board&gt; &lt;memtype&gt; &lt;address&gt; &lt;value&gt;</i><i>
+             : </i><br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<i>&lt;board&gt;</i> is 
+the    name  of the target board (<i>&lt;timing | utility | pci&gt;</i>
+          )<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<i>&lt;memtype&gt;</i> is
+  the    memory type (<i>&lt;X | Y | P | D&gt;</i>)<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <i>&lt;address&gt;</i>
+              : the memory address to write<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;value&gt;</i>
+             : the value to write on the specified place<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <b><i>read </i></b><i>&lt;board&gt; &lt;memtype&gt; &lt;address&gt;</i>
+         :  <br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;board&gt;</i>
+              is the name of the target board<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;memtype&gt;</i>
+              is the memory type <br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;address&gt;</i>
+              : the memory address to read<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <i>l<b>oad </b>&lt;board&gt; &lt;type&gt; &lt;location&gt;</i>:&nbsp;&nbsp;&nbsp; 
+      &nbsp;<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;board&gt;</i>
+           is the name of  the target board <br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>&lt;type&gt;</i>
+              : the type of loading you want to perform (<i>&lt;file 
+  |  app&gt;</i>      )<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <i>&lt;location&gt;</i>
+              : where to find the source for&nbsp; loading (If  <i>   &lt;file&gt;</i>      whas specified, then it is the file path.
+ If <i> &lt;app&gt;</i>    was specified,   then it is the application number)<br><span style="font-style: italic; text-decoration: underline;">Note on the parameter "address"</span>: This can be:<br>- A single address, for example: 0x5<br>- An address range, stated as &lt;iniadd-endadd&gt;, for example: 0x5-0x8<br>- A base address and an offset, as &lt;iniadd+off&gt;, for example: 0x5+3<br>The last two examples should return both the values for address 0x5, 0x6, 0x7 and 0x8<br><br><span style="font-style: italic; text-decoration: underline;">There is another, optional parameter</span>
+that can be used when a single address is requested: bitfield. This
+parameter will present the address specified in a bit by bit way,
+simplifying the bit identification process. For example<br><span style="font-style: italic; font-weight: bold;">memory read tim X 0x1 bitfield</span><br>shouwl return the values stored on address 1 of memory X of the timing board like this:<br>[0] 0<br>[1] 1<br>[2] 0<br>..<br>[24] 0<br>(the DSP on the SDSU controller uses 24 bits wide addresses)<br><br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      <b><i>manualcommand </i></b><i>&lt;board&gt; &lt;arg1&gt; &lt;arg2&gt; 
+   &lt;arg3&gt;   &lt;arg4&gt; &lt;arg5&gt; &lt;command&gt;</i>:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; specifies a low level
+command to be sent to the controller.This command is used for sending
+the "three letter commands" to the DSP, for example values to the DACs,
+adjusting the type of gain, switching the multiplexors, etc. (see the
+examples below). The arguments depends on the &lt;command&gt; field,
+and
+the &lt;command&gt; field depends on the specific commands than the
+running DSP
+supports, and on the program it is running (examples: 'SBN'
+(sets bias number), 'SMX' (set multiplexer), etc). For a list of the
+most comon "three letters" command check the DSP manual from the
+astro-cam pages (<a href="http:%5C%5Cwww.astro-cam.com">www.astro-cam.com</a>)<br>
+
+
+             <small style="font-style: italic; font-weight: bold;"><br>
+</small>
+
+             
+
+             <u><i>return values</i></u><br>
+
+
+             manualcommand will return a value according to the command specified.<br>
+
+
+             write and load will return DONE on success, and    ERR: &lt;error
+   message&gt;    [error code] on failure<br>
+
+
+             read will return the memory value on success, and    ERR: &lt;error
+    message&gt;   [error code] on failure<br>
+
+
+             <br>
+<u><i>examples</i></u><br>
+<small style="font-style: italic; font-weight: bold;">
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    write   timing X 0 132&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : wites 
+the  value  132   (decimal) to the location 0 of memory X, on timing board<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    write   utility Y 0xA 0x132: writes the value 0x132 (hexa) to the 
+location    10 of  memory Y, on utility board<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    load   timing file /home/ArcVIEW/Modules/SDSU/config/DSPfiles/HAWAII-II/tim.lod<br>
+
+
+             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE 
+MEMORY    load   timing&nbsp; app 1&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*loads the timing board with
+the    applicatio  program located on EPROM number 1 */<br>
+
+
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DHE
+MEMORY    manualcommand   tim 1 2 VID 3072 0 0 SBN &nbsp;&nbsp; /*sets to
+3072 adus    the DAC number  2, on video board number 1<br>
+</small><small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*the last MEMORY
+command is the low level for the standard DAC command DAC SET
+&lt;dac_name&gt; &lt;value&gt; ["["adus"]"]. If you set the DAC in this
+way the DACs manager on the module will not know that the value was
+changed, so the DAC GET &lt;dac_name&gt; will show the old value. This
+is why using the highes level commands is normally recommended*/</small><small style="font-weight: bold;"><br>
+</small><br>
+<br>
+
+
+          <br>
+
+
+           <br>
+
+
+                               
+</body></html>

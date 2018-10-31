@@ -1,0 +1,125 @@
+#! /bin/csh -f
+
+set hilite=1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+
+setenv ARCROOT $PAN_ROOT
+set modsdir = ""
+set newmoddir = "./"
+set DELETE_OLD = 0
+
+set configdir = ""
+set update_automods = 1
+set autoload = 1
+set autostart = 0
+set confirm = 1
+set rep = 0
+set appname = ""
+
+if ("$1" == "") then
+	goto start
+endif
+
+while ("$1" != "")
+	switch ("$1")
+	case -h:
+		goto usage
+		breaksw
+	case -modsdir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-modsdir <dir>' switch"
+			exit 1
+		endif
+		set modsdir = "$1"
+		breaksw
+        case -report:
+                set rep = 1
+                breaksw
+       case -app:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR "missing argument to '-app <name>' switch"
+                        exit 1
+                endif
+		setenv ARCROOT  $PAN_ROOT/$1
+		set appname = $1
+                breaksw
+	default:
+		ERR  "scan: unknown argument $1"
+		goto usage
+	endsw
+
+	if ("$2" == "") then
+		break
+	else
+		shift
+	endif
+end
+start:
+if ("$DELETE_OLD" == "1") then
+	set delmod = "-delete"
+else
+	set delmod = ""
+
+if ("$modsdir" == "") then
+	set env_arcroot = `setenv | egrep ARCROOT`
+	if ("$env_arcroot" == "") then
+		set currdir = `cd ../../../; pwd`
+		setenv ARCROOT $currdir
+	endif
+	set modsdir = "$ARCROOT/PAN/Modules"
+endif
+set bindir = "$modsdir/../public/bin"
+
+if (! -e $modsdir) then
+	echo "ERROR directory $modsdir was not found"
+	exit 1
+endif
+if (! -e $newmoddir) then
+	echo "ERROR directory $newmoddir was not found"
+	exit 1
+endif
+
+if ($rep == 0) then
+	echo "Scanning $modsdir"
+endif
+
+cd $modsdir
+set modules = `ls -d *`
+cd -
+if ($rep == 1) then
+	echo $appname
+	echo "-----------------"
+endif
+while ("$modules" != "")
+        set module = $modules[1]
+        if (-e $modsdir/$module/ChangeLog.txt) then
+		if ($rep == 1) then
+                	set ver = `$bindir/PM_extract_version $modsdir $module`
+                	echo "$module-$ver"
+		else
+                	echo "checking $module ..."
+                	$bindir/PM_update_module $module -modsdir $modsdir
+		endif
+        endif
+        shift modules
+end
+
+if ($rep == 0) then
+	echo "DONE"
+endif
+
+
+exit 0
+
+usage:
+	echo ""
+	echo "usage: MM_scan_versions [-modsdir <dir>]"
+	echo "		where:"
+	echo "		-h	= displays this help"
+	echo "		-modsdir = modules directory. <environment ARCROOT> by default"

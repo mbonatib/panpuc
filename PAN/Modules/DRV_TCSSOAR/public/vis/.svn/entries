@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2854"
+   name=""
+   committed-date="2009-12-11T13:52:27.581135Z"
+   url="https://139.229.115.227/svn/tags/DRV_TCSSOAR-2.2/public/vis"
+   last-author="bonati"
+   kind="dir"
+   uuid="e6f60f9c-5abb-4710-8859-6e645079aa37"
+   repos="https://139.229.115.227/svn"
+   revision="3325"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_LAMP.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="979e3f656c12d0a73135f978e412bff5"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_INFO.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_INFO.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="73647947340341dd9d24620624dd4480"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_ID.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="613429dfc4408af03616f0c81a7a3628"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_WaitCompletion.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_WaitCompletion.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="d5319d2beff135b7bb536f8d6bb76930"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_WEATHER.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="82277c4fa7140f41d5c4d48bbc346fc4"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_Open.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_Pointing_Info.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_Open.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="a6f9a7ab93a4785a9ff2c6388ac5aec6"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_Raw_Info.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_Close.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_Close.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="fad942728672ebcfe215d4efa1daeeb1"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_SLEW.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_GUIDEINFO.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="9fa8c8161ae8e8cbb7af40fca6933291"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_SendCmd.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_SendCmd.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="ebcfa47e6163bb3c4cd34ab3eefb7337"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_FOCUS.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_FOCUS.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="d3aeec74f33a56a65771d8fdda083fbd"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_GUIDER.vi"
+   text-time="2010-10-20T16:03:07.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="9927049cb451670d310a6c98ae585a57"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_WEATHINFO.vi"
+   text-time="2010-10-20T16:22:10.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="0e5045f76d29f68d3ce508c9183367c6"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_OFFSET.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+<entry
+   committed-rev="3326"
+   name="DRV_TCSSOAR_OFFSET.vi"
+   text-time="2011-10-14T13:41:35.000000Z"
+   committed-date="2011-11-18T12:44:44.184227Z"
+   checksum="7c91d5f1733b049b41ab744cf8fbc8bc"
+   last-author="bonati"
+   kind="file"
+   prop-time="2011-11-18T12:44:42.000000Z"
+   revision="3326"/>
+<entry
+   name="DRV_CT60_HardInfo.vi"
+   kind="file"
+   deleted="true"
+   revision="3326"/>
+</wc-entries>

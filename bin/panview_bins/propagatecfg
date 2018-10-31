@@ -1,0 +1,50 @@
+#!/bin/csh -f
+
+if ("$1" == "") then
+	echo "usage: propagatecfg <file_name>"
+	exit 1
+endif
+
+set cfg = $1
+if (! -e "$cfg") then
+	echo "file $cfg does not exists"
+	exit 1
+endif
+
+if ("$2" == "-p") then
+	set force = ""
+else
+	set force = "-f"
+endif
+
+set ISSET = `setenv | egrep PAN_ROOT_FPAS`
+if ("$ISSET" == "") then
+        setenv PAN_ROOT_FPAS $PAN_ROOT/fpas
+endif
+
+set currd = `pwd`
+echo $currd
+set all = `ls -F $PAN_ROOT_FPAS`
+set done = 0
+
+foreach f ($all)
+	set len = `expr length $f`
+	set lc = `expr substr $f $len 1`
+	if ("$lc" == "/") then
+		set f = `echo $f | awk -F / '{print $1}'`
+		set d = $PAN_ROOT_FPAS/$f/config
+		if ("$currd" == "$d") then
+			echo "$f current dir, skipped"
+		else
+			if (-e "$d") then
+				if (-e "$PAN_ROOT_FPAS/$f/config/$cfg") then
+					set msg = "...existed"
+				else
+					set msg = "...new"
+				endif
+				echo "$f $msg"
+				cp $force $cfg $d/.
+			endif
+		endif
+	endif
+end 

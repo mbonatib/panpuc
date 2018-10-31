@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  <title>DHE_Main</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+
+<body>
+<h2><big>Detector Head Electronics Modules</big></h2>
+<big style="font-weight: bold;"><big>description</big></big><br>
+<br>
+The DHE Module is in charge of handling the&nbsp; hardware which
+controls the actual detector. As such, it normally needs very specific
+and
+low level commands in order to comunicate with the specific hardware.
+This
+means that there exists one specific DHE module for each controller
+supported,
+but all the modules support the same minimum set of commands. Besides
+that,
+there are some controller specific commands, and some "general"
+commands
+that are supported by all the controllers.<br>
+If there is some special driver that is needed in order to run the
+electronics (kernel or unix module driver, for example), then it needs
+to be propertly installed on the system. This step must be done
+manually, because it is highly dependent on the actual hardware/driver.
+In some case this is not needed at
+all (for example, the SBIG cameras are normally run through the USB
+port, supported as a standard port).<br>
+<br>
+<br>
+<h3><big>Basic Initialization</big></h3>
+In this section we will describe coarsly how the module get
+initializated. By the end of the initizalization process no only the
+DHE module is initizalided, but some others that are needed in order to
+create an image on disk. In that sense the DHE module acts as a
+"master" for those other modules, only in the
+sense that it drives the initizaliations automatically.<br>
+The initizalization process implies:<br>
+<br>
+a) Reading the configuration files. For details on this see the
+configuration files section at the end. Here we will just say that in
+the
+config files it is the name of the FPA (Focal Plane Array) to be used.<br>
+b) Knowing what is the FPA to be used, the DHE module calls to the GEOM
+module, passing to it the name of the FPA to be used. With that
+information, the GEOM module passes back to the DHE module information
+requiered in order to initizalize itself<br>
+THis means that the geometry-related calcculations (size of the array,
+general topology -like amount of amplifiers and positions on the
+array-, etc) are NOT made on the DHE module, but on the Geometry module
+(<a href="../GEOM/GEOM_User_manual.html">GEOM</a>). This module reads a
+text "database" wich contents all the information requiered for any
+specific FPA (amplifiers positions, type of modifiers allowed -like
+overscan, prescans, etc- for that FPA, data size, as well as general
+information like manufacturer, detectors serial numbers, both
+theoretical and measured parameters for the detectors, types of readout
+allowed, etc). When the DHE initializes the FPA,
+it just sends to the GEOM module the name of the FPA, and receives back
+the information it needs in order to operate it. Same thing when a
+modification
+is requiered (like overscan change, binning, etc): it sends the
+request,
+and receives back the new information.&nbsp;<br>
+c) Using again the config files, it ask the geometry to re-calculate
+things for specifics read on the config file, like for a certain
+overscan and/or prescan value, for the specified initial readmode,
+etc., and now it calls the GUNSC and <a href="../GFITS/GFITS_User_Manual.html">GFITS</a> module for them to
+initizalize based on the geometry information, now complete<br>
+d) It goes to the hardware itself and initializes it by doing what is
+needed for the specific hardware (like resetting/uploading some
+firmware, writting the size of the image to be read, etc).<br>
+e) Finally, using again the config files, it may send a series of
+custom commands (specified on a init macro) in order to leave the
+system in
+some desired state (like sampling type, binning, roi, readmode, etc)<br>
+<br>
+<br>
+<big><big><span style="font-weight: bold;">Module Commands</span></big></big><br>
+<br>
+See the <a href="DHE_CommandList.html">Command</a> reference for
+generic DHE commands, and the specific module manual for specific
+commands.<br>
+<br>
+See also the&nbsp; <a href="DHE_QuickCommandReference.html">Quick
+command</a> reference<br>
+<big style="font-weight: bold;"><big><br>
+<br>
+<a name="configfile"></a> Configuration File<br>
+<br>
+</big></big><big><big><small><small>The module finds its main
+configuration file using the standard way for the modules (see the <a href="../PanVIEW/PanVIEW_Modules.html">general info on Modules</a>)<br>
+<br>
+For the DHE module, there are several configuration files, and first
+one acts only as the "master" configuration file.<br>
+<br>
+[<span style="font-weight: bold;">INIT]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">file=<span style="font-style: italic;">&lt;initialization
+file path&gt;</span></span><br>
+<br>
+/*this initialization file is specific for every controller. At the end
+there are links that describes the initialization for some currently
+supported controllers)*/<br>
+<br>
+<span style="font-weight: bold;">[TP]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">tpfile=<span style="font-style: italic;">&lt;testpoints description file path&gt;</span></span><br style="font-weight: bold;">
+<span style="font-weight: bold;">algors=<span style="font-style: italic;">&lt;algors file path&gt;</span></span><br>
+<br>
+/*this points to the file where "testpoints" are defined. "testpoints"
+can be any point of interest that the controller can read/control, like
+temperatures, power supplies, etc. The format of the file -if it
+exists-
+is specific for every supported controller. The definiton of the
+testpoits
+also allow to add limits for alarms, polling and logging of values.
+Having
+that it is possible to generate async. alarms when some limit is
+reached.
+The polling mechanism as well as the logging and alarms are not done by
+the
+DHE, but by the TPNT (Testpoints) module; the DHE only indicates what,
+how
+and where to poll*/<br>
+/*the "algors" file is a file describing pre-defined algorithms for
+transformation or custom mathematical calculations that may be needed
+in the process of returning a value on some desired format or unit (for
+example, the algor. requiered to transform from DAC units to volts, so
+the response can be given in volts rather than DAC units)*/<br>
+<br>
+<span style="font-weight: bold;">[REGS]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">file=<span style="font-style: italic;">&lt;registers
+file path&gt;</span></span><br>
+<br>
+/*this points to the file where internal registers (from the controller
+or detector) are defined, so the client can acces them by name/field
+rathern than addresses. Thi is used, for example, to interact with the
+registers of
+the Hawaii2-RG detector using names)*/<br>
+<br>
+<span style="font-weight: bold;">[HDRINFO]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">file=<span style="font-style: italic;">&lt;header
+information file path&gt;</span></span><br style="font-weight: bold;">
+<br>
+/*this points to the file that has the template for the information to
+be appended to the headers. This template can have information on the
+controller, serial numbers, or any defined testpoint (Like power
+supplies,
+etc). This template is generated in memory as a 2DARR variable that can
+be
+added to the headers by adding the right entry on the main header
+template
+file (see <a href="../GFITS_User_Manual.html">GFITS</a> manual
+for info
+on this)<br>
+<br>
+<span style="font-weight: bold;">[DACS]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">file=<span style="font-style: italic;">&lt;dacs
+definition file path&gt;</span></span><br style="font-weight: bold;">
+<br>
+/*this points to the file that defines the DACS, so they can be
+written/read by name and phisycal unit (voltage or current) rather than
+ADUs*/<br>
+<br>
+<span style="font-weight: bold;"><a name="macros"></a>[MACROS]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">dir=<span style="font-style: italic;">&lt;default
+directory for macros path&gt;</span></span><br style="font-weight: bold; font-style: italic;">
+<br>
+/*this points to the directory where the macros are by default. If a
+macro is called without path, it will look here for it*/<br>
+<br>
+<span style="font-weight: bold;">[LOG]</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">log =<span style="font-style: italic;">&lt;yes|no&gt;</span></span><br style="font-weight: bold;">
+<span style="font-weight: bold;">file=&lt;<span style="font-style: italic;">logpath file&gt;</span></span><br style="font-weight: bold;">
+<br style="font-weight: bold;">
+<br>
+<span style="font-weight: bold;"></span><br>
+<br>
+Note tha many entries here are "optional", and no all of the controller
+will have/support them (like REGS, DACS, TP, etc).<br>
+<br>
+Since almost all the files are controller-dependent, we will describe
+the ones for the supported controllers:<br>
+<br>
+- <a href="SDSU/DHE_SDSU_index.html">San Diego State University,
+generation III</a><br>
+<a href="FLI/DHE_FLI_index.html">- Finger Lakes Instruments</a><br>
+- Palomar Camera 8&nbsp;<br>
+- Santa Barbara Instruments<br>
+<br>
+</small></small></big></big>
+</body></html>

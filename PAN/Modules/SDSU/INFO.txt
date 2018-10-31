@@ -1,0 +1,9 @@
+Name= SDSU
+Description= San Diego State University detector controller, Generation III
+Type= non-resident
+Class = Hardware
+Dynamic_Calls= 2
+Clib= yes
+Driver= loadable
+Standard= no
+keywords= controller, detector, image, optical, infrared

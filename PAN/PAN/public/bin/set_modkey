@@ -1,0 +1,105 @@
+#!/bin/csh -f
+
+rm -Rf ./tmpfile
+
+set hilite = 1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+
+if ("$1" == "-help") then
+	goto usage
+endif
+
+if ($#argv < 2) then
+        ERR "bad usage"
+	goto usage
+endif
+
+if (! -e "$1") then
+	ERR "file $1 does not exists"
+	exit 1
+endif
+
+set MODCFG = $1
+set SECTION = $2
+set KN = $3
+set VALUE = $4
+
+set nlines=`cat $MODCFG | wc | awk '{print $1}'`
+
+set sfound = 0
+set lineN = 1
+while ($lineN <= $nlines)
+	set line = `head -$lineN $MODCFG | tail -1`
+	set key = `echo "$line" | egrep ]`
+	if ("$key" != "") then
+			set key = `echo "$line" | egrep $SECTION`
+			if ("$key" != "") then
+				set sfound = 1
+				echo "$line" >> tmpfile
+				echo "$line (1)"
+				set newsec = 0
+				set added = 0
+				while ($newsec == 0)
+					@ lineN = $lineN + 1
+					if ($lineN > $nlines) then
+                                                if ($added == 0) then
+                                                        echo "$KN=$VALUE" >> tmpfile
+                                                        echo "$KN=$VALUE (2)"
+                                                        set added = 1
+                                                endif
+						break
+					endif
+					set line = `head -$lineN $MODCFG | tail -1`
+					set key = `echo "$line" | egrep ]`
+					if ("$key" != "") then
+						set newsec = 1
+						if ($added == 0) then
+							echo "$KN=$VALUE" >> tmpfile
+							echo "$KN=$VALUE (3)"
+							set added = 1
+						endif
+						@ lineN = $lineN - 1
+						break
+					endif
+					set key = `echo "$line" | egrep $KN`
+					if ("$key" != "") then
+						echo "$KN=$VALUE" >> tmpfile
+						echo "$KN=$VALUE (4)"
+						set added = 1
+					else
+						echo "$line" >> tmpfile
+						echo "$line (5)"
+					endif
+				end
+			else
+				echo "$line" >> tmpfile
+				echo "$line (6)"
+			endif
+			
+	else
+		echo "$line" >> tmpfile
+		echo "$line (7)"
+	endif
+
+	@ lineN = $lineN + 1
+end
+
+rm -Rf $MODCFG
+mv tmpfile $MODCFG
+rm -Rf tmpfile
+
+exit 0
+
+usage:
+echo "usage: set_modkey <file> <section> <key> <value> [-help]"
+echo "	where:"
+echo "		module_cfg_path: path to module config (usually xxx/MOD_GRTD.cfg)"
+echo "		fifo_path: path to the fifo (including the fifo name)"
+echo "		-c: create the fifos (you would need having the right permissions)"
+echo "		-ss <dispname>: create and starting script for the displayer"
+echo "		-help: shows this help"
+echo ""
+
+exit 1

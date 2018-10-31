@@ -1,0 +1,36 @@
+	The files 'tcsCmd.c' and 'tcsCmd.h' contains the code to get
+access to the TCS commands. You should compile and link the program
+with the rest of your application.
+
+	Useage is as follows:
+
+- Open the connection:
+
+	char name[40];
+	.
+	.
+	.
+	strcpy(name, "ctiox0");	/* ctiox0 is the name of the TCS computer  */
+	if (tcsOpen(name)) {	/* if not zero then it's an error    	   */
+		.
+		.
+	}
+	.
+	.
+
+- Communicate with the TCS:
+
+	char line[128];
+	.
+	.
+	.
+	strcpy(line, "info");	/* get coordinates with command 'info'	  */
+	if (sendTCS(line)) {	/* if not zero then it's an error	  */
+		.
+		.
+	}
+	.			/* the answer is in 'line'		  */
+	.
+
+- Make sure the label  TCP_MSG_PROG in the tcsCmd.h file match the
+  SRV_MSG_PROG label in the server side.

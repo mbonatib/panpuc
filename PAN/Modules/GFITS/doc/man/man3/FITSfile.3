@@ -1,0 +1,421 @@
+.TH "FITSfile" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FITSfile \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <fitsio_64.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBfilehandle\fP"
+.br
+.ti -1c
+.RI "int \fBdriver\fP"
+.br
+.ti -1c
+.RI "int \fBopen_count\fP"
+.br
+.ti -1c
+.RI "char * \fBfilename\fP"
+.br
+.ti -1c
+.RI "int \fBvalidcode\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBfilesize\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBlogfilesize\fP"
+.br
+.ti -1c
+.RI "int \fBlasthdu\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBbytepos\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBio_pos\fP"
+.br
+.ti -1c
+.RI "int \fBcurbuf\fP"
+.br
+.ti -1c
+.RI "int \fBcurhdu\fP"
+.br
+.ti -1c
+.RI "int \fBhdutype\fP"
+.br
+.ti -1c
+.RI "int \fBwritemode\fP"
+.br
+.ti -1c
+.RI "int \fBmaxhdu\fP"
+.br
+.ti -1c
+.RI "int \fBMAXHDU\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP * \fBheadstart\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBheadend\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBnextkey\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBdatastart\fP"
+.br
+.ti -1c
+.RI "int \fBimgdim\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBimgnaxis\fP [99]"
+.br
+.ti -1c
+.RI "int \fBtfield\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBorigrows\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBnumrows\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBrowlength\fP"
+.br
+.ti -1c
+.RI "\fBtcolumn\fP * \fBtableptr\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBheapstart\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBheapsize\fP"
+.br
+.ti -1c
+.RI "int \fBrequest_compress_type\fP"
+.br
+.ti -1c
+.RI "long \fBrequest_tilesize\fP [MAX_COMPRESS_DIM]"
+.br
+.ti -1c
+.RI "float \fBrequest_hcomp_scale\fP"
+.br
+.ti -1c
+.RI "int \fBrequest_hcomp_smooth\fP"
+.br
+.ti -1c
+.RI "int \fBcompressimg\fP"
+.br
+.ti -1c
+.RI "char \fBzcmptype\fP [12]"
+.br
+.ti -1c
+.RI "int \fBcompress_type\fP"
+.br
+.ti -1c
+.RI "int \fBzbitpix\fP"
+.br
+.ti -1c
+.RI "int \fBzndim\fP"
+.br
+.ti -1c
+.RI "long \fBznaxis\fP [MAX_COMPRESS_DIM]"
+.br
+.ti -1c
+.RI "long \fBtilesize\fP [MAX_COMPRESS_DIM]"
+.br
+.ti -1c
+.RI "long \fBmaxtilelen\fP"
+.br
+.ti -1c
+.RI "long \fBmaxelem\fP"
+.br
+.ti -1c
+.RI "int \fBcn_compressed\fP"
+.br
+.ti -1c
+.RI "int \fBcn_uncompressed\fP"
+.br
+.ti -1c
+.RI "int \fBcn_zscale\fP"
+.br
+.ti -1c
+.RI "int \fBcn_zzero\fP"
+.br
+.ti -1c
+.RI "int \fBcn_zblank\fP"
+.br
+.ti -1c
+.RI "double \fBzscale\fP"
+.br
+.ti -1c
+.RI "double \fBzzero\fP"
+.br
+.ti -1c
+.RI "double \fBcn_bscale\fP"
+.br
+.ti -1c
+.RI "double \fBcn_bzero\fP"
+.br
+.ti -1c
+.RI "int \fBzblank\fP"
+.br
+.ti -1c
+.RI "int \fBrice_blocksize\fP"
+.br
+.ti -1c
+.RI "int \fBrice_bytepix\fP"
+.br
+.ti -1c
+.RI "float \fBquantize_level\fP"
+.br
+.ti -1c
+.RI "float \fBhcomp_scale\fP"
+.br
+.ti -1c
+.RI "int \fBhcomp_smooth\fP"
+.br
+.ti -1c
+.RI "int \fBtilerow\fP"
+.br
+.ti -1c
+.RI "long \fBtiledatasize\fP"
+.br
+.ti -1c
+.RI "int \fBtiletype\fP"
+.br
+.ti -1c
+.RI "void * \fBtiledata\fP"
+.br
+.ti -1c
+.RI "char * \fBtilenullarray\fP"
+.br
+.ti -1c
+.RI "int \fBtileanynull\fP"
+.br
+.ti -1c
+.RI "char * \fBfilename\fP"
+.br
+.ti -1c
+.RI "int \fBonly_one\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP * \fBheadstart\fP"
+.br
+.ti -1c
+.RI "\fBLONGLONG\fP \fBENDpos\fP"
+.br
+.ti -1c
+.RI "\fBtcolumn\fP * \fBtableptr\fP"
+.br
+.ti -1c
+.RI "int \fBrequest_quantize_dither\fP"
+.br
+.ti -1c
+.RI "int \fBrequest_dither_offset\fP"
+.br
+.ti -1c
+.RI "int \fBrequest_lossy_int_compress\fP"
+.br
+.ti -1c
+.RI "int \fBquantize_dither\fP"
+.br
+.ti -1c
+.RI "double \fBcn_actual_bzero\fP"
+.br
+.ti -1c
+.RI "int \fBdither_offset\fP"
+.br
+.ti -1c
+.RI "void * \fBtiledata\fP"
+.br
+.ti -1c
+.RI "char * \fBtilenullarray\fP"
+.br
+.ti -1c
+.RI "char * \fBiobuffer\fP"
+.br
+.ti -1c
+.RI "long \fBbufrecnum\fP [NIOBUF]"
+.br
+.ti -1c
+.RI "int \fBdirty\fP [NIOBUF]"
+.br
+.ti -1c
+.RI "int \fBageindex\fP [NIOBUF]"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int \fBFITSfile::ageindex\fP[NIOBUF]"
+.PP
+.SS "long \fBFITSfile::bufrecnum\fP[NIOBUF]"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::bytepos\fP"
+.PP
+.SS "double \fBFITSfile::cn_actual_bzero\fP"
+.PP
+.SS "double \fBFITSfile::cn_bscale\fP"
+.PP
+.SS "double \fBFITSfile::cn_bzero\fP"
+.PP
+.SS "int \fBFITSfile::cn_compressed\fP"
+.PP
+.SS "int \fBFITSfile::cn_uncompressed\fP"
+.PP
+.SS "int \fBFITSfile::cn_zblank\fP"
+.PP
+.SS "int \fBFITSfile::cn_zscale\fP"
+.PP
+.SS "int \fBFITSfile::cn_zzero\fP"
+.PP
+.SS "int \fBFITSfile::compress_type\fP"
+.PP
+.SS "int \fBFITSfile::compressimg\fP"
+.PP
+.SS "int \fBFITSfile::curbuf\fP"
+.PP
+.SS "int \fBFITSfile::curhdu\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::datastart\fP"
+.PP
+.SS "int \fBFITSfile::dirty\fP[NIOBUF]"
+.PP
+.SS "int \fBFITSfile::dither_offset\fP"
+.PP
+.SS "int \fBFITSfile::driver\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::ENDpos\fP"
+.PP
+.SS "int \fBFITSfile::filehandle\fP"
+.PP
+.SS "char* \fBFITSfile::filename\fP"
+.PP
+.SS "char* \fBFITSfile::filename\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::filesize\fP"
+.PP
+.SS "float \fBFITSfile::hcomp_scale\fP"
+.PP
+.SS "int \fBFITSfile::hcomp_smooth\fP"
+.PP
+.SS "int \fBFITSfile::hdutype\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::headend\fP"
+.PP
+.SS "\fBLONGLONG\fP* \fBFITSfile::headstart\fP"
+.PP
+.SS "\fBLONGLONG\fP* \fBFITSfile::headstart\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::heapsize\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::heapstart\fP"
+.PP
+.SS "int \fBFITSfile::imgdim\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::imgnaxis\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::io_pos\fP"
+.PP
+.SS "char* \fBFITSfile::iobuffer\fP"
+.PP
+.SS "int \fBFITSfile::lasthdu\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::logfilesize\fP"
+.PP
+.SS "long \fBFITSfile::maxelem\fP"
+.PP
+.SS "int \fBFITSfile::MAXHDU\fP"
+.PP
+.SS "int \fBFITSfile::maxhdu\fP"
+.PP
+.SS "long \fBFITSfile::maxtilelen\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::nextkey\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::numrows\fP"
+.PP
+.SS "int \fBFITSfile::only_one\fP"
+.PP
+.SS "int \fBFITSfile::open_count\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::origrows\fP"
+.PP
+.SS "int \fBFITSfile::quantize_dither\fP"
+.PP
+.SS "float \fBFITSfile::quantize_level\fP"
+.PP
+.SS "int \fBFITSfile::request_compress_type\fP"
+.PP
+.SS "int \fBFITSfile::request_dither_offset\fP"
+.PP
+.SS "float \fBFITSfile::request_hcomp_scale\fP"
+.PP
+.SS "int \fBFITSfile::request_hcomp_smooth\fP"
+.PP
+.SS "int \fBFITSfile::request_lossy_int_compress\fP"
+.PP
+.SS "int \fBFITSfile::request_quantize_dither\fP"
+.PP
+.SS "long \fBFITSfile::request_tilesize\fP"
+.PP
+.SS "int \fBFITSfile::rice_blocksize\fP"
+.PP
+.SS "int \fBFITSfile::rice_bytepix\fP"
+.PP
+.SS "\fBLONGLONG\fP \fBFITSfile::rowlength\fP"
+.PP
+.SS "\fBtcolumn\fP* \fBFITSfile::tableptr\fP"
+.PP
+.SS "\fBtcolumn\fP* \fBFITSfile::tableptr\fP"
+.PP
+.SS "int \fBFITSfile::tfield\fP"
+.PP
+.SS "int \fBFITSfile::tileanynull\fP"
+.PP
+.SS "void* \fBFITSfile::tiledata\fP"
+.PP
+.SS "void* \fBFITSfile::tiledata\fP"
+.PP
+.SS "long \fBFITSfile::tiledatasize\fP"
+.PP
+.SS "char* \fBFITSfile::tilenullarray\fP"
+.PP
+.SS "char* \fBFITSfile::tilenullarray\fP"
+.PP
+.SS "int \fBFITSfile::tilerow\fP"
+.PP
+.SS "long \fBFITSfile::tilesize\fP"
+.PP
+.SS "int \fBFITSfile::tiletype\fP"
+.PP
+.SS "int \fBFITSfile::validcode\fP"
+.PP
+.SS "int \fBFITSfile::writemode\fP"
+.PP
+.SS "int \fBFITSfile::zbitpix\fP"
+.PP
+.SS "int \fBFITSfile::zblank\fP"
+.PP
+.SS "char \fBFITSfile::zcmptype\fP"
+.PP
+.SS "long \fBFITSfile::znaxis\fP"
+.PP
+.SS "int \fBFITSfile::zndim\fP"
+.PP
+.SS "double \fBFITSfile::zscale\fP"
+.PP
+.SS "double \fBFITSfile::zzero\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

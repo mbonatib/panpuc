@@ -1,0 +1,32 @@
+sample shared memory test program
+---------------------------------
+
+This short example gets a shared memory segment created by panview modules' GFITS, and transmits the fits image from the shared memory segment to the specified host:port.
+
+The program has two threads: the main thread, which is the one that gets the segment, waits for messages from GFITS and
+sends the image to the remote host, and the tcpserver thread, that is the one that allows external commands to be given
+to the dispatcher itself.
+
+How it works
+------------
+
+The GFITS module creates a shared memory segment, and everytime a fits image is ready on the segment, it sends a message, through a queue.
+The dispatcher receives the message, the points to the shared memory segment and sends the image to a remote server.
+When GFITS exists (panview shuts down), it sends a message that causes the dispatcher to deattach the segment.
+
+In parallel to this (other thread), there is a tcpserver, listening on port 5004. External commands can be given. In the
+curent example only two commands are accepted:
+
+SHUTDOWN: causes the program to deattach the segment, and stops both threads
+SETDEST <host> <port>: changes the destination to which the fits image will be sent (example: SETDEST localhost 5001)
+
+The shared memory part is all handled byy a shared library (libclishm.so), and all the image seniding is handled by another shared library (libfsender.so)
+
+
+To compile
+---------
+
+just type "make", and it should build noth shared libraries and also the main program (dispatcher)
+
+
+

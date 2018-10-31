@@ -1,0 +1,269 @@
+#! /bin/csh -f
+
+setenv ARCROOT $PAN_ROOT
+set hilite=1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+
+set modsdir = ""
+set newmoddir = "."
+set DELETE_OLD = 0
+
+if ($#argv < 1) then
+	goto usage
+	exit 1
+endif
+
+set module = "$1"
+set configdir = ""
+set update_automods = 1
+set autoload = 1
+set autostart = 0
+
+shift
+
+if ("$1" == "") then
+	goto start
+endif
+
+while ("$1" != "")
+	switch ("$1")
+	case -h:
+		goto usage
+		breaksw
+	case -delete:
+		set DELETE_OLD = 1
+		breaksw
+	case -noautomods:
+		set update_automods = 0
+		breaksw
+	case -autostart:
+		set autostart = 1
+		breaksw
+	case -noautoload:
+		set autoload = 0
+		breaksw
+	case -configdir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-configdir <dir>' switch"
+			exit 1
+		endif
+		set configdir = "$1"
+		breaksw
+	case -modsdir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-modsdir <dir>' switch"
+			exit 1
+		endif
+		set modsdir = "$1"
+		breaksw
+	case -newmoddir:
+		if ("$2" != "") then
+			shift
+		else
+			ERR "missing argument to '-newmoddir <dir>' switch"
+			exit 1
+		endif
+		set newmoddir = "$1"
+		breaksw
+	default:
+		ERR  "install: unknown argument $1"
+		goto usage
+	endsw
+
+	if ("$2" == "") then
+		break
+	else
+		shift
+	endif
+end
+
+start:
+if ("$DELETE_OLD" == "1") then
+	set delmod = "-delete"
+else
+	set delmod = ""
+
+if ("$modsdir" == "") then
+	set env_arcroot = `echo $ARCROOT`
+	if ("$env_arcroot" == "") then
+                set currdir = `cd ../../../; pwd`
+                setenv ARCROOT $currdir
+        endif
+        set modsdir = "$ARCROOT/PAN/Modules"
+endif
+set bindir = "$modsdir/../public/bin"
+
+if (! -e $modsdir) then
+	echo "ERROR directory $modsdir was not found"
+	echo "aborting"
+	exit 1
+endif
+if (! -e $newmoddir) then
+	echo "ERROR directory $newmoddir was not found"
+	echo "aborting"
+	exit 1
+endif
+
+set currdir = `pwd`
+
+$bindir/PM_uncompress $newmoddir $module
+
+set VER = `$bindir/PM_extract_version $newmoddir $module`
+set OLD_VER = `$bindir/PM_extract_version $modsdir $module`
+
+if ("$VER" == "") then
+	echo "ERROR could not extract version from $newmoddir/$module"
+	exit 1
+endif
+if ("$OLD_VER" == "") then
+	echo "WARNING could not extract version from $modsdir/$module"
+	echo "assuming a very old 0.0"
+	set OLD_VER = 0.0
+endif
+set isnew = 0
+
+if ("$OLD_VER[1]" == "ERROR") then
+	if ("$OLD_VER[2]" == "module") then
+		echo "This is a new module"
+		set isnew = 1
+		goto check_deps
+	else
+		echo "ERROR directory $modsddir for old module was not found"
+		echo "aborting"
+		exit 1
+	endif
+endif
+
+set compar = `$bindir/PM_compare_versions $VER $OLD_VER`
+if ("$compar" == "0") then
+	echo "modules have exactly the same version ($VER)"
+	echo -n "do you want to continue? (n)"
+	set ans = "$<"
+        if ("$ans" == "") then
+              set ans = "n"
+        endif
+        if ("$ans" == "n" || "$ans" == "no") then
+		echo "installation aborted"
+		exit 0
+	endif
+	
+endif
+if ("$compar" == "2") then
+	echo "installed module ($OLD_VER) is newer than the one you want to install ($VER)"
+	echo -n "do you want to continue? (n)"
+	set ans = "$<"
+        if ("$ans" == "") then
+              set ans = "n"
+        endif
+        if ("$ans" == "n" || "$ans" == "no") then
+	     echo "installation aborted"
+             exit 0
+        endif
+	echo ""
+	echo "Dependencies check will be skipped. You are doing this at your own risk ..."
+	echo ""
+	sleep 2
+	goto after_deps
+endif
+
+check_deps:
+
+echo "checking dependencies ..."
+set req_depmods = `$bindir/PM_check_deps $newmoddir $module $modsdir`
+if ("$req_depmods" != "OK") then
+	if ("$req_depmods[1]" == "ERROR") then
+		echo "dependencies file was not found"
+		echo -n "do you want to continue the installation? (no) "
+		set ans = "$<"
+        	if ("$ans" == "") then
+              		set ans = "n"
+        	endif
+        	if ("$ans" == "n" || "$ans" == "no") then
+			echo "installation aborted"
+			exit 1
+		endif
+		echo "dependencies check will be skipped. The module may not work..."
+		sleep 2
+		goto after_deps
+	endif
+	echo "The following modules are requiered to be updated: $req_depmods"
+	echo -n "do you want to update them? (yes)"
+	set ans = "$<"
+        if ("$ans" == "") then
+              set ans = "y"
+        endif
+        if ("$ans" == "n" || "$ans" == "no") then
+		echo -n "do you want to continue the installation? (no) "
+		set ans = "$<"
+        	if ("$ans" == "") then
+              		set ans = "n"
+        	endif
+        	if ("$ans" == "n" || "$ans" == "no") then
+			echo "installation aborted"
+			exit 1
+		else
+			echo "you are doing this at your won risk!"
+			sleep 2
+			goto after_deps
+		endif
+	endif
+	while ("$req_depmods" != "") 
+		echo "getting $req_depmods[1] ..."
+		set res = `$bindir/PM_get_last_module $req_depmods[1]`
+		if ("$res[1]" == "ERROR") then
+			echo "ERROR getting $red_depmods[1]"
+		else
+			$bindir/PM_uncompress . $req_depmods[1]
+			$bindir/PM_copy_module . $req_depmods[1] $modsdir $delmod
+		endif
+		shift req_depmods
+	end
+		
+else
+	echo "dependencies OK"
+endif
+
+after_deps:
+	
+$bindir/PM_copy_module $newmoddir $module $modsdir $delmod
+
+echo "verifying all modules dependencies ..."
+$bindir/PM_verify_depmods $modsdir
+
+if ("$isnew" == "1") then
+	echo -n "do you want to update automodules? (y)"
+	set ans = "$<"
+        if ("$ans" == "") then
+              set ans = "y"
+        endif
+        if ("$ans" == "n" || "$ans" == "no") then
+             echo "installation finished"
+             echo "you need to edit the automodules file in order to make the new module available"
+             echo "you can call PM_update_automodules for this, or do it manually"
+             exit 0
+	else
+             echo " then you need to edit the automodules file in order to make the new module available"
+             echo "you can call PM_update_automodules for this, or do it manually"
+             echo "installation finished"
+             exit 0
+        endif
+endif
+echo ""
+echo "installation finished"
+exit 0
+
+usage:
+	echo ""
+	echo "usage: PM_install <module> [-h] [-delete] [-modsdir <dir>] [-newmoddir <dir>] [-nconfirm]"
+	echo "		where:"
+	echo "		-h	= displays this help"
+	echo "		-delete = deletes the old module rather than backing it up"
+	echo "		-modsdir = modules directory. <environment ARCROOT> by default"
+	echo "		-newmoddir = directory of module under test. Current (./) by default"
+	echo "		-nconfirm = The script will proceed without questions. Interactive mode off"

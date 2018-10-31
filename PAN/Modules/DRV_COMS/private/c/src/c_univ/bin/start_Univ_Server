@@ -1,0 +1,32 @@
+#! /bin/csh -f
+
+
+if ("$1" == "-force") then
+	set force = 1
+else
+	set force = 0
+endif
+ 
+rm -f /tmp/univserverps
+ps -awx > /tmp/univserverps
+set procid = ""
+set procid  = $procid" "`egrep univ_server /tmp/univserverps |awk '{print $1}'`
+if ($procid != "") then
+	if ($force == 0) then
+		echo "Univ Server running"
+		goto ciao
+	else
+		echo "restarting Univ Server ..."
+		kill -9 $procid[1]
+		sleep 6
+	endif
+endif
+if ( $#procid <= 1 ) then
+	echo "Starting Univ Server ..."
+	$HOME/Univ_Server/bin/univ_server type serial, port 0, brate 19200, timeout 2 &
+else
+	echo "Univ Server running"
+endif
+
+ciao:
+rm -f /tmp/auxmonshot

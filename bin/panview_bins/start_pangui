@@ -1,0 +1,67 @@
+#!/bin/csh -f
+
+if ($#argv < 1) then
+	echo "usage: start_pangui <name> [cmdargs ...]"
+	exit -1
+endif
+
+set DIR = $1
+shift
+
+set cmdargs = ""
+set NAME = ""
+
+while ("$1" != "")
+		case -app:
+			set NAME = $2
+			set cmdargs = "$cmdargs $1"
+			breaksw
+		default:
+			set cmdargs = "$cmdargs $1"
+	endsw
+	shift
+end
+
+set ISSET = `setenv | egrep PAN_ROOT_FPAS`
+if ("$ISSET" == "") then
+        setenv PAN_ROOT_FPAS $PAN_ROOT/fpas
+endif
+
+set APP = $PAN_ROOT_FPAS/$DIR
+if ("$NAME" == "") then
+	set NAME = $DIR
+endif
+set cmdset = `pan app commods`
+set caltech = `echo $cmdset | awk -F CALTECH '{print $2}'`
+if ("$caltech" == "") then
+        echo "no server running caltech protocol"
+        exit 1
+endif
+echo "found calecth protocol"
+cd $PAN_ROOT/PAN/public/bin/
+set ISSET = `setenv | egrep panport`
+if ("$ISSET" == "") then
+	set nbpanport = `echo $caltech | awk -F multport= '{print $2}' | awk -F " " '{print $1}'`
+endif
+set ISSET = `setenv | egrep nbpanport`
+if ("$ISSET" == "") then
+	set panport = `echo $caltech | awk -F cmdport= '{print $2}' | awk -F " " '{print $1}'`
+endif
+set ISSET = `setenv | egrep panasyncport`
+if ("$ISSET" == "") then
+	set panasyncport = `echo $caltech | awk -F asyncport= '{print $2}' | awk -F " " '{print $1}'`
+endif
+set ISSET = `setenv | egrep panhost`
+if ("$ISSET" == "") then
+	set panhost = "localhost"
+endif
+echo "$panport, $nbpanport, $panasyncport"
+cd -
+set BINDIR = $PAN_ROOT/bin/
+#be sure labview is not interactive ...
+$BINDIR/set_rc labview.EnableAutomaticErrorHandling: False
+$BINDIR/set_rc labview.defaultErrorHandlingForNewVIs: False
+
+cd $BINDIR
+./start_gui pan$NAME -apphost $panhost -waitport $panport -cmdport $nbpanport -asyncport $panasyncport -app $NAME $cmdargs
+cd -

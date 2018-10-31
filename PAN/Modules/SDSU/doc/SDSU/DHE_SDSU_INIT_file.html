@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  <title>DHE_CommandList</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+<body>
+<h2>3.1- SDSU Initialization file</h2>
+<span style="font-weight: bold;">[Device]</span><br style="font-weight: bold;"><small><span style="font-weight: bold;">devno=0</span><br style="font-weight: bold;"><span style="font-weight: bold;">type=&lt;genIII | sim&gt;</span><br style="font-weight: bold;"><span style="font-weight: bold;">link=pcix</span></small><br><br>/*<span style="font-weight: bold;">devno</span> is the device number, 0 for regular single channel cards*/<br>/*<span style="font-weight: bold;">type</span> is the hardware type. Only accepted values are genIII (controller present) or sim (simulation). This<br>keyword can be override at start type by passing the startup switch "-hardtype &lt;type&gt;"). For example:<br>start_panapp _myapp -hardtype sim<br>would start in sim mode even if in the config file "genIII" was specified.*/<br>/*<span style="font-weight: bold;">link</span> is the link (media) type. Currently only supported is pcix (to be added: pcie)<br><br>
+<b> [Lod]</b><br>
+<small><b>Utility</b> = <span style="font-weight: bold; font-style: italic;">&lt;utility
+.lod file path | "none"&gt;</span><br><b> Timing</b> = <i style="font-weight: bold;">&lt;timing board .lod
+file path | "none"&gt;</i><br><b> PCI</b>=</small>
+
+<i><small><span style="font-weight: bold;">&lt;pci .lod file path
+| "none"&gt;</span></small><br>
+</i><br>
+/* path where to find the DSP ".lod" files for utility, timing and pci
+boards. If "none" is indicated, then that upload is omitted. The path must include the lod file full name, including extension. <br>The path can be relative, absolute, or it can use ebviromental variables as ${var}. For example ${HOME}/mydsp/tim.lod*/<br>
+<br>
+<b> [Geometry]</b><br>
+<b> FPA</b>=<i style="font-weight: bold;">&lt;fpa name&gt;</i><span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<br>
+<b> modifiers</b>=<i style="font-weight: bold;">&lt;modifier1 value1,
+modifier2 value2, ...&gt;</i><span style="font-weight: bold;"> &nbsp;</span>
+&nbsp; &nbsp; <br>
+<br>
+/*the FPA (Focal Plane Array) to be used. This is passed to the <a href="../../GEOM/GEOM_User_manual.html">GEOM</a> module to be parsed*/<br>
+/*the modifiers section describes any modifier to the size that may
+apply for the detector, for example&nbsp;overscan, prescans, etc). The
+modifiers must to be defined on the FPA definition. See the example at
+the end<br>If this entry is not present, it uses the ones defined in the MOD_DHE.cfg file*/<br>
+<i></i><br>
+<b>[Readout]</b><br>
+<b> PixelTime</b> = <i style="font-weight: bold;">&lt;pixel time, in
+usecs]</i><br>
+<b>SkipPixel</b> = <i style="font-weight: bold;">&lt;time to skip a
+pixel, in usecs&gt;</i><br>
+<b>ShiftRow</b> = <i style="font-weight: bold;">&lt;time to shift a
+row, in usecs&gt;</i><br>
+<b>SkipRow</b> = <i><span style="font-weight: bold;">&lt;time to skip
+a row, in usecs&gt;</span><br>
+</i><span style="font-weight: bold;">known_overhead</span><i>=<span style="font-weight: bold;">&lt;know overhead time, in msecs&gt;</span><br style="font-weight: bold;">
+<br>
+/*</i>This is in formation requiered to know what the read time will
+be, since it cannot be normally read from the DSP. However, the SDSU
+module implements a DSP command ('RFM') that will bring the total read
+time from the DSP. If that command is not available on the loaded DSP,
+then it wil use these numbers to calculate the total expected read
+time*/<br>
+<br>
+<b> [Misc]<br>transfile= &lt;path to translations file&gt;<br></b>
+<b> ReadoutMode</b> = <i style="font-weight: bold;">&lt;readout
+type&gt;</i><span style="font-weight: bold;"> &nbsp; &nbsp;</span><br>
+<b> Commands</b> = <i style="font-weight: bold;">&lt;list of commands
+to execute after all the
+initialization has been done&gt; &nbsp;</i><br style="font-weight: bold;">
+<br>/*The translations file, if specified, translate between high level commands and DSP commands or memory<br>locations. Explanation on the syntax of this file provided in <a href="SDSU_translations.html">SDSU_translations.html</a><br>
+/*the ReadoutMode is the initial readmode (for example, quad or left
+amplifiers, etc). This mode must be defined (available) from the FPA
+definitions files*/<br>
+/*Commands are sepatared by
+&nbsp;comma. If a path is specified, it assumes that it is a macro (see
+the command list)*/<br>
+<br>
+<br>
+All the paths can be relative or absolute<br>
+<br>
+<u><i><span style="font-weight: bold;">Example</span>:</i></u> <i><b>P60.conf
+(</b></i>configuration file for the imager on the robotic 60 inches
+telescope at Palomar)<br>
+<br>
+<i style="font-weight: bold;">[Lod]<br>
+Utility = util.lod&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </i><i>/*</i>This is a relative
+path, indicating
+that the file is in the same directory that this init file is<i>. </i>It
+can also be indicated as "./&lt;name&gt;"<i>*/</i><i style="font-weight: bold;"><br>
+Timing = tim.lod<br>
+PCI=none<br>
+[Geometry]<br>
+FPA = P60<br>
+modifiers ="preskips 24 overscan 64"&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</i><i> /*</i>indicates
+24 prescans and 64 overscan. This will modify the actual size of the
+image on disk<i>*/</i><i style="font-weight: bold;"><br>
+[Readout]<br>
+PixelTime = 3<br>
+SkipPixel = 0.1<br>
+ShiftRow = 9<br>
+SkipRow = 2.9<br>
+[Misc]<br>
+ReadoutMode = left<br>
+Commands = P60_init.mc</i><br style="font-weight: bold;">
+<br>
+The "left" readmode must be available on the defniton of the P60 FPA.
+The macro specified for the initial commands (P60_init.mc) may look
+like:<br>
+<br>
+<i style="font-weight: bold;">SET multipleextensions yes<br>
+DO power on<br>
+SET autoshutter on<br>
+SET idle on<br>
+SET roi 513 513 1024 1024<br>
+SET binning 2 2<br>
+...<br>
+<br>
+</i><br>
+<i> <br>
+</i><br>
+<br>
+<br>
+&nbsp;<br>
+<br>
+</body></html>

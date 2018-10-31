@@ -1,0 +1,1135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <title>GEOMETRY Module User manual</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+<body>
+
+
+
+
+<h1>DET_DATABASE User Manual</h1>
+
+
+
+
+
+
+
+<big style="font-weight: bold;"><br>
+
+
+
+
+Introduction</big><br>
+
+
+
+
+<br>
+
+The Detector Database is a set of ascii files that describe the FPA (focal plane array) in a detailed way. Fields include:<br>
+
+<br>
+
+
+
+
+- sizes per amplifer, as well as total sizes in either direction (columns
+and rows), including any "modifier" to the actual data area (like overscan,
+prescans, etc)<br>
+
+
+
+
+- Binning, ROI <br>
+
+- Manufacturer, detector information (like serial number, type, manufacturer's and user-measured parameters, etc)<br>
+
+- All the above information is per-readout mode. If an FPA has more than one readout
+mode, then all the above information will change accordingly depending on
+the selected one<br>
+
+<br>
+
+<br>
+
+The GEOM module uses these information in order to calculate the
+size/information of the images that will be generated. This information
+is normally kept separated from the GEOM module itself so we avoid
+having to "update" the whole GEOM module simply because we are adding a
+new FPA. <br>
+
+New files are created when a new FPA needs to be described.<br>
+
+<br>
+
+We will first describe each directory/file type, and at the end we will
+describe how all these fields are linked toguether in order to have a
+comprehensive vision of the FPA<br>
+
+
+
+
+<big><br style="font-weight: bold;">
+
+
+<span style="font-weight: bold;"></span></big><br>
+
+
+<big style="font-weight: bold;"><big>Description Files.</big><br>
+
+
+</big><br>
+
+
+Inside the DET_DATABASE there are&nbsp;
+5 directories:<br>
+
+
+
+
+<br>
+
+
+
+
+FPA: This files must have an .fpa extension. Describes the basics of the
+FPA itself.<br>
+
+
+
+
+TYPES: .typ extension. This files describes the diferent types of detectors
+(generic models). 1file per detector&nbsp; type<br>
+
+
+
+
+DETECTORS: .det extension. This files describes the actual detector (the
+physical one, with an specific serial number) that will be used.<br>
+
+
+
+
+READMODES: .rdm extension. Here diferent types of readmodes can be defined,
+according to the amplifier position, etc.&nbsp;<br>
+
+
+
+
+MODIFIERS: .mod extension. Here are defined diferent types of extra-data
+sections, like "overscan", "prescan", etc.<br>
+
+<br>
+
+
+
+
+<br>
+
+
+
+
+<u><b><big>1.-FPA</big></b></u><br>
+
+
+
+
+<br>
+
+Describes the FPA itself. The name of the FPA will be the name of the
+.fpa file (for example, KIRMOS.fpa for the FPA that will be called
+KIRMOS)<br>
+
+
+
+
+The genarl Layout is:<br>
+
+
+
+
+<br>
+
+<span style="font-weight: bold;">
+
+
+[INFO]&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">INFO1=<span style="font-style: italic;">value1</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+.....</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">INFON=<span style="font-style: italic;">valueN</span></span><br style="font-weight: bold;">
+
+<br>
+
+/*basic FPA info, like mount design type, cabling, dates,
+etc. ANY key=value pair can be added. This is the info &nbsp;available
+for the headers through the GEOM template, using "fpainfo
+&lt;info&gt;"*/<br>
+
+<br>
+
+
+
+
+<br>
+
+<span style="font-weight: bold;">
+
+
+[DET_1]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+ID=<span style="font-style: italic;">&lt;Detector_ID&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+POSITION=<span style="font-style: italic;">(xcoord,ycoord) <br>INFO1=[val | expression | _evaluate_ &lt;expression&gt;] &nbsp; &nbsp;</span></span><br style="font-weight: bold;">
+
+
+
+
+<br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+[DET_2]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+......</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+[DET_N]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+.....</span><br>
+
+<br>
+
+/*Information for each detector in the FPA*/<br>
+
+/*the ID describes the detector ID, as usually &lt;type&gt;_&lt;serial
+number&gt;. The ID used is important, because it will use this name to
+search for the information of the detector*/<br>
+/*POSITION describes the lower-left corner that the detector ocuppies
+on the FPA, using as reference the lower-left corner of the FPA as
+(1,1). It can use the reserved keywords "cols" and/or "rows", meaning
+"whatever size the detector is". This is recommended rather than using
+direct numbers, because the expression will be still be valid if the
+user changes the detector size on the fly -or if bins the array*/<br>/*Any other key different from above will be added to the particular detector information -same effect as adding it*/<br>/*directly
+on the INFO section of the detector file (see below). If the info here
+uses the reserved keywords "cols" and/or "rows" it is assumed to be a
+numerical expression and it is evaluated. The key can also specify a
+numerical expression to be evaluated. See below, on the DETECTORS
+section formore information on this.*/<br>
+
+<br>
+
+
+
+
+[<span style="font-weight: bold;">FPAREADMODES]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+readreadmode1 = "<span style="font-style: italic;">&lt;type&gt;: det1_readmode det2_readmode ...... detN_readmode</span>"</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+......</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+readmodeM = "<span style="font-style: italic;">&lt;type&gt;: det1_readmode det2_readmode ...... detN_readmode</span>"</span><br>
+
+<br>
+
+/*The readmode describes how the FPA can be read. This can also state: */<br>/*<span style="font-weight: bold;">none</span>: that particular detector will NOT BE READ, so it will be skipped in that readmode*/<br>/*<span style="font-weight: bold; font-style: italic;">&lt;det_readmode&gt;_discarded&gt;: </span><span style="font-style: italic;"></span>If the key "_discarded" is appended to the readmode, then it is assumed that*/<br>/*this detector will be read,with teh specified readmode, but the data will be discarded (not written to disk)*/<br>/*"<span style="font-weight: bold; font-style: italic;">type</span>" can be: <span style="font-weight: bold; font-style: italic;">interleaved: </span>the detector will be read in an interleaved way:
+det1_pix1 det2_pix1 ... detN_pix1 det1_pix2 ....<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">ordered</span>: the detector will be completelly
+read in order: det1_pix1 det1_pix2 .... det1_pixZ det2_pix1 ....*/<br>
+
+
+
+
+/* <span style="font-weight: bold; font-style: italic;">Interleaved</span> is&nbsp; the most usual way.*/<br>
+
+
+
+
+/*The detector readmodes says the type of readout that will be performed per
+chip. See the TYPES and DETECTOR sections.<br>
+
+/*Note that the readmodes&nbsp; is a function of both detector type and
+FPA (amount of channels available on the fan-out board, for
+example).&nbsp;*/<br>
+
+/*The listed readmodes must be defined for the particular detector*/<br><br><br>
+
+<br>
+
+<span style="font-weight: bold;">[MODIFIERS]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">order='"<span style="font-style: italic;">modifier1</span> <span style="font-style: italic;">modifier2</span>"</span><br style="font-weight: bold;">
+
+<br>
+
+/*modifiers supported by the FPA. All the modifiers must be defined on the MODIFIERS directory*/<br>
+
+/*the modifiers will be added on the order specified, as "modifier1 &lt;data&gt; modifier2"<br>
+
+
+
+<br><br><span style="font-weight: bold;">[COORDSORIG]<br>origin=(xoff,yoff)<br>totfpasize=(xsize,ysize)<br><br>/*coordsorig </span>is<span style="font-weight: bold;"> </span>optional
+entry that specifies an offset to be given to all the final detector
+coordinates. This has only effect in the final image headers, and not
+in the actual geometry (data). The default value (if not stated) is
+(1,1). This has the same effect as issuing the "SET offcoords
+&lt;xoff&gt; &lt;yoff&gt;" to the <a href="../GEOM/GEOM_User_manual.html#offcoords">Geometry module</a><br>/*totfpasize
+is an optional entry that specifies the total size of the FPA. If not
+stated, the total size of the fpa will be the calculated maximum size
+according to the geometry + the coordinates offsets. This is basically
+assuming that the current FPA (described) will fit into a bigger FPA.
+If the ley totfpasize is specified, then that one is assumed to be the
+size of the bigger FPA. This has effects only on the headers, not in
+any data part*/<br><span style="font-weight: bold;"></span>
+
+<br style="text-decoration: underline; font-style: italic;">
+
+<span style="text-decoration: underline; font-style: italic;">Example:</span><span style="font-style: italic;"> <br>a) description of a simple Site 2K ccd imager (file P60.fpa)<br>
+
+<br>
+
+</span><small style="font-weight: bold; font-style: italic;">[INFO]<br>
+
+Mount="Dani Guzman, October 2002, 4 ch fan-out board, serial 201"<br>
+
+Controller="SDSU, generation III"<br>
+
+Software="ArcVIEW, version 3.2"<br>
+
+</small><small><br>
+
+/* for example, if the MOUNT information is desired in the headers,
+then the GEOM template should say somewhere: MOUNT = 'fpainfo
+Mount'&nbsp;*/<br>
+
+<br>
+
+</small><small style="font-weight: bold; font-style: italic;">[DET_1]<br>
+
+ID="Site424_122"<br>
+
+POSITION = (1,1)<br>
+
+<br>
+
+[MODIFIERS]<br>
+
+order='b_prescan b_overscan'<br>
+
+<br>
+
+[FPAREADMODES]<br>
+
+left="interleaved: left"<br>
+
+quad="interleaved: quad"</small>
+
+
+<br>
+
+<br>b) <span style="font-style: italic;">description of a samall 2-ccds mosaic<br></span><small style="font-weight: bold; font-style: italic;">[DET_1]<br>
+
+ID="Site424_122"<br>
+
+POSITION = (1,1)<br><br></small><small style="font-weight: bold; font-style: italic;">[DET_2]<br>
+
+ID="Site424_123"<br>
+
+POSITION = (cols+1,1)<br><br></small><small style="font-weight: bold; font-style: italic;">
+
+[MODIFIERS]<br>
+
+order='b_prescan b_overscan'</small><br><br><small style="font-weight: bold; font-style: italic;">
+
+[FPAREADMODES]<br>
+
+left="interleaved: left left"<br>8ch="interleaved: quad quad"</small>
+
+<br><small style="font-weight: bold; font-style: italic;">leftdet="</small><small style="font-weight: bold; font-style: italic;">interleaved: quad none"</small><small style="font-weight: bold; font-style: italic;"><br>discright="</small><small style="font-weight: bold; font-style: italic;">interleaved: quad quad_discard"<br><br></small><small>/*The readmode specified as <span style="font-weight: bold; font-style: italic;">leftdet </span><span style="font-weight: bold;"></span>assumes that the right detector will NOT be read from the controller*/<br>/*The
+readmode specified as discright assumes that the right detector will be
+read from the controller in quad mode, but the data will be discarded*/<br>/*In both cases the result will be the same: only the left detector data on disk*/ <br></small>
+
+<br>
+
+<br>
+
+
+
+
+<u><b><big>2.-TYPES<br>
+
+<br>
+
+</big></b></u>This directory has information on the type of detectors<br>
+
+Each ".typ" file describes a particular kind of detector (model), like Hawaii-2.typ,
+or Site424.typ. So it describes a generic "kind" of detectors.<br>
+
+
+
+
+<br>
+
+<span style="font-weight: bold;">
+
+
+[INFO]&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">Name=&lt;<span style="font-style: italic;">detector model</span>&gt;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">Format=&lt;<span style="font-style: italic;">xdataXydata</span>&gt;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+.....</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">infoM=<span style="font-style: italic;">valueM</span></span><br>
+
+<br>
+
+/*CHIP general info*/<br>
+
+/*mandatory fields are only Name and Format, because the will be used internally*/<br>
+
+/* other information can be added, like manufacturer, model name,
+Format, technical specifications (like QE, Dark Current, etc) as specified by
+the manufacturer*/<br>
+
+
+
+
+<br>
+
+/*After that, every amplifier on the chip must be described, as
+position, size, where the amplifier is respect to the lower-left
+corner, etc. This can be done directly here or, most usual, call some
+specific(s) readmodes, which describe the particular detector. See the
+READMODES section*/<br>
+
+<br>
+
+<span style="font-weight: bold;">[READMODES]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">name1=&lt;<span style="font-style: italic;">readmode_file1&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">...</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">nameK=<span style="font-style: italic;">&lt;readmode_fileK&gt;</span></span><br>
+
+<br>
+
+/*all the readmodes must be defined in the READMODES directory*/<br>
+
+<br>
+
+<br style="font-style: italic; font-weight: bold;">
+
+<span style="font-style: italic;"><span style="text-decoration: underline;">Example</span>: Site 424 definition (file Site424.typ)</span><span style="font-style: italic; font-weight: bold;"><br>
+
+<br>
+
+<small>[INFO]<br>
+
+Name="Site424"<br>
+
+Manufacturer="SITE"<br>
+
+Format=2048x2048<br>
+
+Pixel_size="15um"<br>
+
+ReadNoise="&lt;3 e-"<br>
+
+OpTemp="150K"<br>
+
+<br>
+
+[READMODES]<br>
+
+quad="quad.rdm"<br>
+
+lowerleft="lower_left.rdm"<br>
+
+lowerright="lower_right.rdm"<br>
+
+upperleft="uppr_left.rdm"<br>
+
+upperright="upper_right.rdm"<br>
+
+lowerboth="lower_both.rdm"<br>
+
+upperboth="upper_both.rdm"<br>
+
+left="left.rdm"<br>
+
+right="right.rdm"</small><br>
+
+<br>
+
+</span><span style="font-style: italic;">/*this are all the readmodes
+available for this device; this does not means that these are all the
+readmodes available for the FPA who is using it; for this to happen it
+must be defined here (as part of the possible read modes for the
+detector), and also defined on the FPA readmodes itself.*/</span><span style="font-style: italic; font-weight: bold;"><br>
+
+<br>
+
+</span><br>
+
+
+
+
+<br>
+
+
+
+
+<u><b><big>3.- DETECTORS</big></b></u><br>
+
+
+
+
+<br>
+
+In these directory there is a description of the specific devices to be
+handled. This means, the specific, phisycal device to be used (specific
+serial number), of a certain defined type<br>
+
+There is one ".det" file per detector being described. The "detector" file
+is then describing a unique, physical chip which exists (it has a serial number).
+<br>
+
+The name of the file is the ID for the detector specified in the FPA entry.<br>
+
+
+
+
+<br>
+
+<span style="font-weight: bold;">
+
+
+[INFO]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+type = &lt;type&gt;<br>
+
+info1=value1<br>
+
+...<br>
+
+infoN=valueN &nbsp;| _evaluate_ &lt;expression&gt; &nbsp; </span><br>
+
+<br>
+
+ /*This information specific
+on this particular device. The only REQUIERED information is the type of
+device*/<br>
+
+&nbsp;/*&lt;<span style="font-weight: bold; font-style: italic;">type</span>&gt; must correspond to a defined detector type under <span style="font-weight: bold;">TYPE</span>.*/<br>
+
+<br>
+
+/*By specifying &nbsp;a device type, the detector being described will inherit
+all the information of the correrspondent type. Any repeated keyword on the
+info field will imply an override of the inherited information. Any new key
+will be added to the inherited one.<br>
+
+For example, if in the "TYPE" description it specifies
+"dark_current=&nbsp;0.5 e-/pix/sec", but in the specific device it says
+"dark_current = 0.8 e-/pix/sec",
+then in the info field will appear just the last one (assuming that
+this
+was the value actually measured for this device)*/<br>/* <span style="font-weight: bold;">_evaluate_</span> is a special (reserved key) that asks to evaluate the following mathematical expression*/<br>/*<span style="font-weight: bold;">expression</span> is: &lt;<span style="font-weight: bold;">exp1</span>&gt; &lt;<span style="font-weight: bold;">op1</span>&gt; &lt;<span style="font-weight: bold;">exp2</span>&gt; &lt;<span style="font-weight: bold;">op2</span>&gt; ...<br>where:<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; expN can be:<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - a direct numerical value. Example: 42<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - an enviromental variable. Example: ${MYVAR}<br>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - a &nbsp;command line argument.
+Example: $ARG(-myval) (assuming at startup it was passed "..-myval 31"<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - an internal database variable value. Example: dbs (exptime)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - another key in the same INFO section. Example: info (MYKEY)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; opM can be:<br>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; addition (+), sustraction (-),
+multiplication (*), division (/), logarithm (log), exponent (^)<br>&nbsp; Example:<br>&nbsp; &nbsp; CR1 = 2<br>&nbsp;&nbsp;&nbsp; CR2 = 3<br>&nbsp;&nbsp;&nbsp; CRPIX1 = _evaluate_ info(CR1) * dbs (detcols) &nbsp; /*would be evaluated as 2*(internal "detcols") value*/<br>&nbsp;&nbsp;&nbsp; CRPIX2 = _evaluate_ info(CR2) * dbs (detrows)<br><br>
+
+
+
+
+<br>
+
+<span style="font-weight: bold;">[READMODES]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">name1=&lt;<span style="font-style: italic;">readmode_file1</span>&gt;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">...</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">nameN=&lt;<span style="font-style: italic;">readmode_fileN</span>&gt;</span><br style="font-weight: bold;">
+
+<br>
+
+/*The [READMODES] entry is optional here; the device will inherit the readmodes (amplifers)
+described for his type, but this can be overriden too if some readmode is
+specified here (suposing, for example, that the device has a damaged amplifier,
+some of the generic readmodes will not be available for this particular device)*/<br>
+
+
+
+
+<br>
+
+<span style="font-style: italic;"><span style="text-decoration: underline;">Example</span>: description for the Site 424 device, serial number &nbsp;122 (Site424_1.det)</span><br>
+
+<br>
+
+<small style="font-weight: bold; font-style: italic;">[INFO]<br>
+
+type="Site424"<br>
+
+SerialNumber="122"<br>
+
+Grade="Science"<br>
+
+ReadNoise="2.4 e-"<br>
+
+<br>
+
+</small><small style="font-style: italic;">/*all the no specified
+keywords that are present on the TYPE will be inherited here, so at the
+end, in the software the info available for this device Site424_122)
+will look like:<br>
+
+type=Site424, SerialNumbr=122, Grade=Science, ReadNoise=2.4e-, Format=2048x2048, Manufacturer=SITE, Pixel_Size=15um, OpTemp=150K<br>
+
+Note that ReadNoise here was overriden*/<br>
+
+/*since no READMODE was specified here, this device will show available all the readmodes defined for the type Site424 <br>
+
+</small><br>
+
+<big><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">4.- READMODES<br>
+
+<br>
+
+</span></big>
+
+
+This directory have only definitions of readmodes; this is, diferent
+"topologies" to read out the detector. Each readmode specify the
+geometry in an amplifier to amplifier basis.<br>
+
+Each file describes only 1 read mode.<br>
+
+The fields described for each amplifier are:<br>
+
+<br>
+
+<span style="font-weight: bold; font-style: italic;">coords</span>: coordinates of the amplifier respect to the lower-left corner of the detector (lower-left is (1,1))<br>
+
+<span style="font-weight: bold; font-style: italic;">format</span>:
+size of the amplifier, as (xsizeXysize). The size can be relative to
+the global variable "cols" and /or "rows". These variables will contain
+the total size of the detector in x (cols) and y (rows)<br>
+
+<span style="font-weight: bold; font-style: italic;">type</span>: type
+of amplifier. The "type" is where the actual output amplifier (where
+the data is read) is located respect to the amplifier data area. The
+type can be<br>
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;LL: Lower Left. The
+amplifier is located at the lower left corner of the amplifier area<br>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LR: Lower Right<br>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;UL: Upper Left<br>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;UR: Upper right<br>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;as an example, the classical "quad
+readout" CCD has one LL, one LR, one UL and one UR amplifiers.<br>
+
+<span style="font-weight: bold; font-style: italic;">rotated</span>:
+says if the amplifier is rotated respect to the FPA origin. The only
+supported rotations are multiples of 90 degrees: 0 | 90 | 180 | 270<br>
+
+<span style="font-weight: bold; font-style: italic;">flipped</span>: says if the amplifier is flipped: none | horizontal | vertical<br>
+
+<br>
+
+It is important to note that in reality every amplifier can be
+described as a LL which is rotated or flipped. For example, a LR
+amplifier is a horizontally flipped LL. The definition of the four
+types, however, helps speeding up the unscrambling, since we avoid
+flipping and or rotating unless it is strictly necessary.<br>
+
+The description is then a series of entries (one per amplifier) with the correspondent description<br>
+
+<br>
+
+<span style="font-weight: bold;">[A_1]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+coords=<span style="font-style: italic;">(xcoord, ycoord)</span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+format=<span style="font-style: italic;">(xsizeXysize)</span> &nbsp; &nbsp; &nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+type=<span style="font-style: italic;">&lt;LL|LR|UL|UR&gt;</span> &nbsp; &nbsp; &nbsp;</span><span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+rotated=<span style="font-style: italic;">&lt;0 | 90 | 180 | 270&gt; </span>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+flipped=<span style="font-style: italic;">&lt;horizontal | vertical | none&gt; </span>&nbsp;&nbsp;</span><br style="font-weight: bold;">
+
+
+
+
+<br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+[A_2]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+.....</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">
+
+
+[A_N]</span><br style="font-weight: bold;">
+
+
+
+<br>
+
+
+
+
+<br>
+
+
+
+
+<span style="font-style: italic;"><span style="text-decoration: underline;">Example</span>: lower_both readout definition (file lower_both.rdm)</span><br>
+
+
+
+
+<br>
+
+<small style="font-weight: bold; font-style: italic;">[A_1]<br>
+
+coords=(1,1)<br>
+
+format=(cols/2Xrows)<br>
+
+type=LL<br>
+
+rotated=0<br>
+
+flipped=none<br>
+
+<br>
+
+[A_2]<br>
+
+coords=(cols/2+1,1)<br>
+
+format=(cols/2Xrows)<br>
+
+type=LR<br>
+
+rotated=0<br>
+
+<br>
+
+flipped=none<br>
+
+</small><small style="font-style: italic;"><br>
+
+<big>/*the first amplifier is at the lower-left corner of the
+amplifier, and the size is "cols/2" in X and "rows" in Y. If the
+detector that called&nbsp; this readmode file is a 2048x2048 (Like the
+Site of out example), then "cols" will be 2048 and<br>
+
+"rows: also 2048. The amplifier size will be then 1024x2048. It is not rotated neither flipped. */<br>
+
+/*the second amplifier is located at (cols/2 + 1, 1), which would be
+(2049,1) in our example (half of the detector in X), with the same size
+as the firs, and also not rotated neither flipped*/<br>
+
+</big><br>
+
+</small>
+
+
+<big style="font-weight: bold;"><br>
+
+5.- MODIFIERS</big>
+
+
+<br>
+
+
+
+
+<br>
+
+This directory describes the variables that "modify" the size of the
+detector, as described untill now. The modifiers are generally
+user-defined variables, like the overscan, or actual phisycal
+quantities, like the prescan pizels on a CCD or extra-reference columns
+in NIR detector.<br>
+
+Each file (extension .mdf) describes only 1 modifier.<br>
+
+The fileds on the definition are:<br>
+
+<br>
+
+<span style="font-weight: bold; font-style: italic;">header</span>:
+name to appear on the headers. This is not currently implemented, since
+the only header module implemented is the NOA one, that have the names
+cleary stated. For future use only.<br>
+
+<span style="font-weight: bold; font-style: italic;">binned</span>: is
+this section to be binned when binning is applied? (for example, some
+people would prefer not to bin the overscan, some others do)<br>
+
+<span style="font-weight: bold; font-style: italic;">where</span>: where goes this section relative to the data, before or after (an overscan is after, but a prescan is before)<br>
+
+<span style="font-weight: bold; font-style: italic;">add_in</span>: should this extra pixels added in columns or rows<br>
+
+<span style="font-weight: bold; font-style: italic;">comment</span>: comment for the headers. Applies here the same said for "header"<br>
+
+<br>
+
+<span style="font-weight: bold;">[NAME_1]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">header=<span style="font-style: italic;">[headname]</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">binned=<span style="font-style: italic;">&lt;yes | no&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">where=<span style="font-style: italic;">&lt;postdata | predata&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">add_in=<span style="font-style: italic;">&lt;columns | rows&gt;</span></span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">comment=<span style="font-style: italic;">[comment]</span></span><br style="font-weight: bold;">
+
+<br style="font-weight: bold;">
+
+<span style="font-weight: bold;">...</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">[NAME_N]</span><br style="font-weight: bold;">
+
+<span style="font-weight: bold;">...<br>
+
+<br>
+
+<br style="text-decoration: underline;">
+
+</span><span style="font-style: italic;"><span style="text-decoration: underline;">Example</span>: "binned overscan" (file b_overscan.mdf)<br>
+
+<br>
+
+<small style="font-weight: bold;">[OVERSCAN]<br>
+
+header="BIASSEC"<br>
+
+binned=yes<br>
+
+where=postdata<br>
+
+add_in=column<br>
+
+commen="overscan area"</small><br>
+
+<br>
+
+/*The actual size of the modifier is given by the user at "run time", it is not a fixed amount", so it does not appears here*/<br>
+
+/*if a FPA invokes this modifier (like in our example), then it will be binned if a "SET binning xbin ybin" is issued*/<br>
+
+<br>
+
+<br></span><big style="font-weight: bold;"><br>
+
+6.- HEADERS</big><br><span style="font-style: italic;">
+
+<br></span>This directory contains any custom wcs (geometry keys) for
+the header. The wcs file allows to build a custiom way of describing
+the geometry on the headers. Panview has incorporated some standard
+wcs, as NOAO and NOAO_DES, but using custom files allow to modify the
+standar descriptions or build up a completelly new one.<br><br>The
+files must have an extension "wcs". Any wcs file in this directory will
+be available to be used by panview, being set either at boot time or on
+the fly.<br><br>Before we take &nbsp;aclose look at the files, we will explain a few ideas/concepts behind.<br><span style="font-weight: bold;"><br>coordinates:</span><br>There &nbsp;are three different sets of coordinates incorporated into the description:<br><br>amp: The origin will be referenced to the lower-left corner of the current amplifier<br>det: The origin will be referenced to the lower-left corner of the current detector<br>fpa: The origin will be referenced to the lower-left corner opf the complete fpa<br><br><span style="font-weight: bold; font-style: italic;">Figure 6.1</span>
+shows the diference between these coordinate systems. In this example,
+the focal plane has 2 detectors, whith 2 amplifers each. Basically, it
+says relative to what we will be counting the positions. "amp" gives an
+absolute position relative to the origin of the amplifier, while "det"
+gives an absolute position relative to the origin of the detector to
+which the amplifier corresponds. "fpa" gives an absolute position
+respect to the origin of the complete focal plane. Note that in the
+simplest case, when there is 1 detector in the focal plane, and 1
+amplifier in the detector, then all three coordinate systems will
+coincide <br><br><img style="height: 748px; width: 739px;" alt="coordinate systems" src="coordinates.png"><br><br><small><span style="font-weight: bold; font-style: italic;">Figure 6.1</span>: diferente coordinate systems (fpa, &nbsp;detand amp)</small><br><br><br><span style="font-weight: bold;">reference:</span><br>Having
+the coordinate system choosen, the counting of the positions still has
+another posibility: do we count in real, total pixels as appear in the
+image, including prescans, postscans, etc, or do we just count "data"
+pixels,this is, valid pixels on the detector imaging area?. For this,
+we have two sets of references:<br><br>phys: this is a phisycal reference. Includes all the positions on the file (prescans, data and postscans)<br>pix: counts only the valid "image" pixels of the ccd, not counting the prescans and overscans<br><br>So,
+the same pixel can have a different position "number" even if we use
+the same coordinate system, because we can count up all the pixels, or
+only the valid data pixels. <span style="font-weight: bold; font-style: italic;">Figure 6.2</span> gives a brief graphical description of this. <br><br><br><img style="width: 739px; height: 748px;" alt="references" src="references.png"><br><br><small><span style="font-weight: bold; font-style: italic;">Figure 6.2</span>: diferente references&nbsp; (pix, phys)</small><br><br>In
+the example of the figure, it is assumed P prescans pixels, COLS/2 data
+pixels, and&nbsp; O overscan pixels per amplifer. Each detector has
+COLS columns across and two amplifiers.<br><br><br><span style="font-weight: bold;">sections/conventions</span><br>In
+a fits image, teh conventio &nbsp;is to name as pixel 1 p(1,1) as the
+pixel that appears on the lower-left corner of the 2D image. The
+counting direction fowllows then the columns direction, coming back in
+the next line to the starting column location. So, for a an amplifer
+that is COLSxROWS in size,<br>(1,1),(2,1),...,(COLS,1),(1,2),(2,2)....,(1,ROWS),(2,ROWS),....(COLS,ROWS)<br><br>So the ending pixel is always the upper right corner of the image.<br><br>Now
+that we have defined both the coordinate systems, the reference
+to use for pixels, and the order of the counting, we can describe the
+initial and the ending area of
+our custom section. Each pixel on the image (data or
+other) has associated with it 6 "positions", depending on the
+coordinate system and the reference to be used. For each individual
+pixel p we have three coordinates systems and two references in each.
+Since the image is a 2D array, each pixel p has also an X and a Y
+coordinate. The geometric description uses then an starting pixel and
+an ending pixel in each direction. In this way, we describe a square
+area on the detector, as &nbsp;shown in <span style="font-weight: bold;">Figure 6.3</span><br><span style="font-style: italic;"><br></span><div style="text-align: center;"><div style="text-align: left;"><span style="font-style: italic;"></span><img style="width: 455px; height: 576px;" alt="sections" src="sections.jpg"><br></div><div style="text-align: left;"><small><span style="font-weight: bold;">Figura 6.3</span></small>: <small style="font-style: italic;">order and sections descriptions</small></div></div><span style="font-style: italic;"><br></span>The
+areas are always described using the initial point and the ending point
+considering the fits order shown in the figure (from left to right). To
+separate the two point son the same direction we use ":" and to
+separate axis direction, we use ",". The section shown in Figure 6.3
+would be described then as<br>(xi:xe,yi:ye)<br><br style="font-weight: bold;"><span style="font-weight: bold;">readorder</span><br>The
+direction in whuch the pixels are actually read may or may not
+couincide with the fits convention order (from left to right, bottom to
+top). In Figure 6.3 we can see that the readout order of amplifier A
+coincide with the fits convention, while the read order of amplifier B
+is opposite. This may be relevant, in some cases to the description. We
+already established that the initial:ending areas are always using the
+fits convention (left to right); however, if we use the read direction,
+the "initial" value may be bigger than the "ending" value; in other
+words, if we use the real, physical firs pixel of amplifer B as the
+first pixel ("1"), then this pixe "1" in the x direction corresponds to
+the righmost pixel in the line. Here comes then another possible way of
+describing the coordinates and reference: using "fits" order or
+"readout" order. As an example, if we want to describe <span style="font-weight: bold;">the area for amp B</span> shown in the figure 6.3, we could do (example using amplifier coordinates and pixel reference):<br><span style="font-weight: bold; font-style: italic;">amp{fits-&gt;pix(1:xe,yi:ye)} &nbsp;/*fits order*/</span><br><span style="font-weight: bold; font-style: italic;">amp {readout-&gt;pix(xe:1,yi:ye)} &nbsp;/*readout order*/</span><br><br>So
+in our notation we will use, by default, fits reference, but the
+readout order can be used by stating so in the notation as shown above.
+The usage of "fits-&gt;" is optional, since it will ne assumed so if no
+"fits" or "readout" appears explicitly.<br><br>The last thing to note
+is that the complete set could be binned or unbinned, depoending if the
+representation will be using binned or unbinned coordinates.<br><br><big style="font-weight: bold;">The files</big><br><br>Finally, and having all the concepts explained, we will proceed to the actual file for our description.<br>Each line has a of a fits file template:<br><br><big style="font-style: italic; font-weight: bold;">KEY[{type}{AID}{DID}] = (binned | unbinned) coord {ref (xi:xe,yi:ye)} / comment</big><br><br>where:<br><span style="font-weight: bold;">KEY[{type}]</span>:<br>name
+of the key as it will appear on the headers. The directives may or may
+not be present. This basically indicate to what type of amplifier this
+keyword will be calculated. The "type" of amplifier can be:<br>ALL: To all amplifiers. If no type is present, this applies (default)<br>LEFT: to left amplifiers only<br>RIGHT: to right amplifiers only<br>UPPER: to upper amplifers only<br>LOWER: to lower amplifiers only<br>LL, LR, UL, UR: to lower left, lower right, upper left or upper right amplifiers only<br>(example: TSEC{ALL})<br>It can also specify if the amplifier ID (AID) or detector ID (DID) should ber appended to the key.<br>For example:<br>TSEC{AID}{ALL},
+will imply that will be applied to all amplifiers, and the amplifier ID
+will be appended, for example: TSECA, or TSEC21, etc.<br><br style="font-weight: bold;"><span style="font-weight: bold;">binned | unbinned:</span><br>state if the coordinate system will be using binned or unbinned coordinates<br><br><span style="font-weight: bold;">coord:</span><br>as explained before, <span style="font-style: italic; font-weight: bold;">fpa</span>, <span style="font-weight: bold; font-style: italic;">det</span> or&nbsp; <span style="font-weight: bold; font-style: italic;">amp</span><br>It can also specify:<br><span style="font-weight: bold; font-style: italic;">var: </span><span style="font-weight: bold;"></span>which
+means that what follows in the {} is either an internal database
+variable (dbs(varname)), an enviromental variable ($MYVAR), a command
+line argument (ARG($MYARG)) or an expression to evaluate
+(_eval_(2*1000). Example: <span style="font-style: italic;">var {_eval_ dbs(exptime) *1000} / test</span><br><span style="font-weight: bold; font-style: italic;">addroi: </span><span style="font-weight: bold;"></span>special
+key that instructs to add all the defined rois automatically, amp-based
+(for multifits). Not the ROIs are always defined using data pixels<br><span style="font-weight: bold; font-style: italic;">addroifpa: </span><span style="font-weight: bold;"></span>special
+key that instructs to add all the defined rois automatically, but
+fpa-based (for single fits). Not the ROIs are always defined using data
+pixels<br><span style="font-weight: bold; font-style: italic;"><br></span><span style="font-weight: bold;">ref</span>: <br>as explained before: <span style="font-weight: bold; font-style: italic;">phys</span> or <span style="font-weight: bold; font-style: italic;">pix</span><br><br><span style="font-weight: bold;">xi, xe, yi, ye</span>: <br>starting
+and ending corrdinates in the X and Y direction. This can be numeric
+values ("1", "21", etc), numerical expressions ("12+23"), internal
+database references ("dbs(inix)" or some spetial, reserved words formed
+as follwow:<br><span style="font-weight: bold; font-style: italic;">&lt;x | y&gt;&lt;pre | data | pos&gt;&lt;start | end&gt;</span><br>where <br><span style="font-style: italic; font-weight: bold;">x, y</span> are the direction (cols or rows), <br><span style="font-weight: bold; font-style: italic;">pre, data, pos, roi</span> are the type of pixels (predata, data, postdata or Region Of Interest)) <br><span style="font-weight: bold; font-style: italic;">start, end</span> mark the starting or ending point of the indicated pixels.<br>For example<br><span style="font-style: italic;">xdatastart</span>: starting data pixel in the x direction<br><span style="font-style: italic;">xposend</span>: ending postscan pixel in the x direction<br><span style="font-style: italic;">yprestart</span>: starting prescan pixel in the y direction<br><span style="font-style: italic;">xroistart</span>: starting pixel of the defined ROI. This are always "data" pixels<br><br>If
+the coordinates is "det" by default the "start" and "end" will imply
+starting and ending detector coordinates; however, if "amp" is used as
+prefix it will use amp reference. See the example below<br><br>The
+geometry module will replace the correspondent values when evaluationg
+the directives. Note that the actual numeric value will depend on both
+the coordinate and reference used for the key. For example:<br>assume prescans=10, overscans=50,xdata=1024, ydata=2048, 2 lower amplifers (as figures):<br>amp {pix (xdatastart:xdataend, ydatastart:ydataend)} --&gt; (1:1024,1:2048)<br>amp {phys (xdatastart:xdataend, ydatastart:ydataend)}--&gt; (11:1024,1:2048)<br>amp{phys (xposstart:xposend, ydatastart:ydataend)} --&gt; (1035:2059,1:2048)<br>det {pix (xdatastart:xdataend, ydatastart:ydataend)} --&gt; (1:2048,1:2048)<br>det {pix (xampdatastart:xampdataend, ydatastart:ydataend)} --&gt; ampA: (1:1024,1:2048), ampB:(1025:2048,1:2048)<br><br style="font-weight: bold;"><span style="font-weight: bold;">comment:</span><br>Any
+comment that will be presented in the fits header exactly as typed
+here. However, there are a couple of reserved words that can be used.
+&nbsp;The geometry moduke will replace the correspondent value:<br>_ampID_: amplifier ID<br>_detID_: detectore ID<br>For example:<br>"postscan section for detector _detID_, amplifier _ampID_" may appear as:<br>"postscan section for detector 2, amplifier A"<br><br><br>So, we define have a group of keywords, in which each line has the format explained. That group wil for the geometry description<br><br><span style="font-style: italic;">KEY1 = coord {ref (xi1:xe1,yi1:ye1)} / comment1<br>...<br></span><span style="font-style: italic;">KEYN = coord {ref (xiN:xeN,yiN:yeN)} / commentN<br></span><br>But
+this is not all. The user can define a diferent set of keywords for
+different types of fits files. The set of keys then must have defined
+for what type of fits files are meant. The possible fits image typoes
+are:<br>MEF: Multiple Extension Files, one amplifier per extension<br>MEDF: Multiple Extension Detector files, one detector per extension<br>SEF: Single file, no extensions<br><br>Each "section" name then, muist have one oif the names above.<br><br>Finally,
+it is possible to specify the "format" in which the sections will
+appear. The format indoicates the axis separator, the start&lt;-&gt;end
+separator, and the "enclosing". The format is specified as:<br>[FORMAT]<br>enclose= &lt;inichar&gt; &lt;endchar&gt;<br>rangesep=&lt;character&gt;<br>axesep=&lt;character&gt;<br><br>The default values are:<br>enclose=[ ]<br>rangesep=:<br>axesep=,<br><br>An example file will be useful at this point:<br>Example: NOAO.wcs<br><small style="font-style: italic;"><br>[FORMAT]<br>enclose=[ ]<br>rangesep=:<br>axesep=,<br><br>[MEF]<br>#multiple amplifier extensions<br>DETSIZE=var {dbs(fpasize_bin)} /total FPA size<br>TRIMSEC=(bin) amp {phys (xdatastart:xdataend, ydatastart:ydataend)} /Good section<br>DETSEC=(bin) fpa {pix (xdatastart:xdataend, ydatastart:ydataend)} /Detector display tile<br>CCDSEC=(bin) det {pix (xdatastart:xdataend, ydatastart:ydataend)} /CCD section to display<br>AMPSEC=(bin) amp {pix (readout-&gt;xdatastart:xdataend, ydatastart:ydataend)} /CCD section in read order<br>DATASEC=(bin) amp {phys (xdatastart:xdataend, ydatastart:ydataend)} /Data section to display<br>BIASSEC=(bin) amp {phys (xposstart:xposend, ydatastart:ydataend)} /Overscan<br></small><br><small style="font-style: italic;">[MEDF]<br>#multiple detector extensions<br>DETSIZE=var {dbs(fpasize_bin)} /total FPA size<br>TRIMSEC=(bin) det {phys (xdatastart:xdataend, ydatastart:ydataend)} /Good section<br>DATASEC=(bin) det {phys (xdatastart:xdataend, ydatastart:ydataend)} /Data section to display<br>DETSEC=(bin) fpa {pix (xdatastart:xdataend, ydatastart:ydataend)} /Detector display tile<br>CCDSEC=(bin) det {pix (xdatastart:xdataend, ydatastart:ydataend)} /CCD section to display<br>CCDSEC=(bin) det {pix (xdatastart:xdataend, ydatastart:ydataend)} /CCD section t<br>o display<br>TRIMSEC{AID}=(bin) det {phys (xampdatastart:xampdataend, yampdatastart:yampdataend)} /Good section from amp _ampID_<br>DETSEC{AID}=(bin) fpa {pix (xampdatastart:xampdataend, yampdatastart:yampdataend)} /Detector display tile for amp _ampID_<br>CCDSEC{AID}=(bin) det {pix (xampdatastart:xampdataend, yampdatastart:yampdataend)} /CCD section from amp _ampID_<br>AMPSEC{AID}=(bin)
+det {pix (readout-&gt;xampdatastart:xampdataend,
+yampdatastart:yampdataend)} /CCD section in read order for amp _ampID_<br>DATASEC{AID}=(bin) det {phys (xampdatastart:xampdataend, yampdatastart:yampdataend)} /Data section from amp _ampID_<br>BIASSEC{AID}=(bin) det {phys (xampposstart:xampposend, yampdatastart:yampdataend)} /Overscan from amp _ampID_</small><br><br><small style="font-style: italic;">[SEF]<br>#single<br>TSEC{AID}{DID}=(bin) fpa {phys (xdatastart:xdataend, ydatastart:ydataend)} /Good section from det _detID_&nbsp; amp _ampID_<br>ASEC{AID}{DID}=(bin) fpa {pix (readout-&gt;xdatastart:xdataend, ydatastart:ydataend)} /CCD&nbsp; section in read order<br>CSEC{AID}{DID}=(bin) fpa {pix (xdatastart:xdataend, ydatastart:ydataend)} /CCD section from det _detID_&nbsp; amp _ampID_<br>BSEC{AID}{DID}=(bin) fpa {phys (xposstart:xposend, ydatastart:ydataend)} /Overscan section from det _detID_&nbsp; amp _ampID_<br>DSEC{AID}{DID}=(bin) fpa {phys (xdatastart:xdataend, ydatastart:ydataend)} /Data section from det _detID_&nbsp; amp _ampID_</small><br><br><br><span style="font-style: italic;"><br></span><span style="font-style: italic;">
+
+</span><big style="font-weight: bold;"><big>Order of Events<br>
+
+</big></big>Here we will describe coearsly how the information flows to generate the complete picture.<br>
+
+<br>
+
+When the <a href="../DHE/DHE_User_Manual.html">DHE</a> module starts, it finds (among its config files), the name of the FPA to be used. The DHE passes that information to the <a href="../GEOM/GEOM_User_manual.html">GEOM</a> module, which uses these files to get the calculations.<br>
+
+<br>
+
+Having the FPA name:<br>
+
+-&gt;&nbsp; it goes and look in the DET_DATABASE (location defned on the GEOM config file) for the file FPA/&lt;fpaname&gt;.fpa.<br>
+
+&nbsp; &nbsp; Looks inside it and get all the INFO and stores it as "fpainfo". <br>
+
+-&gt; Then looks into the defined detectors, and go looking for them (one by one) to DETECTORS/&lt;detname&gt;.det<br>
+
+&nbsp; &nbsp; &nbsp;-&gt; inside &lt;detname.det&gt; gets all the info (<span style="font-style: italic;">detinfo</span>) for that detector<br>
+
+&nbsp; &nbsp; &nbsp;-&gt; then looks for the detector type ("type" keyword), and goes to TYPES/&lt;type.typ&gt;<br>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&gt; get all the info (<span style="font-style: italic;">typinfo</span>) for the type, <br>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&gt; gets all the readout modes supported by that detector type<br>
+
+&nbsp; &nbsp; &nbsp;-&gt; come backs to the detector file, and compare the <span style="font-style: italic;">detinfo</span>&nbsp; with the <span style="font-style: italic;">typinfo</span>, then add them toguether, overriding any <span style="font-style: italic;">typinfo</span> field with the <span style="font-style: italic;">detinfo</span> field if repeated. Then stores this info as "<span style="font-style: italic;">detinfo</span>"<br>
+
+&nbsp; &nbsp; &nbsp;-&gt; if there are readmodes defined on the
+"detector" file, keep this ones and take to the trash the ones found on
+the "type" file. If no read modes are defined here then keep the <span style="font-style: italic;">type</span> readmodes<br>
+
+-&gt; come back to the fpa file and compare the defined readmodes there
+with the ones he has stored, and keep the AND subset of them.<br>
+<br>
+A diagram is presente at the end of this document.<br>
+<br>
+
+<br>
+
+<span style="font-style: italic;"><span style="font-weight: bold; text-decoration: underline;">Example</span>: P60.fpa&nbsp;</span><br>
+
+DHE finds the FPA name to be "P60".<br>
+
+Passes the name to GEOM, who looks into DET_DATABASE/FPA/P60.fpa (see fpa example)<br>
+
+&nbsp; &nbsp;Looking inside, it sees 1 detector, with&nbsp; ID "Site424_122", so it goes look into DETECTORS/Site424_122.det.<br>
+
+&nbsp; &nbsp; &nbsp; Looking inside it finds it to be of type "Site424", so it goes to TYPES/Site424.typ<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Extract the information and readmodes for Site424 <br>
+&nbsp; &nbsp; &nbsp; Merge the Site424.typ info with the Site424_122.det info<br>
+&nbsp; &nbsp; &nbsp; Incorporate the Readmodes, replacing the "globals"
+for the correspondent size. No readmodes are found on the
+Site424_122.det file, so keep the ones of the type file<br>
+&nbsp; Compare the readmodes with the ones defined on the FPA: since
+the FPA says "left" and "quad", and the detector ones have them both
+defined, keep these as the ones "available" for usage.<br>
+
+<br>
+
+After all this the GEOM module knows exactly how each detector looks
+for each readmode selected (remember that the aparent (virtual) size of
+the detector may change when going from single to quad readmode -more
+overscan and prescans, for example), and how the FPA looks like,
+because it has the position of each detector on the FPA (and the
+position of each amplifier inside each deetctor).<br>
+
+<br>
+
+Having this information, returns the requested info to the DHE module
+(usually total size), and also calculates the image header description
+for each readmode, using the specified header module (NOAO).<br>
+
+<br>
+
+Every time the user request a binning, roi or modifier change (changing
+overscan), the DHE will ask the GEOM module to recalculate the new
+size, and the GEOM will also recalculate the new headers description.<br>
+
+The Unscrambler (GUNSC) and Fits (GFITS) modules also get this
+information, so they know how to unscramble and write the images to file<br>
+
+<br>
+
+<br>
+
+As complex as it may look like, this schemes simplifyes the development
+process and the independence of the modules. It is not longer work of
+the DHE module to know all this, and almost any imaginable topology can
+be described in this way, which means that&nbsp; custom-made
+unscrambler algorithms are no longer needed. When a new FPA (with a new
+topology) is needed, only settig those files is enought to have a
+working system in minutes.<br>
+
+The only missing piece yet is to make an automatic program for
+generating this files, so the user can use a text-based script or a
+graphical interface to generate them without the need of knowing much
+details...<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<img style="height: 739px; width: 1250px;" alt="flow diagram" src="flow.png"><br>
+<br>
+figure 1: diagram with the sequence of events when readind an FPA geometry<br>
+
+<span style="font-style: italic;"><br>
+
+</span><span style="font-weight: bold;"></span>
+
+
+</body></html>

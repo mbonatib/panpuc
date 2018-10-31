@@ -1,0 +1,724 @@
+.TH "panview_current/PAN/Modules/GUNSC/private/c/src/GU_algors.c" 3 "29 May 2012" "Version 10.2" "GUNSC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GUNSC/private/c/src/GU_algors.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include 'GU_transformations.h'\fP
+.br
+\fC#include <dlfcn.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "i32 \fBGU_do_detextensions\fP (ptr_t outbuff, i32 nelems, i32 chunkrows)"
+.br
+.ti -1c
+.RI "i32 \fBGU_rearrange_sections\fP (i32 chunkrows)"
+.br
+.ti -1c
+.RI "i32 \fBGU_checkError2\fP (i32 iferr)"
+.br
+.ti -1c
+.RI "void \fBGU_pix_swap\fP (i32 flag)"
+.br
+.ti -1c
+.RI "i32 \fBGU_set_bytes_pp\fP (i32 bytes_per_pixel)"
+.br
+.ti -1c
+.RI "i32 \fBGU_SetPhysMap\fP (ptr_t array, i32 num_elements)"
+.br
+.ti -1c
+.RI "void \fBGU_releasedetbuf\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGU_getdetbuf\fP (void)"
+.br
+.ti -1c
+.RI "void \fBGU_release_ampbuf\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGU_dlopen\fP (char *\fBalgorpath\fP)"
+.br
+.ti -1c
+.RI "void \fBGU_dlclose\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGU_get_ampbuf\fP (void)"
+.br
+.ti -1c
+.RI "i32 \fBGU_set_arrange_sections_left\fP (char *\fBalgorpath\fP, char *left1, char *left2, char *left3)"
+.br
+.ti -1c
+.RI "i32 \fBGU_set_arrange_sections_right\fP (char *\fBalgorpath\fP, char *right1, char *right2, char *right3)"
+.br
+.ti -1c
+.RI "i32 \fBGU_set_arrange_sections_lower\fP (char *\fBalgorpath\fP, char *low1, char *low2, char *low3)"
+.br
+.ti -1c
+.RI "i32 \fBGU_set_arrange_sections_upper\fP (char *\fBalgorpath\fP, char *upp1, char *upp2, char *upp3)"
+.br
+.ti -1c
+.RI "i32 \fBGU_getdet\fP (i32 detno)"
+.br
+.ti -1c
+.RI "i32 \fBGU_det_ext\fP (i32 flag)"
+.br
+.ti -1c
+.RI "i32 \fBGU_add_det\fP (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 nxamps, i32 nyamps, i32 discard, i32 detno)"
+.br
+.ti -1c
+.RI "i32 \fBGU_add_amp\fP (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 xdetstart, i32 ydetstart, i16 type, i32 rotate, i16 flip, i32 extension, i32 detno, i32 ampno, i32 discard)"
+.br
+.ti -1c
+.RI "ptr_t \fBGU_get_amps_ptr\fP ()"
+.br
+.ti -1c
+.RI "i32 \fBGU_clear_amps\fP (void)"
+.br
+.ti -1c
+.RI "ptr_t \fBGU_SHORT\fP (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 *err)"
+.br
+.ti -1c
+.RI "ptr_t \fBGU_LONG\fP (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 *err)"
+.br
+.ti -1c
+.RI "ptr_t \fBGU_FLOAT\fP (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 *err)"
+.br
+.ti -1c
+.RI "ptr_t \fBGU_NONE\fP (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 *err)"
+.br
+.ti -1c
+.RI "i32 \fBGU_add_subimage\fP (ptr_t genptr, ptr_t subimptr, i32 subxstart, i32 subystart, i32 subcols, i32 subrows, i32 totalcols)"
+.br
+.ti -1c
+.RI "i32 \fBGU_copy_image\fP (long outbuff, long inbuff, i32 totcols)"
+.br
+.ti -1c
+.RI "ptr_t \fBGU_get_raw_ptr\fP (i32 *namplif)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_pre_left\fP (void *ptr, i32 a, i32 row, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_pre_right\fP (void *ptr, i32 a, i32 row, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_pos_left\fP (void *ptr, i32 a, i32 row, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_pos_right\fP (void *ptr, i32 a, i32 row, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_dat_left\fP (void *ptr, i32 a, i32 row, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_dat_right\fP (void *ptr, i32 a, i32 row, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_ypre_low\fP (void *ptr, i32 a, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_ypre_upp\fP (void *ptr, i32 a, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_ypos_low\fP (void *ptr, i32 a, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_ypos_upp\fP (void *ptr, i32 a, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_ydat_low\fP (void *ptr, i32 a, i32 *nbytes)"
+.br
+.ti -1c
+.RI "void \fBGU_copy_ydat_upp\fP (void *ptr, i32 a, i32 *nbytes)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static u32 \fBnamps\fP = 0"
+.br
+.ti -1c
+.RI "static u32 \fBndets\fP = 0"
+.br
+.ti -1c
+.RI "static amp_t \fBamp\fP [256]"
+.br
+.ti -1c
+.RI "static amp_t \fBdet\fP [64]"
+.br
+.ti -1c
+.RI "static i32 \fBPhysMap\fP [MAX_AMPS]"
+.br
+.ti -1c
+.RI "i32 \fBbytes_pp\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBdetext\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBdetbufsize\fP = 0"
+.br
+.ti -1c
+.RI "void * \fBdetbufptr\fP = NULL"
+.br
+.ti -1c
+.RI "void * \fBampbufptr\fP = NULL"
+.br
+.ti -1c
+.RI "i32 \fBampbufsize\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBpix_swap\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBarrange_sections\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBarrange_sections_left\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBarrange_sections_right\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBarrange_sections_upper\fP = 0"
+.br
+.ti -1c
+.RI "i32 \fBarrange_sections_lower\fP = 0"
+.br
+.ti -1c
+.RI "void * \fBLocalLib\fP = NULL"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_left1\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_left2\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_left3\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_right1\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_right2\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_right3\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_lower1\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_lower2\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_lower3\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_upper1\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_upper2\fP ()"
+.br
+.ti -1c
+.RI "i32(*) \fBGUget_upper3\fP ()"
+.br
+.ti -1c
+.RI "const char * \fBdlError2\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "i32 GU_add_amp (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 xdetstart, i32 ydetstart, i16 type, i32 rotate, i16 flip, i32 extension, i32 detno, i32 ampno, i32 discard)"
+.PP
+Adds a new detector into structure. See \fBGU_call_add_amp()\fP 
+.PP
+First, convert any angle to a value [0, 359] degrees. Second, the only allowable angles are multiple of 90 (90, 180, 270). Third, then rotation on 180 degrees can be avoided by changing the amplifier definition with the following rule: Change from Lower to Upper anf from Righr to Left (and vice-versa), which means, the opposite, diagonal type
+.PP
+Now, all flips can be avoided just changing the amplifiers definitions using this rule: For Horizontal Flips, a Lower amplifiers change to an Upper amplifier (and vice-versa) For Vertical Flips, a Right amplifier changes to a Left amplifier (and vice-versa) This implies that, for example, a LL flipped vertically is a LR, and flipped horizontally is an UL 
+.SS "i32 GU_add_det (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 nxamps, i32 nyamps, i32 discard, i32 detno)"
+.PP
+Adds a new detector into structure. See \fBGU_call_add_det()\fP 
+.SS "i32 GU_add_subimage (ptr_t genptr, ptr_t subimptr, i32 subxstart, i32 subystart, i32 subcols, i32 subrows, i32 totalcols)"
+.PP
+Adds an the image in the specified subimage buffer in the specified position in the output buffer. The position here means geometryc position rather than index position. This is used, for example, to compose detector data (when detextor extensions are enabled) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgenptr\fP pointer to general (complete, output) image buffer 
+.br
+\fIsubimptr\fP pointer to subimage to be added 
+.br
+\fIsubxstart\fP lower left x position of subimage in complete image (genptr) 
+.br
+\fIsubystart\fP lower left y position of subimage in complete image (genptr) 
+.br
+\fIsubcols\fP number of columns in subimage 
+.br
+\fIsubrows\fP number of rows in subimage 
+.br
+\fItotalcols\fP number of cols in complete (general) image 
+.RE
+.PP
+
+.SS "i32 GU_checkError2 (i32 iferr)"
+.PP
+Checks dl error 
+.SS "i32 GU_clear_amps (void)"
+.PP
+Clears amplifiers structure 
+.SS "void GU_copy_dat_left (void * ptr, i32 a, i32 row, i32 * nbytes)"
+.PP
+Copies data pixels from left amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_dat_right (void * ptr, i32 a, i32 row, i32 * nbytes)"
+.PP
+Copies data pixels from right amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "i32 GU_copy_image (long outbuff, long inbuff, i32 totcols)"
+.PP
+Copy image from inbuff to outbuff 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIoutput\fP buffer pointer 
+.br
+\fIinbuff\fP input buffer pointer 
+.br
+\fItotcols\fP number of columns in input image 
+.RE
+.PP
+
+.SS "void GU_copy_pos_left (void * ptr, i32 a, i32 row, i32 * nbytes)"
+.PP
+Copies postscan (overscan) data from left amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_pos_right (void * ptr, i32 a, i32 row, i32 * nbytes)"
+.PP
+Copies postscan (overscan) data from right amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_pre_left (void * ptr, i32 a, i32 row, i32 * nbytes)"
+.PP
+Copies prescan data from left amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_pre_right (void * ptr, i32 a, i32 row, i32 * nbytes)"
+.PP
+Copies prescan data from right amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_ydat_low (void * ptr, i32 a, i32 * nbytes)"
+.PP
+Copies data from lower amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_ydat_upp (void * ptr, i32 a, i32 * nbytes)"
+.PP
+Copies data from upper amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_ypos_low (void * ptr, i32 a, i32 * nbytes)"
+.PP
+Copies y postcan (y overscan) data from lower amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_ypos_upp (void * ptr, i32 a, i32 * nbytes)"
+.PP
+Copies y postcan (y overscan) data from upper amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_ypre_low (void * ptr, i32 a, i32 * nbytes)"
+.PP
+Copies y prescan data from lower amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "void GU_copy_ypre_upp (void * ptr, i32 a, i32 * nbytes)"
+.PP
+Copies y prescan data from upper amplifiers 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP image buffer pointer 
+.br
+\fIa\fP amplifier index 
+.br
+\fIrow\fP row number 
+.br
+\fI*nbytes\fP number of bytes to copy 
+.RE
+.PP
+
+.SS "i32 GU_det_ext (i32 flag)"
+.PP
+Enables or disables unscrambling per detector instead of per amplifier. This causes the output unscrambled buffer to be ordered by detector instead as per amplifer [in] flag enable(1) or disable(0) per detector unscrambling 
+.SS "void GU_dlclose (void)"
+.PP
+Closes unscrambling algor 
+.SS "i32 GU_dlopen (char * algorpath)"
+.PP
+Opens reference to unscrambling algorithm 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIalgorpath\fP name of the algorithm to be used to unscramble 
+.RE
+.PP
+
+.SS "i32 GU_do_detextensions (ptr_t outbuff, i32 nelems, i32 chunkrows)"
+.PP
+Performs the rearranging of the amplifier data so it gets blended into a detector. IN other words, takes the data of each amplifier ibn a given detector and puts them toguether so the complete detector data gets togueter and can be later passed to the fits server to be written as a 'detector extension' 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIoutbuff\fP output buffer pointer 
+.br
+\fInelems\fP number of elements (pixels) in each amplifier 
+.br
+\fIchunkrows\fP number of rows to blend 
+.RE
+.PP
+
+.SS "ptr_t GU_FLOAT (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 * err)"
+.PP
+Unscrambling routine called for FLOAT datatype (32 bits per pixel, float). Selected automatically (dinamically) when the datatype is set in the routine \fBGU_compute()\fP If detector extenions are selected (see \fBGU_det_ext()\fP) then it calls automaticall \fBGU_do_detextensions()\fP 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrptr\fP pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. 
+.br
+\fIimageptr\fP pointer to output buffer. This is the bufefr where the unscrambled data will be wri tten 
+.br
+\fInelems\fP number of elements (pixels) in the raw buffer 
+.br
+\fI*err\fP status out 
+.RE
+.PP
+
+.SS "i32 GU_get_ampbuf (void)"
+.PP
+Allocates amplifiers buffer based on amplifier structure 
+.SS "ptr_t GU_get_amps_ptr ()"
+.PP
+Gets amplifiers structure pointer 
+.SS "ptr_t GU_get_raw_ptr (i32 * namplif)"
+.PP
+.SS "i32 GU_getdet (i32 detno)"
+.PP
+Returns index to specified detector number 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdetno\fP detector number inside detectors structure 
+.RE
+.PP
+
+.SS "i32 GU_getdetbuf (void)"
+.PP
+Get detector buffer pointer 
+.SS "ptr_t GU_LONG (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 * err)"
+.PP
+Unscrambling routine called for LONG datatype (32 bits per pixel, integer). Selected automatically (dinamically) when the datatype is set in the routine \fBGU_compute()\fP If detector extenions are selected (see \fBGU_det_ext()\fP) then it calls automaticall \fBGU_do_detextensions()\fP 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrptr\fP pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. 
+.br
+\fIimageptr\fP pointer to output buffer. This is the bufefr where the unscrambled data will be wri tten 
+.br
+\fInelems\fP number of elements (pixels) in the raw buffer 
+.br
+\fI*err\fP status out 
+.RE
+.PP
+
+.SS "ptr_t GU_NONE (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 * err)"
+.PP
+Unscrambling routine when unscrambling is disabled. It basically copies the raw data into the amplifers data without changes 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrptr\fP pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. 
+.br
+\fIimageptr\fP pointer to output buffer. This is the bufefr where the unscrambled data will be wri tten 
+.br
+\fInelems\fP number of elements (pixels) in the raw buffer 
+.br
+\fI*err\fP status out 
+.RE
+.PP
+
+.SS "void GU_pix_swap (i32 flag)"
+.PP
+swap bytes in the pixel if requested 
+.SS "i32 GU_rearrange_sections (i32 chunkrows)"
+.PP
+Rearrange data based on the pointer of the arrange algors (\fBGU_copy_ydat_upp()\fP etc) selected with \fBGU_set_arrange_sections_upper()\fP etc) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIchunkrows\fP number of rows to arrange 
+.RE
+.PP
+
+.SS "void GU_release_ampbuf (void)"
+.PP
+Releases amplifiers buffer 
+.SS "void GU_releasedetbuf (void)"
+.PP
+Releases detectors buffer 
+.SS "i32 GU_set_arrange_sections_left (char * algorpath, char * left1, char * left2, char * left3)"
+.PP
+Arranges sections order. This is called dinamically. See \fBGU_call_set_order_left()\fP Based on the specified directive it will fill the algor to use. 
+.SS "i32 GU_set_arrange_sections_lower (char * algorpath, char * low1, char * low2, char * low3)"
+.PP
+Arranges sections order. This is called dinamically. See \fBGU_call_set_order_lower()\fP 
+.SS "i32 GU_set_arrange_sections_right (char * algorpath, char * right1, char * right2, char * right3)"
+.PP
+Arranges sections order. This is called dinamically. See \fBGU_call_set_order_right()\fP 
+.SS "i32 GU_set_arrange_sections_upper (char * algorpath, char * upp1, char * upp2, char * upp3)"
+.PP
+Arranges sections order. This is called dinamically. See \fBGU_call_set_order_upper()\fP 
+.SS "i32 GU_set_bytes_pp (i32 bytes_per_pixel)"
+.PP
+Sets the number of bytes per pixel 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbytes_per_pixel\fP number of bytes per pixel (usually 2 or 4) 
+.RE
+.PP
+
+.SS "i32 GU_SetPhysMap (ptr_t array, i32 num_elements)"
+.PP
+Sets the physical map between amplifiers and output extensions 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIarray\fP array of integers with the order. The array index is the amplifier, the value the output position 
+.br
+\fInum_elements\fP numbe rof elements in the array 
+.RE
+.PP
+
+.SS "ptr_t GU_SHORT (ptr_t rptr, ptr_t imageptr, i32 nelems, i32 * err)"
+.PP
+Unscrambling routine called for SHORT datatype (16 bits per pixel, integer). Selected automatically (dinamically) when the datatype is set in the routine \fBGU_compute()\fP If detector extenions are selected (see \fBGU_det_ext()\fP) then it calls automaticall \fBGU_do_detextensions()\fP 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrptr\fP pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. 
+.br
+\fIimageptr\fP pointer to output buffer. This is the bufefr where the unscrambled data will be written 
+.br
+\fInelems\fP number of elements (pixels) in the raw buffer 
+.br
+\fI*err\fP status out 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "amp_t \fBamp\fP[256]\fC [static]\fP"
+.PP
+.SS "void* \fBampbufptr\fP = NULL"
+.PP
+.SS "i32 \fBampbufsize\fP = 0"
+.PP
+.SS "i32 \fBarrange_sections\fP = 0"
+.PP
+.SS "i32 \fBarrange_sections_left\fP = 0"
+.PP
+.SS "i32 \fBarrange_sections_lower\fP = 0"
+.PP
+.SS "i32 \fBarrange_sections_right\fP = 0"
+.PP
+.SS "i32 \fBarrange_sections_upper\fP = 0"
+.PP
+.SS "i32 \fBbytes_pp\fP = 0"
+.PP
+.SS "amp_t \fBdet\fP[64]\fC [static]\fP"
+.PP
+.SS "void* \fBdetbufptr\fP = NULL"
+.PP
+.SS "i32 \fBdetbufsize\fP = 0"
+.PP
+.SS "i32 \fBdetext\fP = 0"
+.PP
+.SS "const char* \fBdlError2\fP"
+.PP
+.SS "i32(*) \fBGUget_left1\fP()"
+.PP
+.SS "i32(*) \fBGUget_left2\fP()"
+.PP
+.SS "i32(*) \fBGUget_left3\fP()"
+.PP
+.SS "i32(*) \fBGUget_lower1\fP()"
+.PP
+.SS "i32(*) \fBGUget_lower2\fP()"
+.PP
+.SS "i32(*) \fBGUget_lower3\fP()"
+.PP
+.SS "i32(*) \fBGUget_right1\fP()"
+.PP
+.SS "i32(*) \fBGUget_right2\fP()"
+.PP
+.SS "i32(*) \fBGUget_right3\fP()"
+.PP
+.SS "i32(*) \fBGUget_upper1\fP()"
+.PP
+.SS "i32(*) \fBGUget_upper2\fP()"
+.PP
+.SS "i32(*) \fBGUget_upper3\fP()"
+.PP
+.SS "void* \fBLocalLib\fP = NULL"
+.PP
+.SS "u32 \fBnamps\fP = 0\fC [static]\fP"
+.PP
+.SS "u32 \fBndets\fP = 0\fC [static]\fP"
+.PP
+.SS "i32 \fBPhysMap\fP[MAX_AMPS]\fC [static]\fP"
+.PP
+.SS "i32 \fBpix_swap\fP = 0"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GUNSC from the source code.

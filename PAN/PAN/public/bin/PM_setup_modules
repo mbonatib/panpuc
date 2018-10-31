@@ -1,0 +1,51 @@
+#! /bin/csh -f
+
+if ($#argv < 1) then
+	set modsdir = `cd ../../Modules; pwd`
+else
+	set modsdir = "$1"
+endif
+
+if ($#argv >= 2) then
+	set cfgdir =  $2
+else
+	set cfgdir = `cd ../../../config; pwd`
+endif
+
+if (! -e "$cfgdir") then
+	echo "ERROR cannot find configuration file"
+	exit 1
+endif
+if (! -e "$modsdir") then
+	echo "ERROR directory $modsdir does not exists"
+	exit 1
+endif
+
+setenv ARCROOT  `cd $cfgdir/../; pwd`
+set bindir = "$modsdir/../bin"
+set currdir = `pwd`
+cd $modsdir
+
+set modules = `ls -d *`
+set req_depmods = ""
+echo "Sources from:"
+echo "configuration dir: $cfgdir"
+echo "modules directory: $modsdir"
+while ("$modules" != "")
+	set module = $modules[1]
+	if (-e $module/public/bin/MOD_setup) then
+		echo ""
+		echo "Setting $module"
+		echo "---------------"
+		cd $module/public/bin
+		./MOD_setup
+		cd $modsdir
+	endif
+	shift modules
+end
+
+echo "OK"
+
+cd $currdir
+
+exit 0

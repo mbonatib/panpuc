@@ -1,0 +1,81 @@
+\section{test/dispatcher\_\-shm/tcpserver.c File Reference}
+\label{dispatcher__shm_2tcpserver_8c}\index{test/dispatcher_shm/tcpserver.c@{test/dispatcher\_\-shm/tcpserver.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include \char`\"{}dispatcher.h\char`\"{}}\par
+{\tt \#include \char`\"{}shmclient\-Lib.h\char`\"{}}\par
+{\tt \#include \char`\"{}Fsender\-Lib.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{OK}~\char`\"{}0\char`\"{}
+\item 
+\#define \bf{UNKNOWN}~\char`\"{}-1\char`\"{}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{sig\_\-pipe} (int \bf{n})
+\item 
+int \bf{tcp\_\-server} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{new\_\-socket}
+\item 
+int \bf{shmqid}
+\item 
+int \bf{running}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!OK@{OK}}
+\index{OK@{OK}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~\char`\"{}0\char`\"{}}\label{dispatcher__shm_2tcpserver_8c_ba51915c87d64af47fb1cc59348961c9}
+
+
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!UNKNOWN@{UNKNOWN}}
+\index{UNKNOWN@{UNKNOWN}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UNKNOWN~\char`\"{}-1\char`\"{}}\label{dispatcher__shm_2tcpserver_8c_c1ae4add974b9cfc6b5aaf8a578f01ab}
+
+
+
+
+\subsection{Function Documentation}
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!sig_pipe@{sig\_\-pipe}}
+\index{sig_pipe@{sig\_\-pipe}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void sig\_\-pipe (int {\em n})}\label{dispatcher__shm_2tcpserver_8c_7c27a55737f20ca2806691d805da4f9d}
+
+
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!tcp_server@{tcp\_\-server}}
+\index{tcp_server@{tcp\_\-server}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int tcp\_\-server (void)}\label{dispatcher__shm_2tcpserver_8c_670df12c784cbf1b260ab50397194b66}
+
+
+
+
+\subsection{Variable Documentation}
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!new_socket@{new\_\-socket}}
+\index{new_socket@{new\_\-socket}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{new\_\-socket}}\label{dispatcher__shm_2tcpserver_8c_4848332eecf4c58ee3b11a4f8513c3db}
+
+
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!running@{running}}
+\index{running@{running}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{running}}\label{dispatcher__shm_2tcpserver_8c_2f45113638a0b749a8a205d2cd7fb42b}
+
+
+\index{dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}!shmqid@{shmqid}}
+\index{shmqid@{shmqid}!dispatcher_shm/tcpserver.c@{dispatcher\_\-shm/tcpserver.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{shmqid}}\label{dispatcher__shm_2tcpserver_8c_532df43ed27970f11fa599a96a867fe1}
+
+

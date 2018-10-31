@@ -1,0 +1,212 @@
+2015-03-08T23:55:23 UTC <Marco Bonati> GUNSC version 20.0
+	* labview 2014
+	* tested for 64bits native OS
+
+2013-02-28T23:55:23 UTC <Marco Bonati> GUNSC version 10.4
+	* fixed the passing of pointers to DSENDER (missing pointer in
+	 compute)
+
+2012-05-30T23:55:23 UTC <Marco Bonati> GUNSC version 10.3
+	* replaced double_t with pan_double_t to avoid conflict with mathdefs
+	in newer kernels
+
+2012-05-30T23:55:23 UTC <Marco Bonati> GUNSC version 10.2
+	* updated C documentation (Doxygen)
+
+2011-11-08T23:55:23 UTC <Marco Bonati> GUNSC version 10.1
+	* no debug
+
+2011-10-18T23:55:23 UTC <Marco Bonati> GUNSC version 10.0
+	* fixed a problem with UL unscrambling -shift by 1 pixel-
+	(fixed GU_algors, the UL case, added a "-1" to the *(dataptr...=*(rawptr...)
+
+2011-07-20T23:55:23 UTC <Marco Bonati> GUNSC version 9.4
+	* fixed a problem when using detector extensions and some
+	detector where not being read (none). Added GU_getdet
+	to locate the right index. 
+	* Also modified ADDDet.vi for to include detnumber in the
+	detector structure
+
+2011-07-15T23:55:23 UTC <Marco Bonati> GUNSC version 9.3
+	* handles disabled + detextensions (GU_Algors)
+	* "enable" with no args returns the state (on/off)
+ 
+2011-05-16T23:55:23 UTC <Marco Bonati> GUNSC version 9.2
+	* some small changes to avoid warnings in come compilers
+
+2011-04-24T23:55:23 UTC <Marco Bonati> GUNSC version 9.1
+	* tested the C library in a 64 bits machine
+	Ready for labvie 64b, if ever comes
+
+2011-03-24T23:55:23 UTC <Marco Bonati> GUNSC version 9.0
+	* changed so it is, in theory, 64bits safe.
+	* added custom typedefs, and the handling of the labview/c
+	pointer passing is all done in 64 bits (converted to 32 in C
+	if the OS is 32 bits
+
+2010-10-12T23:55:23 UTC <Marco Bonati> GUNSC version 8.4
+	* aded some commands to make the physmap friendler
+	(writekey physmap / writekey get_physmap)
+
+2010-10-12T23:55:23 UTC <Marco Bonati> GUNSC version 8.3
+	* fixed the y shuffling, that was moving just half the data
+	(no bytes_pp in the memcpy)
+
+2010-09-25T23:55:23 UTC <Marco Bonati> GUNSC version 8.2
+	* added the type to the detectors structure. This is useful
+	  only when using "single" sampling.
+	* for the previous thing, ensured that the detector structure
+	  gets always added before the amplifier structure
+
+2010-09-16T23:55:23 UTC <Marco Bonati> GUNSC version 8.1
+	* fixed a small mesage (replaced ERR: by the standard ERROR)
+	* Since 8.0, the dynamic unscrambling functions (GU_SHORT, etc)
+	have an extra parameter to pass the error (int *err)
+
+2010-09-16T21:55:23 UTC <Marco Bonati> GUNSC version 8.0
+	* the detext rearranging can now be done in chuncks
+	(for usage in real time sampling/reducing, as "single")
+
+2010-09-16T21:55:23 UTC <Marco Bonati> GUNSC version 7.1
+	* Added time debug, taken off some printf statements
+
+2010-05-22T21:55:23 UTC <Marco Bonati> GUNSC version 7.0
+	* added the capability of swapping sections (pre/post/data) after the
+	  unscrambling -shuffling them around- on request 
+	* added the commands "get/set order"
+	* untested with real detectors yet
+
+2010-05-22T21:55:23 UTC <Marco Bonati> GUNSC version 6.1
+	* fixed "version" command
+
+2010-04-05T21:55:23 UTC <Marco Bonati> GUNSC version 6.0
+	* added "discard" flag to amplifiers. It does nothing to the
+	* unscrambler, but gets passed to GFITS so the amplifiers is
+	  nor writen to disk (read from controller but discarded)
+
+2009-10-22T21:55:23 UTC <Marco Bonati> GUNSC version 5.4
+	* small comment taken out of the debug window because it was confusing
+
+2009-05-17T21:55:23 UTC <Marco Bonati> GUNSC version 5.3
+	* added the flad "pix_swap" "(command "set pix_swap 0 | 1)"
+	  to accomodate for a monsoon bug that sends the pixels swapped in
+	  some cases (when readin single amplifiers)
+
+2009-05-17T21:55:23 UTC <Marco Bonati> GUNSC version 5.2
+	* fixed a couple of simple things (disable would not work unless at
+	* least 1 unscrambling had been done before. This was fixed)
+	* Deleted the "scr.fits" on the test (17 megs! and never used)
+
+2009-05-06T21:55:23 UTC <Marco Bonati> GUNSC version 5.1
+	* Added the detext capability to bpp=16 and bpp=(float)32, that was
+	* forgotten (not added) before
+
+2009-02-26T21:55:23 UTC <Marco Bonati> GUNSC version 5.0
+	* It can handle structures for per-detector information. Gets the
+	information from thr GEOM (5.0->), and then, if selected, it can
+	generate per-detector structures immediately after discrambling,
+	passing those structures to the external workld (GFITS, etc), so
+	each detetcor looks now as an amplifier (for the rest)
+
+2009-01-15T21:55:23 UTC <Marco Bonati> GUNSC version 4.3
+	* Modified so the cont_read is ANDed with the memfits var
+	 (so it can run in cotinuous-run mode and "writing" fits
+	 IF they are memfits files
+
+2008-07-16T21:55:23 UTC <Marco Bonati> GUNSC version 4.2
+	* added the OSU svn tags
+
+2008-07-16T21:55:23 UTC <Marco Bonati> GUNSC version 4.1
+	* added the enable/disable unscrambling. Modified both C libraries and
+	 labview libraries ("enable on/off" that causes the data to be passed
+	 as it came in the raw buffer)
+
+2008-07-04T21:55:23 UTC <Marco Bonati> GUNSC version 4.0
+	* modified the input from the GEOM module to better handle non-square
+	 FPAs
+
+2008-06-04T21:55:23 UTC <Marco Bonati> GUNSC version 3.6
+	* fixed unscrambling bug for UR amplifiers (found at Palomar Mount)
+
+2007-05-29T21:55:23 UTC <Marco Bonati> GUNSC version 3.5
+	* reads the variable "cont_read" to send or not info/requests to
+	  the GFITS module. If cont_read, then assumes no image will be
+	  written, so no fits commands are sent
+
+2007-03-22T21:55:23 UTC <Marco Bonati> GUNSC version 3.4
+        * fixed the command line interface to allow writekey commands
+
+2006-05-12T21:55:23 UTC <Marco Bonati> GUNSC version 3.3
+	* update DEP file (Common 1.6, guider vis)
+
+2006-05-12T21:55:23 UTC <Marco Bonati> GUNSC version 3.2
+	* Removed dependencies with database	
+	* Created the GUNSC_inspect errors, that used the database errnostr
+
+2005-05-12T21:55:23 UTC <Marco Bonati> GUNSC version 3.1
+	* fixed a bug on the RI_SHORT routine, under GU_transformations.c
+	* added the DEP file
+
+2005-05-12T21:55:23 UTC <Marco Bonati> GUNSC version 3.0
+	* Labview 7.0
+
+2005-02-19T21:55:23 UTC <Marco Bonati> GUNSC version 2.4
+	* taken out dependencies with ArcVIEW/Common 
+	* added the "VERSION" command
+	* taken out the debug by default
+
+2004-11-02T21:55:23 UTC <Marco Bonati> GUNSC version 2.3
+	* Some changes regarding negative pointers being returned (and not
+	* errors) because of some o.s. memory managment. This was seen during
+          the P60 upgrade. The changes were merged here. Basically, changes on
+          GUNSC_Main.vi and some others (unwiring the pointer and wiring a 0, 
+          meaning "no error"
+
+2004-11-02T21:55:23 UTC <Marco Bonati> GUNSC version 2.2
+	* Replaced ConfigVals for CMN_ConfigVals
+
+
+2004-07-02T21:55:23 UTC <Marco Bonati> GUNSC version 2.1
+	* Changed the C library so now the dinamic unscrambling library
+	  isa not hardcoded, but passed at initialization time. Changed
+	  GU_open to take the path argument. Modified GUNSC_Main.vi to
+	  pass the argument at the begining. This was done in order to make
+	  the module independent on the /home directory
+
+2003-10-27T21:55:23 UTC <Marco Bonati> GUNSC version 2.0
+	* Started using the DBSHANDLER module for database storage
+
+2003-10-27T21:55:23 UTC <Marco Bonati> GUNSC version 1.8
+	* changed the call to the GFITS module from "write" to 
+	  "writeamps". Note that now it must be used with version
+	 1.8 --> of the GFITS module
+
+2003-10-07T21:55:23 UTC <Marco Bonati> GUNSC version 1.7
+        *deleted the ampsptr variable 
+
+2003-10-03T21:07:10 UTC <Marco Bonati> GUNSC version 1.6
+	*fixed the multiple extensions thing (kirmos)
+	
+
+2003-04-23T06:32:09 UTC <Marco Bonati> GUNSC version 1.5
+
+	*added _DEBUG_ directive to the C source
+
+2003-08-20T00:44:28 UTC
+
+	*added verification of number of amplifiers versus extensions array.
+Now it will update the size of the update array accoringly. 
+		- Created GUNSC_verifyNumberExtensions.vi (on private/vis)
+
+2003-08-21T21:38:07 UTC M.B.
+
+	*created config directory and default configuration file
+	*added "commands" handling at initialization (through configuration
+file)
+	*added "SetPhysMap" function for changing the Physsical map between
+	defined amplifiers and physical cables on mount.
+		- Added on GUnscramble.c and GU_algors.c
+	*Modified GUNSC_Str2Extensions.vi in order to handle more diectives
+	*Created GUNSC_LibSetPhysMap.vi for calling new function.
+	*Modified GUNSC_Main.c at the WRITEKEY --> physmap for making new C
+call (PhysMap)

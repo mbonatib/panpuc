@@ -1,0 +1,35 @@
+#! /bin/csh -f
+setenv ARCROOT $PAN_ROOT
+set ISSET = `setenv | egrep ARCROOT`
+if ("$ISSET" == "") then
+	set currdir = `cd ../../../; pwd`
+        setenv ARCROOT $currdir
+endif
+
+if ($#argv < 1) then
+	echo "usage: MM_get_last_version <module_name> [-chanfrom <ver>]"
+	exit 1
+endif
+
+if ("$2" == "-chanfrom") then
+	if ("$3" != "") then
+		set chanfrom = "-chanfrom $3"
+	else
+		echo "ERROR: missing argument to -chanfrom <version>"
+		exit 1
+	endif
+else
+	set chanfrom = ""
+endif
+
+set module = $1
+
+if ("$chanfrom" != "") then
+	set REP = `$ARCROOT/PAN/public/bin/PM_get_repository`
+	set REPUSER = $REP[1]
+	set REPHOST = $REP[2]
+	ssh $REPUSER@$REPHOST "arcrep_get_last_modversion $module $chanfrom"
+else
+	$ARCROOT/PAN/public/bin/PM_get_version $module LAST
+endif
+exit 0

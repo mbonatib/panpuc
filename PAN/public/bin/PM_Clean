@@ -1,0 +1,22 @@
+#! /bin/csh -f
+
+if ($#argv < 1) then
+    echo "Usage:   MM_Clean MODULE   :from parent directory of MODULE"
+    exit
+endif
+
+echo cleaning module $1
+if ("$2" == "-sources") then
+	set currdir=`pwd`
+	set makelist=`find ./$1 -name src -print`
+	foreach mk ($makelist)
+    	echo "... cleaning directory $mk"
+    	cd $mk ; make clean ; cd $currdir
+	end
+endif
+find ./$1 -name "*~*" -exec rm -i {} \;
+find ./$1 -name "*[*" -exec rm -i {} \;
+find ./$1 -name "*]*" -exec rm -i {} \;
+find ./$1 -name "*@*" -exec rm -i {} \;
+find ./$1 -name "*#*" -exec rm -i {} \;
+find ./$1 -name "imt1*" -exec rm -i {} \;

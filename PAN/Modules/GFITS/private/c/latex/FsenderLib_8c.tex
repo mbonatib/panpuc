@@ -1,0 +1,137 @@
+\section{test/dispatcher/Fsender\-Lib.c File Reference}
+\label{FsenderLib_8c}\index{test/dispatcher/FsenderLib.c@{test/dispatcher/FsenderLib.c}}
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/mman.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{pdebug}(fmt, args...)
+\item 
+\#define \bf{OK}~0
+\item 
+\#define \bf{NTRIES}~3
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{FS\_\-set\_\-host} (char $\ast$host, int port)
+\item 
+int \bf{FS\_\-close} (void)
+\item 
+int \bf{FS\_\-connect} (char $\ast$host, int port)
+\item 
+int \bf{FS\_\-Send\-Fits} (unsigned long buf, unsigned long bufsize)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+char \bf{error\_\-msg} [100]
+\item 
+char \bf{svradd} [100]
+\item 
+int \bf{svrport}
+\item 
+int \bf{sockfd}
+\item 
+int \bf{n}
+\item 
+sockaddr\_\-in \bf{serv\_\-addr}
+\item 
+hostent $\ast$ \bf{server}
+\item 
+int \bf{connected} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{FsenderLib.c@{Fsender\-Lib.c}!NTRIES@{NTRIES}}
+\index{NTRIES@{NTRIES}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define NTRIES~3}\label{FsenderLib_8c_d5a4898d322ab25d2e9e0da38b07ee37}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!OK@{OK}}
+\index{OK@{OK}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~0}\label{FsenderLib_8c_ba51915c87d64af47fb1cc59348961c9}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!pdebug@{pdebug}}
+\index{pdebug@{pdebug}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define pdebug(fmt, args...)}\label{FsenderLib_8c_8c966da20fb8302f3c1dd18e5db6a22f}
+
+
+
+
+\subsection{Function Documentation}
+\index{FsenderLib.c@{Fsender\-Lib.c}!FS_close@{FS\_\-close}}
+\index{FS_close@{FS\_\-close}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int FS\_\-close (void)}\label{FsenderLib_8c_038eb319822692777b0feec260da2e39}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!FS_connect@{FS\_\-connect}}
+\index{FS_connect@{FS\_\-connect}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int FS\_\-connect (char $\ast$ {\em host}, int {\em port})}\label{FsenderLib_8c_39d55c4b8b1d2056927d7be502c18282}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!FS_SendFits@{FS\_\-SendFits}}
+\index{FS_SendFits@{FS\_\-SendFits}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int FS\_\-Send\-Fits (unsigned long {\em buf}, unsigned long {\em bufsize})}\label{FsenderLib_8c_dac28fa51c9fd2a4f21d0c44a6651584}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!FS_set_host@{FS\_\-set\_\-host}}
+\index{FS_set_host@{FS\_\-set\_\-host}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int FS\_\-set\_\-host (char $\ast$ {\em host}, int {\em port})}\label{FsenderLib_8c_d7595a83319ff70a2c7b28694c706868}
+
+
+
+
+\subsection{Variable Documentation}
+\index{FsenderLib.c@{Fsender\-Lib.c}!connected@{connected}}
+\index{connected@{connected}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{connected} = 0}\label{FsenderLib_8c_9709aefe4930807392898aecb0cb8a79}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!error_msg@{error\_\-msg}}
+\index{error_msg@{error\_\-msg}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{error\_\-msg}[100]}\label{FsenderLib_8c_e50816ad7646b18752b608cc2c930c72}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!n@{n}}
+\index{n@{n}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{n}}\label{FsenderLib_8c_76f11d9a0a47b94f72c2d0e77fb32240}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!serv_addr@{serv\_\-addr}}
+\index{serv_addr@{serv\_\-addr}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct sockaddr\_\-in \bf{serv\_\-addr}}\label{FsenderLib_8c_c724fe70ae8af2d1406927ee7b574a1b}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!server@{server}}
+\index{server@{server}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct hostent$\ast$ \bf{server}}\label{FsenderLib_8c_8f718c687d0f28ecb0f281df574ada24}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!sockfd@{sockfd}}
+\index{sockfd@{sockfd}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{sockfd}}\label{FsenderLib_8c_d2c8fb3df3a737e0685e902870a611d2}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!svradd@{svradd}}
+\index{svradd@{svradd}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{svradd}[100]}\label{FsenderLib_8c_9515cad9fa5c1ee9cdf16234a64fe121}
+
+
+\index{FsenderLib.c@{Fsender\-Lib.c}!svrport@{svrport}}
+\index{svrport@{svrport}!FsenderLib.c@{Fsender\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{svrport}}\label{FsenderLib_8c_6e83353795939af623c97b531c72d294}
+
+

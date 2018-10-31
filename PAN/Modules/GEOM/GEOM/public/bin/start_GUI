@@ -1,0 +1,15 @@
+# !/bin/csh -f
+
+#possible args are:
+# -fpa <name> : name of the fpa to be starte dwith
+# -database <path>: path to the place where the det_database dir is.
+#                   If not given will try  to use default
+# -exit: indicated to exit labview when the GUI is quit (no by default)
+# -port <number>: indicated the tcp server port (4080 by default)
+# This GUI includes a simple tcp/ip server that can be used to prgramatically
+# change the GUI. The commands are these:
+# set <name> : sets the specified fpa. This is the same as manually changing 
+# 		the pull-down menu
+# get <name> : gets the currently selected FPA name
+# get <info> : gets the general info for the selected FPA
+labview ../../test/GEOM_GUI.vi -- $argv

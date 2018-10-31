@@ -1,0 +1,43 @@
+There is a change how the gcc works starting from version 3.3.
+To find out what version you have installed, please try
+"gcc -dumpversion"
+. If you have version 3.3 or superior, please read the next information.
+
+GCC 3.3 ->
+
+"You should not include /usr/include/{linux,asm}/ header"
+"files directly for the compilation of kernel modules."
+
+"glibc now uses kernel header files from a well-defined"
+"working kernel version (as recommended by Linus Torvalds)"
+"These files are glibc internal and may not match the"
+"currently running kernel. They should only be"
+"included via other system header files - user space"
+"programs should not directly include <linux/*.h> or"
+"<asm/*.h> as well."
+
+"To build kernel modules please do the following:"
+
+"o Have the kernel sources installed"
+
+"o Make sure that the symbolic link"
+"   /lib/modules/`uname -r`/build exists and points to"
+"   the matching kernel source directory"
+
+"o Now copy /boot/vmlinuz.version.h to"
+"   /lib/modules/`uname -r`/build/include/linux/version.h"
+"
+"o When compiling, make sure to use the following"
+"   compiler option to use the correct include files:"
+"
+"   -I/lib/modules/`uname -r`/build/include"
+"
+"   instead of"
+"
+"   -I/usr/include/linux"
+"
+"   Please adjust the Makefile accordingly."
+
+The makefile called Makefile.gcc.3.3.X has the change explained there involved.
+Plase be sure that the Makfile link points to this file.
+The rest of the steps must be verifyied manually

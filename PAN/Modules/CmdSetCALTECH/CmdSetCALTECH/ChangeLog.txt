@@ -1,0 +1,5 @@
+2010-04-08T21:18:02 UTC <Marco Bonati> CmdSetCALTECH version 1.2
+	* improved
+
+2008-11-08T21:18:02 UTC <Marco Bonati> CmdSetCALTECH version 1.1
+	* Created

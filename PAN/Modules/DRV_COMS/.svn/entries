@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2649"
+   name=""
+   committed-date="2008-10-11T01:17:14.096265Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0"
+   last-author="bonati"
+   kind="dir"
+   uuid="e6f60f9c-5abb-4710-8859-6e645079aa37"
+   repos="https://139.229.115.227/svn"
+   revision="2649"/>
+<entry
+   committed-rev="2650"
+   name="ChangeLog.txt"
+   text-time="2008-10-11T01:16:53.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="35af33286f4ac8cba4a17dc7083da59f"
+   last-author="bonati"
+   kind="file"
+   revision="2650"/>
+<entry
+   name="doc"
+   kind="dir"/>
+<entry
+   committed-rev="2445"
+   name="INFO.txt"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="45d65ecaa12d055d5c7dd76208cd5eea"
+   last-author="bonati"
+   kind="file"/>
+<entry
+   name="private"
+   kind="dir"/>
+<entry
+   name="public"
+   kind="dir"/>
+</wc-entries>

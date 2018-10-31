@@ -1,0 +1,21 @@
+#! /bin/csh -f
+
+if ($#argv < 1) then
+	echo "usage: PM_get_file <file>"
+	exit 1
+endif
+
+setenv ARCROOT $PAN_ROOT
+set ISSET = `setenv | egrep ARCROOT`
+if ("$ISSET" == "") then
+        set currdir = `cd ../../../; pwd`
+        setenv ARCROOT $currdir
+endif
+
+set REP = `$ARCROOT/PAN/public/bin/PM_get_repository`
+set WEBREP = $REP[3]
+
+set file = $1
+shift
+
+	wget $argv $WEBREP/$file

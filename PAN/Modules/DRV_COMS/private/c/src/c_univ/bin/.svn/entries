@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2650"
+   name=""
+   committed-date="2008-10-11T01:17:17.545855Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private/c/src/c_univ/bin"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="shutdown_Univ_Server"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="91e2a6943164816c989cea4fd459f987"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="send_Univ_Server_cmd"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="f87051c8328032cfe96c2f1263ee157c"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="start_Univ_Server"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="753b309b48ce7974e2996b3f713add8f"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="univ_server"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="2bd528a5a3694737daf18caa7dd48564"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"/>
+</wc-entries>

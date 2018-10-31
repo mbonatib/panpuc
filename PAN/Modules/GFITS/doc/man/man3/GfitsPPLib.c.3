@@ -1,0 +1,58 @@
+.TH "panview_current/PAN/Modules/GFITS/private/c/src/GfitsPPLib.c" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GFITS/private/c/src/GfitsPPLib.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <errno.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBOK\fP   0"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBcall_postproc\fP (char *pppath, char *impath, char *args, short back)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define OK   0"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "int call_postproc (char * pppath, char * impath, char * args, short back)"
+.PP
+Calls a postprox script using a system call 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI*ppath\fP full path to script or exec. to call 
+.br
+\fI*impath\fP full path to image just written, in case the script requieres this information 
+.br
+\fI*args\fP arguments to be passed to the script or exec. 
+.br
+\fIback\fP flag to tell fi the script should be executed in background or we should wait (block) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

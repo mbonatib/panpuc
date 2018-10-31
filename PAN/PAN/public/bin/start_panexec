@@ -1,0 +1,104 @@
+#!/bin/csh -f
+
+set CONFFILE = ""
+set MODDIR = ""
+set CONFDIR = ""
+set LOGDIR = ""
+set APP_BIN = "./"
+set cmdargs = ""
+
+while ("$1" != "")
+	switch ("$1")
+		case -panconfigfile:
+	                if ("$2" != "") then
+                        	shift
+       		        else
+                        	ERR  "missing argument to '-configfile <path>' switch"
+                        	exit 1
+                	endif
+                		set CONFFILE = $1
+                	breaksw
+		case -panconfigdir:
+	                if ("$2" != "") then
+                        	shift
+       		        else
+                        	ERR  "missing argument to '-configdir <path>' switch"
+                        	exit 1
+                	endif
+				set CONFDIR = $1
+                	breaksw
+		case -panlogdir:
+	                if ("$2" != "") then
+                        	shift
+       		        else
+                        	ERR  "missing argument to '-logdir <path>' switch"
+                        	exit 1
+                	endif
+				set LOGDIR = $1
+                	breaksw
+		case -panmoddir:
+	                if ("$2" != "") then
+                        	shift
+       		        else
+                        	ERR  "missing argument to '-moddir <path>' switch"
+                        	exit 1
+                	endif
+				set MODDIR = $1
+                	breaksw
+	       case -appdir:
+        	        if ("$2" != "") then
+                	        shift
+             	   	else
+               		        ERR  "missing argument to '-appdir <appdir>' switch"
+                       		exit 1
+               		endif
+                	set APP_BIN = $1/public/bin
+                	breaksw
+       		default:
+                	set cmdargs = "$cmdargs $1"
+                	breaksw
+	endsw
+        if ("$2" == "") then
+      		break
+       	else
+               	shift
+       	endif
+end
+
+#if any switch was given, use that one. If not, check if the ebviroemntal variable is 
+# defined. If so, use that value. If it is not defined, use default values
+if ("$MODDIR" == "") then
+	set ISSET = `setenv | egrep _MODPATH_`
+#	if ("$ISSET" == "") then
+		set MODDIR = `cd ../../Modules; pwd`
+		echo $MODDIR
+#	else
+#		set MODDIR = $_MODPATH_
+#	endif
+endif
+if ("$CONFDIR" == "") then
+        set ISSET = `setenv | egrep _CONFPATH_`
+        if ("$ISSET" == "") then
+		set CONFDIR = `cd ../../../def_config; pwd`
+	else
+		set CONFDIR = _CONFPATH_
+        endif
+endif
+if ("$LOGDIR" == "") then
+        set ISSET = `setenv | egrep _LOGPATH_`
+        if ("$ISSET" == "") then
+		set LOGDIR = `cd ../../../def_logs; pwd`
+	else
+		set LOGDIR = _LOGPATH_
+        endif
+endif
+
+setenv _MODPATH_ $MODDIR
+setenv _CONFPATH_ $CONFDIR
+setenv _LOGPATH_ $LOGDIR
+	
+if ("$CONFFILE" != "") then
+	$APP_BIN/panapp -- -panconfigfile $CONFFILE $cmdargs
+else
+	$APP_BIN/panapp -- $cmdargs
+endif

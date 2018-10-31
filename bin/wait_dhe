@@ -1,0 +1,34 @@
+#! /bin/csh -f
+
+if ("$1" == "") then
+	 echo "usage : wait_dhe <pan_name>"
+	exit 1
+endif
+
+	set att = 1
+	set boot_time = 0
+	set polltime = 3
+	echo "OK (Starting...)"
+	set ready = 0
+	while ($ready == 0)
+		echo "attempting communication to DHE  ($att $1)"
+		set dhestat = `pan$1 "DHE get status"`
+		echo $dhestat
+		if (("$dhestat" != "ERROR 111 writing_message") && ("$dhestat[2]" == "Initialization") && ("$dhestat[1]" != "ERROR")) then
+			set ready = 1
+		else
+			sleep $polltime
+			@ att = $att + 1
+			@ boot_time = $boot_time + $polltime
+		endif
+		if ($boot_time > 100) then
+			echo "ERROR TIMEOUT waiting dhe"
+			exit 1
+		endif
+	end
+	echo "DONE"
+	echo "Status $dhestat"
+	echo "boot_time ~ $boot_time"
+endif
+exit 0
+

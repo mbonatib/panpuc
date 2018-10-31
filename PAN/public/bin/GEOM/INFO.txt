@@ -1,0 +1,11 @@
+Name= GEOM
+Description= Generic Geometry Calculator and manager
+Type= non-resident
+Class = General
+Dynamic_Calls= 0
+Clib= none
+Driver= none
+Standard= yes
+keywords= image, amplifiers, geometry, topology, fpa
+VERSION= 4.0
+VERSION= 4.5

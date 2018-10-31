@@ -1,0 +1,6 @@
+[YPRESCAN]
+header="BIASSEC"
+binned=no
+where=predata
+add_in=rows
+comment="prescan rows"

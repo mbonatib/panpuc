@@ -1,0 +1,11 @@
+Name= DHE
+Description= Generic Detector Head Electronics constroller module
+Type= non-resident
+Class = Hardware
+Dynamic_Calls= 0
+Clib= no
+Driver= no
+Standard= yes
+keywords= controller, detector, image, optical, palomar, nir
+VERSION= 4.1
+VERSION= 4.9

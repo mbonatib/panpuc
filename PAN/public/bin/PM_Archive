@@ -1,0 +1,62 @@
+#! /bin/csh -f
+
+if ($#argv < 1) then
+    echo "Usage:   PM_Archive MODULE   :from parent directory of MODULE"
+    exit
+endif
+set curdir = `pwd`
+
+setenv ARCROOT $PAN_ROOT
+set REP = `$PAN_ROOT/PAN/public/bin/PM_get_repository`
+set REPUSER = $REP[1]
+set REPHOST = $REP[2]
+if ("$1" == "PAN") then
+	set MOD = $PAN_ROOT/PAN
+	set MP = $PAN_ROOT
+	cd $PAN_ROOT
+else
+	set MOD = $PAN_ROOT/PAN/Modules/$1
+	set MP = $PAN_ROOT/PAN/Modules
+	cd $PAN_ROOT/PAN/Modules
+endif
+
+if ("$2" != "") then
+        if ("$2" == '.' | "$2" == './') then
+                set MOD = $curdir/$1
+		set MP = $curdir
+        else
+                set MOD = $2/$1
+		set MP = $2
+        endif
+endif
+
+set build = `echo $1 | awk -F _ '{print $1}'`
+if ("$build" == "BUILD") then
+	set modname = `echo $1 | awk -F - '{print $1}'`
+else
+	set modname = $1
+endif
+
+echo extracting last version number
+set VER=`grep -m1 -o "$modname .*version [0-9|\.]*" $MOD/ChangeLog.txt | awk '{print $NF}'`
+
+echo $VER
+
+set repdir = `ssh $REPUSER@$REPHOST "arcrep_get_repdir"`
+set repdir = $repdir[2]
+
+if ("$1" == "PAN") then
+	cd PAN
+	mv Modules ../.
+	cd ..
+endif
+cd $MP
+$PAN_ROOT/PAN/public/bin/PM_Clean $1
+cd -
+echo $modname $VER
+scp -r $MOD $REPUSER@"$REPHOST":$repdir/$modname-$VER
+ssh $REPUSER@$REPHOST "panrep_store $modname $VER"
+
+if ("$1" == "PAN") then
+	mv Modules PAN/.
+endif

@@ -1,0 +1,647 @@
+\section{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-algors.c File Reference}
+\label{GU__algors_8c}\index{panview_current/PAN/Modules/GUNSC/private/c/src/GU_algors.c@{panview\_\-current/PAN/Modules/GUNSC/private/c/src/GU\_\-algors.c}}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include \char`\"{}GU\_\-transformations.h\char`\"{}}\par
+{\tt \#include $<$dlfcn.h$>$}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+i32 \bf{GU\_\-do\_\-detextensions} (ptr\_\-t outbuff, i32 nelems, i32 chunkrows)
+\item 
+i32 \bf{GU\_\-rearrange\_\-sections} (i32 chunkrows)
+\item 
+i32 \bf{GU\_\-check\-Error2} (i32 iferr)
+\item 
+void \bf{GU\_\-pix\_\-swap} (i32 flag)
+\item 
+i32 \bf{GU\_\-set\_\-bytes\_\-pp} (i32 bytes\_\-per\_\-pixel)
+\item 
+i32 \bf{GU\_\-Set\-Phys\-Map} (ptr\_\-t array, i32 num\_\-elements)
+\item 
+void \bf{GU\_\-releasedetbuf} (void)
+\item 
+i32 \bf{GU\_\-getdetbuf} (void)
+\item 
+void \bf{GU\_\-release\_\-ampbuf} (void)
+\item 
+i32 \bf{GU\_\-dlopen} (char $\ast$\bf{algorpath})
+\item 
+void \bf{GU\_\-dlclose} (void)
+\item 
+i32 \bf{GU\_\-get\_\-ampbuf} (void)
+\item 
+i32 \bf{GU\_\-set\_\-arrange\_\-sections\_\-left} (char $\ast$\bf{algorpath}, char $\ast$left1, char $\ast$left2, char $\ast$left3)
+\item 
+i32 \bf{GU\_\-set\_\-arrange\_\-sections\_\-right} (char $\ast$\bf{algorpath}, char $\ast$right1, char $\ast$right2, char $\ast$right3)
+\item 
+i32 \bf{GU\_\-set\_\-arrange\_\-sections\_\-lower} (char $\ast$\bf{algorpath}, char $\ast$low1, char $\ast$low2, char $\ast$low3)
+\item 
+i32 \bf{GU\_\-set\_\-arrange\_\-sections\_\-upper} (char $\ast$\bf{algorpath}, char $\ast$upp1, char $\ast$upp2, char $\ast$upp3)
+\item 
+i32 \bf{GU\_\-getdet} (i32 detno)
+\item 
+i32 \bf{GU\_\-det\_\-ext} (i32 flag)
+\item 
+i32 \bf{GU\_\-add\_\-det} (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 nxamps, i32 nyamps, i32 discard, i32 detno)
+\item 
+i32 \bf{GU\_\-add\_\-amp} (i32 xstart, i32 precols, i32 datacols, i32 postcols, i32 ystart, i32 prerows, i32 datarows, i32 postrows, i32 xdetstart, i32 ydetstart, i16 type, i32 rotate, i16 flip, i32 extension, i32 detno, i32 ampno, i32 discard)
+\item 
+ptr\_\-t \bf{GU\_\-get\_\-amps\_\-ptr} ()
+\item 
+i32 \bf{GU\_\-clear\_\-amps} (void)
+\item 
+ptr\_\-t \bf{GU\_\-SHORT} (ptr\_\-t rptr, ptr\_\-t imageptr, i32 nelems, i32 $\ast$err)
+\item 
+ptr\_\-t \bf{GU\_\-LONG} (ptr\_\-t rptr, ptr\_\-t imageptr, i32 nelems, i32 $\ast$err)
+\item 
+ptr\_\-t \bf{GU\_\-FLOAT} (ptr\_\-t rptr, ptr\_\-t imageptr, i32 nelems, i32 $\ast$err)
+\item 
+ptr\_\-t \bf{GU\_\-NONE} (ptr\_\-t rptr, ptr\_\-t imageptr, i32 nelems, i32 $\ast$err)
+\item 
+i32 \bf{GU\_\-add\_\-subimage} (ptr\_\-t genptr, ptr\_\-t subimptr, i32 subxstart, i32 subystart, i32 subcols, i32 subrows, i32 totalcols)
+\item 
+i32 \bf{GU\_\-copy\_\-image} (long outbuff, long inbuff, i32 totcols)
+\item 
+ptr\_\-t \bf{GU\_\-get\_\-raw\_\-ptr} (i32 $\ast$namplif)
+\item 
+void \bf{GU\_\-copy\_\-pre\_\-left} (void $\ast$ptr, i32 a, i32 row, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-pre\_\-right} (void $\ast$ptr, i32 a, i32 row, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-pos\_\-left} (void $\ast$ptr, i32 a, i32 row, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-pos\_\-right} (void $\ast$ptr, i32 a, i32 row, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-dat\_\-left} (void $\ast$ptr, i32 a, i32 row, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-dat\_\-right} (void $\ast$ptr, i32 a, i32 row, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-ypre\_\-low} (void $\ast$ptr, i32 a, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-ypre\_\-upp} (void $\ast$ptr, i32 a, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-ypos\_\-low} (void $\ast$ptr, i32 a, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-ypos\_\-upp} (void $\ast$ptr, i32 a, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-ydat\_\-low} (void $\ast$ptr, i32 a, i32 $\ast$nbytes)
+\item 
+void \bf{GU\_\-copy\_\-ydat\_\-upp} (void $\ast$ptr, i32 a, i32 $\ast$nbytes)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static u32 \bf{namps} = 0
+\item 
+static u32 \bf{ndets} = 0
+\item 
+static amp\_\-t \bf{amp} [256]
+\item 
+static amp\_\-t \bf{det} [64]
+\item 
+static i32 \bf{Phys\-Map} [MAX\_\-AMPS]
+\item 
+i32 \bf{bytes\_\-pp} = 0
+\item 
+i32 \bf{detext} = 0
+\item 
+i32 \bf{detbufsize} = 0
+\item 
+void $\ast$ \bf{detbufptr} = NULL
+\item 
+void $\ast$ \bf{ampbufptr} = NULL
+\item 
+i32 \bf{ampbufsize} = 0
+\item 
+i32 \bf{pix\_\-swap} = 0
+\item 
+i32 \bf{arrange\_\-sections} = 0
+\item 
+i32 \bf{arrange\_\-sections\_\-left} = 0
+\item 
+i32 \bf{arrange\_\-sections\_\-right} = 0
+\item 
+i32 \bf{arrange\_\-sections\_\-upper} = 0
+\item 
+i32 \bf{arrange\_\-sections\_\-lower} = 0
+\item 
+void $\ast$ \bf{Local\-Lib} = NULL
+\item 
+i32($\ast$) \bf{GUget\_\-left1} ()
+\item 
+i32($\ast$) \bf{GUget\_\-left2} ()
+\item 
+i32($\ast$) \bf{GUget\_\-left3} ()
+\item 
+i32($\ast$) \bf{GUget\_\-right1} ()
+\item 
+i32($\ast$) \bf{GUget\_\-right2} ()
+\item 
+i32($\ast$) \bf{GUget\_\-right3} ()
+\item 
+i32($\ast$) \bf{GUget\_\-lower1} ()
+\item 
+i32($\ast$) \bf{GUget\_\-lower2} ()
+\item 
+i32($\ast$) \bf{GUget\_\-lower3} ()
+\item 
+i32($\ast$) \bf{GUget\_\-upper1} ()
+\item 
+i32($\ast$) \bf{GUget\_\-upper2} ()
+\item 
+i32($\ast$) \bf{GUget\_\-upper3} ()
+\item 
+const char $\ast$ \bf{dl\-Error2}
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_add_amp@{GU\_\-add\_\-amp}}
+\index{GU_add_amp@{GU\_\-add\_\-amp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-add\_\-amp (i32 {\em xstart}, i32 {\em precols}, i32 {\em datacols}, i32 {\em postcols}, i32 {\em ystart}, i32 {\em prerows}, i32 {\em datarows}, i32 {\em postrows}, i32 {\em xdetstart}, i32 {\em ydetstart}, i16 {\em type}, i32 {\em rotate}, i16 {\em flip}, i32 {\em extension}, i32 {\em detno}, i32 {\em ampno}, i32 {\em discard})}\label{GU__algors_8c_443c3ede0d26c8dd7c9078c4e9d23cb8}
+
+
+Adds a new detector into structure. See \doxyref{GU\_\-call\_\-add\_\-amp()}{p.}{GUnscrambling_8c_3c27d07cae0f9255479e5e6e647e52fe} 
+
+First, convert any angle to a value [0, 359] degrees. Second, the only allowable angles are multiple of 90 (90, 180, 270). Third, then rotation on 180 degrees can be avoided by changing the amplifier definition with the following rule: Change from Lower to Upper anf from Righr to Left (and vice-versa), which means, the opposite, diagonal type
+
+Now, all flips can be avoided just changing the amplifiers definitions using this rule: For Horizontal Flips, a Lower amplifiers change to an Upper amplifier (and vice-versa) For Vertical Flips, a Right amplifier changes to a Left amplifier (and vice-versa) This implies that, for example, a LL flipped vertically is a LR, and flipped horizontally is an UL \index{GU_algors.c@{GU\_\-algors.c}!GU_add_det@{GU\_\-add\_\-det}}
+\index{GU_add_det@{GU\_\-add\_\-det}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-add\_\-det (i32 {\em xstart}, i32 {\em precols}, i32 {\em datacols}, i32 {\em postcols}, i32 {\em ystart}, i32 {\em prerows}, i32 {\em datarows}, i32 {\em postrows}, i32 {\em nxamps}, i32 {\em nyamps}, i32 {\em discard}, i32 {\em detno})}\label{GU__algors_8c_9a4b3a22aac12d25dace92591bb95565}
+
+
+Adds a new detector into structure. See \doxyref{GU\_\-call\_\-add\_\-det()}{p.}{GUnscrambling_8c_0089d3db9d237b24c151aab75d12f821} \index{GU_algors.c@{GU\_\-algors.c}!GU_add_subimage@{GU\_\-add\_\-subimage}}
+\index{GU_add_subimage@{GU\_\-add\_\-subimage}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-add\_\-subimage (ptr\_\-t {\em genptr}, ptr\_\-t {\em subimptr}, i32 {\em subxstart}, i32 {\em subystart}, i32 {\em subcols}, i32 {\em subrows}, i32 {\em totalcols})}\label{GU__algors_8c_e66ffe043264ffc422b8e45484e5b3ed}
+
+
+Adds an the image in the specified subimage buffer in the specified position in the output buffer. The position here means geometryc position rather than index position. This is used, for example, to compose detector data (when detextor extensions are enabled) \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em genptr}]pointer to general (complete, output) image buffer \item[\mbox{$\leftarrow$} {\em subimptr}]pointer to subimage to be added \item[\mbox{$\leftarrow$} {\em subxstart}]lower left x position of subimage in complete image (genptr) \item[\mbox{$\leftarrow$} {\em subystart}]lower left y position of subimage in complete image (genptr) \item[\mbox{$\leftarrow$} {\em subcols}]number of columns in subimage \item[\mbox{$\leftarrow$} {\em subrows}]number of rows in subimage \item[\mbox{$\leftarrow$} {\em totalcols}]number of cols in complete (general) image \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_checkError2@{GU\_\-checkError2}}
+\index{GU_checkError2@{GU\_\-checkError2}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-check\-Error2 (i32 {\em iferr})}\label{GU__algors_8c_a22694b2f8ddc976dab62d9adc445635}
+
+
+Checks dl error \index{GU_algors.c@{GU\_\-algors.c}!GU_clear_amps@{GU\_\-clear\_\-amps}}
+\index{GU_clear_amps@{GU\_\-clear\_\-amps}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-clear\_\-amps (void)}\label{GU__algors_8c_382f107009a86246a1dc51d9ca6e0310}
+
+
+Clears amplifiers structure \index{GU_algors.c@{GU\_\-algors.c}!GU_copy_dat_left@{GU\_\-copy\_\-dat\_\-left}}
+\index{GU_copy_dat_left@{GU\_\-copy\_\-dat\_\-left}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-dat\_\-left (void $\ast$ {\em ptr}, i32 {\em a}, i32 {\em row}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_d3d2a15165dd27ae47beb461d103792b}
+
+
+Copies data pixels from left amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_dat_right@{GU\_\-copy\_\-dat\_\-right}}
+\index{GU_copy_dat_right@{GU\_\-copy\_\-dat\_\-right}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-dat\_\-right (void $\ast$ {\em ptr}, i32 {\em a}, i32 {\em row}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_fdf4b93300693816a2936c88d369ea28}
+
+
+Copies data pixels from right amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_image@{GU\_\-copy\_\-image}}
+\index{GU_copy_image@{GU\_\-copy\_\-image}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-copy\_\-image (long {\em outbuff}, long {\em inbuff}, i32 {\em totcols})}\label{GU__algors_8c_a65c0c55af7ddbe3fad4b55034951664}
+
+
+Copy image from inbuff to outbuff \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em output}]buffer pointer \item[\mbox{$\leftarrow$} {\em inbuff}]input buffer pointer \item[\mbox{$\leftarrow$} {\em totcols}]number of columns in input image \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_pos_left@{GU\_\-copy\_\-pos\_\-left}}
+\index{GU_copy_pos_left@{GU\_\-copy\_\-pos\_\-left}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-pos\_\-left (void $\ast$ {\em ptr}, i32 {\em a}, i32 {\em row}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_97127049cba0e219d83559266118cf2f}
+
+
+Copies postscan (overscan) data from left amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_pos_right@{GU\_\-copy\_\-pos\_\-right}}
+\index{GU_copy_pos_right@{GU\_\-copy\_\-pos\_\-right}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-pos\_\-right (void $\ast$ {\em ptr}, i32 {\em a}, i32 {\em row}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_0394f3802363ed28839988f9df0446cf}
+
+
+Copies postscan (overscan) data from right amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_pre_left@{GU\_\-copy\_\-pre\_\-left}}
+\index{GU_copy_pre_left@{GU\_\-copy\_\-pre\_\-left}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-pre\_\-left (void $\ast$ {\em ptr}, i32 {\em a}, i32 {\em row}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_776919eb305bbba5cafa1b470f6b81c0}
+
+
+Copies prescan data from left amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_pre_right@{GU\_\-copy\_\-pre\_\-right}}
+\index{GU_copy_pre_right@{GU\_\-copy\_\-pre\_\-right}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-pre\_\-right (void $\ast$ {\em ptr}, i32 {\em a}, i32 {\em row}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_fce091020f9ef75bf799b140060dab8f}
+
+
+Copies prescan data from right amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_ydat_low@{GU\_\-copy\_\-ydat\_\-low}}
+\index{GU_copy_ydat_low@{GU\_\-copy\_\-ydat\_\-low}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-ydat\_\-low (void $\ast$ {\em ptr}, i32 {\em a}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_410dea7a243d96816c4ac3ee0dc1808b}
+
+
+Copies data from lower amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_ydat_upp@{GU\_\-copy\_\-ydat\_\-upp}}
+\index{GU_copy_ydat_upp@{GU\_\-copy\_\-ydat\_\-upp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-ydat\_\-upp (void $\ast$ {\em ptr}, i32 {\em a}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_58cd398e5867524703ba6587a2886518}
+
+
+Copies data from upper amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_ypos_low@{GU\_\-copy\_\-ypos\_\-low}}
+\index{GU_copy_ypos_low@{GU\_\-copy\_\-ypos\_\-low}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-ypos\_\-low (void $\ast$ {\em ptr}, i32 {\em a}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_9ffa18006191b5fe9c01ec4d5d158bff}
+
+
+Copies y postcan (y overscan) data from lower amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_ypos_upp@{GU\_\-copy\_\-ypos\_\-upp}}
+\index{GU_copy_ypos_upp@{GU\_\-copy\_\-ypos\_\-upp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-ypos\_\-upp (void $\ast$ {\em ptr}, i32 {\em a}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_2179fc082ab6e50d1f0444970f4c637f}
+
+
+Copies y postcan (y overscan) data from upper amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_ypre_low@{GU\_\-copy\_\-ypre\_\-low}}
+\index{GU_copy_ypre_low@{GU\_\-copy\_\-ypre\_\-low}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-ypre\_\-low (void $\ast$ {\em ptr}, i32 {\em a}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_169821f77c6527a9c35c71ae1fcd9302}
+
+
+Copies y prescan data from lower amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_copy_ypre_upp@{GU\_\-copy\_\-ypre\_\-upp}}
+\index{GU_copy_ypre_upp@{GU\_\-copy\_\-ypre\_\-upp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-copy\_\-ypre\_\-upp (void $\ast$ {\em ptr}, i32 {\em a}, i32 $\ast$ {\em nbytes})}\label{GU__algors_8c_47bda396390c380cc277d1c010bae637}
+
+
+Copies y prescan data from upper amplifiers \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em ptr}]image buffer pointer \item[\mbox{$\leftarrow$} {\em a}]amplifier index \item[\mbox{$\leftarrow$} {\em row}]row number \item[\mbox{$\leftrightarrow$} {\em $\ast$nbytes}]number of bytes to copy \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_det_ext@{GU\_\-det\_\-ext}}
+\index{GU_det_ext@{GU\_\-det\_\-ext}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-det\_\-ext (i32 {\em flag})}\label{GU__algors_8c_b67cb6c35aa1593b72eaf84e65d7fe45}
+
+
+Enables or disables unscrambling per detector instead of per amplifier. This causes the output unscrambled buffer to be ordered by detector instead as per amplifer [in] flag enable(1) or disable(0) per detector unscrambling \index{GU_algors.c@{GU\_\-algors.c}!GU_dlclose@{GU\_\-dlclose}}
+\index{GU_dlclose@{GU\_\-dlclose}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-dlclose (void)}\label{GU__algors_8c_a3e2b8ca8541a8a273269ef1e9c79617}
+
+
+Closes unscrambling algor \index{GU_algors.c@{GU\_\-algors.c}!GU_dlopen@{GU\_\-dlopen}}
+\index{GU_dlopen@{GU\_\-dlopen}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-dlopen (char $\ast$ {\em algorpath})}\label{GU__algors_8c_dde145c86f72539a1d60b91bf9a00969}
+
+
+Opens reference to unscrambling algorithm \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em algorpath}]name of the algorithm to be used to unscramble \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_do_detextensions@{GU\_\-do\_\-detextensions}}
+\index{GU_do_detextensions@{GU\_\-do\_\-detextensions}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-do\_\-detextensions (ptr\_\-t {\em outbuff}, i32 {\em nelems}, i32 {\em chunkrows})}\label{GU__algors_8c_8c765debae649a1e12585582168405d8}
+
+
+Performs the rearranging of the amplifier data so it gets blended into a detector. IN other words, takes the data of each amplifier ibn a given detector and puts them toguether so the complete detector data gets togueter and can be later passed to the fits server to be written as a \char`\"{}detector extension\char`\"{} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em outbuff}]output buffer pointer \item[\mbox{$\leftarrow$} {\em nelems}]number of elements (pixels) in each amplifier \item[\mbox{$\leftarrow$} {\em chunkrows}]number of rows to blend \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_FLOAT@{GU\_\-FLOAT}}
+\index{GU_FLOAT@{GU\_\-FLOAT}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-FLOAT (ptr\_\-t {\em rptr}, ptr\_\-t {\em imageptr}, i32 {\em nelems}, i32 $\ast$ {\em err})}\label{GU__algors_8c_44821895e955ba39b90c539d5aa676a9}
+
+
+Unscrambling routine called for FLOAT datatype (32 bits per pixel, float). Selected automatically (dinamically) when the datatype is set in the routine \doxyref{GU\_\-compute()}{p.}{GUnscrambling_8c_a96a9975e7b59f71ef64840f1facb51c} If detector extenions are selected (see \doxyref{GU\_\-det\_\-ext()}{p.}{GU__algors_8c_b67cb6c35aa1593b72eaf84e65d7fe45}) then it calls automaticall \doxyref{GU\_\-do\_\-detextensions()}{p.}{GU__algors_8c_8c765debae649a1e12585582168405d8} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em rptr}]pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. \item[\mbox{$\leftarrow$} {\em imageptr}]pointer to output buffer. This is the bufefr where the unscrambled data will be wri tten \item[\mbox{$\leftarrow$} {\em nelems}]number of elements (pixels) in the raw buffer \item[\mbox{$\rightarrow$} {\em $\ast$err}]status out \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_get_ampbuf@{GU\_\-get\_\-ampbuf}}
+\index{GU_get_ampbuf@{GU\_\-get\_\-ampbuf}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-get\_\-ampbuf (void)}\label{GU__algors_8c_ffdfba63b6832db8587abb621fdeb233}
+
+
+Allocates amplifiers buffer based on amplifier structure \index{GU_algors.c@{GU\_\-algors.c}!GU_get_amps_ptr@{GU\_\-get\_\-amps\_\-ptr}}
+\index{GU_get_amps_ptr@{GU\_\-get\_\-amps\_\-ptr}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-get\_\-amps\_\-ptr ()}\label{GU__algors_8c_f58e9f3f9dc7fda98b7f41b691f9a178}
+
+
+Gets amplifiers structure pointer \index{GU_algors.c@{GU\_\-algors.c}!GU_get_raw_ptr@{GU\_\-get\_\-raw\_\-ptr}}
+\index{GU_get_raw_ptr@{GU\_\-get\_\-raw\_\-ptr}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-get\_\-raw\_\-ptr (i32 $\ast$ {\em namplif})}\label{GU__algors_8c_2d7c64adff96ce41a0fb5cff16fa3e81}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GU_getdet@{GU\_\-getdet}}
+\index{GU_getdet@{GU\_\-getdet}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-getdet (i32 {\em detno})}\label{GU__algors_8c_8a5ea3d7b00611cfe85f3228676219aa}
+
+
+Returns index to specified detector number \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em detno}]detector number inside detectors structure \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_getdetbuf@{GU\_\-getdetbuf}}
+\index{GU_getdetbuf@{GU\_\-getdetbuf}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-getdetbuf (void)}\label{GU__algors_8c_422300ea59f9cfdb769180821770478f}
+
+
+Get detector buffer pointer \index{GU_algors.c@{GU\_\-algors.c}!GU_LONG@{GU\_\-LONG}}
+\index{GU_LONG@{GU\_\-LONG}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-LONG (ptr\_\-t {\em rptr}, ptr\_\-t {\em imageptr}, i32 {\em nelems}, i32 $\ast$ {\em err})}\label{GU__algors_8c_41d829b0f81311c171937c000fece16c}
+
+
+Unscrambling routine called for LONG datatype (32 bits per pixel, integer). Selected automatically (dinamically) when the datatype is set in the routine \doxyref{GU\_\-compute()}{p.}{GUnscrambling_8c_a96a9975e7b59f71ef64840f1facb51c} If detector extenions are selected (see \doxyref{GU\_\-det\_\-ext()}{p.}{GU__algors_8c_b67cb6c35aa1593b72eaf84e65d7fe45}) then it calls automaticall \doxyref{GU\_\-do\_\-detextensions()}{p.}{GU__algors_8c_8c765debae649a1e12585582168405d8} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em rptr}]pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. \item[\mbox{$\leftarrow$} {\em imageptr}]pointer to output buffer. This is the bufefr where the unscrambled data will be wri tten \item[\mbox{$\leftarrow$} {\em nelems}]number of elements (pixels) in the raw buffer \item[\mbox{$\rightarrow$} {\em $\ast$err}]status out \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_NONE@{GU\_\-NONE}}
+\index{GU_NONE@{GU\_\-NONE}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-NONE (ptr\_\-t {\em rptr}, ptr\_\-t {\em imageptr}, i32 {\em nelems}, i32 $\ast$ {\em err})}\label{GU__algors_8c_dd98976c93fe56425f0a8ff106e73edb}
+
+
+Unscrambling routine when unscrambling is disabled. It basically copies the raw data into the amplifers data without changes \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em rptr}]pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. \item[\mbox{$\leftarrow$} {\em imageptr}]pointer to output buffer. This is the bufefr where the unscrambled data will be wri tten \item[\mbox{$\leftarrow$} {\em nelems}]number of elements (pixels) in the raw buffer \item[\mbox{$\rightarrow$} {\em $\ast$err}]status out \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_pix_swap@{GU\_\-pix\_\-swap}}
+\index{GU_pix_swap@{GU\_\-pix\_\-swap}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-pix\_\-swap (i32 {\em flag})}\label{GU__algors_8c_7a616c5cb17b9b6396db4edcf1847ad0}
+
+
+swap bytes in the pixel if requested \index{GU_algors.c@{GU\_\-algors.c}!GU_rearrange_sections@{GU\_\-rearrange\_\-sections}}
+\index{GU_rearrange_sections@{GU\_\-rearrange\_\-sections}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-rearrange\_\-sections (i32 {\em chunkrows})}\label{GU__algors_8c_4654947c3f26d236f15da1788a175127}
+
+
+Rearrange data based on the pointer of the arrange algors (\doxyref{GU\_\-copy\_\-ydat\_\-upp()}{p.}{GU__algors_8c_58cd398e5867524703ba6587a2886518} etc) selected with \doxyref{GU\_\-set\_\-arrange\_\-sections\_\-upper()}{p.}{GU__algors_8c_f1ce2c1645d57262d5020f5ac2953330} etc) \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em chunkrows}]number of rows to arrange \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_release_ampbuf@{GU\_\-release\_\-ampbuf}}
+\index{GU_release_ampbuf@{GU\_\-release\_\-ampbuf}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-release\_\-ampbuf (void)}\label{GU__algors_8c_4cc72d488b5703bf405bff4cc3347c37}
+
+
+Releases amplifiers buffer \index{GU_algors.c@{GU\_\-algors.c}!GU_releasedetbuf@{GU\_\-releasedetbuf}}
+\index{GU_releasedetbuf@{GU\_\-releasedetbuf}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GU\_\-releasedetbuf (void)}\label{GU__algors_8c_c4fe4f17bc2aafe0462fa58d472232c6}
+
+
+Releases detectors buffer \index{GU_algors.c@{GU\_\-algors.c}!GU_set_arrange_sections_left@{GU\_\-set\_\-arrange\_\-sections\_\-left}}
+\index{GU_set_arrange_sections_left@{GU\_\-set\_\-arrange\_\-sections\_\-left}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-set\_\-arrange\_\-sections\_\-left (char $\ast$ {\em algorpath}, char $\ast$ {\em left1}, char $\ast$ {\em left2}, char $\ast$ {\em left3})}\label{GU__algors_8c_bb52dc96929f1b3718f7ea6ceadd4589}
+
+
+Arranges sections order. This is called dinamically. See \doxyref{GU\_\-call\_\-set\_\-order\_\-left()}{p.}{GUnscrambling_8c_3ad45e427dc3363d59c85c03ee931166} Based on the specified directive it will fill the algor to use. \index{GU_algors.c@{GU\_\-algors.c}!GU_set_arrange_sections_lower@{GU\_\-set\_\-arrange\_\-sections\_\-lower}}
+\index{GU_set_arrange_sections_lower@{GU\_\-set\_\-arrange\_\-sections\_\-lower}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-set\_\-arrange\_\-sections\_\-lower (char $\ast$ {\em algorpath}, char $\ast$ {\em low1}, char $\ast$ {\em low2}, char $\ast$ {\em low3})}\label{GU__algors_8c_566f685767beeaf681b4875fa135077a}
+
+
+Arranges sections order. This is called dinamically. See \doxyref{GU\_\-call\_\-set\_\-order\_\-lower()}{p.}{GUnscrambling_8c_24e2940b4822ace49104700d354b54ef} \index{GU_algors.c@{GU\_\-algors.c}!GU_set_arrange_sections_right@{GU\_\-set\_\-arrange\_\-sections\_\-right}}
+\index{GU_set_arrange_sections_right@{GU\_\-set\_\-arrange\_\-sections\_\-right}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-set\_\-arrange\_\-sections\_\-right (char $\ast$ {\em algorpath}, char $\ast$ {\em right1}, char $\ast$ {\em right2}, char $\ast$ {\em right3})}\label{GU__algors_8c_74abdaa4453d735d757bf7f99bf93469}
+
+
+Arranges sections order. This is called dinamically. See \doxyref{GU\_\-call\_\-set\_\-order\_\-right()}{p.}{GUnscrambling_8c_4762a12f4523998929df0a92a91d33cd} \index{GU_algors.c@{GU\_\-algors.c}!GU_set_arrange_sections_upper@{GU\_\-set\_\-arrange\_\-sections\_\-upper}}
+\index{GU_set_arrange_sections_upper@{GU\_\-set\_\-arrange\_\-sections\_\-upper}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-set\_\-arrange\_\-sections\_\-upper (char $\ast$ {\em algorpath}, char $\ast$ {\em upp1}, char $\ast$ {\em upp2}, char $\ast$ {\em upp3})}\label{GU__algors_8c_f1ce2c1645d57262d5020f5ac2953330}
+
+
+Arranges sections order. This is called dinamically. See \doxyref{GU\_\-call\_\-set\_\-order\_\-upper()}{p.}{GUnscrambling_8c_c4144c816789d426d520d4a562d0ae5b} \index{GU_algors.c@{GU\_\-algors.c}!GU_set_bytes_pp@{GU\_\-set\_\-bytes\_\-pp}}
+\index{GU_set_bytes_pp@{GU\_\-set\_\-bytes\_\-pp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-set\_\-bytes\_\-pp (i32 {\em bytes\_\-per\_\-pixel})}\label{GU__algors_8c_10feb050d74cf63ad61956a977990b49}
+
+
+Sets the number of bytes per pixel \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em bytes\_\-per\_\-pixel}]number of bytes per pixel (usually 2 or 4) \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_SetPhysMap@{GU\_\-SetPhysMap}}
+\index{GU_SetPhysMap@{GU\_\-SetPhysMap}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 GU\_\-Set\-Phys\-Map (ptr\_\-t {\em array}, i32 {\em num\_\-elements})}\label{GU__algors_8c_7552b835f7c6c1e11a96c4231d105511}
+
+
+Sets the physical map between amplifiers and output extensions \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em array}]array of integers with the order. The array index is the amplifier, the value the output position \item[\mbox{$\leftarrow$} {\em num\_\-elements}]numbe rof elements in the array \end{description}
+\end{Desc}
+\index{GU_algors.c@{GU\_\-algors.c}!GU_SHORT@{GU\_\-SHORT}}
+\index{GU_SHORT@{GU\_\-SHORT}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}ptr\_\-t GU\_\-SHORT (ptr\_\-t {\em rptr}, ptr\_\-t {\em imageptr}, i32 {\em nelems}, i32 $\ast$ {\em err})}\label{GU__algors_8c_bbcfd79d9e4916440323504407da41cc}
+
+
+Unscrambling routine called for SHORT datatype (16 bits per pixel, integer). Selected automatically (dinamically) when the datatype is set in the routine \doxyref{GU\_\-compute()}{p.}{GUnscrambling_8c_a96a9975e7b59f71ef64840f1facb51c} If detector extenions are selected (see \doxyref{GU\_\-det\_\-ext()}{p.}{GU__algors_8c_b67cb6c35aa1593b72eaf84e65d7fe45}) then it calls automaticall \doxyref{GU\_\-do\_\-detextensions()}{p.}{GU__algors_8c_8c765debae649a1e12585582168405d8} \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[\mbox{$\leftarrow$} {\em rptr}]pointer to raw (incoming) pixels. This is the buffer where the scrambled pixels are. \item[\mbox{$\leftarrow$} {\em imageptr}]pointer to output buffer. This is the bufefr where the unscrambled data will be written \item[\mbox{$\leftarrow$} {\em nelems}]number of elements (pixels) in the raw buffer \item[\mbox{$\rightarrow$} {\em $\ast$err}]status out \end{description}
+\end{Desc}
+
+
+\subsection{Variable Documentation}
+\index{GU_algors.c@{GU\_\-algors.c}!amp@{amp}}
+\index{amp@{amp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}amp\_\-t \bf{amp}[256]\hspace{0.3cm}{\tt  [static]}}\label{GU__algors_8c_72c13430717c4b1eef48ad39a0f20048}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!ampbufptr@{ampbufptr}}
+\index{ampbufptr@{ampbufptr}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{ampbufptr} = NULL}\label{GU__algors_8c_6ae8157817746c04c19488551b9f52b9}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!ampbufsize@{ampbufsize}}
+\index{ampbufsize@{ampbufsize}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{ampbufsize} = 0}\label{GU__algors_8c_cf0b3feb8b88b8a326c07b20e2d5fffb}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!arrange_sections@{arrange\_\-sections}}
+\index{arrange_sections@{arrange\_\-sections}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{arrange\_\-sections} = 0}\label{GU__algors_8c_1b7eaa20347698efd62a268177f206c5}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!arrange_sections_left@{arrange\_\-sections\_\-left}}
+\index{arrange_sections_left@{arrange\_\-sections\_\-left}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{arrange\_\-sections\_\-left} = 0}\label{GU__algors_8c_fedfdb1fcbebf686f90e2e93aba6509b}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!arrange_sections_lower@{arrange\_\-sections\_\-lower}}
+\index{arrange_sections_lower@{arrange\_\-sections\_\-lower}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{arrange\_\-sections\_\-lower} = 0}\label{GU__algors_8c_b9eff6133483aaa129ed0899b401f90d}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!arrange_sections_right@{arrange\_\-sections\_\-right}}
+\index{arrange_sections_right@{arrange\_\-sections\_\-right}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{arrange\_\-sections\_\-right} = 0}\label{GU__algors_8c_582d78a12950f8769acdb558bce48311}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!arrange_sections_upper@{arrange\_\-sections\_\-upper}}
+\index{arrange_sections_upper@{arrange\_\-sections\_\-upper}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{arrange\_\-sections\_\-upper} = 0}\label{GU__algors_8c_07249ffb19465390f1889a0b523e03d5}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!bytes_pp@{bytes\_\-pp}}
+\index{bytes_pp@{bytes\_\-pp}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{bytes\_\-pp} = 0}\label{GU__algors_8c_56248a3e0c6816ba76576b8536ac324e}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!det@{det}}
+\index{det@{det}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}amp\_\-t \bf{det}[64]\hspace{0.3cm}{\tt  [static]}}\label{GU__algors_8c_a7f894b583e1564eac68926a1480c324}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!detbufptr@{detbufptr}}
+\index{detbufptr@{detbufptr}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{detbufptr} = NULL}\label{GU__algors_8c_44c6b00d2b24c534e83b1b37d9774b17}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!detbufsize@{detbufsize}}
+\index{detbufsize@{detbufsize}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{detbufsize} = 0}\label{GU__algors_8c_09746eeaba9636a737be14435f0c0553}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!detext@{detext}}
+\index{detext@{detext}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{detext} = 0}\label{GU__algors_8c_83417ccfb0753e738208ff21df7b95fa}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!dlError2@{dlError2}}
+\index{dlError2@{dlError2}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{dl\-Error2}}\label{GU__algors_8c_7733669c42730599cc82a9009921b450}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_left1@{GUget\_\-left1}}
+\index{GUget_left1@{GUget\_\-left1}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-left1}()}\label{GU__algors_8c_14200946579e41e76a625b9c8a68ea7b}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_left2@{GUget\_\-left2}}
+\index{GUget_left2@{GUget\_\-left2}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-left2}()}\label{GU__algors_8c_fc57d753766f4b5cf532123dcd0c022d}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_left3@{GUget\_\-left3}}
+\index{GUget_left3@{GUget\_\-left3}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-left3}()}\label{GU__algors_8c_9c01cc74e2fde9bf8862838f1ddc7ef1}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_lower1@{GUget\_\-lower1}}
+\index{GUget_lower1@{GUget\_\-lower1}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-lower1}()}\label{GU__algors_8c_b976aab7e6c1a8f1b0dc750900412451}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_lower2@{GUget\_\-lower2}}
+\index{GUget_lower2@{GUget\_\-lower2}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-lower2}()}\label{GU__algors_8c_3551c17f550db822101bc5cff646ce77}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_lower3@{GUget\_\-lower3}}
+\index{GUget_lower3@{GUget\_\-lower3}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-lower3}()}\label{GU__algors_8c_eb8f818bdd98f3b30a1cefde1ddf9b01}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_right1@{GUget\_\-right1}}
+\index{GUget_right1@{GUget\_\-right1}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-right1}()}\label{GU__algors_8c_fdaba07583ef3570ff13070f0aecd840}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_right2@{GUget\_\-right2}}
+\index{GUget_right2@{GUget\_\-right2}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-right2}()}\label{GU__algors_8c_dee7cb59d766c7a1613cf621716e816c}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_right3@{GUget\_\-right3}}
+\index{GUget_right3@{GUget\_\-right3}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-right3}()}\label{GU__algors_8c_dba836036d72d67e53f3344c66645b4e}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_upper1@{GUget\_\-upper1}}
+\index{GUget_upper1@{GUget\_\-upper1}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-upper1}()}\label{GU__algors_8c_f15b651fad657da4200bd280e2f3e7c9}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_upper2@{GUget\_\-upper2}}
+\index{GUget_upper2@{GUget\_\-upper2}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-upper2}()}\label{GU__algors_8c_833f12afc770333b27e1a60d5f76da15}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!GUget_upper3@{GUget\_\-upper3}}
+\index{GUget_upper3@{GUget\_\-upper3}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32($\ast$) \bf{GUget\_\-upper3}()}\label{GU__algors_8c_5ad477f70e0a827370f62e07fe77061e}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!LocalLib@{LocalLib}}
+\index{LocalLib@{LocalLib}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Local\-Lib} = NULL}\label{GU__algors_8c_2b8f82ab9bf10c70c55141783494ce6a}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!namps@{namps}}
+\index{namps@{namps}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u32 \bf{namps} = 0\hspace{0.3cm}{\tt  [static]}}\label{GU__algors_8c_200794711ce0a7f9ac655d56ae0ecfce}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!ndets@{ndets}}
+\index{ndets@{ndets}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u32 \bf{ndets} = 0\hspace{0.3cm}{\tt  [static]}}\label{GU__algors_8c_ebc038d7a81bc612ecabc7a81ba72113}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!PhysMap@{PhysMap}}
+\index{PhysMap@{PhysMap}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{Phys\-Map}[MAX\_\-AMPS]\hspace{0.3cm}{\tt  [static]}}\label{GU__algors_8c_598cd5ddd8d141906ca52f940521c0ed}
+
+
+\index{GU_algors.c@{GU\_\-algors.c}!pix_swap@{pix\_\-swap}}
+\index{pix_swap@{pix\_\-swap}!GU_algors.c@{GU\_\-algors.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}i32 \bf{pix\_\-swap} = 0}\label{GU__algors_8c_6ff03eee1b0fc2b6044024afacf0db3c}
+
+

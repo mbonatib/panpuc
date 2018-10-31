@@ -1,0 +1,72 @@
+.TH "panview_current/PAN/Modules/GFITS/private/c/src/GF_shmem.c" 3 "24 May 2012" "Version 13.6" "GFITS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+panview_current/PAN/Modules/GFITS/private/c/src/GF_shmem.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'GF_shmem.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "key_t \fBGF_shmInit\fP (char *fname)"
+.br
+.ti -1c
+.RI "size_t \fBGF_shmChkSize\fP (size_t insize, size_t base)"
+.br
+.ti -1c
+.RI "int \fBGF_shmDestroy\fP (char *name, void *buffer, int id, int qid)"
+.br
+.ti -1c
+.RI "void * \fBGF_shmAttach\fP (size_t *psize, char *name, void *buffer, int *\fBshmid\fP, int *qid)"
+.br
+.ti -1c
+.RI "void \fBGF_shmSendMsg\fP (int qid, char *msg, long type)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void* GF_shmAttach (size_t * psize, char * name, void * buffer, int * shmid, int * qid)"
+.PP
+Attach shared memory buffer and return ID of the segment 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI*psize\fP as input, the desired size, as output the ctual attached size 
+.br
+\fIattached\fP shared memory buffer 
+.br
+\fI*shmid\fP shared memory ID out 
+.br
+\fI*qid\fP shared meory queue ID out 
+.RE
+.PP
+
+.SS "size_t GF_shmChkSize (size_t insize, size_t base)"
+.PP
+Checks size of the shared memory segment to be sure it is multplie of the page size 
+.SS "int GF_shmDestroy (char * name, void * buffer, int id, int qid)"
+.PP
+Destroys shared memory segment 
+.SS "key_t GF_shmInit (char * fname)"
+.PP
+Init shared memory segment @ param[init *fname name of the memroy segment (ID) 
+.SS "void GF_shmSendMsg (int qid, char * msg, long type)"
+.PP
+Sends a message trhough shared memory queue 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqid\fP shared memory queue ID  *msg string message to send 
+.br
+\fItype\fP message type to send 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GFITS from the source code.

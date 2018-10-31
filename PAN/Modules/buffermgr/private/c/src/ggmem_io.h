@@ -1,0 +1,7 @@
+#
+
+#define  ALLOC_MAGIC 'C'
+
+#define ALLOCATOR_GETMEM	_IOR (ALLOC_MAGIC, 0, int)
+#define ALLOCATOR_FREEMEM	_IOR (ALLOC_MAGIC, 1, int)   
+#define ALLOCATOR_CLEANUP       _IOR (ALLOC_MAGIC, 2, int)  

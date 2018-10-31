@@ -1,0 +1,11 @@
+#!/bin/csh
+#
+
+setenv PV_HOME `pwd`
+#
+alias addenv 'if (:${\!:1}\: !~ *:\!{:2}\:*) setenv \!:1 ${\!:1}\:\!:2'
+#
+addenv PATH $PV_HOME/bin
+#
+setenv PAN_ROOT $PV_HOME
+#setenv ARCROOT $PV_HOME

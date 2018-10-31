@@ -1,0 +1,12 @@
+#! /bin/csh -f
+# Simple scrip for compiling all the C library modules. Any new module
+# which uses C calls, and stores the source under a 'src' directory will
+# be automatically detected and compiled, without the need of adding it
+# in the Makefile of the current directory. 
+
+set curr_dir = `pwd`
+set makelist = `find . -name src -print`
+foreach mk ($makelist) 
+	echo "\n****** compiling directory $mk ...******"
+	cd $mk; make; cd $curr_dir
+end

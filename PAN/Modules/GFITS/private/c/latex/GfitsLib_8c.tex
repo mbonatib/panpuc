@@ -1,0 +1,561 @@
+\section{src/Gfits\-Lib.c File Reference}
+\label{GfitsLib_8c}\index{src/GfitsLib.c@{src/GfitsLib.c}}
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/mman.h$>$}\par
+{\tt \#include \char`\"{}fitsio.h\char`\"{}}\par
+{\tt \#include \char`\"{}../../../../GUNSC/public/c/include/GUnscrambling.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{pdebug}(fmt, args...)
+\item 
+\#define \bf{MAX\_\-HEADER}~24
+\item 
+\#define \bf{OK}~0
+\item 
+\#define \bf{BADREF}~0
+\item 
+\#define \bf{DERTOIZ}~1
+\item 
+\#define \bf{IZTODER}~-1
+\item 
+\#define \bf{DIVIDES}(a, \bf{n})~(!((\bf{n}) \% (a)))
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{GF\_\-set\_\-mbufs} (int mbufs)
+\item 
+void \bf{GF\_\-set\_\-bpp} (int data)
+\item 
+void \bf{GF\_\-printmsg} (char $\ast$msg)
+\item 
+void \bf{GF\_\-set\_\-memfits} (short flag)
+\item 
+short \bf{GF\_\-get\_\-memfits} (void)
+\item 
+int \bf{GF\_\-release\_\-image\_\-buf} (int $\ast$err, int size, int snd)
+\item 
+void $\ast$ \bf{GF\_\-allocate\_\-image\_\-buf} (size\_\-t $\ast$size, int $\ast$id, int $\ast$qid)
+\item 
+short \bf{GF\_\-get\_\-shmem} (void)
+\item 
+void \bf{GF\_\-set\_\-shmem} (short flag)
+\item 
+unsigned long \bf{GF\_\-get\_\-membufptr} (int $\ast$fitsize)
+\item 
+int \bf{GF\_\-compress\_\-img} (\bf{fitsfile} $\ast$fptr, char $\ast$name)
+\item 
+int \bf{GF\_\-create\_\-file} (char $\ast$name, int $\ast$err)
+\item 
+char $\ast$ \bf{GF\_\-get\_\-error\_\-text} (int status)
+\item 
+int \bf{GF\_\-fits\_\-set\_\-zaxis} (int nz)
+\item 
+int \bf{GF\_\-fits\_\-set\_\-values} (int data, int hdu, int mult, int amplifiers)
+\item 
+int \bf{GF\_\-create\_\-img} (char $\ast$name, int data, int hdu, int mult, int amplifiers, int $\ast$err)
+\item 
+int \bf{GF\_\-fits\_\-close\_\-file} (int ref, int err)
+\item 
+int \bf{GF\_\-fits\_\-write\_\-from\_\-mem} (char $\ast$filename)
+\item 
+int \bf{labfits\_\-write\_\-date} (int ref)
+\item 
+int \bf{labfits\_\-write\_\-comment} (int ref, char $\ast$comment)
+\item 
+int \bf{labfits\_\-write\_\-geom\_\-single} (int ref, char $\ast$Asec, char $\ast$Bsec, char $\ast$Csec, char $\ast$Dsec, char $\ast$Tsec, char $\ast$amplifier)
+\item 
+int \bf{labfits\_\-write\_\-geom\_\-multiple} (int ref, char $\ast$data, char $\ast$bias, char $\ast$ccd, char $\ast$amp, char $\ast$trim, char $\ast$det, char $\ast$ccdsize, char $\ast$amplifier)
+\item 
+int \bf{labfits\_\-write\_\-key} (int ref, int \bf{datatype}, char $\ast$keyname, void $\ast$value, char $\ast$comment)
+\item 
+int \bf{labfits\_\-write\_\-key\_\-from\_\-char} (int ref, int \bf{datatype}, char $\ast$keyname, char $\ast$value, char $\ast$comment)
+\item 
+int \bf{labfits\_\-create\_\-hdu} (int ref)
+\item 
+int \bf{labfits\_\-insert\_\-img} (int ref, int bitpix, int naxis, long $\ast$naxes)
+\item 
+int \bf{GF\_\-fits\_\-movabs\_\-hdu} (int ref, int hdunum, int \bf{hdutype})
+\item 
+int \bf{labfits\_\-movrel\_\-hdu} (int ref, int nmove, int $\ast$\bf{hdutype})
+\item 
+void \bf{GF\_\-close} ()
+\item 
+void \bf{GF\_\-Init\-Extensions} (void)
+\item 
+int \bf{GF\_\-Set\-Extensions} (unsigned long array, int elements)
+\item 
+int \bf{GF\_\-init} (int data, int hdu, int mult, unsigned long amplifiers, int namp, int totalcols, int totalrows)
+\item 
+int \bf{GF\_\-add\_\-subimage} (unsigned long genptr, unsigned long subimptr, int subxstart, int subystart, int subcols, int subrows, int totalcols)
+\item 
+int \bf{GF\_\-write\-Image\_\-Multiple} (int ref, int amplifiers, int ele\-Read, int $\ast$progress, int $\ast$zcnt, int $\ast$num\_\-amps)
+\item 
+int \bf{GF\_\-write\-Image\_\-Single} (int ref, int amplifiers, int ele\-Read, int $\ast$progress, int $\ast$zcnt, int $\ast$num\_\-amps)
+\item 
+int \bf{GF\_\-write\-Image} (int ref, int amplifiers, int ele\-Read, int $\ast$progress, int $\ast$zcnt, int $\ast$num\_\-amps)
+\item 
+int \bf{GF\_\-write\-Image\_\-from\_\-buf} (int ref, int buffer, int ele\-Read, int $\ast$progress, int $\ast$zcnt, int $\ast$num\_\-amps)
+\item 
+int \bf{GF\_\-simple\_\-data\_\-write} (char $\ast$name, int ncols, int nrows, int dtype, unsigned long bptr, int ntries)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static int \bf{tot\-Ele\-Read} [MAX\_\-AMPS]
+\item 
+static int \bf{Extension} [MAX\_\-AMPS]
+\item 
+static int \bf{datatype} = 0
+\item 
+static int \bf{hdutype}
+\item 
+static int \bf{nzim} = 1
+\item 
+static int \bf{nzcnt} = 0
+\item 
+static int \bf{bytes\_\-pp} = 0
+\item 
+static amp\_\-t \bf{fitsamp} [MAX\_\-AMPS]
+\item 
+static unsigned long \bf{tot\-Ele\-Per\-Amp}
+\item 
+static unsigned long \bf{tot\-Ele}
+\item 
+static unsigned long \bf{totcols} = 0
+\item 
+static unsigned long \bf{totrows} = 0
+\item 
+static unsigned long \bf{tot\-Pixels}
+\item 
+static long \bf{namps} = 0
+\item 
+static short \bf{mext}
+\item 
+static short \bf{memfits} = 0
+\item 
+int \bf{shmid} = -1
+\item 
+int \bf{shmqid} = -1
+\item 
+int \bf{shmem} = 0
+\item 
+int \bf{is\_\-shared} = 0
+\item 
+void $\ast$ \bf{membuf} = NULL
+\item 
+size\_\-t \bf{membufsize} = 0
+\item 
+size\_\-t \bf{memfitssize} = 0
+\item 
+size\_\-t \bf{imsize} = 0
+\item 
+size\_\-t \bf{hdrsize} = 0
+\item 
+void $\ast$ \bf{nextbuf}
+\item 
+int \bf{bufcnt} = 0
+\item 
+int \bf{nbufs} = 1
+\item 
+static long \bf{tmpptr} [MAX\_\-AMPS]
+\item 
+static short \bf{amptype} [MAX\_\-AMPS]
+\item 
+char \bf{error\_\-msg} [100]
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{GfitsLib.c@{Gfits\-Lib.c}!BADREF@{BADREF}}
+\index{BADREF@{BADREF}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BADREF~0}\label{GfitsLib_8c_fe20b59a98f5d72affa1fee05bb8d097}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!DERTOIZ@{DERTOIZ}}
+\index{DERTOIZ@{DERTOIZ}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DERTOIZ~1}\label{GfitsLib_8c_eb5edb1576f946e2328b6b0547c24438}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!DIVIDES@{DIVIDES}}
+\index{DIVIDES@{DIVIDES}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DIVIDES(a, \bf{n})~(!((\bf{n}) \% (a)))}\label{GfitsLib_8c_6c9de7e7b7ad3939e52f63063a601820}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!IZTODER@{IZTODER}}
+\index{IZTODER@{IZTODER}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define IZTODER~-1}\label{GfitsLib_8c_fa6f7ff23b57534198227ae5c000dce0}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!MAX_HEADER@{MAX\_\-HEADER}}
+\index{MAX_HEADER@{MAX\_\-HEADER}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-HEADER~24}\label{GfitsLib_8c_b400cc7c8787796a32ff06fb899a9ac2}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!OK@{OK}}
+\index{OK@{OK}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~0}\label{GfitsLib_8c_ba51915c87d64af47fb1cc59348961c9}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!pdebug@{pdebug}}
+\index{pdebug@{pdebug}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define pdebug(fmt, args...)}\label{GfitsLib_8c_8c966da20fb8302f3c1dd18e5db6a22f}
+
+
+
+
+\subsection{Function Documentation}
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_add_subimage@{GF\_\-add\_\-subimage}}
+\index{GF_add_subimage@{GF\_\-add\_\-subimage}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-add\_\-subimage (unsigned long {\em genptr}, unsigned long {\em subimptr}, int {\em subxstart}, int {\em subystart}, int {\em subcols}, int {\em subrows}, int {\em totalcols})}\label{GfitsLib_8c_05c9ceb2dd920897d5d3753395fd9d6a}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_allocate_image_buf@{GF\_\-allocate\_\-image\_\-buf}}
+\index{GF_allocate_image_buf@{GF\_\-allocate\_\-image\_\-buf}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ GF\_\-allocate\_\-image\_\-buf (size\_\-t $\ast$ {\em size}, int $\ast$ {\em id}, int $\ast$ {\em qid})}\label{GfitsLib_8c_fa70decf3c3f933ef11e97d4fe1e49f4}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_close@{GF\_\-close}}
+\index{GF_close@{GF\_\-close}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-close ()}\label{GfitsLib_8c_4078d96241e409f866a0dbab927e6a36}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_compress_img@{GF\_\-compress\_\-img}}
+\index{GF_compress_img@{GF\_\-compress\_\-img}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-compress\_\-img (\bf{fitsfile} $\ast$ {\em fptr}, char $\ast$ {\em name})}\label{GfitsLib_8c_5d1ea25b66a44f6133361b6fed21531d}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_create_file@{GF\_\-create\_\-file}}
+\index{GF_create_file@{GF\_\-create\_\-file}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-create\_\-file (char $\ast$ {\em name}, int $\ast$ {\em err})}\label{GfitsLib_8c_d33bbe76ee5994f46ab38b8a7ec3e964}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_create_img@{GF\_\-create\_\-img}}
+\index{GF_create_img@{GF\_\-create\_\-img}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-create\_\-img (char $\ast$ {\em name}, int {\em data}, int {\em hdu}, int {\em mult}, int {\em amplifiers}, int $\ast$ {\em err})}\label{GfitsLib_8c_8b2662626c01c3eda02f620a60c42dda}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_fits_close_file@{GF\_\-fits\_\-close\_\-file}}
+\index{GF_fits_close_file@{GF\_\-fits\_\-close\_\-file}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-fits\_\-close\_\-file (int {\em ref}, int {\em err})}\label{GfitsLib_8c_318e374c3c46615615fda8a11343814e}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_fits_movabs_hdu@{GF\_\-fits\_\-movabs\_\-hdu}}
+\index{GF_fits_movabs_hdu@{GF\_\-fits\_\-movabs\_\-hdu}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-fits\_\-movabs\_\-hdu (int {\em ref}, int {\em hdunum}, int {\em hdutype})}\label{GfitsLib_8c_c63457eb659dcad74fd1939f2df6acec}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_fits_set_values@{GF\_\-fits\_\-set\_\-values}}
+\index{GF_fits_set_values@{GF\_\-fits\_\-set\_\-values}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-fits\_\-set\_\-values (int {\em data}, int {\em hdu}, int {\em mult}, int {\em amplifiers})}\label{GfitsLib_8c_92dbaf16307f137bf0d32503eb18745b}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_fits_set_zaxis@{GF\_\-fits\_\-set\_\-zaxis}}
+\index{GF_fits_set_zaxis@{GF\_\-fits\_\-set\_\-zaxis}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-fits\_\-set\_\-zaxis (int {\em nz})}\label{GfitsLib_8c_a790e04ad5963cab110fc0c977bcd3cc}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_fits_write_from_mem@{GF\_\-fits\_\-write\_\-from\_\-mem}}
+\index{GF_fits_write_from_mem@{GF\_\-fits\_\-write\_\-from\_\-mem}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-fits\_\-write\_\-from\_\-mem (char $\ast$ {\em filename})}\label{GfitsLib_8c_4643c18efbafb055095476457abfedc1}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_get_error_text@{GF\_\-get\_\-error\_\-text}}
+\index{GF_get_error_text@{GF\_\-get\_\-error\_\-text}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ GF\_\-get\_\-error\_\-text (int {\em status})}\label{GfitsLib_8c_7c5412d9ddc03a0aeb1b00db069961b7}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_get_membufptr@{GF\_\-get\_\-membufptr}}
+\index{GF_get_membufptr@{GF\_\-get\_\-membufptr}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long GF\_\-get\_\-membufptr (int $\ast$ {\em fitsize})}\label{GfitsLib_8c_0475f7c4741a67c8c4e5de47b0b64472}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_get_memfits@{GF\_\-get\_\-memfits}}
+\index{GF_get_memfits@{GF\_\-get\_\-memfits}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short GF\_\-get\_\-memfits (void)}\label{GfitsLib_8c_788fcbd95ee4d4d90bcefaccda2aedab}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_get_shmem@{GF\_\-get\_\-shmem}}
+\index{GF_get_shmem@{GF\_\-get\_\-shmem}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short GF\_\-get\_\-shmem (void)}\label{GfitsLib_8c_56362b17b8149ef87b3f60e95760e5c2}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_init@{GF\_\-init}}
+\index{GF_init@{GF\_\-init}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-init (int {\em data}, int {\em hdu}, int {\em mult}, unsigned long {\em amplifiers}, int {\em namp}, int {\em totalcols}, int {\em totalrows})}\label{GfitsLib_8c_d0f071d9f814ec3028af39044f341aa6}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_InitExtensions@{GF\_\-InitExtensions}}
+\index{GF_InitExtensions@{GF\_\-InitExtensions}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-Init\-Extensions (void)}\label{GfitsLib_8c_4db156a0474b94384b5bf11aeee07606}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_printmsg@{GF\_\-printmsg}}
+\index{GF_printmsg@{GF\_\-printmsg}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-printmsg (char $\ast$ {\em msg})}\label{GfitsLib_8c_e033761847e4bec55172ebdf41ec3999}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_release_image_buf@{GF\_\-release\_\-image\_\-buf}}
+\index{GF_release_image_buf@{GF\_\-release\_\-image\_\-buf}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-release\_\-image\_\-buf (int $\ast$ {\em err}, int {\em size}, int {\em snd})}\label{GfitsLib_8c_60eafce547a2d3c423811973c1ea310c}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_set_bpp@{GF\_\-set\_\-bpp}}
+\index{GF_set_bpp@{GF\_\-set\_\-bpp}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-set\_\-bpp (int {\em data})}\label{GfitsLib_8c_00e86b50e7bf7e14db51e3cd2ac5f24f}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_set_mbufs@{GF\_\-set\_\-mbufs}}
+\index{GF_set_mbufs@{GF\_\-set\_\-mbufs}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-set\_\-mbufs (int {\em mbufs})}\label{GfitsLib_8c_e4f7af11ef0d90876e3bd84114562843}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_set_memfits@{GF\_\-set\_\-memfits}}
+\index{GF_set_memfits@{GF\_\-set\_\-memfits}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-set\_\-memfits (short {\em flag})}\label{GfitsLib_8c_89b77a8c0019bde4bb2ca03806cdeb7d}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_set_shmem@{GF\_\-set\_\-shmem}}
+\index{GF_set_shmem@{GF\_\-set\_\-shmem}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void GF\_\-set\_\-shmem (short {\em flag})}\label{GfitsLib_8c_362916b4b993b987c8c7965ea3d9bb1c}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_SetExtensions@{GF\_\-SetExtensions}}
+\index{GF_SetExtensions@{GF\_\-SetExtensions}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-Set\-Extensions (unsigned long {\em array}, int {\em elements})}\label{GfitsLib_8c_411a432baded358a647619097eaf3652}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_simple_data_write@{GF\_\-simple\_\-data\_\-write}}
+\index{GF_simple_data_write@{GF\_\-simple\_\-data\_\-write}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-simple\_\-data\_\-write (char $\ast$ {\em name}, int {\em ncols}, int {\em nrows}, int {\em dtype}, unsigned long {\em bptr}, int {\em ntries})}\label{GfitsLib_8c_f39a719cf7e0f370c5d602bd9c1207a9}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_writeImage@{GF\_\-writeImage}}
+\index{GF_writeImage@{GF\_\-writeImage}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-write\-Image (int {\em ref}, int {\em amplifiers}, int {\em ele\-Read}, int $\ast$ {\em progress}, int $\ast$ {\em zcnt}, int $\ast$ {\em num\_\-amps})}\label{GfitsLib_8c_95b38b11029f4114fa388cc9babf5082}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_writeImage_from_buf@{GF\_\-writeImage\_\-from\_\-buf}}
+\index{GF_writeImage_from_buf@{GF\_\-writeImage\_\-from\_\-buf}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-write\-Image\_\-from\_\-buf (int {\em ref}, int {\em buffer}, int {\em ele\-Read}, int $\ast$ {\em progress}, int $\ast$ {\em zcnt}, int $\ast$ {\em num\_\-amps})}\label{GfitsLib_8c_18ac74267827240d7faa41ed6a640009}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_writeImage_Multiple@{GF\_\-writeImage\_\-Multiple}}
+\index{GF_writeImage_Multiple@{GF\_\-writeImage\_\-Multiple}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-write\-Image\_\-Multiple (int {\em ref}, int {\em amplifiers}, int {\em ele\-Read}, int $\ast$ {\em progress}, int $\ast$ {\em zcnt}, int $\ast$ {\em num\_\-amps})}\label{GfitsLib_8c_fbad8d05ee0537a39eb33af40f1a8f1e}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!GF_writeImage_Single@{GF\_\-writeImage\_\-Single}}
+\index{GF_writeImage_Single@{GF\_\-writeImage\_\-Single}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int GF\_\-write\-Image\_\-Single (int {\em ref}, int {\em amplifiers}, int {\em ele\-Read}, int $\ast$ {\em progress}, int $\ast$ {\em zcnt}, int $\ast$ {\em num\_\-amps})}\label{GfitsLib_8c_247c34cafe331f34b3537902529818a6}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_create_hdu@{labfits\_\-create\_\-hdu}}
+\index{labfits_create_hdu@{labfits\_\-create\_\-hdu}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-create\_\-hdu (int {\em ref})}\label{GfitsLib_8c_8a3b82c45d62b21e85c4d127670e6dfe}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_insert_img@{labfits\_\-insert\_\-img}}
+\index{labfits_insert_img@{labfits\_\-insert\_\-img}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-insert\_\-img (int {\em ref}, int {\em bitpix}, int {\em naxis}, long $\ast$ {\em naxes})}\label{GfitsLib_8c_86f21ad270379479771052999055b1c8}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_movrel_hdu@{labfits\_\-movrel\_\-hdu}}
+\index{labfits_movrel_hdu@{labfits\_\-movrel\_\-hdu}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-movrel\_\-hdu (int {\em ref}, int {\em nmove}, int $\ast$ {\em hdutype})}\label{GfitsLib_8c_6c945f32d986d3c72c3fbd8218728f99}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_write_comment@{labfits\_\-write\_\-comment}}
+\index{labfits_write_comment@{labfits\_\-write\_\-comment}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-write\_\-comment (int {\em ref}, char $\ast$ {\em comment})}\label{GfitsLib_8c_31c5671f22c651b39b8a15dcefda7127}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_write_date@{labfits\_\-write\_\-date}}
+\index{labfits_write_date@{labfits\_\-write\_\-date}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-write\_\-date (int {\em ref})}\label{GfitsLib_8c_a54a5ffe8c54cde9ec3ca912606de248}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_write_geom_multiple@{labfits\_\-write\_\-geom\_\-multiple}}
+\index{labfits_write_geom_multiple@{labfits\_\-write\_\-geom\_\-multiple}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-write\_\-geom\_\-multiple (int {\em ref}, char $\ast$ {\em data}, char $\ast$ {\em bias}, char $\ast$ {\em ccd}, char $\ast$ {\em amp}, char $\ast$ {\em trim}, char $\ast$ {\em det}, char $\ast$ {\em ccdsize}, char $\ast$ {\em amplifier})}\label{GfitsLib_8c_6563a390fbbcea56f234cd25115b10b9}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_write_geom_single@{labfits\_\-write\_\-geom\_\-single}}
+\index{labfits_write_geom_single@{labfits\_\-write\_\-geom\_\-single}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-write\_\-geom\_\-single (int {\em ref}, char $\ast$ {\em Asec}, char $\ast$ {\em Bsec}, char $\ast$ {\em Csec}, char $\ast$ {\em Dsec}, char $\ast$ {\em Tsec}, char $\ast$ {\em amplifier})}\label{GfitsLib_8c_d21d4ad7f9aeb2aefaf2df1e1374b62d}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_write_key@{labfits\_\-write\_\-key}}
+\index{labfits_write_key@{labfits\_\-write\_\-key}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-write\_\-key (int {\em ref}, int {\em datatype}, char $\ast$ {\em keyname}, void $\ast$ {\em value}, char $\ast$ {\em comment})}\label{GfitsLib_8c_bb452811fc8900cca1dd5f3c396e20a7}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!labfits_write_key_from_char@{labfits\_\-write\_\-key\_\-from\_\-char}}
+\index{labfits_write_key_from_char@{labfits\_\-write\_\-key\_\-from\_\-char}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int labfits\_\-write\_\-key\_\-from\_\-char (int {\em ref}, int {\em datatype}, char $\ast$ {\em keyname}, char $\ast$ {\em value}, char $\ast$ {\em comment})}\label{GfitsLib_8c_b5d62d67f1e987cf38076f2790cc117f}
+
+
+
+
+\subsection{Variable Documentation}
+\index{GfitsLib.c@{Gfits\-Lib.c}!amptype@{amptype}}
+\index{amptype@{amptype}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short \bf{amptype}[MAX\_\-AMPS]\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_21cbe08ccbf3d428cd9e3f75c335b778}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!bufcnt@{bufcnt}}
+\index{bufcnt@{bufcnt}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{bufcnt} = 0}\label{GfitsLib_8c_816c3782b667b58b60ade641a7e6d623}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!bytes_pp@{bytes\_\-pp}}
+\index{bytes_pp@{bytes\_\-pp}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{bytes\_\-pp} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_e172516563379fa4fa449687918a81b5}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!datatype@{datatype}}
+\index{datatype@{datatype}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{datatype} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_5d1502fc2354f6dafba8668cc79b19f3}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!error_msg@{error\_\-msg}}
+\index{error_msg@{error\_\-msg}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{error\_\-msg}[100]}\label{GfitsLib_8c_e50816ad7646b18752b608cc2c930c72}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!Extension@{Extension}}
+\index{Extension@{Extension}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Extension}[MAX\_\-AMPS]\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_c1cdc76f44bc4294862eedc93b3a39bd}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!fitsamp@{fitsamp}}
+\index{fitsamp@{fitsamp}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}amp\_\-t \bf{fitsamp}[MAX\_\-AMPS]\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_6c7ae95d653b6ce69935dec3892f415a}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!hdrsize@{hdrsize}}
+\index{hdrsize@{hdrsize}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t \bf{hdrsize} = 0}\label{GfitsLib_8c_7c08d0ca8ce4c077fb67598320b67c8c}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!hdutype@{hdutype}}
+\index{hdutype@{hdutype}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{hdutype}\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_ffdd7c41c137d7bf216db70b9ac80570}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!imsize@{imsize}}
+\index{imsize@{imsize}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t \bf{imsize} = 0}\label{GfitsLib_8c_6f93478ce0128ac9e3d0779e2904c67d}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!is_shared@{is\_\-shared}}
+\index{is_shared@{is\_\-shared}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{is\_\-shared} = 0}\label{GfitsLib_8c_a9000c92a84d439ab9f19bc8694d80e0}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!membuf@{membuf}}
+\index{membuf@{membuf}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{membuf} = NULL}\label{GfitsLib_8c_cd9a2acd2b439f96a455a2e4d80e30ae}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!membufsize@{membufsize}}
+\index{membufsize@{membufsize}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t \bf{membufsize} = 0}\label{GfitsLib_8c_92e7119131cd1587611bb4380fec40b1}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!memfits@{memfits}}
+\index{memfits@{memfits}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short \bf{memfits} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_0ef31bef7290d2a496809575696170ec}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!memfitssize@{memfitssize}}
+\index{memfitssize@{memfitssize}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t \bf{memfitssize} = 0}\label{GfitsLib_8c_631e48bc4600bb4636796c395567a8ac}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!mext@{mext}}
+\index{mext@{mext}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}short \bf{mext}\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_b6f530da74d5e80472273477fbf434e0}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!namps@{namps}}
+\index{namps@{namps}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long \bf{namps} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_2bdccecffd3fa772c2230129ab3991f4}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!nbufs@{nbufs}}
+\index{nbufs@{nbufs}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{nbufs} = 1}\label{GfitsLib_8c_7fd818bca78a9edd274cb6c82b6cb1b3}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!nextbuf@{nextbuf}}
+\index{nextbuf@{nextbuf}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{nextbuf}}\label{GfitsLib_8c_09a3bccc231a8ce7257d0b7028209167}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!nzcnt@{nzcnt}}
+\index{nzcnt@{nzcnt}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{nzcnt} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_0e716001207c39f4e2d94b4dca76531f}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!nzim@{nzim}}
+\index{nzim@{nzim}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{nzim} = 1\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_39fa07a074ce470f596d4072d9db4eb7}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!shmem@{shmem}}
+\index{shmem@{shmem}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{shmem} = 0}\label{GfitsLib_8c_511c4535bc24c7b5dd3961b0a6df437c}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!shmid@{shmid}}
+\index{shmid@{shmid}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{shmid} = -1}\label{GfitsLib_8c_c8807d215d2ee6d9779d76aeb1147430}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!shmqid@{shmqid}}
+\index{shmqid@{shmqid}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{shmqid} = -1}\label{GfitsLib_8c_532df43ed27970f11fa599a96a867fe1}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!tmpptr@{tmpptr}}
+\index{tmpptr@{tmpptr}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long \bf{tmpptr}[MAX\_\-AMPS]\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_7c07a77a23d522ce021814db27e8223d}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!totcols@{totcols}}
+\index{totcols@{totcols}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long \bf{totcols} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_c8ea02916892d135ab13a5c4ab7fbcee}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!totEle@{totEle}}
+\index{totEle@{totEle}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long \bf{tot\-Ele}\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_36c0c111d3a321a4c297841a43ed925a}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!totElePerAmp@{totElePerAmp}}
+\index{totElePerAmp@{totElePerAmp}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long \bf{tot\-Ele\-Per\-Amp}\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_818bf4500ca782e54bd0a3e14a4bef6e}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!totEleRead@{totEleRead}}
+\index{totEleRead@{totEleRead}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{tot\-Ele\-Read}[MAX\_\-AMPS]\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_439b3ab42e8ffe152990430e0afb6f23}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!totPixels@{totPixels}}
+\index{totPixels@{totPixels}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long \bf{tot\-Pixels}\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_531f0aacdb3399f96f66d01365e1b249}
+
+
+\index{GfitsLib.c@{Gfits\-Lib.c}!totrows@{totrows}}
+\index{totrows@{totrows}!GfitsLib.c@{Gfits\-Lib.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long \bf{totrows} = 0\hspace{0.3cm}{\tt  [static]}}\label{GfitsLib_8c_87b1763363a10f06894cd6a2f970e160}
+
+

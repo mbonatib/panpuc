@@ -1,0 +1,42 @@
+2017-02-26T10:31:29 UTC <Marco Bonati> XPARTD version 2.7
+	* added the "set/get devparamas" command that allows to pass any
+	 command to ds9 to be executed
+	* added "exec" keyword that allows to execute ds9 commands at the
+	 beginning
+
+2014-11-26T10:31:29 UTC <Marco Bonati> XPARTD version 2.6
+	* added configparama "parg" that tells if ds9 supports or not the "-p" switch param. By default it assume it does (so it sends it)
+
+2014-02-28T10:31:29 UTC <Marco Bonati> XPARTD version 2.5
+	* fixed the "search display" to also detect \r
+
+2013-08-07T10:31:29 UTC <Marco Bonati> XPARTD version 2.4
+	* Fixed so now it can use separate ds9 even if running on the same
+	machine (diferences it by ID, automatically generated based on the 
+	pan nodeID value
+	* the default start now is "auto" rather than "mosaiciraf"
+
+2012-05-30T10:31:29 UTC <Marco Bonati> XPARTD version 2.3
+	* added the "auto" type -as default- to autodetect if
+	flat or mext image
+
+2012-05-30T10:31:29 UTC <Marco Bonati> XPARTD version 2.2
+	* added keyword deftype in config and the command set/get deftype to
+	improve display for mext or flat 
+
+2012-01-17T10:31:29 UTC <Marco Bonati> XPARTD version 2.1
+	* supports passing xpaset parameters (set params xxxx//yyy...)
+	* command separated by //. Any supported xpaset command
+
+2011-11-15T10:31:29 UTC <Marco Bonati> XPARTD version 2.0
+	* works with mosaic and non-mosaic images
+	* sets the fits server to produce async. messages automatically
+	* checks if the display is available/installed or not
+
+2011-10-27T10:31:29 UTC <Marco Bonati> XPARTD version 1.2
+	* cleaned a bit
+	* obeys also to  "set display on/off"
+
+2011-10-21T10:31:29 UTC <Marco Bonati> XPARTD version 1.1
+	* created
+

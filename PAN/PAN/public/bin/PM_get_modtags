@@ -1,0 +1,34 @@
+#! /bin/csh -f
+setenv ARCROOT $PAN_ROOT
+set ISSET = `setenv | egrep ARCROOT`
+if ("$ISSET" == "") then
+        set currdir = `cd ../../../; pwd`
+        setenv ARCROOT $currdir
+endif
+
+if ($#argv < 1) then
+	echo "usage: PM_get_modtags <module>"
+	exit 1
+endif
+
+while ("$argv" != "") 
+	set module = "$1"
+	$ARCROOT/PAN/public/bin/PM_get_file $module-LIST -q
+	if (-e ./$module-LIST) then
+		cat ./$module-LIST
+		rm -f $module-LIST
+		shift
+		continue
+	else
+		set lastver = `$ARCROOT/PAN/public/bin/PM_get_last_version $module`
+	endif
+	echo $module
+	if ("$lastver" =="") then
+		echo "ERROR module not found in reposiroty"
+	else
+		echo $lastver
+	endif
+	shift
+end
+
+exit 0

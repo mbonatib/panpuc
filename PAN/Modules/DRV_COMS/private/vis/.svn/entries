@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="2445"
+   name=""
+   committed-date="2008-05-05T15:16:10.888549Z"
+   url="https://139.229.115.227/svn/tags/DRV_COMS-2.0/private/vis"
+   last-author="bonati"
+   kind="dir"
+   repos="https://139.229.115.227/svn"
+   revision="2649"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read_serial_Ref.vi"
+   text-time="2008-10-05T17:11:20.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="e70212e50179a081182fc4b9920ff9b9"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Close_tcp_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="d468e0521fc5dd8814ce4679c6a69728"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read_c_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="024effa78e769ae0d8d8a72c7fa82db4"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Close_udp_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="83756a746f1faeac058dc83b3306c8b3"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read_c_univ_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="9a9853830454bcfb3ebeb9ab55a2c391"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Open_oserial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="c918c455837b894c26fb93f952926b99"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_KeyVal2Array.vi"
+   text-time="2008-09-30T15:16:29.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="d69ee02c41a730106cb37329c9dbd23e"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Read_tcp_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="c9f35282dc19b170992a7acfccffdeff"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_GetProtocolPath.vi"
+   text-time="2008-09-30T15:06:51.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="916af6af0c20910f7a139b875b295f3a"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Close_oserial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="852794a9eca5c1b57e0bdd3288daabc0"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_GetSpecificArg.vi"
+   text-time="2008-09-30T15:16:29.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="22b25d64bf3b6f07e9fee7864fd97dfb"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read_udp_Ref.vi"
+   text-time="2008-09-30T15:06:39.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="f98150b3ca37112a4c537603201a301b"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read_oserial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="b896949fb83d03ff56e1e7fb1baa66ef"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Write_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="76f8bab8206bc66fdab874042f273925"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Write_c_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="7112455e51ab2cd2b21f36fa1f493a67"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Read_c_serial1_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="620634d5e380fd7e9350cbd1ed88499a"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Write_c_univ_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="71b9c1125f8d0d7a2f8af56ac0ad0d6a"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Open_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="5295b5f7dd9b90bf0adae6a60559d305"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Write_tcp_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="7cfb5ec2006a56040331fcd12633dd24"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Open_c_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="50834af291f2ca15c6a291515c9af25b"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Write_udp_Ref.vi"
+   text-time="2008-09-30T15:06:48.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="1547ab08330f1c49a79ecd0b482989db"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Error_Cluster_Generator.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="1177adbe8578112aa663c10d0517babe"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Close_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="1cb9be5d234f7e62eb579888e27962ec"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Open_c_univ_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="49154bd0c87cce9b0fb081caebc08fb5"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Close_c_serial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="edf995bd617efd3b16ac219728df3c5f"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2445"
+   name="DRV_COMS_Open_tcp_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-05-05T15:16:10.888549Z"
+   checksum="2e428da6c583a5db37530492e5c864f0"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Close_c_univ_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="a8b543b8c103b0fbec8df9be270f78d1"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Write_oserial_Ref.vi"
+   text-time="2008-09-25T19:19:19.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="f4cd1f4bb9ee981456dc21120a9383cb"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-10-11T01:17:15.000000Z"
+   revision="2650"/>
+<entry
+   committed-rev="2650"
+   name="DRV_COMS_Open_udp_Ref.vi"
+   text-time="2008-09-30T15:16:29.000000Z"
+   committed-date="2008-10-11T01:17:17.545855Z"
+   checksum="321c4465f1c655b9c9a1ecef9d0478d4"
+   last-author="bonati"
+   kind="file"
+   prop-time="2008-09-25T19:19:19.000000Z"
+   revision="2650"/>
+<entry
+   name="drivers"
+   kind="dir"/>
+</wc-entries>

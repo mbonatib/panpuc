@@ -1,0 +1,20 @@
+Here are some general purpose C libraries. This include memory manipulation routines
+
+Contents:
+---------
+
+src files:
+---------
+- memLib.c   : Memory handling funtions 
+
+- some .h files
+
+
+Makefile: make file for building all this stuff
+README: this file, just in case you haven't seen it
+
+
+Some One
+
+
+

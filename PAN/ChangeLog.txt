@@ -1,0 +1,276 @@
+2014-10-08T14:55:23 UTC <Marco Bonati> PAN version 7.8
+	* added the optional "-cmdid" switch to return the given cmdid along
+	with the response (long or short)
+
+2013-06-08T14:55:23 UTC <Marco Bonati> PAN version 7.7
+	* modified start_pan so it tryes as enviromental variable (again) if
+	* the switch is not passed (to be able to override env. variables)
+
+2012-08-08T14:55:23 UTC <Marco Bonati> PAN version 7.6
+	* fixed PM_distill_fpa
+	* added PM_unpack_fpa
+	* modified start_pan so it can understand that a port is using a
+	 command line argument (to block at startup)
+
+2012-08-08T14:55:23 UTC <Marco Bonati> PAN version 7.5
+	* modified DBS command to accept extended data type
+	* modified DBS to accept the "-precision" argument and
+	also to use the "prec_<type>" directives, with
+	<type> = extended, double, single
+
+2012-08-03T14:55:23 UTC <Marco Bonati> PAN version 7.4
+	* added the "INTEGRATE" slow action
+
+2012-02-09T14:55:23 UTC <Marco Bonati> PAN version 7.3
+	* changed spalsh screen
+	* improved logging info
+
+2011-11-09T14:55:23 UTC <Marco Bonati> PAN version 7.2
+	* updated start_pangui
+	* updated start_panapp
+
+2011-10-28T14:55:23 UTC <Marco Bonati> PAN version 7.1
+	* addedd a better error messages for appmacro
+
+2011-08-30T14:55:23 UTC <Marco Bonati> PAN version 7.0
+	* provides information on the connected clients
+	(remote addresses, ports, to which servers) trhoug
+	"app commods <...>"
+	
+2011-07-15T14:55:23 UTC <Marco Bonati> PAN version 6.8
+	* now any command can have an enviromental variable, database variable
+	or command line and it will be interpreted
+
+2011-07-07T14:55:23 UTC <Marco Bonati> PAN version 6.7
+	* Changed the appmacros so they can refer to names of macros
+	based upon enviromental variables or database variables
+	(example: appmacro dbs(dhe_link))
+	* information on commports now include, if it is an 
+	enviromental variables, its actual value
+	* cleaned up 
+
+2011-04-10T14:55:23 UTC <Marco Bonati> PAN version 6.6
+	* changed PAN_Run.vi to make the startup faster
+	  (about 4 secs less)
+	* compiled binary panapp included
+	* PM_distill_fpa includes HEADER modules now
+
+2011-04-10T14:55:23 UTC <Marco Bonati> PAN version 6.5
+	* updated DBS API to set/get U64
+
+2011-03-04T14:55:23 UTC <Marco Bonati> PAN version 6.4
+	* fixed "pause", changing the the "set_timeout" subvi
+	
+2011-03-04T14:55:23 UTC <Marco Bonati> PAN version 6.3
+	* added more commands to DBS ("get *name*", "get groups",
+	  "get group <group>", "get list")
+
+2010-10-04T14:55:23 UTC <Marco Bonati> PAN version 6.2
+	* added VARS  that allow to show basic information on the splash
+	 screen
+
+2010-08-14T14:55:23 UTC <Marco Bonati> PAN version 6.1
+	* removed garbage in bin
+
+2010-06-04T21:55:23 UTC <Marco Bonati> PAN version 6.0
+	* supports multiple observations at the same time
+	  ("expose" command when the image has not being written)
+	* added ObsMngr
+
+2010-06-04T21:55:23 UTC <Marco Bonati> PAN version 5.5
+	* fixed an important bug related to memory leak when a multclient
+	  disconnected (reference to server not closed)
+
+2010-06-04T21:55:23 UTC <Marco Bonati> PAN version 5.4
+ 	* fixed a small problem in PM_distill_fpas
+
+2010-05-20T21:55:23 UTC <Marco Bonati> PAN version 5.3
+	* added PM_get_modtags
+	* refined PM_distill_fpa
+
+2010-05-19T21:55:23 UTC <Marco Bonati> PAN version 5.2
+	* added PM_distill to extract/archive complete fpas
+
+2010-05-11T21:55:23 UTC <Marco Bonati> PAN version 5.1
+	* fixed a bug with PM_get_version (wringly updated)
+
+2010-05-11T21:55:23 UTC <Marco Bonati> PAN version 5.0
+	* PM scan, etc done throuhg wget -on a public site-
+
+2010-05-11T21:55:23 UTC <Marco Bonati> PAN version 4.5
+	* some cleanup
+	* added "app commods" that gets information on the available
+	  communication modules (Comm_XXX)
+
+2010-04-28T21:55:23 UTC <Marco Bonati> PAN version 4.4
+	* every exposure call can be bracheted by macros
+	  (beforeexp and afterexp keys under PAN)
+
+2010-04-15T21:55:23 UTC <Marco Bonati> PAN version 4.3
+	* added the capability of calling  a shutdown macro (or commands) when
+	  shutdown (before shutting doen the modules)
+	* added _MACROPATH_ as a global variable, so it can be used to reference
+	  a script or path
+	* added the id (<< nodeID) to the TIMEOUT error (the timer mngr
+	  was not adding the ID)
+
+2010-04-04T21:55:23 UTC <Marco Bonati> PAN version 4.2
+	* added the applicaton name to /tmp/arcproc,so the same user
+	  can start multiple instances of different applications
+	* a common config firectory can be defined either in the main config
+	file or, get set to ../../common if not defines
+	* errnostr is searched in the common (globaly defined) directory if
+	 not found in the current
+	  
+2010-03-26T21:55:23 UTC <Marco Bonati> PAN version 4.1
+	* changed all the "/tmp/arcproc"  in the csh scripts
+	 (public/bin) by a vairable that includes the user
+	 (whoami) so multiple instances can be started by multiple users
+	 in the same machine without colliding. Modified start_pan and
+	  shutdown_pan
+
+2010-01-02T21:55:23 UTC <Marco Bonati> PAN version 4.0
+	* fixed an important buag related to the timout modification when an
+	* exposure was in progres (any 'set" command while exposing would take
+	  the exposure timeout to 30 secs). Fixed the PAN timeout Mngr
+
+2010-01-02T21:55:23 UTC <Marco Bonati> PAN version 3.98
+	* Improvments in dbs handling variables (done in echelle run)
+	* appmacro can now be recursive
+
+2009-12-01T21:55:23 UTC <Marco Bonati> PAN version 3.97
+	* added "-no_proc_check" option to start_pan, to disable
+	 checking for another instance of the same fpa
+
+2009-11-18T21:55:23 UTC <Marco Bonati> PAN version 3.96
+	* added the option of adding the nodeID in the immediate replies
+	  (app addid <on | off>)
+
+2009-10-05T21:55:23 UTC <Marco Bonati> PAN version 3.95
+	* added some startup options:
+		-minimize: runs the main window minimized
+		-hide: run the main widows hidden (not seen)
+		-nd: does not starts the debug (black/green) window
+		-id: starts the debug window, but minimized
+
+2009-09-23T21:55:23 UTC <Marco Bonati> PAN version 3.94
+	* Now pan can execute multiple semicolon-separated commands; the
+	  response is also semicolon-separated (one per issued command
+	* fixed "dbs set" so the string types can have multiple words
+
+2009-08-15T21:55:23 UTC <Marco Bonati> PAN version 3.93
+	* Small change in the way the app name is requested at startup
+
+2009-05-15T21:55:23 UTC <Marco Bonati> PAN version 3.92
+	* Improved the pan macro handling. It can now handle a system
+	  command (like a csh script) as if it was a macro
+	* Changed the name of the core macros to "appmacro" to
+	  avoid confusion with the "dhe macro"
+
+2009-05-05T21:55:23 UTC <Marco Bonati> PAN version 3.91
+	* Modified PAN_ParseCmd so the tcp servers also understand the
+	* _nodeID_ in front of the command
+	 (so it is possible to send "_nodeID_ expose", for example)
+
+2009-03-02T21:55:23 UTC <Marco Bonati> PAN version 3.9
+	* fixed the "deep" image translation (field separation is now using
+	"->" instead of "_" (dhe->set->shutter), and it now truly supports 
+	multiple ttranslations to the same module.
+	
+2009-03-02T21:55:23 UTC <Marco Bonati> PAN version 3.8
+	* Improved the DBS handling of queued variables (added "preview",
+	 "set" for queues, etc)
+
+2009-02-06T21:55:23 UTC <Marco Bonati> PAN version 3.7
+	* The translations allow to have a deep command to be translated onto
+	  another module also, by adding "_" in the definition. For example
+ 	  dhe_set_shutter="SHUTTER", would translate the command
+	  "dhe set shutter open" into "SHUTTER open" (so handled by the
+	  module SHUTTER rather than the module DHE)
+	  This gives more flexibility for implementing specific
+	  hardware configutaions
+	* Added the capability of starting, on the fly, a module that was not listed on the
+	  config file, by issuing the command "MOD XXX START"
+
+2009-01-19T21:55:23 UTC <Marco Bonati> PAN version 3.6
+	* Communication modules were talen out of the core. They are now
+	  external modules -as the command sets-
+	* changed a bit start_pan so it will pass any unknown argument to
+	  labview (so labview can parse it)
+	* the start_pan uses the new "get_port" instead of modkey. "get_port"
+	  allows to specify the command set (port on) you want to talk to
+	* get_port also allows expresions of the type ${PORT}+1
+	* get_modkey (used by get_port) can also read enviromental variables
+
+2009-01-12T21:55:23 UTC <Marco Bonati> PAN version 3.5
+	* Changed the vis with a "?" in their name (under coms)
+	* Fixed the case, at the intial sequence, for reading the errno.h file
+
+2008-12-12T21:55:23 UTC <Marco Bonati> PAN version 3.4
+	* the "async" commands does not get passed to the async
+	  while loop, but executed (sent) only  on the DHE
+	  module. This avoids duplication of async. messages
+	  and ensures manual async. messages when exposing
+	  (problem reported by Dave Hale)
+
+2008-12-12T21:55:23 UTC <Marco Bonati> PAN version 3.3
+	* fixed the errno_default finding
+
+2008-09-29T21:55:23 UTC <Marco Bonati> PAN version 3.2
+	* CmdSet taken out of private. Now they are independent modules
+	  (CmdSet<name>)
+
+2008-09-29T21:55:23 UTC <Marco Bonati> PAN version 3.1
+	* added a lot of new handling on the MNSN cmdset
+	* fixed several problems on the DBS handling
+	* added the option of passing "-hold" as a parameter to the debug
+	  window (Thanks to Dave Hale!)
+	
+2008-09-29T21:55:23 UTC <Marco Bonati> PAN version 3.0
+	* labview 8.6
+	* fixed the "app version" command
+	* added more commands on the mnsn command set
+	* fixed a couple of open references being left at mult_tcp (1&2)
+	* added som emore help for commands (app commands)
+
+2008-08-22T21:55:23 UTC <Marco Bonati> PAN version 2.8
+	* Added some vis to support generic long commands (not only from
+	  DHE)
+
+2008-08-09T21:55:23 UTC <Marco Bonati> PAN version 2.7
+	* Added the _CMDLINE_ option for the id (name given on cmdline)
+	* Improved the naming (nodeID)
+
+2008-08-08T21:55:23 UTC <Marco Bonati> PAN version 2.6
+	* Added the capability of defining the id as the parent of the
+	  config file, by defining id (on the main config file) as 
+	  _DIRNAME_. This allows to copy the whole application to a 
+	  new directory without the need of editing the application
+	  name
+	* modified the start_pan script so if it sees the id _DIRNAME_
+	  it extracts the name of the parent directory (just to not confuse
+	  the user with the echos on the name)
+
+2008-07-31T21:55:23 UTC <Marco Bonati> PAN version 2.5
+        * added a delay of 2000 ms in long actions, to avoid race conditions
+          if the callback comes back too close (so a long action cannot take
+          less than 2 secs)
+        * ensured the adding of the timeout to the timeout manager before
+          the actual action is called (also to avoid race conditions)
+
+
+2008-07-31T21:55:23 UTC <Marco Bonati> PAN version 2.4
+	* fixed the unclose reference in the mult_tcp protocols
+	* new config file to support multiple com. protocols
+
+2008-02-31T21:55:23 UTC <Marco Bonati> PAN version 2.3
+	* added the ID in the async. connections
+
+2008-01-31T21:55:23 UTC <Marco Bonati> PAN version 2.2
+	* added the report in PM_scan_versions
+
+2008-01-30T21:55:23 UTC <Marco Bonati> PAN version 2.1
+	* fixed PM_ModsInfo
+
+2008-01-29T21:55:23 UTC <Marco Bonati> PAN version 2.0
+	* first in rep.

@@ -1,0 +1,91 @@
+\section{test/roimasker/main.c File Reference}
+\label{main_8c}\index{test/roimasker/main.c@{test/roimasker/main.c}}
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include \char`\"{}roi\-Mask.h\char`\"{}}\par
+{\tt \#include \char`\"{}cdl.h\char`\"{}}\par
+{\tt \#include \char`\"{}tcpserver.h\char`\"{}}\par
+{\tt \#include $<$pthread.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{CMD}~1
+\item 
+\#define \bf{DATA}~2
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void $\ast$ \bf{Get\-Cmd} ()
+\item 
+int \bf{main} (int argc, char $\ast$argv[$\,$])
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{running} = 1
+\item 
+int \bf{delimg} = 0
+\item 
+int \bf{display} = 0
+\item 
+\bf{CDLPtr} \bf{cdl}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{main.c@{main.c}!CMD@{CMD}}
+\index{CMD@{CMD}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CMD~1}\label{main_8c_0a5ceb9ceb914e08d345410b561cb37a}
+
+
+\index{main.c@{main.c}!DATA@{DATA}}
+\index{DATA@{DATA}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DATA~2}\label{main_8c_ad9ae913bdfab20dd94ad04ee2d5b045}
+
+
+
+
+\subsection{Function Documentation}
+\index{main.c@{main.c}!GetCmd@{GetCmd}}
+\index{GetCmd@{GetCmd}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Get\-Cmd ()}\label{main_8c_9ab8d44953ee3c4f3c33b62c9223676c}
+
+
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, char $\ast$ {\em argv}[$\,$])}\label{main_8c_0ddf1224851353fc92bfbff6f499fa97}
+
+
+
+
+\subsection{Variable Documentation}
+\index{main.c@{main.c}!cdl@{cdl}}
+\index{cdl@{cdl}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{CDLPtr} \bf{cdl}}\label{main_8c_f5edaa249017b01d140d79f1737b8b9a}
+
+
+\index{main.c@{main.c}!delimg@{delimg}}
+\index{delimg@{delimg}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{delimg} = 0}\label{main_8c_f7362359d6c02df1236ccef40c8d66de}
+
+
+\index{main.c@{main.c}!display@{display}}
+\index{display@{display}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{display} = 0}\label{main_8c_f36a76a97c2cc0ea7b1c0c25933934a9}
+
+
+\index{main.c@{main.c}!running@{running}}
+\index{running@{running}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{running} = 1}\label{main_8c_2f45113638a0b749a8a205d2cd7fb42b}
+
+

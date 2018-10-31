@@ -1,0 +1,746 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+                                                       
+  
+  
+  <title>GFITS Command Interface</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head>
+<body>
+
+          
+<h2><big>GFITS</big><br>
+
+     </h2>
+
+     
+<h2><br>
+
+    </h2>
+
+    <big style="text-decoration: underline;"><big><span style="font-weight: bold;">Description</span></big></big> 
+<h2><small style="font-weight: normal;"><small>The GFITS module (General
+Fits) is in charge of writting FITS image data to disk.</small></small></h2>
+
+     In order to do this, the module receives the data normally from the "unscrambler"
+module, and writes the data in the requiered format (as directed by the geometry,
+multiple or single extensions, etc) .<br>
+
+     Besides that, it needs to gather diferent information to write in the 
+headers. The information that goes into the header is set by a <a href="GFITS_Keys.html">header template</a><br>
+
+     The template says what info to write, where to get that info, etc.<br>
+
+    The image can be written progressively&nbsp; or "at once", depending
+on how it receives the data from the unscrambler module. Some headers can 
+be written at the begining (before the data is written, when the file is
+created) and some at the end.<br>
+
+    <br>
+
+     
+<h2 style="text-decoration: underline;">Module Commands</h2>
+
+           All the commands must be preceeded by the prefix "GFITS" (or any
+other prefix stated on the [TRANSLATIONS] onteh core config. This is sually simply "fits")<br>
+
+        <br>
+
+        <big><b><br>
+
+        START</b></big><br>
+
+        <b style="text-decoration: underline;"><i>description</i></b><br>
+
+        Starts the Server. This command may not normally be needed (since it will be already running when
+the client acces it. If it is not runing, then the client will need to issue
+it)<br>
+
+        <br>
+
+        <br>
+
+        <b><big>SHUTDOWN&nbsp;&nbsp;&nbsp; </big></b><br>
+
+        <b style="text-decoration: underline;"><i>description</i></b><br>
+
+        Shuts down the server. This is normally done automatically by the PanVIEW server when it is shut down<br>
+
+    <br>
+
+    <br>
+
+    <span style="font-weight: bold;">VERSION</span><br>
+
+    <span style="font-style: italic; font-weight: bold; text-decoration: underline;">
+description</span><br>
+
+    gets the module version<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+return</span><br>
+
+    &lt;version&gt;<br>
+
+    <br>
+
+    <br>
+
+    <span style="font-weight: bold;"><a name="SET"></a>SET <span style="font-style: italic;">&lt;params ...&gt;</span><span style="font-style: italic;"></span></span><br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+description<br>
+
+    </span>    Sets the specified parameter to the specified value<br>
+
+    <span style="font-style: italic; font-weight: bold; text-decoration: underline;">
+parameters</span><br>
+
+    <span style="font-weight: bold; font-style: italic;">AUTOWRITE</span> <span style="font-weight: bold;">&lt;on | off&gt;</span>: tells the module to write the image to disk or not. The module keeps in 
+buffer memory the last read image. If the parameter is "yes" (normal operation)
+it will write the image to disk when its done (or preogressively depending
+on the read mode). If the parameter is "no", it will be left only in memory,
+and then it can be written to memory using the WRITEBUF command. The next
+image read will override the buffer (so it only keeps 1 buffer).<br>
+
+    <span style="font-weight: bold; font-style: italic;">MEXT </span><span style="font-weight: bold;">&lt;on | off</span>&gt;: sets
+the image extension to multiple or single (flat) fits format<br>
+
+    <span style="font-weight: bold; font-style: italic;">QHDRS </span><span style="font-weight: bold;">&lt;on | off&gt;</span>:&nbsp; 
+stands for "quick headers". When writting multiple extension images (one
+extension per amplifier), normally all the information goes to all the extension
+headers (but this really depends on the <a href="GFITS_Keys.html#mext_template">header template for multiple extensions</a>
+), so the same information&nbsp; gets written over and over again. This has
+the advantage that any info can be picked from any extension, but the clear
+disadvantage of being much slower. The "QHDRS" parameters makes the module
+to write all the "common" information on extension [0] (the "no-data extension"),
+and only the specific information to each extension (normally only the geometry
+description for the amplifier). This makes the image to be written much faster.
+In detectors with an small number of amplifiers, or where the readout is slow
+this is not important, but in very fast read detector, with many amplifiers
+this may be an important overhead (for example, a Hawaii-2RG has 32 amplifiers,
+and the frame can be read in only half a second). It is possibl<br>
+<span style="font-weight: bold; font-style: italic;">MEMFITS </span><span style="font-weight: bold;">&lt;on | off</span>&gt;: tells the module to write the complete fits file in memory, rather than in disk<br><span style="font-weight: bold; font-style: italic;">NBUFS</span> <span style="font-weight: bold; font-style: italic;">&lt;number_of_bufs&gt;</span>: &nbsp;Set the number of buffers to allocate (circular scheme) for the memory fits<br><span style="font-weight: bold;">WRITEHEADERS </span><span style="font-weight: bold;">&lt;on | off&gt;</span>: Turns on or off the writting of the image headers <br>
+<span style="font-weight: bold;">ASYNCMSGS &lt;on | off&gt;</span>:
+Specifies if an asynchronous message will be issued every time an image
+is written to disk. The async. message is NEWFITS
+&lt;path_to_last_image&gt;<br><span style="font-weight: bold; font-style: italic;">FILEMSG</span> <span style="font-weight: bold;">&lt;msg_format&gt;</span>:
+If different from "none", or "", turns off the automatic test file
+creation, using the specified format/name for the file name. See the
+"filemsg" entry on the config file definition.<br><span style="font-weight: bold; font-style: italic;">NZIM </span><span style="font-weight: bold;">&lt;number&gt;</span>: defines a datacube of N images (1 by default)<br><span style="font-weight: bold;">AUXFILE &lt;path&gt;</span>:
+specifies an auxiliary file header template to operate. After this has
+been specified, any subsequent operation over keywords can be done over
+the aux fileby adding "aux" to the key command<br><span style="font-weight: bold;">COMPRESSION &lt;directive&gt;: </span>The
+GFITS module will pass the compression directive directly to thge
+underlying cfitsio routines, appended in the name. This means that the
+syntax of the compression directives is the same as the ones supported
+by cfitsio (it supports Rice, Gzip and Plio. For precise documentation
+and syntax refer to the cfitsio manual). Besides, it supports "enable"
+and "disable"<br>Example:<br>&nbsp;&nbsp;&nbsp; <span style="font-style: italic;">SET compression Rice</span> &nbsp; /*use Rice compression*/<br>&nbsp;&nbsp;&nbsp; <span style="font-style: italic;">SET compression disable</span> &nbsp;/*do not compress anymore*/<br><span style="font-weight: bold;">POSTPROC &lt;script | none&gt;: </span>Specifies
+a script to be run right after every image has been written. The system
+passes to the script the path of the image just written (used for
+feeding a data pipeline, for example). The script path can use<br>enviromental variables (enclosed as ${VAR}) or the name of application (passed as "_nodeID_")<br><span style="font-weight: bold;">PREIMG &lt;script | none&gt;</span>:
+Specifies a script to be ran just before the creation of every image.
+This can be used, for examplem, to call a script that updates a file
+with data for the headers (for example). The script path can use
+enviromental variables or/and the refeence to the application name,
+passed as "_nodeID_"<br><span style="font-weight: bold;"></span><span style="font-weight: bold;">IMNUMFORMAT &lt;format&gt;</span>:
+specifies the amount of digits that will be used to write the image
+number. The format must be specified using the c-style formatting
+(%&lt;val&gt;d). The default value is %04d (4 digits with leading
+zeros). <br><span style="font-weight: bold;">HDRPREALLOC &lt;dynamic | &lt;nkeys&gt;&gt;: </span>This
+is used to speed up the header writing process by preallocating a fixed
+amount of keywords. When "dynamic" is set, it iussues internally a
+"preview" in order to compute the total amount of keywords that will be
+writen. With this number it preallocates the space. By specifing a
+fixed number it saves the time of the preview, but if more keys are
+actually written there will be &nbsp;a big penality during the data
+write, because it will need to "make room" for the extra keys. Use a
+fixed number only if you are sure that no more keys will be added
+dynamically. The defaulkt state is "dynamic", which is best for most
+cases.<br><span style="font-weight: bold;">HDRMODE &lt;dynamic | static&gt;: </span>This
+is also used to save time during header writing. The default value is
+"dynamic", which means that the GFITS module will read the header
+template everytime an image is written to disk. In this way the user
+can modify the template and the changes will be taken "on the fly". If
+"static" is specified, the server will look at the template only once,
+and for every image it will take the template from memory. This makes
+it faster (no file read everytime), but any change in the template will
+have no effect while in "static" mode. Note that "static" does not
+measn that the values won't change; it just means that the keyword
+names/cooments will remain unchanged. The default state is "dynamic"<br><span style="font-weight: bold;">GEOMHDRMODE &lt;dynamic | static&gt;: </span>This
+is also used to save time. Under normal conditions (dynamic) it asks
+the geometry module to recalculate all the geometry keywords every time
+an image is written. This allows for any "on the fly" change of the
+possible WCS geometry template. If "static" is specified, then the
+geometry module will not be asked to recalculate. This saves time. Note
+that if a real change in the geometry takes place (like a change in the
+overscan, or binning, etc), the geometry keywords will reflect the
+change anyway (the GFITS module will request the values when the change
+takes place, but not for every image). The default value is "dynamic"<br><br>
+
+    <span style="font-style: italic; text-decoration: underline; font-weight: bold;">
+return</span><br>
+
+        DONE on success<br>
+
+    ERROR [error message erro code] on failure<br>
+
+    <br>
+
+    <span style="font-weight: bold;">GET <span style="font-style: italic;">&lt;QHDRS | AUTOWRITE | MEXT | others ...&gt;</span></span><br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+description</span><br>
+
+    gets the value of the specified parameter. Any SET parameter can also be used to GET<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+parameters</span><br>
+
+    see the <a href="#SET">SET</a> description above<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+return</span><br>
+
+    <span style="font-weight: bold; font-style: italic;">&lt;value&gt;<br><br></span><span style="font-weight: bold;">IMLIST &lt;params ...&gt;<br></span><span style="font-style: italic; font-weight: bold; text-decoration: underline;">
+description</span><br>These
+are commands to be performed over the list of written images. The list
+of images, if created, is a file that has an entry for every image that
+has been created. The entry has:<br>&lt;absolute path to image&gt;= &lt;timestamp&gt; status = &lt;OK | ERROR&gt; &lt;image ID&gt;<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+parameters</span><br>
+
+    <span style="font-weight: bold; font-style: italic;">log</span>: &lt;on | off&gt;: specifies if an image list will be created or not. The default is speficied in the config file, under [LOG]<br><span style="font-weight: bold; font-style: italic;">logpath</span>: the absolute path to the file that will have the list. Specified under [LOG] in the config file.<br><span style="font-weight: bold; font-style: italic;">get &lt;params ...&gt;</span>: gets the requested param:<br>&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <span style="font-style: italic;">last [n] </span>:
+gets the last "n" entries on the list (the info for the last "n"
+written images) . If "n" is not specified brings the last only<br>&nbsp; &nbsp; &nbsp; &nbsp; <span style="font-style: italic;">list</span>: gets all the entries in the file<br>&nbsp; &nbsp; &nbsp; &nbsp; <span style="font-style: italic;">from &lt;timestamp&gt; [to &lt;timestamp&gt;]</span>:
+brings all the entries fromthe specified "from" timestamp untill the
+specified "to" timestamp. If "to" is not specified, brings all the
+images "from" until the last in the record<br>&nbsp; &nbsp; &nbsp; &nbsp; <span style="font-style: italic;">&lt;name&gt;</span>:
+search for the specified image name on the list. This can be the
+absolute path, or just the image name. If found, it gets the
+correspondent entry in the record<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="font-style: italic;">&lt;id&gt;</span>: search for the image id specified. If found, gets the correspondent entry in the record<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;log&gt;: returns &lt;on | off&gt; (it is logging the images?)<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;logpath&gt;: returns the patg to the file that keeps the record<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+return</span><br>
+
+    the requeste dinformation&nbsp; on success, or DONE.<br>
+
+    ERROR [error message error code] on failure<br>
+
+<br><span style="font-weight: bold; font-style: italic;"></span>
+
+    <br>
+
+    <br>
+
+    <span style="font-weight: bold;">WRITEBUF <span style="font-style: italic;">[name]</span></span><br>
+
+    <span style="font-style: italic; font-weight: bold; text-decoration: underline;">
+description</span><br>
+
+    writes to disk the last image on memory. <br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+parameters</span><br>
+
+    <span style="font-weight: bold; font-style: italic;">name</span>: name
+of the image to be written. If omitted it will use the auto assigned name
+(following the set basename and image number)<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+return</span><br>
+
+    DONE on success<br>
+
+    ERROR [error message error code] on failure<br>
+
+    <br>
+<span style="font-weight: bold;">WRITEMEMFITS <span style="font-style: italic;">[name]</span></span><br>
+
+    <span style="font-style: italic; font-weight: bold; text-decoration: underline;">
+description</span><br>
+
+    writes to disk the last memory fits file written. See the "SET MEMFITS" command.&nbsp;<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+parameters</span><br>
+
+    <span style="font-weight: bold; font-style: italic;">name</span>: name
+of the image to be written. If omitted it will use the auto assigned name
+(following the set basename and image number)<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+return</span><br>
+
+    DONE on success<br>
+
+    ERROR [error message error code] on failure (it will issue an error if no memfits has been written<br>
+
+    <br>
+<br>
+
+    <br>
+
+    <br>
+
+    <span style="font-weight: bold;">WRITEKEY </span><span style="font-style: italic;">&lt;name&gt; &lt;value&gt;</span><br>
+
+    <span style="font-style: italic; text-decoration: underline; font-weight: bold;">
+description</span><br>
+
+    writes the specified value to the specified internal variable. Most of 
+these commands are FOR INTERNAL USE ONLY, and in general SHOULD NOT BE USED
+externally&nbsp; unless you really know what you are doing. Be carefull.
+The ones that the user can use safely are the ones under <a href="#SET">SET</a><br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+parameters</span><br>
+
+    &lt;<span style="font-weight: bold; font-style: italic;">name</span>&gt;
+&lt;value&gt;:<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">imname</span> <span style="font-style: italic;">&lt;image_name&gt;</span>: sets the name of
+the next image to be written<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">imretries </span><span style="font-style: italic;">&lt;number&gt;</span>: sets how many time it
+should try writting an image to disk before generating an error<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">autowrit</span> &lt;yes |
+no&gt;: this is the same as SET AUTOWRITE<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">mext</span> <span style="font-style: italic;">&lt;yes | no&gt;</span>: this is the ame as
+SET MEXT<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">quickhdrs</span> <span style="font-style: italic;">&lt;yes | no&gt;</span>: this is the same as
+SET QHDRS<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">bpp, totsize, num_amplifiers,
+extensions</span>: these fixes the value for bit_per_pixel, number of amplifiers,
+number of extensions, total size of the image (in bytes). This all gets set 
+automatically when the overall geometry is calculated by the GEOM module,
+and it <span style="font-weight: bold;">should not be set manually from here</span><br>
+
+<br>
+
+    <span style="font-weight: bold; font-style: italic; text-decoration: underline;">
+return</span><br>
+
+    DONE on success<br>
+
+    ERROR [error message erro code] on failure<br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+        <span style="font-weight: bold; text-decoration: underline;">Template
+Header related commands:</span><br>
+
+    If any of the following commands is preceeded by the word
+"auxfile", then the operation will be done over the defined "active"
+auxfile. If no auxfile has been defined as active, it will return an
+error. An "active" auxiliary file is just the file over which the
+operations will be performed<br>
+<br>
+
+        <br>
+
+        <b><big>SET</big></b> <i><b>&lt;params&gt; &lt;value&gt;
+[-full]</b></i><br>
+
+        <i style="text-decoration: underline;"><b>description</b></i><br>
+
+        Sets the specified parameter to the specified value<br>
+
+        <i style="text-decoration: underline;"><b>parameters<br>
+</b></i><i><b>&nbsp; &nbsp; AUXFILE &lt;path | none&gt;: sets the "active" auxiliary file. If "none", then "deactivate" any active auxfile</b></i><i style="text-decoration: underline;"><b><br>
+</b></i>
+        &nbsp;&nbsp;&nbsp; <i><b>KEYWORD:</b></i> see the <a href="#keyword">KEYWORD</a> command<br>
+
+        &nbsp;&nbsp;&nbsp; <i><b>HDRFILE:</b></i> Sets the value of the hdrfile
+ template to be used.<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i><b>[-full]:</b></i>
+    if the "full" switch is specified, then the &lt;value&gt; passed will 
+be  considered the full path to the header file. Otherwise, the current header 
+ file directory will be kept, and only the file name will change.<br><br><br>
+<i style="text-decoration: underline;"><b>return values</b></i><br>
+
+    DONE on succes<br>
+
+    &nbsp;ERROR [error message error code] on failure<br>
+
+        <i style="text-decoration: underline;"><b>examples</b></i><br>
+
+    SET HDRFILE -full /home/instruments/config/samplehdr.tpl<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ /*will set the header file to the specified path*/<br>
+
+    SET HDRFILE samplehdr.tpl&nbsp; <br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ /*will set the header file to the current path + the specified file. See 
+the GET command*/<br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+        <b><big>GET</big></b> <i><b>&lt;HDRFILE | KEYWORD | PREVIEW&gt; [-full]</b></i><br>
+
+        <i style="text-decoration: underline;"><b>description</b></i><br>
+
+        Gets the specified parameter.<br>
+
+        <i style="text-decoration: underline;"><b>parameters</b></i><br>
+
+        &nbsp;&nbsp;&nbsp; <i><b>KEYWORD:</b></i> see the <a href="#keyword">KEYWORD</a> command&nbsp;<br>
+
+        &nbsp;&nbsp;&nbsp; <i><b>HDRFILE:</b></i> gets the header file template
+ name.<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i><b>[-full]:</b></i> if the
+"full"  switch is specified, then the full path will be returned.<br>
+
+&nbsp; &nbsp; <i><b>PREVIEW</b></i>:     &nbsp; brings the headers with the
+"current" value for the fields in it, as a "preview" on what they will look
+in the image. Of course this is only an "aproximation", since many values
+may change when the image is actually written (like temperatures, times,
+etc)<br>
+
+        <i style="text-decoration: underline;"><b>return values</b></i><br>
+
+    asked value on succes,<br>
+
+    ERROR [error message error code]  on failure<br>
+
+        <i style="text-decoration: underline;"><b>examples</b></i><br>
+
+    GET HDRFILE<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;-&gt; samplehdr.tpm<br>
+
+    GET HDRFILE -full<br>
+
+        &nbsp;&nbsp;&nbsp; -&gt; /home/instruments/config/samplehdr.tpl<br>
+
+        <br>
+
+        <br>
+
+        <br>
+
+        <b><big><a name="keyword"></a>KEYWORD</big></b> <i><b>&lt;SET | ADD
+| GET | DELETE&gt; [args ...]</b></i><br>
+
+        <b style="text-decoration: underline;"><i>description</i></b><br>
+Perform the specified action over the specified keyword. All this
+actions are actually done over the template itself (add/delete/change)<br>
+
+        <i style="text-decoration: underline;"><b>parameters</b></i><br>
+
+        &nbsp;&nbsp;&nbsp; <i><b>SET | ADD &lt;name&gt; &lt;type&gt; &lt;value&gt; 
+ &nbsp;// &lt;comment&gt;</b></i>: adds the specified keyword to the template file. 
+ If the keyword is already there, then it will modify it to the new parameters. 
+ <br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">name</span>: the name of
+the keyword<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">type</span>: the type of
+keyword. If no defined, it will assume STRING<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">value</span>: value of the
+keyword.  This may means "source for data"<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold; font-style: italic;">comment</span>: comment 
+as it will appear on the header.<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; See the&nbsp; <a href="GFITS_Keys.html">header file</a> template for a description on the
+valid types and "<span style="font-weight: bold; font-style: italic;">value</span>
+" fields.<br>
+
+        &nbsp;&nbsp;&nbsp; <i><b>GET &lt;name | ALL&gt;</b></i>: will return 
+the  entry for the specified keyword on the header file template, using the 
+next  sintax:<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;<span style="font-weight: bold; font-style: italic;">name on header</span>&gt;
+<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &lt;<span style="font-weight: bold; font-style: italic;">know name on database</span>
+&gt;<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<span style="font-weight: bold; font-style: italic;">&lt;type&gt;] &lt;value&gt;</span><br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;<span style="font-weight: bold; font-style: italic;"> &lt;comment&gt;.</span><br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if "ALL" is specified, then the complete 
+ list of keywords will be returned, each entry separated by \n\r<br>
+
+        &nbsp;&nbsp;&nbsp; <i><b>DELETE &lt;name&gt;</b></i> : will delete
+the specified  keyword from the header file template<br>
+
+        <i style="text-decoration: underline;"><b>return values</b></i><br>
+
+        &nbsp;&nbsp;&nbsp; SET, ADD and DELETE:<br>
+
+    &nbsp; &nbsp; &nbsp; DONE on succes <br>
+
+    &nbsp; &nbsp; &nbsp; ERROR  [error message error code] on failure<br>
+
+        &nbsp;&nbsp;&nbsp; GET:<br>
+
+    &nbsp; &nbsp; &nbsp; the specified parameter (s) on success<br>
+
+    &nbsp; &nbsp; &nbsp; ERROR [error message error code] on failure<br>
+
+        <i style="text-decoration: underline;"><b>examples</b></i><br>
+
+      &nbsp; &nbsp;FITS KEYWORD SET MYKEY STR this is a test &nbsp;// test keyword&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; /*on the image headers it will appear as MYKEY = 'this is a test'&nbsp;&nbsp;&nbsp; 
+/test keyword<br>
+
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; -&gt; DONE<br>
+
+      <br>
+
+        &nbsp;&nbsp;&nbsp; FITS KEYWORD SET EXPTIME DBS exposure time // image exposure time<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -&gt; DONE<br>
+
+        <br>
+
+        &nbsp;&nbsp;&nbsp; FITS KEYWORD GET EXPTIME<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; -&gt; EXPTIME <br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; EXPTIME<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DBS<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; exposure
+time<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;  <br>
+
+        &nbsp;&nbsp;&nbsp; FITS KEYWORD SET TEMPE FLOAT -110.6 &nbsp;// test temperature 
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*on the image headers it will appear 
+as TEMPE=&nbsp;&nbsp;&nbsp; -110.6&nbsp;&nbsp;&nbsp; /test temperature*/<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -&gt; DONE&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*as type float*/<br>
+
+        <br>
+
+        &nbsp;&nbsp;&nbsp; FITS KEYWORD GET TEMPE<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -&gt; TEMPE<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;TEMPE<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;FLOAT
+-110.6<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;test
+temperature<br>
+
+        <br>
+
+        &nbsp; FITS GET ALL<br>
+
+        &nbsp; &nbsp;&nbsp;&nbsp; -&gt;OBJECT&nbsp; ='dbs title&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /object title<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; SOFTVER ='dbs app_ver &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /software version<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; HDR_REV ='dbs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /header revision<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; OBSERVER='dbs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /observer<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; UTSHUT&nbsp; ='database&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /UT shutter open<br>
+
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;EXPTIME ='dbs &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' /exp. time<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NAMPSXY ='dbs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /number of amplifiers in x y<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; CCDSUM&nbsp; ='dbs&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /binning in x y<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; GEOMETRY='database&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /binning in x y<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; TCSINFO ='database&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /tcsinfo<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; FILTINFO='database&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /filterinfo<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; COMMENT ='dbs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ ' /comment<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; TEMPE = 'float -110.6&nbsp;&nbsp;&nbsp; 
+ '/ test temperature<br>
+
+        <br>
+
+        FITS KEYWORD DELETE COMMENT<br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -&gt; DONE<br>
+
+        <br>
+
+    <br>
+
+    <br>
+The only important for the GFITS server is the state of the<a href="ArcVIEW_Fits_Keys.html"> header file template</a> when writting the
+ image. If the file template was generated/edited using the above described
+ commands or if it was manually edited does not matter; this means that the
+ whole header file template can be edited manually and installed on the appropiate
+ place, avoiding the use of all this commands. Basically this commands allows
+ to have a dynamic change on the file template, if desired, through PanVIEW.
+<br>
+
+    Note that for a dinamyc chage there also could be an external program 
+modifying the template, even when this is not recommnded to avoid possible
+collisions on both GFITS and the external program editing the file at the
+same time. The recommended way would be to modify it trhough these commands,
+or use auxiliar header template files rather than editing this one. See the
+header template document for more info on this.<br>
+
+    <br>
+
+    <br>
+
+    <big style="font-weight: bold; text-decoration: underline;"><big><a name="configfile"></a>Configuration file</big></big><br>
+
+    <br>
+
+    The way the module finds its configuration file is the standard way for
+the modules (see <a href="../APP/ArcVIEW_Modules.html#startup">modules startup
+description</a>)<br>
+
+    <br>
+
+    <span style="font-weight: bold;">[HDRFILE]</span><br style="font-weight: bold;">
+
+    <span style="font-weight: bold;">path = <span style="font-style: italic;">&lt;path to header template&gt;</span>&nbsp;&nbsp;</span>
+&nbsp;&nbsp; /*path to the header template. It can be absolute
+or relative*/<br>
+
+    <span style="font-weight: bold;">prealloc=&lt;dynamic | &lt;nkeys&gt;&nbsp;</span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; /*space for keywords. default is "dynamic". See SET prealloc cmd*/<br><span style="font-weight: bold;">hdrmode=&lt;dynamic | static&gt;&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; /*header behaivoir. See SET hdrmode cmd. default is "dynamic"*/<br><span style="font-weight: bold;">geomhdrmode=&lt;dynamic | static&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp; /*geom hdr. behavior. See SET geomhdrmode cmd. default is "dynamic*/<br><br>
+
+    <span style="font-weight: bold;">[MISC]</span><br style="font-weight: bold;">
+
+    <span style="font-weight: bold;">commands="<span style="font-style: italic;">cmd1 args1..., cmd2 args2 ..., cmdN argsN...</span>
+"</span><br style="font-weight: bold;">
+
+    <span style="font-weight: bold;">headtiming=&lt;<span style="font-style: italic;">__AFTER__ | __BEFORE__</span>&gt;<br>asyncmsg=&lt;on | off&gt;<br>filemsg=&lt;template&gt;<br></span>
+
+    <br>
+
+    /*"commands" are commands to be executed when the module is called It
+can be any module's supported command*/<br>
+
+    /*"headtiming" says, by default, when to write the headers, AFTER or BEFORE
+the data is written. This is the "default" value. It can be overriden on
+the template file on a keyword by keyword basis*/<br>/*"asyncmsg" defines if the server will send or not an async. message when a new image has been finished*/<br>/*"filemsg" specifies a "template" file name to be created when an image is done. The file is created in<br>the
+same ditrectory where the image was written. The file can have any
+name, and it can also use some "parameters". Possible "params" (any mix
+of them is allowed):<br>&lt;name&gt;: name of the image that was written<br>&lt;nodeID&gt;" name of the panview application<br>&lt;expID&gt;: exposure ID of the image<br>a .DONE will be appendedn to the image name:<br><span style="font-style: italic;">Example:</span><br>fileimg=Image_&lt;name&gt;&lt;nodeID&gt;<br><br>If
+the image just finished was called "bias0004.fits", and the panview
+name is "_pan1", then the text file created, when the image is done
+(ready) would be: <span style="font-style: italic;">Image_bias0004_pan1.DONE <br><br></span>If
+the "filemsg" is "", "none", or the key does not appears, it will not
+generate the file (default). The "filemsg" can be changed on the fly
+using command line (see the "SET" and "GET" commands)*/<span style="font-style: italic;"><br><br></span>
+
+    <br>
+
+    <span style="font-weight: bold;">[LOG]</span><br style="font-weight: bold;">
+
+    <span style="font-weight: bold;">log=&lt;<span style="font-style: italic;">yes | no</span>&gt;</span><br style="font-weight: bold;">
+
+    <span style="font-weight: bold;">file=&lt;<span style="font-style: italic;">logfile path</span>&gt;<br>imlogpath=&lt;image slog path&gt;<br>imlog=&lt;true | false&gt;<br>maxlistsize(kb)=&lt;val. in kb&gt;<br><br></span>/*imlogpath
+specifies a path to a file in which the written images list will be
+stored. See the "imlist" command for details. default is "none"<br>imlog specified if the list will be created or no. Default is "false"<br>maxlistsize specifies the maximul size of the list befor eit is renamed*/<br style="font-weight: bold;"><span style="font-weight: bold;"></span>
+
+    <br>
+
+    <br style="font-weight: bold; text-decoration: underline;">
+
+    <span style="font-weight: bold; text-decoration: underline;">Example:</span><br>
+
+    <br>
+
+    <span style="font-weight: bold; font-style: italic;">[HDRFILE]</span><br style="font-weight: bold; font-style: italic;">
+
+    <span style="font-weight: bold; font-style: italic;">path=./hdrtest.tpl<br>prealloc=dynamic<br>hdrmode=dynamic<br>geomhdrmod=dynanamic<br style="font-weight: bold; font-style: italic;"></span>
+
+    <span style="font-weight: bold; font-style: italic;">[MISC]</span><br style="font-weight: bold; font-style: italic;">
+
+    <span style="font-weight: bold; font-style: italic;">commands="writekey
+imretries 10"</span><br style="font-weight: bold; font-style: italic;">
+
+    <span style="font-weight: bold; font-style: italic;">headtiming=__AFTER__</span><br style="font-weight: bold; font-style: italic;">
+
+    <span style="font-weight: bold; font-style: italic;">[LOG]</span><br style="font-weight: bold; font-style: italic;">
+
+    <span style="font-weight: bold; font-style: italic;">log=yes</span><br style="font-weight: bold; font-style: italic;">
+
+    <span style="font-weight: bold; font-style: italic;">file=_LOGPATH_/MOD_GFITS.log</span><br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+        <br>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+ <br>
+
+          
+</body></html>

@@ -1,0 +1,74 @@
+#!/bin/csh -f
+
+if ($#argv < 3) then
+	echo "ERROR: usage PM_unpack_pfa confdir detdir app_name [PAN_ROOT_FPAS_DIR] [DET_DATABASE_DIR]"
+	exit 1
+endif
+
+set curdir = `pwd`
+set confdir = "$1"
+set detdir = "$2"
+set appname = "$3"
+if ("$4" == "") then
+       set ISSET = "setenv | egrep PAN_ROOT_FPAS"
+        if ("$ISSET" != "") then
+		echo "setting target dir to PAN_ROOT_FPAS = $PAN_ROOT_FPAS"
+		set rootdir = $PAN_ROOT_FPAS
+	else
+		echo "no target (source) dir found or given. bye"
+		exit 1
+	endif
+else
+	set rootdir = "$4"
+endif
+if ("$5" == "") then 
+	set ddatabase = $rootdir/common/DET_DATABASE
+else
+	set ddatabase = $5
+endif
+
+if (-e $confdir) then
+	echo "copying config files to $rootdir/$appname/ ..."
+	mkdir -p $rootdir/$appname
+	cp -R $confdir $rootdir/$appname/.
+	cd $confdir
+	cd ..
+	if (-e "ChangeLog.txt") then
+        	cp "ChangeLog.txt" $rootdir/$appname/.
+	endif
+	if (-e "common") then
+        	mkdir -p $rootdir/common
+        	cp -r common/* $rootdir/common/.
+	endif
+else
+	cd $confdir
+	cd ..
+	if (-e "ChangeLog.txt") then
+		cp "ChangeLog.txt" $rootdir/"RELEASE.log"
+	endif
+endif
+
+cd $curdir
+
+if (-e $detdir) then
+	echo "copying detector files to $ddatabase ..."
+	mkdir -p $ddatabase/FPA
+	cp -r $detdir/*.fpa $ddatabase/FPA/.
+
+	mkdir -p $ddatabase/READMODES
+	cp -r $detdir/*.rdm $ddatabase/READMODES/.
+
+	mkdir -p $ddatabase/DETECTORS
+	cp -r $detdir/*.det $ddatabase/DETECTORS/.
+
+	mkdir -p $ddatabase/TYPES
+	cp -r $detdir/*.typ $ddatabase/TYPES/.
+
+	mkdir -p $ddatabase/MODIFIERS
+	cp -r $detdir/*.mdf $ddatabase/MODIFIERS/.
+
+	mkdir -p $ddatabase/HEADERS
+	cp -r $detdir/*.wcs $ddatabase/HEADERS/.
+endif
+echo "DONE"
+exit 0

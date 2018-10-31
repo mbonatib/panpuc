@@ -1,0 +1,23 @@
+#! /bin/csh -f
+
+if ($#argv != 1) then
+    echo "Usage:   MM_Diff MODULE   :from parent directory of MODULE"
+    exit
+endif
+
+MM_Check $1
+
+echo "comparing changes in module $1\n"
+
+set VER=`grep -m1 -o "$1 .*version [0-9|\.]*" $1/ChangeLog.txt | awk '{print $NF}'`
+
+diff -r $1 ~/MODULES/$1-$VER
+diff -r $1 ~/MODULES/$1-$VER | grep "^Binary files " | grep "\.vi\|\.ctl" | awk '{print $3}' | set FILELIST=`awk 'sub("[^/]*/","")'`
+echo $FILELIST
+foreach FILE ($FILELIST)
+    set newfile=./$1/$FILE
+    set oldfile=./$1/$FILE-$VER
+    cp ~/MODULES/$1-$VER/$FILE $oldfile
+    labview $newfile $oldfile
+    rm -rf $oldfile
+end

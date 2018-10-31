@@ -1,0 +1,234 @@
+#! /bin/csh -f
+
+#script for starting the PAN application. This script will run better if run from the
+#original directory (PAN/public/bin/)
+#usage: ./start_pan [-block] [-configfile <path>] [-bin] [-restart] [-app <name>]
+#block: waits untill the application is ready
+#bin: try running the binary (compiled) version, if available, instead of the interpreted
+#restart: if a previous instance is running, it will shutdown it and start the new one
+#configfile: specified the primary confuguration file. If not given, search for it in
+#	     the following order:
+#	    a) search in ../../../config/PAN.cfg (assumes this is a standard installation)
+#	    b) search for the enviromental variable _CONFPATH_. If found, assumes
+#		_CONFPATH_/PAN.cfg
+
+set APP_BIN = "$PAN_ROOT/PAN/public/bin"
+cd $APP_BIN
+set sendsock = $APP_BIN/sendsockcmd
+
+set hilite = 1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias BOLD   "(BOLD_ON;echo \!*;BOLD_OFF)"
+
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR '  ;BOLD_OFF; echo \!*)"
+
+set ISSET = `setenv | egrep panport`
+if ("$ISSET" == "") then
+	set WAIT_PORT = 0
+else
+	set WAIT_PORT = $panport
+endif
+	
+set started = 0
+set APP_HOST = ""
+set FORCE = 0
+set BLOCK = 0
+set CONFIG_FILE = ""
+set APP_DIR = ""
+set APP_NAME = ""
+set APP_NAME_SW = ""
+set BIN = 0
+set HOLD = ""
+set cmdargs = ""
+set DEBUG = 1
+set ICONIC = ""
+set NOPROCCHK = 0 
+
+while ("$1" != "")
+        switch ("$1")
+        case -restart:
+                set FORCE = 1
+                breaksw
+        case -block:
+                set BLOCK = 1
+                breaksw
+        case -hold:
+                set HOLD = "-hold" 
+                breaksw
+        case -bin:
+                set BIN = 1
+                breaksw
+        case -no_proc_check:
+                set NOPROCCHK = 1
+                breaksw
+        case -nd:
+                set DEBUG = 0
+                breaksw
+        case -id:
+                set ICONIC = "-ic"
+                breaksw
+       case -configfile:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-configfile <configfile>' switch"
+                        exit 1
+                endif
+                set CONFIG_FILE = $1
+		if (! -e $1) then
+			ERR "config file NOT FOUND. bye"
+			exit 1
+		endif
+                breaksw
+       case -app:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-app <app_name>' switch"
+                        exit 1
+                endif
+                set APP_NAME = $1
+                set APP_NAME_SW = " -panapp $1"
+                breaksw
+       case -appdir:
+                if ("$2" != "") then
+                        shift
+                else
+                        ERR  "missing argument to '-appdir <appdir>' switch"
+                        exit 1
+                endif
+                set APP_BIN = $1/public/bin
+                breaksw
+	default:
+		set cmdargs = "$cmdargs $1"
+		breaksw
+	endsw
+        if ("$2" == "") then
+                break
+        else
+                shift
+        endif
+end
+	
+start_action:
+
+#if no config file was given try to find one
+if ("$CONFIG_FILE" == "") then
+	set cfgfile = `cd ../../../config; pwd`
+	if (-e "$cfgfile") then
+		set CONFIG_FILE = $cfgfile"/PAN.cfg"
+	else
+		set ISSET = `setenv | egrep _CONFPATH_`
+		if ("$ISSET" != "") then
+        		set CONFIG_FILE = $_CONFPATH_"/PAN.cfg"
+		endif
+	endif
+endif
+if (-e "$CONFIG_FILE" && "$APP_NAME" == "") then
+	set APP_NAME = `./get_modkey $CONFIG_FILE id`
+	if ("$APP_NAME" == "_CMDLINE_") then
+		set APP_NAME = "_DIRNAME_"
+	endif
+	if ("$APP_NAME" == "_DIRNAME_") then
+		set APP_NAME = `echo $CONFIG_FILE | awk -F / '{print $(NF-2)}'`
+	endif
+endif
+
+if ($WAIT_PORT == 0) then
+        set WAIT_PORT = `./get_port $CONFIG_FILE cmdport NATIVE`
+	set fc = `expr substr $WAIT_PORT 1 1`
+	if ("$fc" == "-") then
+        	set WAIT_PORT  = `echo "$cmdargs" | awk -F $WAIT_PORT '{print $2}'`
+        	set WAIT_PORT  = `echo "$WAIT_PORT" | awk '{print $1}'`
+		if ("$WAIT_PORT" == "") then
+			echo "trying switch as env. variable"
+       			set WAIT_PORT = `./get_port $CONFIG_FILE cmdport NATIVE`
+			set len = `expr length "$WAIT_PORT"`	
+			set WAIT_PORT = `expr substr "$WAIT_PORT" 2 $len`
+			set WAIT_PORT = \$$WAIT_PORT
+			set WAIT_PORT = "echo `echo $WAIT_PORT`"
+			set WAIT_PORT = `$WAIT_PORT`
+		endif
+	endif
+	if ("$WAIT_PORT[1]" == "ERROR") then
+		echo $WAIT_PORT
+	endif
+endif
+
+if ("$APP_NAME" != "" && $NOPROCCHK == 0) then
+	echo "checking running processes ..."
+	set tmpfile = "/tmp/arcproc_"`whoami`"_$APP_NAME"
+	rm -f $tmpfile
+	ps awx > $tmpfile
+	set procid = ""
+	set procid  = $procid" "`egrep labview $tmpfile | egrep $APP_NAME | awk '{print $1}'`
+	echo $procid
+	if ($#procid > 1) then
+		if ($FORCE == 0) then
+			ERR "another PAN ($APP_NAME) instance is already running. NOT started"
+			exit 1
+		else
+			$APP_BIN/shutdown_pan -block
+			goto start_action
+		endif
+	endif
+else
+	BOLD "*** skipping process checking ... ***"
+endif
+
+if ("$CONFIG_FILE" != "") then
+	set CONFIG_FILE_SW = " -panconfigfile $CONFIG_FILE"
+else
+	set CONFIG_FILE_SW = ""
+endif
+	
+if ($BIN == 1 && (-e "$APP_BIN/start_panexec")) then
+	if ($DEBUG == 1) then
+		xterm -bg black -fg green $ICONIC -title "Panview debug (exec)" -exec $APP_BIN/start_panexec $CONFIG_FILE_SW $cmdargs & 
+	else
+		$APP_BIN/start_panexec $CONFIG_FILE_SW $cmdargs &
+	endif
+else
+	if ($DEBUG == 1) then
+		echo "labview $APP_BIN/PAN_run.vi -- $APP_NAME_SW $CONFIG_FILE_SW $cmdargs" & 
+		xterm -bg black -fg green $ICONIC -title "PanVIEW debug $APP_NAME"  $HOLD -exec "labview $APP_BIN/PAN_run.vi -- $APP_NAME_SW $CONFIG_FILE_SW $cmdargs" & 
+	else
+		labview $APP_BIN/PAN_run.vi -- $APP_NAME_SW $CONFIG_FILE_SW $cmdargs &
+	endif
+endif
+
+if ($WAIT_PORT > 0) then
+	echo "OK (Starting...)"
+	if ($BLOCK == 1) then 
+	sleep 7
+	set att = 1
+	set boot_time = 5
+	echo "OK (Starting...)"
+	while ($started == 0)
+		echo "attempting communication to PAN $APP_NAME ($att)"
+		set appname = `$sendsock -h localhost -p $WAIT_PORT "APP NAME"`
+		if ("$appname" != "ERROR 111 writing_message") then
+			set started = 1
+		else
+			sleep 5
+			@ att = $att + 1
+			@ boot_time = $boot_time + 5
+		endif
+		if ($boot_time > 60) then
+			echo "ERROR TIMEOUT starting application"
+			exit 1
+		endif
+	end
+	echo "DONE"
+	echo "Application $appname"
+	echo "boot_time ~ $boot_time"
+else
+	echo "app started"
+endif
+rm -f $tmpfile
+exit 0
+
+usage:
+	echo "start_pan [-configfile <configpath>] [-app <appname>] [-block] [-restart]"
+

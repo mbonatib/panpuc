@@ -1,0 +1,62 @@
+#!/bin/csh -f
+
+set hilite = 1
+alias BOLD_ON  "(if ($hilite) tput bold)"
+alias BOLD_OFF "(if ($hilite) tput sgr0)"
+alias ERR   "(echo -n '   ';BOLD_ON;echo -n 'ERROR: '  ;BOLD_OFF; echo \!*)"
+
+if ("$1" == "-help") then
+	goto usage
+endif
+
+if ($#argv < 1) then
+        ERR "bad usage"
+	goto usage
+endif
+
+if (! -e "$1") then
+	ERR "file $1 does not exists"
+	exit 1
+endif
+
+set MODCFG = $1
+set SECTION = $2
+set KN = $3
+
+set nlines=`cat $MODCFG | wc | awk '{print $1}'`
+set sfound = 0
+set lineN = 1
+set output = ""
+while ($lineN <= $nlines && $sfound == 0)
+	set line = `head -$lineN $MODCFG | tail -1`
+       	set sec = `echo "$line" | awk -F = '{print $1}'`
+	set sec = `echo "$sec" | egrep ]`
+	if ("$sec" != "") then
+                        set len = `expr length "$sec"`
+                        @ len = $len - 2
+                        set sec = `expr substr "$sec" 2 $len`
+                        if ("$sec" == "$SECTION") then
+				set sfound = 1
+				set newsec = 0
+				while ($newsec == 0)
+					@ lineN = $lineN + 1
+					if ($lineN > $nlines) then
+						break
+					endif
+					set line = `head -$lineN $MODCFG | tail -1`
+       					set key = `echo "$line" | awk -F = '{print $1}'`
+					set sec = `echo "$key" | egrep ]`
+					if ("$sec" != "") then
+						set newsec = 1
+						break
+					endif
+					set output = "$output $key"
+				end
+			endif
+	endif
+
+	@ lineN = $lineN + 1
+end
+if ($sfound == 1) then
+	echo $output
+endif

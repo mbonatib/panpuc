@@ -1,0 +1,121 @@
+\section{test/roimasker/roi\-Mask.c File Reference}
+\label{roiMask_8c}\index{test/roimasker/roiMask.c@{test/roimasker/roiMask.c}}
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/msg.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include \char`\"{}fitsio.h\char`\"{}}\par
+{\tt \#include \char`\"{}cdl.h\char`\"{}}\par
+{\tt \#include \char`\"{}longnam.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{OK}~0
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{RMASK\_\-Parse\-Sec} (char $\ast$sec, int $\ast$xs, int $\ast$xe, int $\ast$ys, int $\ast$ye)
+\item 
+int \bf{RMASK\_\-Get\-Buffer} (int nelems, int bpp)
+\item 
+int \bf{RMASK\_\-Get\-Image} (char $\ast$impath)
+\item 
+void \bf{RMASK\_\-Close} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+char \bf{tmpstr} [150]
+\item 
+int \bf{nextimg} = 0
+\item 
+void $\ast$ \bf{pbuf} = NULL
+\item 
+void $\ast$ \bf{imbuf} = NULL
+\item 
+unsigned long \bf{pbufsize} = 0
+\item 
+int \bf{delimg}
+\item 
+int \bf{display}
+\item 
+\bf{CDLPtr} \bf{cdl}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{roiMask.c@{roi\-Mask.c}!OK@{OK}}
+\index{OK@{OK}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OK~0}\label{roiMask_8c_ba51915c87d64af47fb1cc59348961c9}
+
+
+
+
+\subsection{Function Documentation}
+\index{roiMask.c@{roi\-Mask.c}!RMASK_Close@{RMASK\_\-Close}}
+\index{RMASK_Close@{RMASK\_\-Close}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void RMASK\_\-Close (void)}\label{roiMask_8c_743ca7bc8cf46db890ba6e12e0210a5f}
+
+
+\index{roiMask.c@{roi\-Mask.c}!RMASK_GetBuffer@{RMASK\_\-GetBuffer}}
+\index{RMASK_GetBuffer@{RMASK\_\-GetBuffer}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int RMASK\_\-Get\-Buffer (int {\em nelems}, int {\em bpp})}\label{roiMask_8c_df9f9b929e3cb655e76b15ab54846410}
+
+
+\index{roiMask.c@{roi\-Mask.c}!RMASK_GetImage@{RMASK\_\-GetImage}}
+\index{RMASK_GetImage@{RMASK\_\-GetImage}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int RMASK\_\-Get\-Image (char $\ast$ {\em impath})}\label{roiMask_8c_0ddbf38deb94dfc84ff9f440b7e8a90f}
+
+
+\index{roiMask.c@{roi\-Mask.c}!RMASK_ParseSec@{RMASK\_\-ParseSec}}
+\index{RMASK_ParseSec@{RMASK\_\-ParseSec}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int RMASK\_\-Parse\-Sec (char $\ast$ {\em sec}, int $\ast$ {\em xs}, int $\ast$ {\em xe}, int $\ast$ {\em ys}, int $\ast$ {\em ye})}\label{roiMask_8c_02f84ded52f7f9215d25fd5d4599a855}
+
+
+
+
+\subsection{Variable Documentation}
+\index{roiMask.c@{roi\-Mask.c}!cdl@{cdl}}
+\index{cdl@{cdl}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{CDLPtr} \bf{cdl}}\label{roiMask_8c_f5edaa249017b01d140d79f1737b8b9a}
+
+
+\index{roiMask.c@{roi\-Mask.c}!delimg@{delimg}}
+\index{delimg@{delimg}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{delimg}}\label{roiMask_8c_f7362359d6c02df1236ccef40c8d66de}
+
+
+\index{roiMask.c@{roi\-Mask.c}!display@{display}}
+\index{display@{display}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{display}}\label{roiMask_8c_f36a76a97c2cc0ea7b1c0c25933934a9}
+
+
+\index{roiMask.c@{roi\-Mask.c}!imbuf@{imbuf}}
+\index{imbuf@{imbuf}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{imbuf} = NULL}\label{roiMask_8c_a86523914961c960170d11e8a2401a43}
+
+
+\index{roiMask.c@{roi\-Mask.c}!nextimg@{nextimg}}
+\index{nextimg@{nextimg}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{nextimg} = 0}\label{roiMask_8c_eb865a8737171ac5cdfb6c4f093c9bfb}
+
+
+\index{roiMask.c@{roi\-Mask.c}!pbuf@{pbuf}}
+\index{pbuf@{pbuf}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{pbuf} = NULL}\label{roiMask_8c_bdefcde8a25619fc71ee548d5241cde0}
+
+
+\index{roiMask.c@{roi\-Mask.c}!pbufsize@{pbufsize}}
+\index{pbufsize@{pbufsize}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long \bf{pbufsize} = 0}\label{roiMask_8c_91bf901b5cb5536c457ad607e5623222}
+
+
+\index{roiMask.c@{roi\-Mask.c}!tmpstr@{tmpstr}}
+\index{tmpstr@{tmpstr}!roiMask.c@{roi\-Mask.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{tmpstr}[150]}\label{roiMask_8c_bc94c63d07131a84c3701a4476c49110}
+
+

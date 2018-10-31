@@ -1,0 +1,6 @@
+[PRESCAN]
+header="BIASSEC"
+binned=no
+where=predata
+add_in=columns
+comment="prescan pixels"

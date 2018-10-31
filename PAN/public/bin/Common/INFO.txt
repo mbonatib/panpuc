@@ -1,0 +1,11 @@
+Name= Common
+Description= Common utilities group
+Type= non-resident
+Class = General
+Dynamic_Calls= none
+Clib= none
+Driver= none
+Standard= no
+keywords= common, util, general
+VERSION= 3.0
+VERSION= 3.1

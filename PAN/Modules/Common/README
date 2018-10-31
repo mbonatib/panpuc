@@ -1,0 +1,8 @@
+Common
+-----
+
+
+In this place should be added any variable that needs to be shared between
+modules. This should be done in order to keep the modules independent so,
+if you remove one, the other ones are not broken.
+Please, foloww this convention!
